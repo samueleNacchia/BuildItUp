@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+    <Resource 
+   	 	name="jdbc/storage"
+        auth="Container"
+        type="javax.sql.DataSource"
+        driverClassName="com.mysql.cj.jdbc.Driver"
+        username="user"
+        password="12345678"
+        url="jdbc:mysql://localhost:3306/storage?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
+        maxTotal="20"
+        maxIdle="10"
+        maxWaitMillis="-1"
+        factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+        validationQuery="SELECT 1"/>
+</Context>
