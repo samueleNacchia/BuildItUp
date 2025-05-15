@@ -2,9 +2,11 @@ package controller;
 
 import model.ProductDAO;
 import model.ProductDTO;
-
+import model.UserDAO;
+import model.UserDTO;
+import model.AdminDAO;
+import model.AdminDTO;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,16 +18,25 @@ public class ProductListServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ProductDAO dao = new ProductDAO();
+        ProductDAO ProductDao = new ProductDAO();
+        UserDAO UserDao = new UserDAO();
+        AdminDAO AdminDao = new AdminDAO();
+        
         try {
-            List<ProductDTO> prodotti = dao.findAll();
+            List<ProductDTO> prodotti = ProductDao.findAll();
             request.setAttribute("prodotti", prodotti);
+            
+            List<UserDTO> utenti = UserDao.findAll();
+            request.setAttribute("utenti", utenti);
+            
+            List<AdminDTO> admin = AdminDao.findAll(); 
+            request.setAttribute("admin", admin);
         } catch (SQLException e) {
             e.printStackTrace();
-            request.setAttribute("errore", "Errore durante il recupero dei prodotti.");
+            request.setAttribute("errore", "Errore durante il recupero dei pati.");
         }
 
-        request.getRequestDispatcher("/ViewProducts.jsp").forward(request, response);
+        request.getRequestDispatcher("/ViewData.jsp").forward(request, response);
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

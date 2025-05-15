@@ -16,17 +16,18 @@ public class ProductDAO {
 
  // Metodo per salvare un prodotto nel database
     public void save(ProductDTO product) throws SQLException {
-        String query = "INSERT INTO Products (name, description, price, discount, isOnSale, stocks) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Products (name, category, description, price, discount, isOnSale, stocks) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, product.getName());
-            stmt.setString(2, product.getDescription());
-            stmt.setFloat(3, product.getPrice());
-            stmt.setFloat(4, product.getDiscount());
-            stmt.setBoolean(5, product.isOnSale());
-            stmt.setInt(6, product.getStocks());
+            stmt.setString(2, product.getCategory().name());
+            stmt.setString(3, product.getDescription());
+            stmt.setFloat(4, product.getPrice());
+            stmt.setFloat(5, product.getDiscount());
+            stmt.setBoolean(6, product.isOnSale());
+            stmt.setInt(7, product.getStocks());
 
             stmt.executeUpdate();
 
@@ -62,7 +63,11 @@ public class ProductDAO {
                     product.setPrice(rs.getFloat("price"));
                     product.setDiscount(rs.getFloat("discount"));
                     product.setOnSale(rs.getBoolean("isOnSale"));
-                    product.setStocks(rs.getInt("stocks"));
+                    product.setStocks(rs.getInt("stocks")); 
+                    
+                    String categoryStr = rs.getString("category");
+                    Category category = Category.valueOf(categoryStr);
+                    product.setCategory(category);
                 }
             }
         }
@@ -89,6 +94,11 @@ public class ProductDAO {
                 product.setDiscount(rs.getFloat("discount"));
                 product.setOnSale(rs.getBoolean("isOnSale"));
                 product.setStocks(rs.getInt("stocks"));
+                
+                String categoryStr = rs.getString("category");
+                Category category = Category.valueOf(categoryStr);
+                product.setCategory(category);
+                
                 products.add(product);
             }
         }
@@ -98,18 +108,19 @@ public class ProductDAO {
 
     // Metodo per aggiornare un prodotto nel database
     public boolean update(ProductDTO product) throws SQLException {
-        String query = "UPDATE Products SET name = ?, description = ?, price = ?, discount = ?, isOnSale = ?, stocks = ? WHERE ID = ?";
+        String query = "UPDATE Products SET name=?, category=?, description=?, price=?, discount=?, isOnSale=?, stocks=? WHERE ID=?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
             stmt.setString(1, product.getName());
-        	stmt.setString(2, product.getDescription());
-        	stmt.setFloat(3, product.getPrice());
-        	stmt.setFloat(4, product.getDiscount());
-        	stmt.setBoolean(5, product.isOnSale());
-        	stmt.setInt(6, product.getStocks());
-        	stmt.setInt(7, product.getId());
+            stmt.setString(2, product.getCategory().name());
+        	stmt.setString(3, product.getDescription());
+        	stmt.setFloat(4, product.getPrice());
+        	stmt.setFloat(5, product.getDiscount());
+        	stmt.setBoolean(6, product.isOnSale());
+        	stmt.setInt(7, product.getStocks());
+        	stmt.setInt(8, product.getId());
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -118,7 +129,8 @@ public class ProductDAO {
 
     // Metodo per eliminare un prodotto dal database
     public boolean delete(int code) throws SQLException {
-        String query = "DELETE FROM Products WHERE ID = ?";
+    	String query = "UPDATE Products SET isOnSale=false WHERE ID=?";
+        //String query = "DELETE FROM Products WHERE ID = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
