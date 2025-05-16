@@ -1,19 +1,6 @@
 package model;
 
 public class ProductDTO {
-/*CREATE TABLE Products(	
-  ID int primary key auto_increment,
-  name char(50),
-  category enum('CPU', 'GPU', 'MOBO', 'CASE', 'COOLING', 'RAM', 'MEM', 'PSU'),
-  description char(50),
-  price decimal(10,2) unsigned,
-  discount float unsigned,
-  isOnSale boolean,
-  stocks int unsigned,
-  image1 blob,
-  image2 blob,
-  image3 blob
-);*/
 	
     private int id;
     private String name;

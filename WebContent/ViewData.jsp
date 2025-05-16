@@ -2,6 +2,10 @@
 <%@ page import="model.ProductDTO" %>
 <%@ page import="model.UserDTO" %>
 <%@ page import="model.AdminDTO" %>
+<%@ page import="model.OrderDTO" %>
+<%@ page import="model.ProductOrderDTO" %>
+<%@ page import="model.ReviewDTO" %>
+<%@ page import="model.BillDTO" %>
 <%@ page import="java.util.List" %>
 <html>
 <head>
@@ -118,6 +122,147 @@
                 <tr>
                     <td><%= a.getUsername() %></td>
                     <td><%= a.getPassword() %></td>
+                </tr>
+            <%
+                }
+            %>
+        </table>
+    <%
+        }
+    %>
+    
+    <h1>Order List</h1>
+	
+    <%	
+        List<OrderDTO> ordini = (List<OrderDTO>) request.getAttribute("ordini");
+        if (ordini == null || ordini.isEmpty()) {
+    %>
+        <p>Nessun ordine disponibile.</p>
+    <%
+        } else {
+    %>
+        <table border="1">
+            <tr>
+                <th>Codice</th>
+                <th>Utente</th>
+                <th>Data</th>
+                <th>Stato</th>
+            </tr>
+            <%
+                for (OrderDTO o : ordini) {
+            %>
+                <tr>
+                    <td><%= o.getId() %></td>
+                    <td><%= o.getId_user() %></td>
+                    <td><%= o.getOrderDate() %></td>
+                    <td><%= o.getStatus() %></td>
+                </tr>
+            <%
+                }
+            %>
+        </table>
+    <%
+        }
+    %>
+    
+    
+    
+    <h1>ProdottiOrdine List</h1>
+	
+    <%	
+        List<ProductOrderDTO> prodottiOrdine = (List<ProductOrderDTO>) request.getAttribute("prodottiOrdinati");
+        if (prodottiOrdine == null || prodottiOrdine.isEmpty()) {
+    %>
+        <p>Nessun prodotto disponibile.</p>
+    <%
+        } else {
+    %>
+        <table border="1">
+            <tr>
+                <th>Codice Prodotto</th>
+                <th>Codice Ordine</th>
+                <th>Prezzo</th>
+                <th>Quantità</th>
+            </tr>
+            <%
+                for (ProductOrderDTO po : prodottiOrdine) {
+            %>
+                <tr>
+                    <td><%= po.getId_product() %></td>
+                    <td><%= po.getId_order() %></td>
+                    <td><%= po.getPrice() %></td>
+                    <td><%= po.getQuantity() %></td>
+                </tr>
+            <%
+                }
+            %>
+        </table>
+    <%
+        }
+    %>
+    
+    
+    
+    <h1>Review List</h1>
+	
+    <%	
+        List<ReviewDTO> recensioni = (List<ReviewDTO>) request.getAttribute("recensioniProdotto");
+        if (recensioni == null || recensioni.isEmpty()) {
+    %>
+        <p>Nessuna recensione del prodotto disponibile.</p>
+    <%
+        } else {
+    %>
+        <table border="1">
+            <tr>
+                <th>Codice utente</th>
+                <th>Codice prodotto</th>
+                <th>Testo</th>
+                <th>Voto</th>
+                <th>Data</th>
+            </tr>
+            <%
+                for (ReviewDTO r : recensioni) {
+            %>
+                <tr>
+                    <td><%= r.getId_user() %></td>
+                    <td><%= r.getId_product() %></td>
+                    <td><%= r.getText() %></td>
+                    <td><%= r.getVote() %></td>
+                    <td><%= r.getReviewDate() %></td>
+                </tr>
+            <%
+                }
+            %>
+        </table>
+    <%
+        }
+    %>
+    
+    
+    <h1>Fatture List</h1>
+	
+    <%	
+        List<BillDTO> fatture = (List<BillDTO>) request.getAttribute("fatture");
+        if (fatture == null || fatture.isEmpty()) {
+    %>
+        <p>Nessuna fattura disponibile.</p>
+    <%
+        } else {
+    %>
+        <table border="1">
+            <tr>
+                <th>Codice ordine</th>
+                <th>Totale</th>
+                <th>Data</th>
+            </tr>
+            <%
+                for (BillDTO b : fatture) {
+            %>
+                <tr>
+                    <td><%= b.getId_order() %></td>
+                    <td><%= b.getTotal() %></td>
+                    <td><%= b.getBillDate() %></td>
                 </tr>
             <%
                 }
