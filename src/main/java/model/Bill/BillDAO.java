@@ -1,4 +1,4 @@
-package model;
+package model.Bill;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
+
+import model.DataSourceManager;
 
 
 public class BillDAO {

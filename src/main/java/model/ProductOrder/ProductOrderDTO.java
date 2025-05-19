@@ -1,4 +1,7 @@
-package model;
+package model.ProductOrder;
+
+import model.Order.OrderDTO;
+import model.Product.ProductDTO;
 
 public class ProductOrderDTO {
 	private int id_product;

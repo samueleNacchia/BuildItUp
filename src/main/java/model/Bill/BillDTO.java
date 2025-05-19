@@ -1,4 +1,4 @@
-package model;
+package model.Bill;
 
 import java.time.LocalDate;
 

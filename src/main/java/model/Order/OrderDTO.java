@@ -1,6 +1,9 @@
-package model;
+package model.Order;
 
 import java.time.LocalDate;
+
+import model.Status;
+import model.User.UserDTO;
 
 public class OrderDTO {
 	private int id;

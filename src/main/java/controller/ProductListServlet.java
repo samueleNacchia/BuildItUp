@@ -1,19 +1,29 @@
 package controller;
 
-import model.ProductDAO;
-import model.ProductDTO;
-import model.UserDAO;
-import model.UserDTO;
-import model.AdminDAO;
-import model.AdminDTO;
-import model.OrderDAO;
-import model.OrderDTO;
-import model.ProductOrderDAO;
-import model.ProductOrderDTO;
-import model.ReviewDAO;
-import model.ReviewDTO;
-import model.BillDAO;
-import model.BillDTO;
+import model.Admin.AdminDAO;
+import model.Admin.AdminDTO;
+import model.Bill.BillDAO;
+import model.Bill.BillDTO;
+import model.Order.OrderDAO;
+import model.Order.OrderDTO;
+import model.Product.ProductDAO;
+import model.Product.ProductDTO;
+import model.ProductOrder.ProductOrderDAO;
+import model.ProductOrder.ProductOrderDTO;
+import model.Review.ReviewDAO;
+import model.Review.ReviewDTO;
+import model.User.UserDAO;
+import model.User.UserDTO;
+
+import model.Newsletter.NewsletterDAO;
+import model.Newsletter.NewsletterDTO;
+
+import model.List.ListDAO;
+import model.List.ListDTO;
+
+import model.ItemList.ItemListDAO;
+import model.ItemList.ItemListDTO;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import java.io.IOException;
@@ -33,6 +43,9 @@ public class ProductListServlet extends HttpServlet {
         ProductOrderDAO ProductOrderDao = new ProductOrderDAO();
         ReviewDAO ReviewDao = new ReviewDAO();
         BillDAO BillDao = new BillDAO();
+        NewsletterDAO NewsletterDao = new NewsletterDAO();
+        ListDAO ListDao = new ListDAO();
+        ItemListDAO ItemListDao = new ItemListDAO();
         
         try {
             List<ProductDTO> prodotti = ProductDao.findAll();
@@ -61,6 +74,16 @@ public class ProductListServlet extends HttpServlet {
             
             List<BillDTO> fatture = BillDao.findAll();
             request.setAttribute("fatture", fatture);
+            
+            
+            List<NewsletterDTO> Newsletter = NewsletterDao.findAll();
+            request.setAttribute("news", Newsletter);
+            
+            List<ListDTO> liste = ListDao.findAll();
+            request.setAttribute("liste", liste);
+            
+            List<ItemListDTO> item = ItemListDao.findAll();
+            request.setAttribute("item", item);
             
             
         } catch (SQLException e) {

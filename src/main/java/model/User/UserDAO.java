@@ -1,9 +1,11 @@
-package model;
+package model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+
+import model.DataSourceManager;
 
 public class UserDAO {
 
@@ -15,7 +17,7 @@ public class UserDAO {
 
  // Metodo per salvare un utente nel database
     public void save(UserDTO user) throws SQLException {
-        String query = "INSERT INTO Users (email, password, name, surname, via, roadNum, postalCode, tel, isSubscribed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Users (email, password, name, surname, via, roadNum, postalCode, tel) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
    
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -28,9 +30,7 @@ public class UserDAO {
             stmt.setInt(6, user.getRoadNum());
             stmt.setString(7, user.getPostalCode());
             stmt.setString(8, user.getTel());
-            stmt.setBoolean(9, user.isSubscribed());
             
-
             stmt.executeUpdate();
 
             // Recupera l'ID generato automaticamente (se presente)
@@ -68,7 +68,6 @@ public class UserDAO {
                 	user.setRoadNum(rs.getInt("roadNum"));
                 	user.setPostalCode(rs.getString("postalCode"));
                 	user.setTel(rs.getString("tel")); 
-                	user.setSubscribed(rs.getBoolean("isSubscribed")); 
                 }
             }
         }
@@ -97,18 +96,17 @@ public class UserDAO {
                 user.setRoadNum(rs.getInt("roadNum"));
                 user.setPostalCode(rs.getString("postalCode"));
                 user.setTel(rs.getString("tel"));
-                user.setSubscribed(rs.getBoolean("isSubscribed")); 
                 
                 users.add(user);
             }
         }
-       
+      
         return users;
     }
 
     // Metodo per aggiornare un utente nel database
     public boolean update(UserDTO user) throws SQLException {
-        String query = "UPDATE Users SET email=?, password=?, name=?, surname=?, via=?, roadNum=?, postalCode=?, tel=? isSubscribed=?, WHERE ID=?";
+        String query = "UPDATE Users SET email=?, password=?, name=?, surname=?, via=?, roadNum=?, postalCode=?, tel=?, WHERE ID=?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -121,8 +119,7 @@ public class UserDAO {
         	stmt.setInt(6, user.getRoadNum());
         	stmt.setString(7, user.getPostalCode());
         	stmt.setString(8, user.getTel());
-        	stmt.setBoolean(9, user.isSubscribed());
-        	stmt.setInt(10, user.getId());
+        	stmt.setInt(9, user.getId());
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;

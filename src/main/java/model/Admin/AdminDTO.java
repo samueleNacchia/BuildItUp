@@ -1,4 +1,4 @@
-package model;
+package model.Admin;
 
 public class AdminDTO {
 	private String username;

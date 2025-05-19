@@ -1,9 +1,12 @@
-package model;
+package model.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+
+import model.Category;
+import model.DataSourceManager;
 
 public class ProductDAO {
 
@@ -16,7 +19,8 @@ public class ProductDAO {
 
  // Metodo per salvare un prodotto nel database
     public void save(ProductDTO product) throws SQLException {
-        String query = "INSERT INTO Products (name, category, description, price, discount, isOnSale, stocks) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Products (name, category, description, price, discount, isOnSale, stocks, image1, image2, image3)"
+        			 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -28,6 +32,9 @@ public class ProductDAO {
             stmt.setFloat(5, product.getDiscount());
             stmt.setBoolean(6, product.isOnSale());
             stmt.setInt(7, product.getStocks());
+            stmt.setBytes(8, product.getImage1());
+            stmt.setBytes(9, product.getImage2());
+            stmt.setBytes(10, product.getImage3());
 
             stmt.executeUpdate();
 
@@ -59,15 +66,15 @@ public class ProductDAO {
                     product = new ProductDTO();
                     product.setId(rs.getInt("ID"));
                     product.setName(rs.getString("name"));
+                    product.setCategory(Category.valueOf(rs.getString("category")));
                     product.setDescription(rs.getString("description"));
                     product.setPrice(rs.getFloat("price"));
                     product.setDiscount(rs.getFloat("discount"));
                     product.setOnSale(rs.getBoolean("isOnSale"));
                     product.setStocks(rs.getInt("stocks")); 
-                    
-                    String categoryStr = rs.getString("category");
-                    Category category = Category.valueOf(categoryStr);
-                    product.setCategory(category);
+                    product.setImage1(rs.getBytes("image1"));
+                    product.setImage2(rs.getBytes("image2"));
+                    product.setImage3(rs.getBytes("image3"));                    
                 }
             }
         }
@@ -89,16 +96,16 @@ public class ProductDAO {
                 ProductDTO product = new ProductDTO();
                 product.setId(rs.getInt("ID"));
                 product.setName(rs.getString("name"));
+                product.setCategory(Category.valueOf(rs.getString("category")));
                 product.setDescription(rs.getString("description"));
                 product.setPrice(rs.getFloat("price"));
                 product.setDiscount(rs.getFloat("discount"));
                 product.setOnSale(rs.getBoolean("isOnSale"));
                 product.setStocks(rs.getInt("stocks"));
-                
-                String categoryStr = rs.getString("category");
-                Category category = Category.valueOf(categoryStr);
-                product.setCategory(category);
-                
+                product.setImage1(rs.getBytes("image1"));
+                product.setImage2(rs.getBytes("image2"));
+                product.setImage3(rs.getBytes("image3")); 
+  
                 products.add(product);
             }
         }
@@ -121,7 +128,7 @@ public class ProductDAO {
         	stmt.setBoolean(6, product.isOnSale());
         	stmt.setInt(7, product.getStocks());
         	stmt.setInt(8, product.getId());
-
+        	
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         }

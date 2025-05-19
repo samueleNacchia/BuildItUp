@@ -1,11 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="model.ProductDTO" %>
-<%@ page import="model.UserDTO" %>
-<%@ page import="model.AdminDTO" %>
-<%@ page import="model.OrderDTO" %>
-<%@ page import="model.ProductOrderDTO" %>
-<%@ page import="model.ReviewDTO" %>
-<%@ page import="model.BillDTO" %>
+<%@ page import="model.Product.ProductDTO" %>
+<%@ page import="model.User.UserDTO" %>
+<%@ page import="model.Admin.AdminDTO" %>
+<%@ page import="model.Order.OrderDTO" %>
+<%@ page import="model.ProductOrder.ProductOrderDTO" %>
+<%@ page import="model.Review.ReviewDTO" %>
+<%@ page import="model.Bill.BillDTO" %>
+<%@ page import="model.Newsletter.NewsletterDTO" %>
+<%@ page import="model.List.ListDTO" %>
+<%@ page import="model.ItemList.ItemListDTO" %>
 <%@ page import="java.util.List" %>
 <html>
 <head>
@@ -13,50 +16,8 @@
 	<link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
-    <h1>Product List</h1>
-	
-    <%	
-        List<ProductDTO> prodotti = (List<ProductDTO>) request.getAttribute("prodotti");
-        if (prodotti == null || prodotti.isEmpty()) {
-    %>
-        <p>Nessun prodotto disponibile.</p>
-    <%
-        } else {
-    %>
-        <table border="1">
-            <tr>
-                <th>Codice</th>
-                <th>Nome</th>
-                <th>Categoria</th>
-                <th>Descrizione</th>
-                <th>Prezzo</th>
-                <th>Sconto (%)</th>
-                <th>InVendita</th>
-                <th>Quantità</th>
-            </tr>
-            <%
-                for (ProductDTO p : prodotti) {
-            %>
-                <tr>
-                    <td><%= p.getId() %></td>
-                    <td><%= p.getName() %></td>
-                    <td><%= p.getCategory() %></td>
-                    <td><%= p.getDescription() %></td>
-                    <td><%= p.getPrice() %></td>
-                    <td><%= p.getDiscount() %></td>
-                    <td><%= p.isOnSale() %></td>
-                    <td><%= p.getStocks() %></td>
-                </tr>
-            <%
-                }
-            %>
-        </table>
-    <%
-        }
-    %>
-    
-    
-    <h1>User List</h1>
+
+	<h1>Utenti</h1>
 	
     <%
         List<UserDTO> utenti = (List<UserDTO>) request.getAttribute("utenti");
@@ -101,7 +62,7 @@
     %>
     
     
-    <h1>Admin List</h1>
+    <h1>Admin</h1>
 	
     <%
         List<AdminDTO> admin = (List<AdminDTO>) request.getAttribute("admin");
@@ -131,7 +92,55 @@
         }
     %>
     
-    <h1>Order List</h1>
+    
+    
+    
+    <h1>Prodotti</h1>
+	
+    <%	
+        List<ProductDTO> prodotti = (List<ProductDTO>) request.getAttribute("prodotti");
+        if (prodotti == null || prodotti.isEmpty()) {
+    %>
+        <p>Nessun prodotto disponibile.</p>
+    <%
+        } else {
+    %>
+        <table border="1">
+            <tr>
+                <th>Codice</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Descrizione</th>
+                <th>Prezzo</th>
+                <th>Sconto (%)</th>
+                <th>InVendita</th>
+                <th>Quantità</th>
+            </tr>
+            <%
+                for (ProductDTO p : prodotti) {
+            %>
+                <tr>
+                    <td><%= p.getId() %></td>
+                    <td><%= p.getName() %></td>
+                    <td><%= p.getCategory() %></td>
+                    <td><%= p.getDescription() %></td>
+                    <td><%= p.getPrice() %></td>
+                    <td><%= p.getDiscount() %></td>
+                    <td><%= p.isOnSale() %></td>
+                    <td><%= p.getStocks() %></td>
+                </tr>
+            <%
+                }
+            %>
+        </table>
+    <%
+        }
+    %>
+    
+    
+    
+    
+    <h1>Ordini</h1>
 	
     <%	
         List<OrderDTO> ordini = (List<OrderDTO>) request.getAttribute("ordini");
@@ -166,8 +175,7 @@
     %>
     
     
-    
-    <h1>ProdottiOrdine List</h1>
+    <h1>ProdottiOrdine</h1>
 	
     <%	
         List<ProductOrderDTO> prodottiOrdine = (List<ProductOrderDTO>) request.getAttribute("prodottiOrdinati");
@@ -203,7 +211,7 @@
     
     
     
-    <h1>Review List</h1>
+    <h1>Recensioni</h1>
 	
     <%	
         List<ReviewDTO> recensioni = (List<ReviewDTO>) request.getAttribute("recensioniProdotto");
@@ -240,7 +248,7 @@
     %>
     
     
-    <h1>Fatture List</h1>
+    <h1>Fatture</h1>
 	
     <%	
         List<BillDTO> fatture = (List<BillDTO>) request.getAttribute("fatture");
@@ -263,6 +271,105 @@
                     <td><%= b.getId_order() %></td>
                     <td><%= b.getTotal() %></td>
                     <td><%= b.getBillDate() %></td>
+                </tr>
+            <%
+                }
+            %>
+        </table>
+    <%
+        }
+    %>
+    
+    
+    <h1>Newsletter</h1>
+	
+    <%	
+        List<NewsletterDTO> Newsletter = (List<NewsletterDTO>) request.getAttribute("news");
+        if (Newsletter == null || Newsletter.isEmpty()) {
+    %>
+        <p>Nessuna Newsletter disponibile.</p>
+    <%
+        } else {
+    %>
+        <table border="1">
+            <tr>
+                <th>Email</th>
+            </tr>
+            <%
+                for (NewsletterDTO n : Newsletter) {
+            %>
+                <tr>
+                    <td><%= n.getEmail() %></td>
+                </tr>
+            <%
+                }
+            %>
+        </table>
+    <%
+        }
+    %>
+    
+    
+    
+    <h1>Liste</h1>
+	
+    <%	
+        List<ListDTO> liste = (List<ListDTO>) request.getAttribute("liste");
+        if (liste == null || liste.isEmpty()) {
+    %>
+        <p>Nessuna lista disponibile.</p>
+    <%
+        } else {
+    %>
+        <table border="1">
+            <tr>
+                <th>Codice</th>
+                <th>Codice utente</th>
+                <th>Tipologia</th>
+                <th>Ultimo accesso</th>
+            </tr>
+            <%
+                for (ListDTO l : liste) {
+            %>
+                <tr>
+                    <td><%= l.getId() %></td>
+                    <td><%= l.getId_user() %></td>
+                    <td><%= l.getType() %></td>
+                    <td><%= l.getLastAccess() %></td>
+                </tr>
+            <%
+                }
+            %>
+        </table>
+    <%
+        }
+    %>
+    
+    
+    
+    <h1>Item delle liste</h1>
+	
+    <%	
+        List<ItemListDTO> item = (List<ItemListDTO>) request.getAttribute("item");
+        if (item == null || item.isEmpty()) {
+    %>
+        <p>Nessuna fattura disponibile.</p>
+    <%
+        } else {
+    %>
+        <table border="1">
+            <tr>
+                <th>Codice lista</th>
+                <th>Codice prodotto</th>
+                <th>Quantità</th>
+            </tr>
+            <%
+                for (ItemListDTO i : item) {
+            %>
+                <tr>
+                    <td><%= i.getId_list() %></td>
+                    <td><%= i.getId_product() %></td>
+                    <td><%= i.getQuantity() %></td>
                 </tr>
             <%
                 }

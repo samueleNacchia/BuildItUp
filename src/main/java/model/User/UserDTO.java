@@ -1,7 +1,7 @@
-package model;
+package model.User;
 
 public class UserDTO {
-	private  int id;
+	private int id;
 	private String email;
 	private String password;
 	private String name;
@@ -10,12 +10,11 @@ public class UserDTO {
 	private int roadNum;
 	private String postalCode;
 	private String tel;
-	private boolean isSubscribed;
 	
 	public UserDTO() {
 	}
 	
-	public UserDTO(String email, String password, String name, String surname, String via, int roadNum, String postalCode, String tel, boolean isSubscribed) {
+	public UserDTO(String email, String password, String name, String surname, String via, int roadNum, String postalCode, String tel) {
 		this.email = email;
 		this.password = password;
 		this.name = name;
@@ -24,7 +23,6 @@ public class UserDTO {
 		this.roadNum = roadNum;
 		this.postalCode = postalCode;
 		this.tel = tel;
-		this.isSubscribed = isSubscribed;
 	}
 	
 	public int getId() {
@@ -88,12 +86,5 @@ public class UserDTO {
 	}
 	public void setTel(String tel) {
 		this.tel = tel;
-	}
-
-	public boolean isSubscribed() {
-		return isSubscribed;
-	}
-	public void setSubscribed(boolean isSubscribed) {
-		this.isSubscribed = isSubscribed;
 	}
 }
