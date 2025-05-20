@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
+	<a href="index.html">Home</a>
 
 	<h1>Utenti</h1>
 	
@@ -27,7 +28,7 @@
     <%
         } else {
     %>
-        <table border="1">
+        <table>
             <tr>
                 <th>Codice</th>
                 <th>Email</th>
@@ -72,16 +73,16 @@
     <%
         } else {
     %>
-        <table border="1">
+        <table>
             <tr>
-                <th>Username</th>
+                <th>Email</th>
                 <th>Password</th>
             </tr>
             <%
                 for (AdminDTO a : admin) {
             %>
                 <tr>
-                    <td><%= a.getUsername() %></td>
+                    <td><%= a.getEmail() %></td>
                     <td><%= a.getPassword() %></td>
                 </tr>
             <%
@@ -105,7 +106,7 @@
     <%
         } else {
     %>
-        <table border="1">
+        <table>
             <tr>
                 <th>Codice</th>
                 <th>Nome</th>
@@ -115,6 +116,9 @@
                 <th>Sconto (%)</th>
                 <th>InVendita</th>
                 <th>Quantità</th>
+                <th>Img1</th>
+                <th>Img2</th>
+                <th>Img3</th>
             </tr>
             <%
                 for (ProductDTO p : prodotti) {
@@ -128,6 +132,9 @@
                     <td><%= p.getDiscount() %></td>
                     <td><%= p.isOnSale() %></td>
                     <td><%= p.getStocks() %></td>
+                    <td><img src="<%= request.getContextPath() %>/image?id=<%= p.getId() %>&n=1" >
+                    <td><img src="<%= request.getContextPath() %>/image?id=<%= p.getId() %>&n=2" >
+                    <td><img src="<%= request.getContextPath() %>/image?id=<%= p.getId() %>&n=3" >
                 </tr>
             <%
                 }
@@ -150,7 +157,7 @@
     <%
         } else {
     %>
-        <table border="1">
+        <table>
             <tr>
                 <th>Codice</th>
                 <th>Utente</th>
@@ -185,7 +192,7 @@
     <%
         } else {
     %>
-        <table border="1">
+        <table>
             <tr>
                 <th>Codice Prodotto</th>
                 <th>Codice Ordine</th>
@@ -221,7 +228,7 @@
     <%
         } else {
     %>
-        <table border="1">
+        <table>
             <tr>
                 <th>Codice utente</th>
                 <th>Codice prodotto</th>
@@ -258,7 +265,7 @@
     <%
         } else {
     %>
-        <table border="1">
+        <table>
             <tr>
                 <th>Codice ordine</th>
                 <th>Totale</th>
@@ -291,7 +298,7 @@
     <%
         } else {
     %>
-        <table border="1">
+        <table>
             <tr>
                 <th>Email</th>
             </tr>
@@ -321,7 +328,7 @@
     <%
         } else {
     %>
-        <table border="1">
+        <table>
             <tr>
                 <th>Codice</th>
                 <th>Codice utente</th>
@@ -357,7 +364,7 @@
     <%
         } else {
     %>
-        <table border="1">
+        <table>
             <tr>
                 <th>Codice lista</th>
                 <th>Codice prodotto</th>

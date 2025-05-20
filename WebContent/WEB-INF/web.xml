@@ -7,17 +7,17 @@
          version="4.0">
 	
 	<!-- Mapping delle servlet -->
+    <!--
     <servlet>
    		<servlet-name>ProductListServlet</servlet-name>
     	<servlet-class>controller.ProductListServlet</servlet-class>
 	</servlet>
 	
-	
-	  <servlet-mapping>
+	 <servlet-mapping>
    		<servlet-name>ProductListServlet</servlet-name>
     	<url-pattern>/products</url-pattern>
-	</servlet-mapping>
-
+	 </servlet-mapping>
+	-->
     <!-- Configurazione della servlet di errore -->
     <error-page>
         <error-code>404</error-code>
@@ -31,11 +31,4 @@
     	<res-type>javax.sql.DataSource</res-type>
     	<res-auth>Container</res-auth>
 	</resource-ref>
-	
-	<env-entry>
-   	 	<env-entry-name>jdbc/storage</env-entry-name>
-    	<env-entry-type>javax.sql.DataSource</env-entry-type>
-    	<env-entry-value>java:comp/env/jdbc/storage</env-entry-value>
-	</env-entry>
-
 </web-app>

@@ -16,12 +16,12 @@ public class AdminDAO {
 
     // Metodo per verificare le credenziali di un admin
     public boolean isAdmin(AdminDTO admin) throws SQLException {
-        String query = "SELECT * FROM Users WHERE username = ? AND password = ?";
+        String query = "SELECT * FROM Users WHERE email = ? AND password = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
-        	stmt.setString(1, admin.getUsername());
+        	stmt.setString(1, admin.getEmail());
         	stmt.setString(2, admin.getPassword());
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -45,7 +45,7 @@ public class AdminDAO {
             while (rs.next()) { 
            
             	AdminDTO admin = new AdminDTO();
-                admin.setUsername(rs.getString("username"));
+                admin.setEmail(rs.getString("email"));
                 admin.setPassword(rs.getString("password"));
                 
                 admins.add(admin);

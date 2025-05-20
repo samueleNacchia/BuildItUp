@@ -11,29 +11,29 @@ DROP TABLE IF EXISTS Products;
 DROP TABLE IF EXISTS Users;
 
 CREATE TABLE Admin (	
-  username char(50) not null,
-  password char(128) not null,
-  primary key(username, password)
+  email varchar(100) not null,
+  password varchar(128) not null,
+  primary key(email, password)
 );
 
 CREATE TABLE Users (	
   ID int primary key AUTO_INCREMENT,
-  email char(100) not null,
-  password char(100) not null,
-  name char(50),
-  surname char(50),
-  via char(100),
+  email varchar(100) not null,
+  password varchar(100) not null,
+  name varchar(50),
+  surname varchar(50),
+  via varchar(100),
   roadNum int unsigned,
-  postalCode char(5),
-  tel char(16)
+  postalCode varchar(5),
+  tel varchar(16)
 );
 
 
 CREATE TABLE Products(	
   ID int primary key auto_increment,
-  name char(50),
+  name varchar(50),
   category enum('CPU', 'GPU', 'MOBO', 'CASE', 'COOLING', 'RAM', 'MEM', 'PSU'),
-  description char(50),
+  description varchar(256),
   price decimal(10,2) unsigned,
   discount decimal(5,4) unsigned,
   isOnSale boolean,
@@ -54,7 +54,7 @@ CREATE TABLE Orders (
 CREATE TABLE Reviews (	
   ID_user int not null,
   ID_product int not null,
-  text char(100),
+  text varchar(100),
   vote int unsigned,
   reviewDate date,
   primary key (ID_user, ID_product), 
@@ -93,7 +93,7 @@ CREATE TABLE Lists (
 CREATE TABLE ItemList (
     ID_list int not null,
     ID_product int not null,
-    quantity int check (quantity > 0), -- NULL per liste di tipo "cart"
+    quantity int check (quantity > 0), -- NULL per liste di tipo "wishlist"
     foreign key (ID_list) references Lists(ID) on delete cascade,
     foreign key (ID_product) references Products(ID), 
     primary key (ID_list, ID_product)
@@ -101,14 +101,14 @@ CREATE TABLE ItemList (
 
 
 CREATE TABLE Newsletters (
-	email char(100) primary key not null
+	email varchar(100) primary key not null
 );
 
 -- Admins
-INSERT INTO Admin (username, password) VALUES
-  ('admin1', '5f4dcc3b5aa765d61d8327deb882cf99'),
-  ('admin2', '202cb962ac59075b964b07152d234b70'),
-  ('superuser', '098f6bcd4621d373cade4e832627b4f6');
+INSERT INTO Admin (email, password) VALUES
+  ('admin1@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99'),
+  ('admin2@gmail.com', '202cb962ac59075b964b07152d234b70'),
+  ('superuser@hotmail.com', '098f6bcd4621d373cade4e832627b4f6');
 
 -- Users
 INSERT INTO Users (email, password, name, surname, via, roadNum, postalCode, tel) VALUES

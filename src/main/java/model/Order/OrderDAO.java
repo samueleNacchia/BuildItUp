@@ -110,4 +110,19 @@ public class OrderDAO {
             return rowsAffected > 0;
         }
     }
+    
+    // Metodo per aggiornare lo stato di un ordine nel database
+    public boolean updateStatus(OrderDTO order) throws SQLException {
+        String query = "UPDATE Orders SET status=? WHERE ID=?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, order.getStatus().name());
+            stmt.setInt(2, order.getId());
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
 }
