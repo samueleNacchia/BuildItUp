@@ -14,7 +14,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import model.DataSourceManager;
-import model.TypeList;
+import model.ListType;
 
 public class ListDAO {
 	private DataSource dataSource;
@@ -22,18 +22,20 @@ public class ListDAO {
     // Costruttore che recupera il DataSource dal DataSourceManager
     public ListDAO() {
         this.dataSource = DataSourceManager.getDataSource();
+        if (this.dataSource == null) {
+            throw new IllegalStateException("ListDAO: DataSource is null! Check DataSourceManager.");
+        }
     }
 
  // Metodo per salvare una lista nel database
     public void save(ListDTO list) throws SQLException {
-        String query = "INSERT INTO Lists (ID_user, type, lastAccess) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Lists (ID_user, type) VALUES (?, ?)";
         
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setInt(1, list.getId_user());
             stmt.setString(2, list.getType().name());
-            stmt.setTimestamp(3, Timestamp.valueOf(list.getLastAccess()));
        
             stmt.executeUpdate();
 
@@ -65,8 +67,8 @@ public class ListDAO {
                     list = new ListDTO();
                     list.setId(rs.getInt("ID"));
                     list.setId_user(rs.getInt("ID_user"));
-                    list.setType(TypeList.valueOf(rs.getString("type")));
-                    list.setLastAccess(LocalDateTime.now());
+                    list.setType(ListType.valueOf(rs.getString("type")));
+                    list.setLastAccess(rs.getTimestamp("lastAccess").toLocalDateTime());
                 }
             }
         } 
@@ -76,7 +78,7 @@ public class ListDAO {
     
     
     // Metodo per recuperare una lista per utente e tipo (wishlist o carrello)
-    public ListDTO findByUser(int idUser, TypeList type) throws SQLException {
+    public ListDTO findByUser(int idUser, ListType type) throws SQLException {
         String query = "SELECT * FROM Lists WHERE ID_user=? AND type=?";
         ListDTO list = null;
 
@@ -91,8 +93,8 @@ public class ListDAO {
                     list = new ListDTO();
                     list.setId(rs.getInt("ID"));
                     list.setId_user(rs.getInt("ID_user"));
-                    list.setType(TypeList.valueOf(rs.getString("type")));
-                    list.setLastAccess(LocalDateTime.now());
+                    list.setType(ListType.valueOf(rs.getString("type")));
+                    list.setLastAccess(rs.getTimestamp("lastAccess").toLocalDateTime());
                 }
             }
         } 
@@ -114,8 +116,8 @@ public class ListDAO {
                 ListDTO list = new ListDTO();
                 list.setId(rs.getInt("ID"));
                 list.setId_user(rs.getInt("ID_user"));
-                list.setType(TypeList.valueOf(rs.getString("type")));
-                list.setLastAccess(LocalDateTime.now());
+                list.setType(ListType.valueOf(rs.getString("type")));
+                list.setLastAccess(rs.getTimestamp("lastAccess").toLocalDateTime());
                 
                 lists.add(list);
             }
@@ -154,24 +156,19 @@ public class ListDAO {
         }
     }
     
-    /*
-    public int countListOf(int idUser, TypeList type) throws SQLException{
-    	String query = "SELECT COUNT(*) AS Num FROM Lists WHERE ID_user=? AND type=?;";
-    	int count = 0;
-    	
+    
+ // Metodo per eliminare una lista dal database
+    public boolean deleteOldList(int code) throws SQLException {
+    	String query = "DELETE FROM lists WHERE ID_user IS NULL AND created_at < NOW() - INTERVAL 1 DAY;";
+
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            stmt.setInt(1, idUser);
-            stmt.setString(2, type.name());
-           
-            try (ResultSet rs = stmt.executeQuery()) {
-            	if(rs.next()) { 
-            		count = rs.getInt("Num");
-            	}
-            }
+        	stmt.setInt(1, code);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
         }
-    	
-    	return count;
-    }*/
+    }
+    
 }

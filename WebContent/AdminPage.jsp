@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, model.Product.ProductDAO, model.Order.OrderDAO" %>
-<%@ page import="java.util.*, model.Product.ProductDTO, model.Order.OrderDTO" %>
+<%@ page import="model.Product.ProductDTO, model.Order.OrderDTO" %>
+
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
    	response.setHeader("Pragma", "no-cache");
@@ -16,10 +17,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Panel</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">
+    
 </head>
-<body>
-
+<body>      
+       
 <h1>Pannello di Amministrazione</h1>
 <a href="index.html">Home</a>
 <br>

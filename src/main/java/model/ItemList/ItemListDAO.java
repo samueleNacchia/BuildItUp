@@ -12,20 +12,15 @@ import javax.sql.DataSource;
 
 import model.DataSourceManager;
 
-/*CREATE TABLE ListItems (
-ID_list int not null,
-ID_product int not null,
-quantity int default 1 check (quantity > 0),
-foreign key ID_list references Lists(id) on delete cascade,
-foreign key ID_product references ItemLists(ID), 
-primary key (ID_list, ID_product)
-);*/
 public class ItemListDAO {
 	private DataSource dataSource;
 
     // Costruttore che recupera il DataSource dal DataSourceManager
     public ItemListDAO() {
         this.dataSource = DataSourceManager.getDataSource();
+        if (this.dataSource == null) {
+            throw new IllegalStateException("ItemListDAO: DataSource is null! Check DataSourceManager.");
+        }
     }
 
  // Metodo per salvare un prodotto nel database
@@ -54,20 +49,21 @@ public class ItemListDAO {
         String query = "SELECT * FROM ItemList WHERE ID_list = ?";
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
+             PreparedStatement stmt = connection.prepareStatement(query)) {
     	
         	stmt.setInt(1, idList);
         	
-            while (rs.next()) { 
+        	try (ResultSet rs = stmt.executeQuery()) {
+        		while (rs.next()) { 
            
-                ItemListDTO itemList = new ItemListDTO();
-                itemList.setId_list(rs.getInt("ID_list"));
-                itemList.setId_product(rs.getInt("ID_product"));
-                itemList.setQuantity(rs.getInt("quantity"));
-                
-                itemsList.add(itemList);
-            }
+	                ItemListDTO itemList = new ItemListDTO();
+	                itemList.setId_list(rs.getInt("ID_list"));
+	                itemList.setId_product(rs.getInt("ID_product"));
+	                itemList.setQuantity(rs.getInt("quantity"));
+	                
+	                itemsList.add(itemList);
+        		}
+        	}
         }
        
         return itemsList;

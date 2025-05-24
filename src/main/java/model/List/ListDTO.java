@@ -1,7 +1,7 @@
 package model.List;
 import java.time.LocalDateTime;
 
-import model.TypeList;
+import model.ListType;
 /*
 CREATE TABLE Lists (
     ID int primary key not null.,
@@ -21,21 +21,18 @@ CREATE TABLE ItemList (
 public class ListDTO {
 	private int id;
 	private int id_user;
-	private TypeList type;
+	private ListType type;
 	private LocalDateTime lastAccess;
 	
 	public ListDTO() {
 	}
 	
-	public ListDTO(int id, TypeList type, LocalDateTime lastAccess) {
-		this.id = id;
-		//this.id_user = -1;
+	public ListDTO(ListType type, LocalDateTime lastAccess) {
 		this.type = type;
 		this.lastAccess = lastAccess;
 	}
 	
-	public ListDTO(int id, int id_user, TypeList type, LocalDateTime lastAccess) {
-		this.id = id;
+	public ListDTO(int id_user, ListType type, LocalDateTime lastAccess) {
 		this.id_user = id_user;
 		this.type = type;
 		this.lastAccess = lastAccess;
@@ -55,10 +52,10 @@ public class ListDTO {
 		this.id_user = id_user;
 	}
 
-	public TypeList getType() {
+	public ListType getType() {
 		return type;
 	}
-	public void setType(TypeList type) {
+	public void setType(ListType type) {
 		this.type = type;
 	}
 

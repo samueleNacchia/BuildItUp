@@ -17,6 +17,9 @@ public class BillDAO {
 	
 	public BillDAO() {
         this.dataSource = DataSourceManager.getDataSource();
+        if (this.dataSource == null) {
+            throw new IllegalStateException("BillDAO: DataSource is null! Check DataSourceManager.");
+        }
     }
 
 	

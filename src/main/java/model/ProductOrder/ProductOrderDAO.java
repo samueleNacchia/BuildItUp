@@ -16,6 +16,9 @@ public class ProductOrderDAO {
 	
 	public ProductOrderDAO() {
         this.dataSource = DataSourceManager.getDataSource();
+        if (this.dataSource == null) {
+            throw new IllegalStateException("ProductDAO: DataSource is null! Check DataSourceManager.");
+        }
     }
 
  // Metodo per salvare un prodotto dell'ordine nel database

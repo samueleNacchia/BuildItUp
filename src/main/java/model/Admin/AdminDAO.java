@@ -12,6 +12,9 @@ public class AdminDAO {
 	
 	public AdminDAO() {
         this.dataSource = DataSourceManager.getDataSource();
+        if (this.dataSource == null) {
+            throw new IllegalStateException("AdminDAO: DataSource is null! Check DataSourceManager.");
+        }
     }
 
     // Metodo per verificare le credenziali di un admin

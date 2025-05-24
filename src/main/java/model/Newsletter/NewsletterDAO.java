@@ -17,6 +17,9 @@ public class NewsletterDAO {
 	
 	public NewsletterDAO() {
         this.dataSource = DataSourceManager.getDataSource();
+        if (this.dataSource == null) {
+            throw new IllegalStateException("NewsletterDAO: DataSource is null! Check DataSourceManager.");
+        }
     }
 
 	

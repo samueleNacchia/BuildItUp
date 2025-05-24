@@ -1,9 +1,12 @@
 package model.ItemList;
 
+import model.Product.ProductDTO;
+
 public class ItemListDTO {
 	private int id_list;
 	private int id_product;
 	private int quantity;
+	private ProductDTO	 product;
 	
 	public ItemListDTO() {
 	}
@@ -33,6 +36,13 @@ public class ItemListDTO {
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public ProductDTO getProduct() {
+		return product;
+	}
+	public void setProduct(ProductDTO product) {
+		this.product = product;
 	}
 	
 }

@@ -18,6 +18,9 @@ public class OrderDAO {
 	
 	public OrderDAO() {
         this.dataSource = DataSourceManager.getDataSource();
+        if (this.dataSource == null) {
+            throw new IllegalStateException("OrderDAO: DataSource is null! Check DataSourceManager.");
+        }
     }
 
  // Metodo per salvare un ordine nel database

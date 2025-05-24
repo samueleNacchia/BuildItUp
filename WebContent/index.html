@@ -1,18 +1,46 @@
 <html>
 <head>
     <title>Product</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">
+    
 </head>
 <body>
-    <h1>BuildItUp</h1>
+
+
+<h1>BuildItUp</h1>
 	
-	<form action="products" method="POST">
+<form action="products" method="POST">
 	<input type="Submit" value="Visualizza Database">
-	</form>
+</form>
 	
-	<form action="AdminPage.jsp">
+<form action="AdminPage.jsp">
 	<input type="Submit" value="Modifica Database">
-	</form>
+</form>
+	
+
+<a href="GetList?type=wishlist" style="text-decoration: none;  ">
+  <i class="fa-solid fa-heart" id="wishlist-icon" style="font-size: 35px; color: dimgray;"></i>
+</a>
+
+
+<a href="GetList?type=cart" style="text-decoration: none; cursor: pointer;">
+  <i class="fa-solid fa-shopping-cart" id="cart-icon" style="font-size: 35px; color: dimgray"></i>
+</a>
+ 
+ 
+ <script>
+  const icon = document.getElementById("wishlist-icon");
+
+  icon.addEventListener("mouseover", function () {
+	  this.style.color = "red";   
+  	});
+  
+  icon.addEventListener("mouseout", function () {
+	    this.style.color = "dimgray";
+	});
+</script> 
 	
 	
 </body>

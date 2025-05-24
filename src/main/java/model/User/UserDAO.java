@@ -13,6 +13,9 @@ public class UserDAO {
 	
 	public UserDAO() {
         this.dataSource = DataSourceManager.getDataSource();
+        if (this.dataSource == null) {
+            throw new IllegalStateException("UserDAO: DataSource is null! Check DataSourceManager.");
+        }
     }
 
  // Metodo per salvare un utente nel database

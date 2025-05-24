@@ -1,5 +1,5 @@
 package model;
 
-public enum TypeList {
+public enum ListType {
 	cart, wishlist
 }

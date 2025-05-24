@@ -15,6 +15,9 @@ public class ProductDAO {
     // Costruttore che recupera il DataSource dal DataSourceManager
     public ProductDAO() {
         this.dataSource = DataSourceManager.getDataSource();
+        if (this.dataSource == null) {
+            throw new IllegalStateException("ProductDAO: DataSource is null! Check DataSourceManager.");
+        }
     }
 
  // Metodo per salvare un prodotto nel database

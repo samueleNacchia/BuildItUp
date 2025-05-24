@@ -13,6 +13,9 @@ public class ReviewDAO {
 	
 	public ReviewDAO() {
         this.dataSource = DataSourceManager.getDataSource();
+        if (this.dataSource == null) {
+            throw new IllegalStateException("ReviewDAO: DataSource is null! Check DataSourceManager.");
+        }
     }
 
  // Metodo per salvare una recensione nel database
