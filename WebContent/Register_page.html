@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registrazione</title>
+    <link rel="stylesheet" href="Register_style.css">
+</head>
+<body>
+<br> <br> <br>
+    <div class="register-container">
+   
+        <h2>Registrazione</h2>
+        <form action="register" method="post">
+            <label for="email">Email: </label>
+            <input type="text" id="email" name="email" placeholder="example@gmail.com" required><br><br>
+
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password" placeholder="password" required><br><br>
+
+            <label for="confirm">Conferma Password: </label>
+            <input type="password" id="confirm" name="confirm" placeholder="confirm password" required><br><br>
+
+            <label for="nome">Nome: </label>
+            <input type="text" id="nome" name="nome" placeholder="Francesco" required><br><br>
+
+            <label for="cognome">Cognome: </label>
+            <input type="text" id="cognome" name="cognome" placeholder="Totti" required><br><br>
+
+            <label for="cell">Cellulare: </label>
+            <input type="text" id="cell" name="cell" placeholder="012 345 6789" required><br><br>
+
+            <label for="ind">Indirizzo: </label>
+            <input type="text" id="ind" name="ind" placeholder="Via Roma" required><br><br>
+
+            <label for="civ">Civico: </label>
+            <input type="text" id="civ" name="civ" placeholder="1" required><br><br>
+
+            <label for="cap">CAP: </label>
+            <input type="text" id="cap" name="cap" placeholder="84001" required><br><br>
+
+            <label for="prov">Provincia: </label>
+            <input type="text" id="prov" name="prov" placeholder="SA" required><br><br>
+
+            <button type="submit">Registrati</button>
+        </form>
+
+        <form action="LogIn_page.html" method="get">
+            <button type="submit" class="register-button">Torna al Login</button>
+        </form>
+    </div>
+    <br><br><br>
+</body>
+</html>
