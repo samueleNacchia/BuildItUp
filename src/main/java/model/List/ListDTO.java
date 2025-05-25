@@ -20,11 +20,13 @@ CREATE TABLE ItemList (
 );  */
 public class ListDTO {
 	private int id;
+	private String token;
 	private int id_user;
 	private ListType type;
 	private LocalDateTime lastAccess;
 	
 	public ListDTO() {
+		id_user = 0;
 	}
 	
 	public ListDTO(ListType type, LocalDateTime lastAccess) {
@@ -64,6 +66,13 @@ public class ListDTO {
 	}
 	public void setLastAccess(LocalDateTime lastAccess) {
 		this.lastAccess = lastAccess;
+	}
+
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 }

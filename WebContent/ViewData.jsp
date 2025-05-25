@@ -330,6 +330,7 @@
         <table>
             <tr>
                 <th>Codice</th>
+                <th>Token</th>
                 <th>Codice utente</th>
                 <th>Tipologia</th>
                 <th>Ultimo accesso</th>
@@ -339,6 +340,7 @@
             %>
                 <tr>
                     <td><%= l.getId() %></td>
+                    <td><%= l.getToken() %></td>
                     <td><%= l.getId_user() %></td>
                     <td><%= l.getType() %></td>
                     <td><%= l.getLastAccess() %></td>

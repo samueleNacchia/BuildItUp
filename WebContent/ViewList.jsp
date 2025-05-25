@@ -55,16 +55,9 @@
         <table>
             <thead>
                 <tr>
-                    <th>Codice prodotto</th>
                     <th>Nome</th>
-                	<th>Categoria</th>
-                	<th>Descrizione</th>
                 	<th>Prezzo</th>
-                	<th>Sconto (%)</th>
-                	<th>InVendita</th>
-                	<th>Img1</th>
-                	<th>Img2</th>
-                	<th>Img3</th>
+                	<th>Immagine</th>
                     <%
                         if (type.equals("cart")) {
                     %>	
@@ -83,13 +76,8 @@
                     	
                 %>
                 <tr>
-                    <td><%= item.getId_product()%></td>
                     <td><%= product.getName()%></td>
-                    <td><%= product.getCategory().name()%></td>
-                    <td><%= product.getDescription()%></td>
                     <td><%= product.getPrice()%></td>
-                    <td><%= product.getDiscount()%></td>
-                    <td><%= product.isOnSale()%></td>
                     <td>
                     	<!--<a href="Product?id=x"> -->
                     	<img src="<%= request.getContextPath() %>/image?id=<%= product.getId() %>&n=1" >

@@ -13,17 +13,19 @@ h1, h2 {
 }
 
 form {
-    margin: 20px auto;
-    max-width: 700px;
+    width: 70%;
+    max-width: none;        
+    margin: 30px auto;      
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+
 form input[type="text"],
 form input[type="number"],
-form input[type="textarea"],
+form textarea,
 form select {
     width: 100%;
     padding: 8px;
@@ -33,7 +35,8 @@ form select {
     box-sizing: border-box;
 }
 
-form input[type="submit"] {
+form input[type="submit"],
+td input[type="submit"] {
     background-color: #2ecc71;
     color: white;
     padding: 10px 18px;
@@ -41,16 +44,24 @@ form input[type="submit"] {
     border-radius: 5px;
     cursor: pointer;
     display: block;
-	margin: 0 auto;
+    margin: 15px auto;
+    transition: background-color 0.3s ease;
 }
 
-form input[type="submit"]:hover {
-    background-color: #27ae60;
+td input[type="submit"][name="deleteImage"] {
+    background-color: #fd1717;
+    color: white;
+    margin-top: 5px;
+    padding: 5px 10px;
+    font-size: 13px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 table {
     border-collapse: collapse;
-    width: 90%;
+    width: 80%;
     margin: 20px auto;
     background-color: #ffffff;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
@@ -86,7 +97,18 @@ tr:hover {
     background-color: #f1f1f1;
 }
 
+
+/* ---- CHECKBOX E SELECT ---- */
 input[type="checkbox"] {
-    transform: scale(1.2);
+    transform: scale(1.5);
     margin: 5px;
+}
+
+/* ---- ICONS ---- */
+a i.fa-heart:hover {
+    color: red !important;
+}
+
+a i.fa-shopping-cart:hover {
+    color: #2ecc71 !important;
 }

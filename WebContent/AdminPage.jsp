@@ -61,7 +61,8 @@
 
 <!-- Sezione: Lista prodotti -->
 <h2 align="center">Prodotti in Catalogo</h2>
-<table align="center">
+
+<table>
     <tr>
     	<th>Codice</th>
         <th>Nome</th>
@@ -103,19 +104,29 @@
             <td><input type="number" name="stocks" min=0 value="<%= p.getStocks() %>" step="1" /></td>
             
             <td><img src="<%= request.getContextPath() %>/image?id=<%= p.getId() %>&n=1" >
-            <input type="submit" name="deleteImage" value="1">delete
+            <input type="submit" name="deleteImage" value="1">
     		<input type="file" name="immagine1" accept="image/*"></td>
             
             <td><img src="<%= request.getContextPath() %>/image?id=<%= p.getId() %>&n=2" >
-            <input type="submit" name="deleteImage" value="2">delete
+            <input type="submit" name="deleteImage" value="2">
     		<input type="file" name="immagine2" accept="image/*"></td>
             
             <td><img src="<%= request.getContextPath() %>/image?id=<%= p.getId() %>&n=3" >
-            <input type="submit" name="deleteImage" value="3">delete
+            <input type="submit" name="deleteImage" value="3">
     		<input type="file" name="immagine3" accept="image/*"></td>
             
-            <td><input type="submit" value="update" onclick="return confirm('Aggiornare <%=p.getName() %>?')"/></td>
-        </form>
+            <td>
+            <input type="submit" value="update" onclick="return confirm('Aggiornare <%=p.getName() %>?')"/>
+            
+            <a href="AddToList?type=wishlist&id=<%=p.getId()%>" style="text-decoration: none;  ">
+  				<i class="fa-solid fa-heart" id="wishlist-icon" style="font-size: 20px; color: dimgray;"></i>
+			</a>
+
+			<a href="AddToList?type=cart&id=<%=p.getId()%>" style="text-decoration: none; cursor: pointer;">
+  				<i class="fa-solid fa-shopping-cart" id="cart-icon" style="font-size: 20px; color: dimgray"></i>
+			</a>
+			</td>
+       </form>
     </tr>
     <%
             }
@@ -125,9 +136,13 @@
     <% } %>
 </table>
 
+
+
 <!-- Sezione: Visualizzazione ordini -->
 <h2 align="center">Ordini</h2>
-<table align="center">
+
+
+<table>
     <tr>
         <th>ID Ordine</th>
         <th>Cliente</th>
@@ -140,7 +155,7 @@
             for (OrderDTO o : ordini) {
     %>
     <tr>
-        <form action="UpdateOrder" method="post">
+		<form action="UpdateOrder" method="post">
             <td><%= o.getId() %><input type="hidden" name="id" value="<%= o.getId() %>" /></td>
             <td><%= o.getId_user() %></td>
             <td><%= o.getOrderDate() %></td>
@@ -163,5 +178,6 @@
     <tr><td colspan="5">Nessun ordine trovato.</td></tr>
     <% } %>
 </table>
+
 </body>
 </html>

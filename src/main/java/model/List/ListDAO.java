@@ -34,7 +34,12 @@ public class ListDAO {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setInt(1, list.getId_user());
+        	if (list.getId_user() != 0) {
+        	    stmt.setInt(1, list.getId_user());
+        	} else {
+        	    stmt.setNull(1, java.sql.Types.INTEGER);
+        	}
+        	
             stmt.setString(2, list.getType().name());
        
             stmt.executeUpdate();
@@ -53,14 +58,14 @@ public class ListDAO {
     }
     
     // Metodo per recuperare una lista per utente e tipo (wishlist o carrello)
-    public ListDTO findByCode(int idList) throws SQLException {
-        String query = "SELECT * FROM Lists WHERE ID=?";
+    public ListDTO findByToken(String token) throws SQLException {
+        String query = "SELECT * FROM Lists WHERE token=?";
         ListDTO list = null;
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
-        	stmt.setInt(1, idList);
+        	stmt.setString(1, token);
         	
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -80,7 +85,7 @@ public class ListDAO {
     // Metodo per recuperare una lista per utente e tipo (wishlist o carrello)
     public ListDTO findByUser(int idUser, ListType type) throws SQLException {
         String query = "SELECT * FROM Lists WHERE ID_user=? AND type=?";
-        ListDTO list = null;
+        ListDTO list = new ListDTO();
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -115,6 +120,7 @@ public class ListDAO {
            
                 ListDTO list = new ListDTO();
                 list.setId(rs.getInt("ID"));
+                list.setToken(rs.getString("token"));
                 list.setId_user(rs.getInt("ID_user"));
                 list.setType(ListType.valueOf(rs.getString("type")));
                 list.setLastAccess(rs.getTimestamp("lastAccess").toLocalDateTime());
@@ -140,6 +146,19 @@ public class ListDAO {
         }
     }
     
+    
+    public boolean updateToken(ListDTO list) throws SQLException {
+        String sql = "UPDATE Lists SET token = ? WHERE ID = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, list.getToken());
+            stmt.setInt(2, list.getId());
+            
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+    
  
 
     // Metodo per eliminare una lista dal database
@@ -158,13 +177,11 @@ public class ListDAO {
     
     
  // Metodo per eliminare una lista dal database
-    public boolean deleteOldList(int code) throws SQLException {
-    	String query = "DELETE FROM lists WHERE ID_user IS NULL AND created_at < NOW() - INTERVAL 1 DAY;";
+    public boolean deleteOldList() throws SQLException {
+    	String query = "DELETE FROM lists WHERE ID_user IS NULL AND lastAccess < NOW() - INTERVAL 12 HOUR;";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-
-        	stmt.setInt(1, code);
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;

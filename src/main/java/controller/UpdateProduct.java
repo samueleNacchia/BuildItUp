@@ -44,7 +44,7 @@ public class UpdateProduct extends HttpServlet {
 		Part immagine1 = request.getPart("immagine1");
 		Part immagine2 = request.getPart("immagine2");
 		Part immagine3 = request.getPart("immagine3");
-
+		
 		if (immagine1 != null && immagine1.getSize() > 0)  
 		    product.setImage1(immagine1.getInputStream().readAllBytes());
 		if (immagine2 != null && immagine2.getSize() > 0)  
