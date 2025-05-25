@@ -17,8 +17,6 @@ public class ProductDTO {
     private byte[] image2;
       
     
-
-    // Costruttore
     public ProductDTO() {
     }
     

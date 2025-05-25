@@ -53,7 +53,6 @@
         } else {
     %>
         <table>
-            <thead>
                 <tr>
                     <th>Nome</th>
                 	<th>Prezzo</th>
@@ -65,9 +64,9 @@
                     <%
                         }
                     %>
+                    <th>Azioni</th>
                 </tr>
-            </thead>
-            <tbody>
+          
                 <%	
                 	ProductDTO product = new ProductDTO();
       
@@ -83,18 +82,29 @@
                     	<img src="<%= request.getContextPath() %>/image?id=<%= product.getId() %>&n=1" >
              			<!-- </a> -->
                     </td>
-                    <%
-                        if (type.equals("cart")) {
-                    %>
+                    
+                    
+                    <%if (type.equals("cart")) { %>
                     <td><%= item.getQuantity() %></td>
-                    <%
-                        }
-                    %>
+                    <% } %>
+                    
+                    <td>
+                    <% if (type.equals("cart")) { %>
+                    
+                    <a href="AddToList?type=<%=type%>&id=<%=product.getId()%>" style="text-decoration: none;  ">
+  					<input type="submit" value="+">
+					</a>
+                    <% } %>
+                    
+                    <a href="DeleteFromList?type=<%=type%>&id=<%=product.getId()%>" style="text-decoration: none;  ">
+  					<input type="submit" value="-" style="background-color: red;">
+					</a>
+					</td>
+                    
                 </tr>
                 <%
                     }
                 %>
-            </tbody>
         </table>
     <%
         }

@@ -2,14 +2,6 @@ DROP DATABASE IF EXISTS storage;
 CREATE DATABASE storage;
 USE storage;
 
-DROP TABLE IF EXISTS Admin;
-DROP TABLE IF EXISTS ProductOrder;
-DROP TABLE IF EXISTS Bills;
-DROP TABLE IF EXISTS Orders;
-DROP TABLE IF EXISTS Reviews;
-DROP TABLE IF EXISTS Products;
-DROP TABLE IF EXISTS Users;
-
 CREATE TABLE Admin (	
   email varchar(100) not null,
   password varchar(128) not null,
@@ -84,10 +76,12 @@ CREATE TABLE ProductOrder (
 
 CREATE TABLE Lists (
     ID int primary key auto_increment,
+    token varchar(128) UNIQUE, -- NULL per utenti anonimi
     ID_user int, -- NULL per utenti anonimi
     type enum('cart', 'wishlist') not null,
     CONSTRAINT unique_user_type UNIQUE (ID_user, type),
-    lastAccess timestamp default CURRENT_TIMESTAMP
+    lastAccess timestamp default CURRENT_TIMESTAMP,
+    FOREIGN KEY (ID_user) REFERENCES Users(ID)
 );
 
 CREATE TABLE ItemList (
@@ -146,13 +140,14 @@ INSERT INTO ProductOrder (ID_product, ID_order, price, quantity) VALUES
   (4, 1, 89.99, 1),
   (2, 2, 599.99, 1),
   (3, 3, 199.90, 1);
-  
+ 
+ /*
 -- Lists
 INSERT INTO Lists (ID_user, type, lastAccess) VALUES
-(10, 'cart', CURRENT_TIMESTAMP),
-(10, 'wishlist', CURRENT_TIMESTAMP),
-(20, 'cart', CURRENT_TIMESTAMP),
+(NULL, 'cart', CURRENT_TIMESTAMP),
+(NULL, 'wishlist', CURRENT_TIMESTAMP),
 (NULL, 'cart', CURRENT_TIMESTAMP);
+
 
 -- ItemList
 INSERT INTO ItemList (ID_list, ID_product, quantity) VALUES
@@ -160,31 +155,12 @@ INSERT INTO ItemList (ID_list, ID_product, quantity) VALUES
 (1, 2, 1),
 (2, 3, NULL),
 (3, 1, 1),
-(4, 2, 4);
-
+(3, 3, 10);
+*/
+  
 -- Newsletters
 INSERT INTO Newsletters (email) VALUES
 ('mario.rossi@example.com'),
 ('giulia.bianchi@example.com'),
 ('andrea.verdi@example.com');
   
-
-SELECT * FROM Admin;
-
-SELECT * FROM Users;
-
-SELECT * FROM Products;
-
-SELECT * FROM Orders;
-
-SELECT * FROM Reviews;
-
-SELECT * FROM Bills;
-
-SELECT * FROM ProductOrder;
-
-SELECT * FROM Newsletters;
-
-SELECT * FROM Lists;
-
-SELECT * FROM ItemList;

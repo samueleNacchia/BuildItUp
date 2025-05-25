@@ -27,7 +27,6 @@ public class UpdateOrder extends HttpServlet {
 		try {
 			orderDao.updateStatus(order);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -36,7 +35,6 @@ public class UpdateOrder extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

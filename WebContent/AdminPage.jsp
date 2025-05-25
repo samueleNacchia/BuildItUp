@@ -2,10 +2,10 @@
 <%@ page import="java.util.*, model.Product.ProductDAO, model.Order.OrderDAO" %>
 <%@ page import="model.Product.ProductDTO, model.Order.OrderDTO" %>
 
-<%
+<%/*
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
    	response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
+    response.setDateHeader("Expires", 0);*/
 
 	ProductDAO productDao = new ProductDAO();
 	OrderDAO orderDao  = new OrderDAO();
@@ -117,16 +117,17 @@
             
             <td>
             <input type="submit" value="update" onclick="return confirm('Aggiornare <%=p.getName() %>?')"/>
+     	</form>  
             
-            <a href="AddToList?type=wishlist&id=<%=p.getId()%>" style="text-decoration: none;  ">
+            <a href="AddToList?type=wishlist&id=<%=p.getId()%>" style="text-decoration: none; cursor: pointer; enctype="multipart/form-data"">
   				<i class="fa-solid fa-heart" id="wishlist-icon" style="font-size: 20px; color: dimgray;"></i>
 			</a>
 
-			<a href="AddToList?type=cart&id=<%=p.getId()%>" style="text-decoration: none; cursor: pointer;">
+			<a href="AddToList?type=cart&id=<%=p.getId()%>" style="text-decoration: none; cursor: pointer; enctype="multipart/form-data"">
   				<i class="fa-solid fa-shopping-cart" id="cart-icon" style="font-size: 20px; color: dimgray"></i>
 			</a>
 			</td>
-       </form>
+       
     </tr>
     <%
             }
