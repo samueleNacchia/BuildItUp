@@ -32,7 +32,12 @@ public class ItemListDAO {
 
             stmt.setInt(1, itemList.getId_list());
             stmt.setInt(2, itemList.getId_product());
-            stmt.setInt(3, itemList.getQuantity());
+            
+            if (itemList.getQuantity() != 0) {
+        	    stmt.setInt(3, itemList.getQuantity());
+        	} else {
+        	    stmt.setNull(3, java.sql.Types.INTEGER);
+        	}
             
             stmt.executeUpdate();
 
@@ -67,6 +72,30 @@ public class ItemListDAO {
         }
        
         return itemsList;
+    }
+    
+    
+ // Metodo per recuperare un prodotto da una lista (sia essa una wishlist o il carrello)
+    public ItemListDTO findProduct(int idList, int idProduct) throws SQLException {
+        ItemListDTO item = null;
+        String query = "SELECT * FROM ItemList WHERE ID_list = ? AND ID_product = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+    	
+        	stmt.setInt(1, idList);
+        	stmt.setInt(2, idProduct);
+        	
+        	try (ResultSet rs = stmt.executeQuery()) {
+        		if (rs.next()) { 
+        			item = new ItemListDTO();
+	                item.setId_list(rs.getInt("ID_list"));
+	                item.setId_product(rs.getInt("ID_product"));
+	                item.setQuantity(rs.getInt("quantity"));
+        		}
+        	}
+        }
+        return item;
     }
     
 
@@ -118,6 +147,21 @@ public class ItemListDAO {
 
         	stmt.setInt(1, idList);
         	stmt.setInt(2, idProduct);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+    
+    
+ // Metodo per eliminare un prodotto da tutte le liste (wishlist/carrello)
+    public boolean deleteProductFromLists(int idProduct) throws SQLException {
+    	String query = "DELETE FROM ItemList WHERE ID_product=?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+        	stmt.setInt(1, idProduct);
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;

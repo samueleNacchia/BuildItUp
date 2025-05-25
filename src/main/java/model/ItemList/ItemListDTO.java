@@ -9,6 +9,7 @@ public class ItemListDTO {
 	private ProductDTO	 product;
 	
 	public ItemListDTO() {
+		quantity = 0;
 	}
 	
 	public ItemListDTO(int id_list, int id_product, int quantity) {

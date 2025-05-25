@@ -13,7 +13,9 @@ import java.sql.ResultSet;
 
 @WebServlet("/image")
 public class ViewImage extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	int id = Integer.parseInt(request.getParameter("id"));
     	String n = request.getParameter("n"); 
         byte[] imageData = null;

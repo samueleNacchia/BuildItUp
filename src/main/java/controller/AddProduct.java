@@ -8,9 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
 
 import model.Category;
@@ -33,8 +31,6 @@ public class AddProduct extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductDAO productDao = new ProductDAO();
 		ProductDTO product = new ProductDTO();
-		
-		Part nome = request.getPart("nome");
 		
 		product.setName(readPartAsString(request.getPart("nome")));
 		product.setDescription(readPartAsString(request.getPart("descrizione")));
@@ -60,7 +56,6 @@ public class AddProduct extends HttpServlet {
 		try {
 			productDao.save(product);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -69,7 +64,6 @@ public class AddProduct extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

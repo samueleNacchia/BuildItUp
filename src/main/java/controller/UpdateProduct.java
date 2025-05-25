@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import model.Category;
+import model.ItemList.ItemListDAO;
 import model.Product.ProductDAO;
 import model.Product.ProductDTO;
 
@@ -30,54 +31,66 @@ public class UpdateProduct extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductDAO productDao = new ProductDAO();
-		ProductDTO product = new ProductDTO();
+		if (request.getContentType() != null && request.getContentType().toLowerCase().startsWith("multipart/")) {        
 		
-		product.setId(Integer.parseInt(readPartAsString(request.getPart("id"))));
-		product.setName(readPartAsString(request.getPart("nome")));
-		product.setDescription(readPartAsString(request.getPart("descrizione")));
-		product.setPrice(Float.parseFloat(readPartAsString(request.getPart("prezzo"))));
-		product.setDiscount(Float.parseFloat(readPartAsString(request.getPart("sconto"))));
-		product.setCategory(Category.valueOf(readPartAsString(request.getPart("categoria"))));
-		product.setOnSale("true".equals(readPartAsString(request.getPart("inVendita"))));
-		product.setStocks(Integer.parseInt(readPartAsString(request.getPart("stocks"))));
-		
-		Part immagine1 = request.getPart("immagine1");
-		Part immagine2 = request.getPart("immagine2");
-		Part immagine3 = request.getPart("immagine3");
-		
-		if (immagine1 != null && immagine1.getSize() > 0)  
-		    product.setImage1(immagine1.getInputStream().readAllBytes());
-		if (immagine2 != null && immagine2.getSize() > 0)  
-		    product.setImage2(immagine2.getInputStream().readAllBytes());
-		if (immagine3 != null && immagine3.getSize() > 0)  
-		    product.setImage3(immagine3.getInputStream().readAllBytes());
-		
-		String deleteImgStr = readPartAsString(request.getPart("deleteImage"));
-	    if (deleteImgStr != null) {
-	        int imgToDelete = Integer.parseInt(deleteImgStr);
-	        switch (imgToDelete) {
-	            case 1:
-	                product.setImage1(null);
-	                break;
-	            case 2:
-	               product.setImage2(null); 
-	                break;
-	            case 3:
-	               product.setImage3(null);
-	                break;
-	        }
-	        try {
-	            productDao.deleteImage(product.getId(), imgToDelete);
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-		try {
+			int idProduct =  Integer.parseInt(readPartAsString(request.getPart("id")));
 			
-			productDao.updateAll(product);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ProductDTO product;
+			try {
+				product = productDao.findByCode(idProduct);
+				
+				boolean onSaleBefore = product.isOnSale();
+				
+				product.setName(readPartAsString(request.getPart("nome")));
+				product.setDescription(readPartAsString(request.getPart("descrizione")));
+				product.setPrice(Float.parseFloat(readPartAsString(request.getPart("prezzo"))));
+				product.setDiscount(Float.parseFloat(readPartAsString(request.getPart("sconto"))));
+				product.setCategory(Category.valueOf(readPartAsString(request.getPart("categoria"))));
+				product.setOnSale("true".equals(readPartAsString(request.getPart("inVendita"))));
+				product.setStocks(Integer.parseInt(readPartAsString(request.getPart("stocks"))));
+				
+				Part immagine1 = request.getPart("immagine1");
+				Part immagine2 = request.getPart("immagine2");
+				Part immagine3 = request.getPart("immagine3");
+				
+				if (immagine1 != null && immagine1.getSize() > 0)  
+				    product.setImage1(immagine1.getInputStream().readAllBytes());
+				if (immagine2 != null && immagine2.getSize() > 0)  
+				    product.setImage2(immagine2.getInputStream().readAllBytes());
+				if (immagine3 != null && immagine3.getSize() > 0)  
+				    product.setImage3(immagine3.getInputStream().readAllBytes());
+				
+				String deleteImgStr = readPartAsString(request.getPart("deleteImage"));
+			    if (deleteImgStr != null) {
+			        int imgToDelete = Integer.parseInt(deleteImgStr);
+			        switch (imgToDelete) {
+			            case 1:
+			                product.setImage1(null);
+			                break;
+			            case 2:
+			               product.setImage2(null); 
+			                break;
+			            case 3:
+			               product.setImage3(null);
+			                break;
+			        }
+			        
+			            productDao.deleteImage(product.getId(), imgToDelete);
+			        
+			    }
+			
+				productDao.updateAll(product);
+				
+				
+				if(!product.isOnSale() && onSaleBefore) {
+					ItemListDAO itemListDao = new ItemListDAO();
+					itemListDao.deleteProductFromLists(idProduct);
+				}
+			
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		response.setContentType("text/html;charset=UTF-8");
@@ -85,7 +98,6 @@ public class UpdateProduct extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
