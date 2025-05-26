@@ -9,7 +9,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import model.Category;
 import model.DataSourceManager;
+import model.Product.ProductDAO;
+import model.Product.ProductDTO;
 
 public class ProductOrderDAO {
     private DataSource dataSource;
@@ -32,12 +35,12 @@ public class ProductOrderDAO {
             stmt.setInt(2, productOrder.getId_order());
             stmt.setFloat(3, productOrder.getPrice());
             stmt.setInt(4, productOrder.getQuantity());
-            
+          
             stmt.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println("Errore durante il salvataggio del prodotto: " + e.getMessage());
-            e.printStackTrace(); // rilancia l'eccezione se necessario
+            throw e; // rilancia l'eccezione se necessario
         }
     }
 
@@ -95,6 +98,7 @@ public class ProductOrderDAO {
         return productOrders;
     }
     
+    
  // Metodo per recuperare tutti i prodotti
     public List<ProductOrderDTO> findAll() throws SQLException {
         List<ProductOrderDTO> productOrders = new ArrayList<>();
@@ -120,5 +124,38 @@ public class ProductOrderDAO {
        
         return productOrders;
     }
+    
+    
+ // Metodo per recuperare tutti i prodotti ordinati, in ordine di quantità venduta
+    public List<ProductDTO> GetBestsellers() throws SQLException {
+        List<ProductDTO> bs = new ArrayList<>();
+        String query = """
+                SELECT p.ID, p.name, p.image1, SUM(po.quantity) AS quantity
+                FROM ProductOrder po
+                JOIN Products p ON po.ID_product = p.ID
+                GROUP BY p.ID, p.name, p.image1
+                ORDER BY quantity DESC LIMIT 5
+            """;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+        		        		
+            try(ResultSet rs = stmt.executeQuery()) {
+    	
+	            while (rs.next()) { 
+	           
+	            	ProductDTO p = new ProductDTO();
+	                p.setId(rs.getInt("ID"));
+	                p.setName(rs.getString("name"));
+	                p.setImage1(rs.getBytes("image1"));
+	                
+	                bs.add(p);
+	            }
+            }
+        }
+       
+        return bs;
+    }
+    
     
 }

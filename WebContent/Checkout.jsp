@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
 </head>
 <body>
-<a href="index.html">Home</a>
+<a href="Home">Home</a>
     <h2>Riepilogo del tuo ordine</h2>
     <table>
         <tr>

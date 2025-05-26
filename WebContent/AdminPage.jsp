@@ -25,7 +25,7 @@
 <body>      
        
 <h1>Pannello di Amministrazione</h1>
-<a href="index.html">Home</a>
+<a href="Home">Home</a>
 <br>
 <!-- Sezione: Inserimento nuovo prodotto -->
 <h2>Inserisci Nuovo Prodotto</h2>
@@ -103,15 +103,15 @@
             <td><input type="checkbox" name="inVendita" value="true" <% if (p.isOnSale()) { %> checked <% } %> /></td>
             <td><input type="number" name="stocks" min=0 value="<%= p.getStocks() %>" step="1" /></td>
             
-            <td><img src="<%= request.getContextPath() %>/image?id=<%= p.getId() %>&n=1" >
+            <td><img src="image?id=<%= p.getId() %>&n=1" >
             <input type="submit" name="deleteImage" value="1">
     		<input type="file" name="immagine1" accept="image/*"></td>
             
-            <td><img src="<%= request.getContextPath() %>/image?id=<%= p.getId() %>&n=2" >
+            <td><img src="image?id=<%= p.getId() %>&n=2" >
             <input type="submit" name="deleteImage" value="2">
     		<input type="file" name="immagine2" accept="image/*"></td>
             
-            <td><img src="<%= request.getContextPath() %>/image?id=<%= p.getId() %>&n=3" >
+            <td><img src="image?id=<%= p.getId() %>&n=3" >
             <input type="submit" name="deleteImage" value="3">
     		<input type="file" name="immagine3" accept="image/*"></td>
             

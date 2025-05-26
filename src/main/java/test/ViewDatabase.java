@@ -73,7 +73,7 @@ public class ViewDatabase extends HttpServlet {
             
         } catch (SQLException e) {
             e.printStackTrace();
-            request.setAttribute("errore", "Errore durante il recupero dei pati.");
+            request.setAttribute("errore", "Errore durante il recupero dei dati.");
         }
         
         response.setContentType("text/html;charset=UTF-8");

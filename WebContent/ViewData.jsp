@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
-	<a href="index.html">Home</a>
+	<a href="Home">Home</a>
 
 	<h1>Utenti</h1>
 	
@@ -136,9 +136,9 @@
                     <td><%= p.getDiscount() %></td>
                     <td><%= p.isOnSale() %></td>
                     <td><%= p.getStocks() %></td>
-                    <td><img src="<%= request.getContextPath() %>/image?id=<%= p.getId() %>&n=1" >
-                    <td><img src="<%= request.getContextPath() %>/image?id=<%= p.getId() %>&n=2" >
-                    <td><img src="<%= request.getContextPath() %>/image?id=<%= p.getId() %>&n=3" >
+                    <td><img src="image?id=<%= p.getId() %>&n=1" >
+                    <td><img src="image?id=<%= p.getId() %>&n=2" >
+                    <td><img src="image?id=<%= p.getId() %>&n=3" >
                 </tr>
             <%
                 }

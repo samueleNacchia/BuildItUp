@@ -85,17 +85,18 @@
         <p><strong>Data Ordine:</strong> <%= ordine.getOrderDate().format(formatter) %></p>
         <p><strong>Stato:</strong> <%= ordine.getStatus() %></p>
     </div>
+    
+    <div class="back-link">
+        <a href="Home"">Torna alla home</a>
+    </div>
     <%
         } else {
     %>
     <p><h1 style="color:red;">Ordine Fallito!</h1></p>
+    <a href="Home" style="color:red;">Torna alla home</a>
     <%
         }
     %>
-
-    <div class="back-link">
-        <a href="index.html" style="color:red;">Torna alla home</a>
-    </div>
 </div>
 </body>
 </html>
