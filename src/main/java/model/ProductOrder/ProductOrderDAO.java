@@ -9,7 +9,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import model.Category;
 import model.DataSourceManager;
+import model.Product.ProductDAO;
+import model.Product.ProductDTO;
 
 public class ProductOrderDAO {
     private DataSource dataSource;
@@ -94,4 +97,39 @@ public class ProductOrderDAO {
        
         return productOrders;
     }
+    
+    
+    
+ // Metodo per recuperare tutti i prodotti ordinati, in ordine di quantità venduta
+    public List<ProductDTO> GetBestsellers() throws SQLException {
+        List<ProductDTO> bs = new ArrayList<>();
+        String query = """
+                SELECT p.ID, p.name, p.image1, SUM(po.quantity) AS quantity
+                FROM ProductOrder po
+                JOIN Products p ON po.ID_product = p.ID
+                GROUP BY p.ID, p.name, p.image1
+                ORDER BY quantity DESC LIMIT 5
+            """;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+        		        		
+            try(ResultSet rs = stmt.executeQuery()) {
+    	
+	            while (rs.next()) { 
+	           
+	            	ProductDTO p = new ProductDTO();
+	                p.setId(rs.getInt("ID"));
+	                p.setName(rs.getString("name"));
+	                p.setImage1(rs.getBytes("image1"));
+	                
+	                bs.add(p);
+	            }
+            }
+        }
+       
+        return bs;
+    }
+    
+    
 }

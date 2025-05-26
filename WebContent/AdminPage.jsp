@@ -25,7 +25,7 @@
 <body>      
        
 <h1>Pannello di Amministrazione</h1>
-<a href="index.html">Home</a>
+<a href="Home">Home</a>
 <br>
 <!-- Sezione: Inserimento nuovo prodotto -->
 <h2>Inserisci Nuovo Prodotto</h2>
