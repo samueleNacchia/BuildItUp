@@ -10,6 +10,10 @@
 <%@ page import="model.List.ListDTO" %>
 <%@ page import="model.ItemList.ItemListDTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+
+<% DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); %>
+
 <html>
 <head>
     <title>Product-Users</title>
@@ -170,7 +174,7 @@
                 <tr>
                     <td><%= o.getId() %></td>
                     <td><%= o.getId_user() %></td>
-                    <td><%= o.getOrderDate() %></td>
+                    <td><%= o.getOrderDate().format(formatter) %></td>
                     <td><%= o.getStatus() %></td>
                 </tr>
             <%
@@ -244,7 +248,7 @@
                     <td><%= r.getId_product() %></td>
                     <td><%= r.getText() %></td>
                     <td><%= r.getVote() %></td>
-                    <td><%= r.getReviewDate() %></td>
+                    <td><%= r.getReviewDate().format(formatter) %></td>
                 </tr>
             <%
                 }
@@ -276,7 +280,7 @@
                 <tr>
                     <td><%= b.getId_order() %></td>
                     <td><%= b.getTotal() %></td>
-                    <td><%= b.getBillDate() %></td>
+                    <td><%= b.getBillDate().format(formatter) %></td>
                 </tr>
             <%
                 }

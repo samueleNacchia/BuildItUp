@@ -94,6 +94,34 @@ public class ReviewDAO {
        
         return reviews;
     }
+    
+    
+ // Metodo per recuperare tutte le recensioni
+    public List<ReviewDTO> findAll() throws SQLException {
+        List<ReviewDTO> reviews = new ArrayList<>();
+        String query = "SELECT * FROM Reviews";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+        	
+        	try(ResultSet rs = stmt.executeQuery()){
+        	
+	            while (rs.next()) { 
+	                ReviewDTO review = new ReviewDTO();
+	                review.setId_user(rs.getInt("ID_user"));
+	                review.setId_product(rs.getInt("ID_product"));
+	                review.setText(rs.getString("text"));
+	                review.setVote(rs.getInt("vote"));
+	                review.setReviewDate(rs.getDate("reviewDate").toLocalDate());
+	                
+	                reviews.add(review);
+	            }
+        	}
+        }
+       
+        return reviews;
+    }
+    
 
     // Metodo per aggiornare una recensione nel database
     public boolean update(ReviewDTO review) throws SQLException {

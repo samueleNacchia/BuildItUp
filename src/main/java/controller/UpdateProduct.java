@@ -13,8 +13,7 @@ import java.sql.SQLException;
 
 import model.Category;
 import model.ItemList.ItemListDAO;
-import model.Product.ProductDAO;
-import model.Product.ProductDTO;
+import model.Product.*;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 16) // max 16MB per file
 @WebServlet("/UpdateProduct")

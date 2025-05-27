@@ -4,10 +4,6 @@
 <%@ page import="model.Product.ProductDTO" %>
 
 <%
-	/*
-	In questa pagina dovrebbe arrivare la lista di prodotti non di item!!
-	*/
-
     //Prendo la lista di item passata dalla servlet
     List<ItemListDTO> items = (List<ItemListDTO>) request.getAttribute("items");
     String type = request.getParameter("type"); // "cart" oppure "wishlist"
@@ -72,11 +68,12 @@
       
                     for (ItemListDTO item : items) {
                     	product = item.getProduct();
+                    	float price = product.getPrice() * (1 - product.getDiscount());
                     	
                 %>
                 <tr>
-                    <td><%= product.getName()%></td>
-                    <td><%= product.getPrice()%></td>
+                    <td><%= product.getName() %></td>
+                    <td><%= String.format("%.2f", price) %></td>
                     <td>
                     	<!--<a href="Product?id=x"> -->
                     	<img src="<%= request.getContextPath() %>/image?id=<%= product.getId() %>&n=1" >
@@ -106,6 +103,12 @@
                     }
                 %>
         </table>
+         <% if (type.equals("cart")) { %>
+  			<a href="GetList?type=<%=type%>&to=checkout" style="text-decoration: none;">
+  				<input type="submit" value="Acquista">
+			</a>
+			
+       <% } %>
     <%
         }
     %>

@@ -32,12 +32,12 @@ public class ProductOrderDAO {
             stmt.setInt(2, productOrder.getId_order());
             stmt.setFloat(3, productOrder.getPrice());
             stmt.setInt(4, productOrder.getQuantity());
-          
+            
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Errore durante il salvataggio dell'utente: " + e.getMessage());
-            throw e; // rilancia l'eccezione se necessario
+            System.out.println("Errore durante il salvataggio del prodotto: " + e.getMessage());
+            e.printStackTrace(); // rilancia l'eccezione se necessario
         }
     }
 
@@ -94,4 +94,31 @@ public class ProductOrderDAO {
        
         return productOrders;
     }
+    
+ // Metodo per recuperare tutti i prodotti
+    public List<ProductOrderDTO> findAll() throws SQLException {
+        List<ProductOrderDTO> productOrders = new ArrayList<>();
+        String query = "SELECT * FROM ProductOrder";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+        		
+        		
+            try(ResultSet rs = stmt.executeQuery()) {
+	            while (rs.next()) { 
+	           
+	                ProductOrderDTO productOrder = new ProductOrderDTO();
+	                productOrder.setId_product(rs.getInt("ID_product"));
+	                productOrder.setId_order(rs.getInt("ID_order"));
+	            	productOrder.setPrice(rs.getFloat("price"));
+	            	productOrder.setQuantity(rs.getInt("quantity"));
+	                
+	                productOrders.add(productOrder);
+	            }
+            }
+        }
+       
+        return productOrders;
+    }
+    
 }

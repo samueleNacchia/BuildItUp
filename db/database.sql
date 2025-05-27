@@ -134,6 +134,7 @@ INSERT INTO Bills (ID_order, total, billDate) VALUES
   (1, 516.98, '2025-05-10'),
   (2, 629.99, '2025-05-12');
 
+
 -- ProductOrder
 INSERT INTO ProductOrder (ID_product, ID_order, price, quantity) VALUES
   (1, 1, 429.99, 1),
@@ -141,7 +142,7 @@ INSERT INTO ProductOrder (ID_product, ID_order, price, quantity) VALUES
   (2, 2, 599.99, 1),
   (3, 3, 199.90, 1);
  
- /*
+/* 
 -- Lists
 INSERT INTO Lists (ID_user, type, lastAccess) VALUES
 (NULL, 'cart', CURRENT_TIMESTAMP),

@@ -2,10 +2,10 @@
 <%@ page import="java.util.*, model.Product.ProductDAO, model.Order.OrderDAO" %>
 <%@ page import="model.Product.ProductDTO, model.Order.OrderDTO" %>
 
-<%/*
+<%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
    	response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);*/
+    response.setDateHeader("Expires", 0);
 
 	ProductDAO productDao = new ProductDAO();
 	OrderDAO orderDao  = new OrderDAO();

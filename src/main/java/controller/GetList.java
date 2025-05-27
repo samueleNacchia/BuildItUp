@@ -25,26 +25,37 @@ public class GetList extends HttpServlet {
         ProductDAO productDao = new ProductDAO();
     	
     	try {
-            ListType type = ListType.valueOf(request.getParameter("type"));
-            ListDTO list = ListManager.getList(request, response, type);
-
-            List<ItemListDTO> items = null;
-            if (list != null) {
-                items = itemsDao.findByList(list.getId());
-                if (items != null) {
-                    for (ItemListDTO item : items) {
-                        try {
-                            item.setProduct(productDao.findByCode(item.getId_product()));
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-
-            request.setAttribute("items", items);
+    		if(request.getParameter("type") != null) {
+    			ListType type = ListType.valueOf(request.getParameter("type"));
+	            ListDTO list = ListManager.getList(request, response, type);
+	
+	            List<ItemListDTO> items = null;
+	            if (list != null) {
+	                items = itemsDao.findByList(list.getId());
+	                if (items != null) {
+	                    for (ItemListDTO item : items) {
+	                        try {
+	                            item.setProduct(productDao.findByCode(item.getId_product()));
+	                        } catch (SQLException e) {
+	                            e.printStackTrace();
+	                        }
+	                    }
+	                }
+	            }
+	         
+	            request.setAttribute("items", items);
+    		}
+    		
             response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/ViewList.jsp").forward(request, response);
+            
+            
+            String str = request.getParameter("to");
+
+            if (str!=null && str.equals("checkout"))
+                request.getRequestDispatcher("/Checkout.jsp").forward(request, response);
+            else 
+                request.getRequestDispatcher("/ViewList.jsp").forward(request, response);
+            
 
         } catch (SQLException e) {
             e.printStackTrace();

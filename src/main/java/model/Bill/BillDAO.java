@@ -44,7 +44,7 @@ public class BillDAO {
 
 
     // Metodo per recuperare una fattura per codice
-    public BillDTO findByCode(int code) throws SQLException {
+    public BillDTO findByOrder(int code) throws SQLException {
         String query = "SELECT * FROM Bills WHERE ID_order = ?";
         BillDTO bill = null;
 

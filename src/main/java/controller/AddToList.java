@@ -6,11 +6,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.ListType;
-import model.ItemList.ItemListDAO;
-import model.ItemList.ItemListDTO;
+import model.ItemList.*;
 import model.List.ListDTO;
-import model.Product.ProductDAO;
-import model.Product.ProductDTO;
+import model.Product.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -33,7 +31,7 @@ public class AddToList extends HttpServlet {
             
             ListDTO list = ListManager.getList(request, response, type);
             
-            if (product != null && product.isOnSale()) {
+            if (product != null && product.isOnSale() && product.getStocks()>0) {
                 
 	            if (list == null) {
 	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lista non trovata o creata");

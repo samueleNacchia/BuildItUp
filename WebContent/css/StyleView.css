@@ -35,6 +35,7 @@ form select {
     box-sizing: border-box;
 }
 
+input[type="submit"],
 form input[type="submit"],
 td input[type="submit"] {
     background-color: #2ecc71;

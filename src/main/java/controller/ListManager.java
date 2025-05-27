@@ -5,8 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.ListType;
-import model.List.ListDAO;
-import model.List.ListDTO;
+import model.List.*;
 
 import static controller.function.GetCookie.*;
 import static controller.function.HashFunction.*;

@@ -1,28 +1,15 @@
 package test;
 
-import model.Admin.AdminDAO;
-import model.Admin.AdminDTO;
-import model.Bill.BillDAO;
-import model.Bill.BillDTO;
-import model.Order.OrderDAO;
-import model.Order.OrderDTO;
-import model.Product.ProductDAO;
-import model.Product.ProductDTO;
-import model.ProductOrder.ProductOrderDAO;
-import model.ProductOrder.ProductOrderDTO;
-import model.Review.ReviewDAO;
-import model.Review.ReviewDTO;
-import model.User.UserDAO;
-import model.User.UserDTO;
-
-import model.Newsletter.NewsletterDAO;
-import model.Newsletter.NewsletterDTO;
-
-import model.List.ListDAO;
-import model.List.ListDTO;
-
-import model.ItemList.ItemListDAO;
-import model.ItemList.ItemListDTO;
+import model.Admin.*;
+import model.Bill.*;
+import model.Order.*;
+import model.Product.*;
+import model.ProductOrder.*;
+import model.Review.*;
+import model.User.*;
+import model.Newsletter.*;
+import model.List.*;
+import model.ItemList.*;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -61,17 +48,14 @@ public class ViewDatabase extends HttpServlet {
             List<OrderDTO> ordini = OrderDao.findAll();
             request.setAttribute("ordini", ordini);
             
-            for(OrderDTO order : ordini) {
-            	List<ProductOrderDTO> prodottiOrdinati = ProductOrderDao.findAllforOrder(order.getId());
-            	request.setAttribute("prodottiOrdinati", prodottiOrdinati);
-            	break;
-            }
             
-            for(ProductDTO product : prodotti) {
-            	List<ReviewDTO> recensioniProdotto = ReviewDao.findAllforProduct(product.getId());
-                request.setAttribute("recensioniProdotto", recensioniProdotto);
-            	break;
-            }
+            List<ProductOrderDTO> prodottiOrdinati = ProductOrderDao.findAll();
+            request.setAttribute("prodottiOrdinati", prodottiOrdinati);
+            
+            
+            List<ReviewDTO> recensioniProdotto = ReviewDao.findAll();
+            request.setAttribute("recensioniProdotto", recensioniProdotto);
+            
             
             List<BillDTO> fatture = BillDao.findAll();
             request.setAttribute("fatture", fatture);

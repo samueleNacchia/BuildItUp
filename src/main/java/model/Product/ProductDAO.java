@@ -135,6 +135,21 @@ public class ProductDAO {
         }
     }
     
+    // Metodo per aggiornare le disponibilità di un prodotto nel database
+    public boolean updateStock(int id, int stock) throws SQLException {
+        String query = "UPDATE Products SET stocks=? WHERE ID=?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+        	
+        	stmt.setInt(1, stock);
+            stmt.setInt(2, id);	
+        	
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+    
 
     public boolean updateAll(ProductDTO product) throws SQLException {
         StringBuilder sql = new StringBuilder(
