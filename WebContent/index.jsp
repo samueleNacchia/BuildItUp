@@ -49,11 +49,10 @@
 			            String base64Image = Base64.getEncoder().encodeToString(imgBytes);
 			    %>
 			        <img src="data:image/jpeg;base64,<%= base64Image %>" alt="Immagine prodotto">
-			        
+        
 			        <!--  PER VISUALIZZARE L'IMMAGINE DI UN DETERMINATO PRODOTTO 
 			        <img src="image?id=<%= u.getId() %>&n=1" >
 			        -->
-			        
 			    <%
 			        } else {
 			    %>

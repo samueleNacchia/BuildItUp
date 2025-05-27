@@ -97,7 +97,7 @@ public class ProductOrderDAO {
        
         return productOrders;
     }
-    
+
     
  // Metodo per recuperare tutti i prodotti
     public List<ProductOrderDTO> findAll() throws SQLException {
@@ -125,7 +125,7 @@ public class ProductOrderDAO {
         return productOrders;
     }
     
-    
+
  // Metodo per recuperare tutti i prodotti ordinati, in ordine di quantità venduta
     public List<ProductDTO> GetBestsellers() throws SQLException {
         List<ProductDTO> bs = new ArrayList<>();
