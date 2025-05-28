@@ -224,4 +224,185 @@ public class ProductDAO {
             return rowsAffected > 0;
         }
     }
+    
+    
+    public List<ProductDTO> getFilteredProducts(String type, int limit, String name,String category, Double minPrice, Double maxPrice, int page, int pageSize) throws SQLException {
+        List<ProductDTO> products = new ArrayList<>();
+        if ("bestsellers".equalsIgnoreCase(type)) {
+            StringBuilder query = new StringBuilder(
+                "SELECT p.ID, p.name, p.image1, p.price, SUM(po.quantity) AS quantity " +
+                "FROM ProductOrder po " +
+                "JOIN Products p ON po.ID_product = p.ID " +
+                "WHERE 1=1"
+            );
+
+            if (category != null && !category.isEmpty()) query.append(" AND p.category = ?");
+            if (minPrice != null) query.append(" AND p.price >= ?");
+            if (maxPrice != null) query.append(" AND p.price <= ?");
+            if (name != null && !name.isEmpty()) query.append(" AND p.name LIKE ?");
+
+            query.append(" GROUP BY p.ID, p.name, p.image1, p.price");
+            query.append(" ORDER BY quantity DESC");
+
+            if (limit > 0 && pageSize <= 0) {
+                query.append(" LIMIT ?");
+            } else if (pageSize > 0) {
+                query.append(" LIMIT ? OFFSET ?");
+            }
+
+            try (Connection con = dataSource.getConnection();
+                 PreparedStatement stmt = con.prepareStatement(query.toString())) {
+
+                int index = 1;
+                if (category != null && !category.isEmpty()) stmt.setString(index++, category);
+                if (minPrice != null) stmt.setDouble(index++, minPrice);
+                if (maxPrice != null) stmt.setDouble(index++, maxPrice);
+                if (name != null && !name.isEmpty()) stmt.setString(index++, "%" + name + "%");
+
+                if (limit > 0 && pageSize <= 0) {
+                    stmt.setInt(index++, limit);
+                } else if (pageSize > 0) {
+                    stmt.setInt(index++, pageSize);
+                    stmt.setInt(index++, (page - 1) * pageSize);
+                }
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        ProductDTO product = new ProductDTO();
+                        product.setId(rs.getInt("ID"));
+                        product.setName(rs.getString("name"));
+                        product.setImage1(rs.getBytes("image1"));
+                        product.setPrice(rs.getFloat("price"));
+                        products.add(product);
+                    }
+                }
+            }
+            return products;
+        }
+
+        
+        StringBuilder query = new StringBuilder("SELECT * FROM Products WHERE 1=1");
+
+        if ("discounts".equalsIgnoreCase(type)) {
+            query.append(" AND discount > 0");
+        }
+
+        if (category != null && !category.isEmpty()) query.append(" AND category = ?");
+        if (minPrice != null) query.append(" AND price >= ?");
+        if (maxPrice != null) query.append(" AND price <= ?");
+        if (name != null && !name.isEmpty()) query.append(" AND name LIKE ?");
+
+        if (pageSize > 0) {
+            query.append(" LIMIT ? OFFSET ?");
+        } else if (limit > 0) {
+            query.append(" LIMIT ?");
+        }
+
+        try (Connection con = dataSource.getConnection();
+             PreparedStatement stmt = con.prepareStatement(query.toString())) {
+
+            int index = 1;
+            if (category != null && !category.isEmpty()) stmt.setString(index++, category);
+            if (minPrice != null) stmt.setDouble(index++, minPrice);
+            if (maxPrice != null) stmt.setDouble(index++, maxPrice);
+            if (name != null && !name.isEmpty()) stmt.setString(index++, "%" + name + "%");
+
+            if (pageSize > 0) {
+                stmt.setInt(index++, pageSize);
+                stmt.setInt(index++, (page - 1) * pageSize);
+            } else if (limit > 0) {
+                stmt.setInt(index++, limit);
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    ProductDTO product = new ProductDTO();
+                    product.setId(rs.getInt("ID"));
+                    product.setName(rs.getString("name"));
+                    product.setImage1(rs.getBytes("image1"));
+                    product.setPrice(rs.getFloat("price"));
+                    if ("discounts".equalsIgnoreCase(type)) {
+                        product.setDiscount(rs.getFloat("discount"));
+                    }
+                    products.add(product);
+                }
+            }
+        }
+
+        return products;
+    }
+
+
+    public int countFiltered(String type, String category, Double minPrice, Double maxPrice, String name) throws SQLException {
+        StringBuilder query = new StringBuilder();
+        List<Object> params = new ArrayList<>();
+
+        if ("bestsellers".equalsIgnoreCase(type)) {
+            query.append("SELECT COUNT(DISTINCT p.ID) FROM ProductOrder po JOIN Products p ON po.ID_product = p.ID WHERE 1=1");
+            
+            if (category != null && !category.isEmpty()) {
+                query.append(" AND p.category = ?");
+                params.add(category);
+            }
+            if (minPrice != null) {
+                query.append(" AND p.price >= ?");
+                params.add(minPrice);
+            }
+            if (maxPrice != null) {
+                query.append(" AND p.price <= ?");
+                params.add(maxPrice);
+            }
+            if (name != null && !name.isEmpty()) {
+                query.append(" AND p.name LIKE ?");
+                params.add("%" + name + "%");
+            }
+        } else {
+            
+            query.append("SELECT COUNT(*) FROM Products WHERE 1=1");
+            
+            if ("discounts".equalsIgnoreCase(type)) {
+                query.append(" AND discount > 0");
+            }
+            if (category != null && !category.isEmpty()) {
+                query.append(" AND category = ?");
+                params.add(category);
+            }
+            if (minPrice != null) {
+                query.append(" AND price >= ?");
+                params.add(minPrice);
+            }
+            if (maxPrice != null) {
+                query.append(" AND price <= ?");
+                params.add(maxPrice);
+            }
+            if (name != null && !name.isEmpty()) {
+                query.append(" AND name LIKE ?");
+                params.add("%" + name + "%");
+            }
+        }
+
+        try (Connection con = dataSource.getConnection();
+             PreparedStatement stmt = con.prepareStatement(query.toString())) {
+
+            for (int i = 0; i < params.size(); i++) {
+                Object param = params.get(i);
+                if (param instanceof String) {
+                    stmt.setString(i + 1, (String) param);
+                } else if (param instanceof Double) {
+                    stmt.setDouble(i + 1, (Double) param);
+                }
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        }
+
+        return 0;
+    }
+
+
+
 }

@@ -29,14 +29,14 @@ public class HomeServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ProductDAO ProductDao = new ProductDAO();
-		ProductOrderDAO ProductOrderDao = new ProductOrderDAO();
+		ProductDAO p = new ProductDAO();
+		
 		
 		try {
-            List<ProductDTO> prodotti = ProductDao.findAll();
-            request.setAttribute("prodotti", prodotti);
+            List<ProductDTO> disc = p.getFilteredProducts("discounts", 5, null, null, null, null, 0, 0);
+            request.setAttribute("scontati", disc);
             
-            List<ProductDTO> bs = ProductOrderDao.GetBestsellers();
+            List<ProductDTO> bs = p.getFilteredProducts("bestsellers", 5,  null, null, null, null, 0, 0);
             request.setAttribute("bestsellers", bs);
             
 		}catch (SQLException e) {

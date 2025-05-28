@@ -13,9 +13,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 <link rel="stylesheet" href="css/style_index.css">
+<link rel="stylesheet" href="./css/style_header.css">
+<link rel="stylesheet" href="./css/style_footer.css">
+
 </head>
 <body>
-<%@ page import="java.util.Base64" %>
 <%@ include file="header.html"  %>
 
 <br><br><br><br><br>
@@ -27,8 +29,8 @@
 
 
 <%	
-        List<ProductDTO> prodotti = (List<ProductDTO>) request.getAttribute("prodotti");
-        if (prodotti == null || prodotti.isEmpty()) {
+        List<ProductDTO> prodottiScontati = (List<ProductDTO>) request.getAttribute("scontati");
+        if (prodottiScontati == null || prodottiScontati.isEmpty()) {
 %>
         <p>Nessun prodotto in sconto disponibile.</p>
     <%
@@ -37,8 +39,10 @@
      
      	<h1>Discounts</h1>
         <div class="products">
-		  <% for (ProductDTO u : prodotti) {
-		       if (u.isOnSale() && u.getDiscount() != 0.0) { %>
+        
+		  <% 	int cont = 0; 
+			  	for (ProductDTO u : prodottiScontati) {
+			  		%>
 		       
 		    <a href="productDetails?id=<%= u.getId() %>" class="product-link">
 		    <div class="product-card">
@@ -46,13 +50,11 @@
 		    	<%
 			        byte[] imgBytes = u.getImage1();
 			        if (imgBytes != null) {
-			            String base64Image = Base64.getEncoder().encodeToString(imgBytes);
+			            
 			    %>
-			        <img src="data:image/jpeg;base64,<%= base64Image %>" alt="Immagine prodotto">
-        
-			        <!--  PER VISUALIZZARE L'IMMAGINE DI UN DETERMINATO PRODOTTO 
+			      
 			        <img src="image?id=<%= u.getId() %>&n=1" >
-			        -->
+			        
 			    <%
 			        } else {
 			    %>
@@ -63,8 +65,9 @@
 		    	<h3><%= u.getName() %></h3>
 		      <p class="discount">Sconto: <%= u.getDiscount() %>%</p>
 		    </div>
+		    </a>
 		    
-		  <% } } %>
+		  <% }  %>
 		</div>
 
         
@@ -73,7 +76,7 @@
      %>
 
 <div class="view-all">
-    <a class="out" href="">View All</a>
+    <a class="out" href="CatalogViewer?type=discounts">View All</a>
 </div>
 
 </div>
@@ -106,10 +109,10 @@
 				<%
 			        byte[] imgBytes = u.getImage1();
 			        if (imgBytes != null) {
-            		String base64Image = Base64.getEncoder().encodeToString(imgBytes);
+            		
     			%>
     			
-        		<img src="data:image/jpeg;base64,<%= base64Image %>" alt="Immagine prodotto">
+        			<img src="image?id=<%= u.getId() %>&n=1" >
 			    <%
 			        } else {
 			    %>
@@ -120,7 +123,7 @@
 		    
 		      <h3><%= u.getName() %></h3>
 		    </div>
-		    
+		    </a>
 		  	<%
         }
      %>
@@ -135,7 +138,7 @@
      
 
 <div class="view-all">
-    <a class="out" href="">View All</a>
+    <a class="out" href="CatalogViewer?type=bestsellers">View All</a>
 </div>
 </div>
 
