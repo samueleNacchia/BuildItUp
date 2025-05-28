@@ -3,10 +3,6 @@
 <%@ page import="model.Product.ProductDTO, model.Order.OrderDTO" %>
 
 <%
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-   	response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-
 	ProductDAO productDao = new ProductDAO();
 	OrderDAO orderDao  = new OrderDAO();
     List<ProductDTO> prodotti = productDao.findAll();
@@ -30,9 +26,9 @@
 <!-- Sezione: Inserimento nuovo prodotto -->
 <h2>Inserisci Nuovo Prodotto</h2>
 <form action="AddProduct" method="post" enctype="multipart/form-data">
-    Nome: <input type="text" name="nome" required /><br><br>
-    Descrizione: <input type="textarea" name="descrizione" /><br><br>
-    Prezzo: <input type="number" name="prezzo" step="0.01" required /><br><br>
+    Nome: <input type="text" name="nome" required /><br>
+    Descrizione: <input type="textarea" name="descrizione" /><br>
+    Prezzo: <input type="number" name="prezzo" step="0.01" required /><br>
     Categoria: 
     	<select name="categoria">
         	<option value="CPU" selected>CPU</option>
@@ -44,18 +40,18 @@
             <option value="MEM">MEM</option>
             <option value="PSU">PSU</option>
     	</select>        
-    <br><br>
-    Disponibilità: <input type="number" name="stocks" min=0 step="1" required /><br><br>
+    <br>
+    Disponibilità: <input type="number" name="stocks" min=0 step="1" required /><br>
     
     Immagine 1: <input type="file" id="fileInput1" name="immagine1" accept="image/*">
-    <button type="button" onclick="document.getElementById('fileInput1').value = '';">Reset</button>
-    <br><br>
+    <!--<button type="button" onclick="document.getElementById('fileInput1').value = '';">Reset</button>--><br>
+   
     Immagine 2: <input type="file" id="fileInput2" name="immagine2" accept="image/*">
-    <button type="button" onclick="document.getElementById('fileInput2').value = '';">Reset</button>
-    <br><br>
+    <!--<button type="button" onclick="document.getElementById('fileInput2').value = '';">Reset</button>--><br>
+    
     Immagine 3: <input type="file" id="fileInput3" name="immagine3" accept="image/*">
-    <button type="button" onclick="document.getElementById('fileInput3').value = '';">Reset</button>
-    <br><br>
+    <!--<button type="button" onclick="document.getElementById('fileInput3').value = '';">Reset</button>--><br>
+    
     <input type="submit" value="Aggiungi Prodotto">
 </form>
 

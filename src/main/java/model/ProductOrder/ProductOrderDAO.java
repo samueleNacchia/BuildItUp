@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
-
-import model.Category;
 import model.DataSourceManager;
-import model.Product.ProductDAO;
 import model.Product.ProductDTO;
 
 public class ProductOrderDAO {
@@ -125,37 +122,51 @@ public class ProductOrderDAO {
         return productOrders;
     }
     
+    
+   public List<ProductDTO> getBestsellers(String category, String name, Double minPrice, Double maxPrice, int limit, int offset) throws SQLException {
+        List<ProductDTO> result = new ArrayList<>();
 
- // Metodo per recuperare tutti i prodotti ordinati, in ordine di quantità venduta
-    public List<ProductDTO> GetBestsellers() throws SQLException {
-        List<ProductDTO> bs = new ArrayList<>();
-        String query = """
-                SELECT p.ID, p.name, p.image1, SUM(po.quantity) AS quantity
-                FROM ProductOrder po
-                JOIN Products p ON po.ID_product = p.ID
-                GROUP BY p.ID, p.name, p.image1
-                ORDER BY quantity DESC LIMIT 5
-            """;
+        StringBuilder query = new StringBuilder("""
+            SELECT p.ID, p.name, p.image1, p.price, p.discount, SUM(po.quantity) AS quantity
+            FROM ProductOrder po JOIN Products p ON po.ID_product = p.ID  WHERE p.isOnSale=TRUE """);
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-        		        		
-            try(ResultSet rs = stmt.executeQuery()) {
-    	
-	            while (rs.next()) { 
-	           
-	            	ProductDTO p = new ProductDTO();
-	                p.setId(rs.getInt("ID"));
-	                p.setName(rs.getString("name"));
-	                p.setImage1(rs.getBytes("image1"));
-	                
-	                bs.add(p);
-	            }
+        if (category != null && !category.isEmpty()) query.append(" AND p.category = ?");
+        if (name != null && !name.isEmpty()) query.append(" AND p.name LIKE ?");
+        if (minPrice != null) query.append(" AND p.price >= ?");
+        if (maxPrice != null) query.append(" AND p.price <= ?");
+
+        query.append(" GROUP BY p.ID, p.name, p.image1, p.price ORDER BY quantity DESC");
+
+        if (limit > 0) {
+            query.append(" LIMIT ?");
+            if (offset >= 0) {
+                query.append(" OFFSET ?");
             }
         }
-       
-        return bs;
+
+        try (Connection con = dataSource.getConnection();
+             PreparedStatement stmt = con.prepareStatement(query.toString())) {
+
+            int index = 1;
+            if (category != null && !category.isEmpty()) stmt.setString(index++, category);
+            if (name != null && !name.isEmpty()) stmt.setString(index++, "%" + name + "%");
+            if (minPrice != null) stmt.setDouble(index++, minPrice);
+            if (maxPrice != null) stmt.setDouble(index++, maxPrice);
+            if (limit > 0) stmt.setInt(index++, limit);
+            if (limit > 0 && offset >= 0) stmt.setInt(index++, offset);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    ProductDTO product = new ProductDTO();
+                    product.setId(rs.getInt("ID"));
+                    product.setName(rs.getString("name"));
+                    product.setImage1(rs.getBytes("image1"));
+                    product.setPrice(rs.getFloat("price"));
+                    product.setDiscount(rs.getFloat("discount"));
+                    result.add(product);
+                }
+            }
+        }
+        return result;
     }
-    
-    
 }

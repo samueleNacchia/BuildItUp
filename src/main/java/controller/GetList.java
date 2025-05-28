@@ -27,7 +27,7 @@ public class GetList extends HttpServlet {
     	try {
     		if(request.getParameter("type") != null) {
     			ListType type = ListType.valueOf(request.getParameter("type"));
-	            ListDTO list = ListManager.getList(request, response, type);
+	            ListDTO list = ListManager.getList(request, response, type, false);
 	
 	            List<ItemListDTO> items = null;
 	            if (list != null) {
@@ -46,6 +46,9 @@ public class GetList extends HttpServlet {
 	            request.setAttribute("items", items);
     		}
     		
+    		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    		response.setHeader("Pragma", "no-cache");
+    		response.setDateHeader("Expires", 0);
             response.setContentType("text/html;charset=UTF-8");
             
             

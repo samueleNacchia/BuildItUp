@@ -35,6 +35,9 @@ public class ViewImage extends HttpServlet {
         }
 
         if (imageData != null) {
+        	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    		response.setHeader("Pragma", "no-cache");
+    		response.setDateHeader("Expires", 0);
             response.setContentType("image/jpeg"); // o image/png
             response.setContentLength(imageData.length);
             response.getOutputStream().write(imageData);

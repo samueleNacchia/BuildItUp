@@ -1,10 +1,15 @@
 @charset "UTF-8";
 
 html, body {
-  margin: 0;
-  padding: 0;
+  	margin: 0;
+  	padding: 0;
 }
 
+main.homepage {
+  	display: flex;
+  	flex-direction: column;
+  	flex: 1;
+}
 
 .homepage >div{
 	border-bottom: 5px solid #000;
@@ -13,53 +18,53 @@ html, body {
 }
 
 .products {
-  box-sizing: border-box;
-  padding: 2rem;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
+  	box-sizing: border-box;
+  	padding: 2rem;
+  	width: 100%;
+  	max-width: 100%;
+  	overflow-x: hidden;
+  	display: flex;
+  	flex-wrap: wrap;
+  	justify-content: center;
+  	gap: 1.5rem;
 }
 
 
 .product-card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 220px;
-  padding: 1rem;
-  text-align: center;
-  transition: transform 0.2s;
+  	background-color: #fff;
+  	border-radius: 8px;
+  	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  	width: 220px;
+  	padding: 1rem;
+  	text-align: center;
+  	transition: transform 0.2s;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  	transform: translateY(-5px);
 }
 
 .product-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
+  	width: 100%;
+  	height: auto;
+  	border-radius: 4px;
 }
 
 .product-card h3 {
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
-  color: #333;
+  	margin: 0.5rem 0;
+  	font-size: 1.1rem;
+  	color: #333;
 }
 
 .product-card .discount {
-  color: #e74c3c;
-  font-weight: bold;
+  	color: #e74c3c;
+  	font-weight: bold;
 }
 
 .product-link {
-  text-decoration: none;
-  color: inherit;
-  display: inline-block;
+  	text-decoration: none;
+  	color: inherit;
+  	display: inline-block;
 }
 
 .view-all {
@@ -88,72 +93,70 @@ html, body {
 }
 
 
-
 #newsletter {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
+  	display: flex;
+  	justify-content: center;
+  	margin-top: 2rem;
 }
 
 #newsletter form {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  background-color: #f2f2f2;
-  padding: 1rem 2rem;
-  border-radius: 8px;
+  	display: flex;
+  	align-items: center;
+  	gap: 1rem;
+  	background-color: #f2f2f2;
+  	padding: 1rem 2rem;
+ 	border-radius: 8px;
 }
 
 .newsletter-text {
-  font-size: 1.1rem;
-  font-weight: bold;
-  white-space: nowrap; 
+  	font-size: 1.1rem;
+  	font-weight: bold;
+  	white-space: nowrap; 
 }
 
 #newsletter input[type="email"] {
-  flex: 1;
-  min-width: 250px;
-  padding: 0.6rem 0.8rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  	flex: 1;
+  	min-width: 250px;
+  	padding: 0.6rem 0.8rem;
+  	border-radius: 4px;
+  	border: 1px solid #ccc;
 }
 
-#newsletter button {
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  font-size: 1.2rem;
-  line-height: 1;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+#newsletter input[type="submit"]{
+  	width: auto;
+  	height: auto;
+  	font-size: 1.2rem;
+  	line-height: 1;
+  	background-color: #007bff;
+  	color: white;
+  	border: none;
+  	border-radius: 6px;
+  	cursor: pointer;
+  	padding: 10px 18px;
+  	display: block;
+  	margin: 15px auto;
 }
 
 #newsletter button:hover {
-  background-color: #0056b3;
+  	background-color: #0056b3;
 }
-
-
 
 
 .swiper {
-  width: 100%;
-  padding: 2em 0;
+  	width: 100%;
+  	padding: 2em 0;
 }
 
 .swiper-slide {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  padding: 1em;
-  height: auto;
+  	background: white;
+  	border-radius: 10px;
+  	box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  	padding: 1em;
+  	height: auto;
 }
 
 .product-card img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
+  	width: 100%;
+  	height: auto;
+  	object-fit: cover;
 }
-

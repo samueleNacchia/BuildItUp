@@ -1,69 +1,78 @@
 @charset "UTF-8";
 
+html, body {
+  	height: 100%;
+  	margin: 0;
+  	padding: 0;
+}
 
-
+.page-wrapper {
+  	display: flex;
+  	flex-direction: column;
+  	min-height: 100vh;
+}
 
 footer.main {
-  width: 100%;
-  padding: 2em;
-  border-top-right-radius: 10%;
-  border-top-left-radius: 10%;
-  background: linear-gradient(to bottom, #297678, #263238);
-  font-size: 1rem;
-  box-sizing: border-box;
-  overflow-x: hidden; 
-  overflow-y: visible;  
-  clear: both;
-  color: #ECF0F1;
-  font-family: Arial, sans-serif;
-  flex-shrink: 0;
-  flex-grow: 0;         
-  height: auto;         
+  	width: 100%;
+  	padding: 2em;
+  	border-top-right-radius: 10%;
+  	border-top-left-radius: 10%;
+  	background: linear-gradient(to bottom, #297678, #263238);
+  	font-size: 1rem;
+  	box-sizing: border-box;
+  	overflow-x: hidden; 
+  	overflow-y: visible;  
+  	clear: both;
+  	color: #ECF0F1;
+  	font-family: Arial, sans-serif;
+  	flex-shrink: 0;
+  	flex-grow: 0;         
+  	height: auto;         
 }
 
 
 section.items {
-  display: flex;
-  justify-content: center;
-  gap: 2em;
-  align-items: stretch;
-  flex-wrap: nowrap;
+  	display: flex;
+  	justify-content: center;
+  	gap: 2em;
+  	align-items: stretch;
+  	flex-wrap: nowrap;
 }
 
 .item.logo img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+  	max-width: 100%;
+  	height: auto;
+  	display: block;
 }
 
 .separator {
-  background-color: white;
-  width: 2px;
-  height: auto;
-  border-radius: 1px;
-  margin: 0;
-  display: flex;
+  	background-color: white;
+  	width: 2px;
+  	height: auto;
+  	border-radius: 1px;
+  	margin: 0;
+  	display: flex;
 }
 
 #usrArea, #legal {
-  padding-left: 1em;
+  	padding-left: 1em;
 }
 
 .item-links {
-  padding: 0 0.5em;
-  color: #ECF0F1;
-  text-decoration: none;
-  transition: color 0.3s;
-  display: inline-block;
-  margin: 0.2em 0;
+  	padding: 0 0.5em;
+  	color: #ECF0F1;
+  	text-decoration: none;
+  	transition: color 0.3s;
+  	display: inline-block;
+  	margin: 0.2em 0;
 }
 
 .item-links:hover {
-  color: #5cade2;
-  text-decoration: underline;
+  	color: #5cade2;
+  	text-decoration: underline;
 }
 
 #logo {
-  margin-right: 3em;
-  align-items: center;
+  	margin-right: 3em;
+  	align-items: center;
 }

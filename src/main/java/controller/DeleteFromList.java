@@ -29,7 +29,7 @@ public class DeleteFromList extends HttpServlet {
             ProductDAO productDao = new ProductDAO();
             ProductDTO product = productDao.findByCode(productId);
             
-            ListDTO list = ListManager.getList(request, response, type);
+            ListDTO list = ListManager.getList(request, response, type, false);
             
             if (product != null) {
                 
@@ -49,7 +49,9 @@ public class DeleteFromList extends HttpServlet {
 	            	}
             }
             
-            
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    		response.setHeader("Pragma", "no-cache");
+    		response.setDateHeader("Expires", 0);
             response.setContentType("text/html;charset=UTF-8");
            
             // torna alla pagina precedente

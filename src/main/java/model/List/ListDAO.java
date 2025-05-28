@@ -176,7 +176,7 @@ public class ListDAO {
     
  // Metodo per eliminare una lista dal database
     public boolean deleteOldList() throws SQLException {
-    	String query = "DELETE FROM lists WHERE ID_user IS NULL AND lastAccess < NOW() - INTERVAL 12 HOUR;";
+    	String query = "DELETE FROM lists WHERE ID_user IS NULL AND lastAccess < NOW() - INTERVAL 12 HOUR";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {

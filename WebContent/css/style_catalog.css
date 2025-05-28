@@ -2,149 +2,149 @@
 
 
 html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  	height: 100%;
+  	margin: 0;
+  	padding: 0;
+  	box-sizing: border-box;
 }
 
 *, *::before, *::after {
-  box-sizing: inherit;
+  	box-sizing: inherit;
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; 
+  	display: flex;
+  	flex-direction: column;
+  	min-height: 100vh; 
 }
 
 main {
-  flex: 1 0 auto;
-  align-items: flex-start;
+  	flex: 1 0 auto;
+  	align-items: flex-start;
 }
 
 header, footer {
-  flex-shrink: 0;
+  	flex-shrink: 0;
 }
 
 img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+  	max-width: 100%;
+  	height: auto;
+  	display: block;
 }
 
 
 
 
 .products {
-  box-sizing: border-box;
-  padding: 2rem;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
+  	box-sizing: border-box;
+  	padding: 2rem;
+  	width: 100%;
+  	max-width: 100%;
+  	overflow-x: hidden;
+  	display: flex;
+  	flex-wrap: wrap;
+  	justify-content: center;
+  	gap: 1.5rem;
 }
 
 .product-card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 220px;
-  padding: 1rem;
-  text-align: center;
-  transition: transform 0.2s;
-  overflow: hidden;
+  	background-color: #fff;
+  	border-radius: 8px;
+  	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  	width: 220px;
+  	padding: 1rem;
+  	text-align: center;
+  	transition: transform 0.2s;
+  	overflow: hidden;
 }
 
 
 .product-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
+  	width: 100%;
+  	height: auto;
+  	border-radius: 4px;
 }
 
 
 .product-link {
-  text-decoration: none;
-  color: inherit;
-  display: inline-block;
+  	text-decoration: none;
+  	color: inherit;
+  	display: inline-block;
 }
 
 
 #pagination {
-  display: flex;
-  justify-content: center; 
-  gap: 8px;                
-  margin: 40px 0;          
-  flex-wrap: wrap;        
+  	display: flex;
+  	justify-content: center; 
+  	gap: 8px;                
+  	margin: 40px 0;          
+  	flex-wrap: wrap;        
 }
 
 #pagination a {
-  display: inline-block;
-  padding: 10px 16px;
-  text-decoration: none;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  color: #333;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  background-color: #f9f9f9;
+  	display: inline-block;
+  	padding: 10px 16px;
+  	text-decoration: none;
+  	border: 1px solid #ccc;
+  	border-radius: 8px;
+  	color: #333;
+  	font-weight: 500;
+  	transition: all 0.3s ease;
+  	background-color: #f9f9f9;
 }
 
 #pagination a:hover {
-  background-color: #e0e0e0;
-  border-color: #999;
+  	background-color: #e0e0e0;
+  	border-color: #999;
 }
 
 #pagination a.active {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
-  font-weight: bold;
+  	background-color: #007bff;
+  	color: white;
+  	border-color: #007bff;
+  	font-weight: bold;
 }
 
 .filter-bar-horizontal {
-  width: 100%;
-  padding: 0.1rem 2rem;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  box-sizing: border-box;
+  	width: 100%;
+  	padding: 0.1rem 2rem;
+  	border-top: 1px solid #ddd;
+  	border-bottom: 1px solid #ddd;
+  	box-sizing: border-box;
 }
 
 .filter-form-horizontal {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 0.8rem;
-  align-items: center;
-  min-width: max-content;
+  	display: flex;
+  	flex-wrap: nowrap;
+  	gap: 0.8rem;
+  	align-items: center;
+  	min-width: max-content;
 }
 
 .filter-form-horizontal input,
 .filter-form-horizontal select,
 .filter-form-horizontal button {
-  padding: 0.2rem 1rem;       
-  font-size: 0.85rem;           
-  border: 1px solid;
-  border-radius: 6px;           
+  	padding: 0.2rem 1rem;       
+  	font-size: 0.85rem;           
+  	border: 1px solid;
+  	border-radius: 6px;           
 }
 
 .filter-form-horizontal input[type="text"],
 .filter-form-horizontal input[type="number"] {
-  width: 70px; 
+  	width: 70px; 
 }
 
 
 .filter-form-horizontal button {
-  background-color: white;
-  color: black;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  border: none;
+  	background-color: white;
+  	color: black;
+  	cursor: pointer;
+  	transition: background-color 0.3s ease;
+  	border: none;
 }
 
 .filter-form-horizontal button:hover {
-  background-color: green;
+  	background-color: green;
 }

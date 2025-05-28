@@ -29,11 +29,11 @@ public class AddToList extends HttpServlet {
             ProductDAO productDao = new ProductDAO();
             ProductDTO product = productDao.findByCode(productId);
             
-            ListDTO list = ListManager.getList(request, response, type);
-            
             if (product != null && product.isOnSale() && product.getStocks()>0) {
-                
-	            if (list == null) {
+            	
+            	ListDTO list = ListManager.getList(request, response, type, true);
+	            
+            	if (list == null) {
 	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lista non trovata o creata");
 	                return;
 	            }
@@ -48,18 +48,22 @@ public class AddToList extends HttpServlet {
 	                newItem.setId_list(list.getId());
 	                newItem.setId_product(productId);
 	                
-	                if(type.name().equals("cart"))
+	                if(type.name().equalsIgnoreCase("cart"))
 	                	newItem.setQuantity(1); 
 	                
 	                itemsDao.save(newItem);
 	            } 
 	            
-	            else if(type.name().equals("cart") && product.getStocks() > existingItem.getQuantity()) {
+	            else if(type.name().equalsIgnoreCase("cart") && product.getStocks() > existingItem.getQuantity()) {
 	            	existingItem.setQuantity(existingItem.getQuantity() + 1);
 	            	itemsDao.update(existingItem);
 	            	
 	            }
             }
+            
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    		response.setHeader("Pragma", "no-cache");
+    		response.setDateHeader("Expires", 0);
             response.setContentType("text/html;charset=UTF-8");
            
             // torna alla pagina precedente

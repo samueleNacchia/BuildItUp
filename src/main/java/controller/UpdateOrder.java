@@ -30,6 +30,9 @@ public class UpdateOrder extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
 		response.setContentType("text/html;charset=UTF-8");
         request.getRequestDispatcher("/AdminPage.jsp").forward(request, response);
 	}

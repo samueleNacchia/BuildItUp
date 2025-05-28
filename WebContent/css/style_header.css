@@ -4,88 +4,87 @@
 
 
 #sl {
-  font-family: "Fira Sans", sans-serif;
-  font-weight: 400;
-  font-size: 50px;
-  color: white;
-  padding-left: 0px;
+  	font-family: "Fira Sans", sans-serif;
+  	font-weight: 400;
+  	font-size: 50px;
+  	color: white;
+  	padding-left: 0px;
 }
 
 #logo {
-  transform: scale(1.5);
-  padding-left: 50%;
+  	transform: scale(1.5);
+  	padding-left: 50%;
 }
 
 #src {
-  border-radius: 10px;
-  width: 350px;
-  height: 35px;
-  font-size: 15px;
-  background-image: url('../images/search.png');
-  background-position: 10px 7px;
-  background-repeat: no-repeat;
-  padding-left: 40px;
-  background-color: white;
+  	border-radius: 10px;
+  	width: 350px;
+  	height: 35px;
+  	font-size: 15px;
+  	background-image: url('../images/search.png');
+  	background-position: 10px 7px;
+  	background-repeat: no-repeat;
+  	padding-left: 40px;
+  	background-color: white;
 }
 
 .subheader {
-  max-width: 100%;
-  font-size: 1.2rem;
-  box-sizing: border-box;
-  overflow-x: visible;
-  background: linear-gradient(to bottom, #263238, #297678);
-  position: sticky;
-  top: 0;
-  border-bottom-right-radius: 25%;
-  border-bottom-left-radius: 25%;
-  z-index: 100;
-  width: 100%;
+  	max-width: 100%;
+  	font-size: 1.2rem;
+  	box-sizing: border-box;
+  	overflow-x: visible;
+  	background: linear-gradient(to bottom, #263238, #297678);
+  	position: sticky;
+  	top: 0;
+  	border-bottom-right-radius: 25%;
+  	border-bottom-left-radius: 25%;
+  	z-index: 100;
 }
 
 .subh-items {
-  display: flex;
-  align-items: center;
-  gap: 1em;
-  justify-content: center;
-  padding: 1em;
+  	display: flex;
+  	align-items: center;
+  	gap: 1em;
+  	justify-content: center;
+  	padding: 1em;
 }
 
 .tab {
-  max-width: 100%;
-  padding: 1em 0.5em;
-  background-color: #263238;
-  font-size: 1.2rem;
-  box-sizing: border-box;
-  overflow-x: auto;
+  	max-width: 100%;
+  	background-color: #263238;
+  	padding: 1em 0.5em;
+  	box-sizing: border-box;
+  	z-index: 101;
+  	font-size: 1.2rem; 	
 }
 
 .tab-items {
-  display: grid;
-  grid-template-columns: auto 1fr 1.4fr auto auto;
-  align-items: center;
-  justify-content: center;
-  gap: 1em;
+  	display: grid;
+  	grid-template-columns: auto 1fr 1.4fr auto auto;
+  	align-items: center;
+  	justify-content: center;
+  	gap: 1em;
 }
 
 .item {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
+  	display: flex;
+  	align-items: center;
+  	gap: 0.5em;
 }
 
 .icons {
-  justify-content: flex-end;
-  gap: 1em;
+  	justify-content: flex-end;
+  	gap: 1em;
 }
 
 .item-link {
-  padding: 0 0.5em;
-  color: #ECF0F1;
-  text-decoration: none;
-  transition: color 0.3s;
+  	padding: 0 0.5em;
+  	color: #ECF0F1;
+  	text-decoration: none;
+  	transition: color 0.3s;
 }
 
 .item-link:hover {
-  color: #5cade2;
-  text-decoration: underline;
+  	color: #5cade2;
+  	text-decoration: underline;
 }

@@ -13,7 +13,9 @@ import static controller.function.HashFunction.*;
 import java.sql.SQLException;
 
 public class ListManager {
-    public static ListDTO getList(HttpServletRequest request, HttpServletResponse response, ListType type) throws SQLException {
+	
+	//type: wishlist,cart;  create: se non esiste la creo o no
+    public static ListDTO getList(HttpServletRequest request, HttpServletResponse response, ListType type, boolean create) throws SQLException {
         ListDAO listDao = new ListDAO();
         HttpSession session = request.getSession(false);
         Integer userId = null;
@@ -56,7 +58,7 @@ public class ListManager {
                 list = null;
             
 
-            if (list == null || list.getId_user() != 0 || !list.getType().equals(type)) {
+            if ((list == null || list.getId_user() != 0 || !list.getType().equals(type)) && create) {
                 list = new ListDTO();
                 list.setType(type);
                 listDao.save(list);

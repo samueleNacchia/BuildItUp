@@ -54,7 +54,7 @@ public class SaveOrder extends HttpServlet {
     	
     	
     	try {
-            ListDTO list = ListManager.getList(request, response, ListType.cart);
+            ListDTO list = ListManager.getList(request, response, ListType.cart, false);
 
             List<ItemListDTO> items = null;
             if (list != null) {
@@ -98,7 +98,7 @@ public class SaveOrder extends HttpServlet {
             	productOrder.setQuantity(item.getQuantity());
             	productOrderDao.save(productOrder);
             
-            	total += price;
+            	total += (price*item.getQuantity());
             	
             	int newStock = product.getStocks()-item.getQuantity();
             	productDao.updateStock(product.getId(), newStock);
@@ -111,6 +111,9 @@ public class SaveOrder extends HttpServlet {
             bill.setTotal(total);
             billDao.save(bill);
             
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    		response.setHeader("Pragma", "no-cache");
+    		response.setDateHeader("Expires", 0);
             response.setContentType("text/html;charset=UTF-8");
             response.sendRedirect("OrderSummary.jsp?id=" + order.getId());
 
