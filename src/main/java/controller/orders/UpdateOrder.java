@@ -1,4 +1,4 @@
-package controller;
+package controller.orders;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

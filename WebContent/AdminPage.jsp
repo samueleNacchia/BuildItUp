@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, model.Product.ProductDAO, model.Order.OrderDAO" %>
-<%@ page import="model.Product.ProductDTO, model.Order.OrderDTO" %>
+<%@ page import="java.util.*, model.Product.ProductDAO, model.Order.OrderDAO, model.ProductImage.ProductImageDAO" %>
+<%@ page import="model.Product.ProductDTO, model.Order.OrderDTO, model.ProductImage.ProductImageDTO" %>
 
 <%
 	ProductDAO productDao = new ProductDAO();
 	OrderDAO orderDao  = new OrderDAO();
     List<ProductDTO> prodotti = productDao.findAll();
     List<OrderDTO> ordini = orderDao.findAll();
+    ProductImageDAO imageDao = new ProductImageDAO();
 %>
 <!DOCTYPE html>
 <html>
@@ -25,104 +26,103 @@
 <br>
 <!-- Sezione: Inserimento nuovo prodotto -->
 <h2>Inserisci Nuovo Prodotto</h2>
+
 <form action="AddProduct" method="post" enctype="multipart/form-data">
-    Nome: <input type="text" name="nome" required /><br>
-    Descrizione: <input type="textarea" name="descrizione" /><br>
-    Prezzo: <input type="number" name="prezzo" step="0.01" required /><br>
-    Categoria: 
-    	<select name="categoria">
-        	<option value="CPU" selected>CPU</option>
-            <option value="GPU">GPU</option>
-            <option value="MOBO">MOBO</option>
-            <option value="CASE">CASE</option>
-            <option value="COOLING">COOLING</option>
-            <option value="RAM">RAM</option>
-            <option value="MEM">MEM</option>
-            <option value="PSU">PSU</option>
-    	</select>        
+    <label>Nome: <input type="text" name="nome" required /></label>
+    <label>Descrizione: <textarea name="descrizione"></textarea></label>
+    <label>Prezzo: <input type="number" name="prezzo" step="0.01" required /></label>
+    <label>Categoria: 
+    <select name="categoria">
+        <option value="CPU" selected>CPU</option>
+        <option value="GPU">GPU</option>
+        <option value="MOBO">MOBO</option>
+        <option value="CASE">CASE</option>
+        <option value="COOLING">COOLING</option>
+        <option value="RAM">RAM</option>
+        <option value="MEM">MEM</option>
+        <option value="PSU">PSU</option>
+    </select></label>
+    <label>Disponibilità: <input type="number" name="stocks" min="0" step="1" required /></label>
+
+	<label>Immagine di copertina: <input type="file" name="copertina" accept="image/*"></label>
+
+    <label>Altre Immagini: <input type="file" name="immagini" id="fileInput" accept="image/*" multiple></label>
     <br>
-    Disponibilità: <input type="number" name="stocks" min=0 step="1" required /><br>
-    
-    Immagine 1: <input type="file" id="fileInput1" name="immagine1" accept="image/*">
-    <!--<button type="button" onclick="document.getElementById('fileInput1').value = '';">Reset</button>--><br>
-   
-    Immagine 2: <input type="file" id="fileInput2" name="immagine2" accept="image/*">
-    <!--<button type="button" onclick="document.getElementById('fileInput2').value = '';">Reset</button>--><br>
-    
-    Immagine 3: <input type="file" id="fileInput3" name="immagine3" accept="image/*">
-    <!--<button type="button" onclick="document.getElementById('fileInput3').value = '';">Reset</button>--><br>
-    
-    <input type="submit" value="Aggiungi Prodotto">
+	<button type="button" onclick="document.getElementById('fileInput').value = '';">Reset</button>
+	
+    <input type="submit" class="add" value="Aggiungi Prodotto">
 </form>
+
 
 <!-- Sezione: Lista prodotti -->
 <h2 align="center">Prodotti in Catalogo</h2>
 
 <table>
     <tr>
-    	<th>Codice</th>
         <th>Nome</th>
         <th>Descrizione</th>
         <th>Prezzo</th>
         <th>Sconto</th>
-        <th>Categoria</th>
         <th>InVendita</th>
         <th>Quantità</th>
-        <th>Img1</th>
-        <th>Img2</th>
-        <th>Img3</th>
         <th>Azioni</th>
+        <th>Immagini</th>
     </tr>
     <%
         if (prodotti != null) {
-            for (ProductDTO p : prodotti) {
+            for (ProductDTO product : prodotti) {
     %>
     <tr>
-        <form action="UpdateProduct" method="post" enctype="multipart/form-data">
-        	<td><%= p.getId() %><input type="hidden" name="id" value="<%= p.getId() %>"></td>
-            <td><input type="text" name="nome" value="<%= p.getName() %>" /></td>
-            <td><input type="text" name="descrizione" value="<%= p.getDescription() %>" /></td>
-            <td><input type="number" min=0 name="prezzo" value="<%= p.getPrice() %>" step="0.01" /></td>
-            <td><input type="number" max=1 min=0 name="sconto" value="<%= p.getDiscount() %>" step="0.01" /></td>		
-            <td>
-            	<select name="categoria">
-				    <option value="CPU" <% if ("CPU".equals(p.getCategory().name())) { %>selected<% } %>>CPU</option>
-				    <option value="GPU" <% if ("GPU".equals(p.getCategory().name())) { %>selected<% } %>>GPU</option>
-				    <option value="MOBO" <% if ("MOBO".equals(p.getCategory().name())) { %>selected<% } %>>MOBO</option>
-				    <option value="CASE" <% if ("CASE".equals(p.getCategory().name())) { %>selected<% } %>>CASE</option>
-				    <option value="COOLING" <% if ("COOLING".equals(p.getCategory().name())) { %>selected<% } %>>COOLING</option>
-				    <option value="RAM" <% if ("RAM".equals(p.getCategory().name())) { %>selected<% } %>>RAM</option>
-				    <option value="MEM" <% if ("MEM".equals(p.getCategory().name())) { %>selected<% } %>>MEM</option>
-				    <option value="PSU" <% if ("PSU".equals(p.getCategory().name())) { %>selected<% } %>>PSU</option>
-				</select>
-            </td>  
-            <td><input type="checkbox" name="inVendita" value="true" <% if (p.isOnSale()) { %> checked <% } %> /></td>
-            <td><input type="number" name="stocks" min=0 value="<%= p.getStocks() %>" step="1" /></td>
-            
-            <td><img src="image?id=<%= p.getId() %>&n=1" >
-            <input type="submit" name="deleteImage" value="1">
-    		<input type="file" name="immagine1" accept="image/*"></td>
-            
-            <td><img src="image?id=<%= p.getId() %>&n=2" >
-            <input type="submit" name="deleteImage" value="2">
-    		<input type="file" name="immagine2" accept="image/*"></td>
-            
-            <td><img src="image?id=<%= p.getId() %>&n=3" >
-            <input type="submit" name="deleteImage" value="3">
-    		<input type="file" name="immagine3" accept="image/*"></td>
-            
-            <td>
-            <input type="submit" value="update" onclick="return confirm('Aggiornare <%=p.getName() %>?')"/>
-     	</form>  
-            
-            <a href="AddToList?type=wishlist&id=<%=p.getId()%>" style="text-decoration: none; cursor: pointer; enctype="multipart/form-data"">
+        <form action="UpdateProduct" method="post">
+		    <input type="hidden" name="id" value="<%= product.getId() %>"></td>
+		    <td><%= product.getName() %><input type="hidden" name="name" value="<%= product.getName() %>"></td>
+		    <td><input type="text" name="descrizione" value="<%= product.getDescription() %>" /></td>
+		    <td><input type="number" min=0 name="prezzo" value="<%= product.getPrice() %>" step="0.01" /></td>
+		    <td><input type="number" max=1 min=0 name="sconto" value="<%= product.getDiscount() %>" step="0.01" /></td>		
+		   	<input type="hidden" name="category" value="<%= product.getCategory() %>"></td>
+		    <td><input type="checkbox" name="inVendita" value="true" <% if (product.isOnSale()) { %> checked <% } %> /></td>
+		    <td><input type="number" name="stocks" min=0 value="<%= product.getStocks() %>" step="1" /></td>
+		    <td>
+		        <input type="submit" class="update" value="Update" onclick="return confirm('Aggiornare <%= product.getName() %>?')" />
+		</form> 
+	
+			<a href="AddToList?type=wishlist&id=<%=product.getId()%>" style="text-decoration: none; cursor: pointer; enctype="multipart/form-data"">
   				<i class="fa-solid fa-heart" id="wishlist-icon" style="font-size: 20px; color: dimgray;"></i>
 			</a>
 
-			<a href="AddToList?type=cart&id=<%=p.getId()%>" style="text-decoration: none; cursor: pointer; enctype="multipart/form-data"">
+			<a href="AddToList?type=cart&id=<%=product.getId()%>" style="text-decoration: none; cursor: pointer; enctype="multipart/form-data"">
   				<i class="fa-solid fa-shopping-cart" id="cart-icon" style="font-size: 20px; color: dimgray"></i>
 			</a>
-			</td>
+			</td> 
+	
+	<td colspan="11">
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <%
+        	List<ProductImageDTO> immagini = imageDao.findAllByProduct(product.getId());
+            for (ProductImageDTO img : immagini) {
+            	
+        %>
+            <form action="DeleteImage" method="post" style="display:inline">
+                <img src="image?id=<%= img.getId() %>" height="100" />
+                <input type="hidden" name="imageId" value="<%= img.getId() %>">
+                <input type="submit" class="delete" value="X" onclick="return confirm('Eliminare questa immagine?')">
+            </form>
+        <%
+            }
+        %>        
+        <form action="AddImages" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="productId" value="<%= product.getId() %>">
+            <input type="file" name="copertina" accept="image/*">
+            <input type="submit" class="add" value="Aggiungi Copertina">
+        </form>
+        <form action="AddImages" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="productId" value="<%= product.getId() %>">
+            <input type="file" name="immagini" accept="image/*" multiple>
+            <input type="submit" class="add" value="Aggiungi immagini">
+        </form>
+    </div>
+</td> 
+            
        
     </tr>
     <%
@@ -165,7 +165,7 @@
 				    <option value="Annullato" <% if ("Annullato".equals(o.getStatus().name())) { %>selected<% } %>>Annullato</option>
                 </select>
             </td>
-            <td><input type="submit" value="update"/></td>
+            <td><input type="submit" class="update" value="update"/></td>
         </form>
     </tr>
     <%

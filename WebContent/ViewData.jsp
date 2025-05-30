@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.Product.ProductDTO" %>
+<%@ page import="model.ProductImage.ProductImageDTO" %>
 <%@ page import="model.User.UserDTO" %>
 <%@ page import="model.Admin.AdminDTO" %>
 <%@ page import="model.Order.OrderDTO" %>
@@ -120,9 +121,6 @@
                 <th>Sconto (%)</th>
                 <th>InVendita</th>
                 <th>Quantità</th>
-                <th>Img1</th>
-                <th>Img2</th>
-                <th>Img3</th>
             </tr>
             <%
                 for (ProductDTO p : prodotti) {
@@ -136,9 +134,6 @@
                     <td><%= p.getDiscount() %></td>
                     <td><%= p.isOnSale() %></td>
                     <td><%= p.getStocks() %></td>
-                    <td><img src="image?id=<%= p.getId() %>&n=1" >
-                    <td><img src="image?id=<%= p.getId() %>&n=2" >
-                    <td><img src="image?id=<%= p.getId() %>&n=3" >
                 </tr>
             <%
                 }
@@ -148,6 +143,38 @@
         }
     %>
     
+    
+    <h1>Immagini</h1>
+	
+    <%	
+        List<ProductImageDTO> images = (List<ProductImageDTO>) request.getAttribute("image");
+        if (images == null || images.isEmpty()) {
+    %>
+        <p>Nessuna immagine disponibile.</p>
+    <%
+        } else {
+    %>
+        <table>
+            <tr>
+                <th>Codice</th>
+                <th>Id Prodotto</th>
+                <th>Immagine</th>
+            </tr>
+            <%
+                for (ProductImageDTO i : images) {
+            %>
+                <tr>
+                    <td><%= i.getId() %></td>
+                    <td><%= i.getIdProduct() %></td>
+                    <td><img src="image?id=<%= i.getId() %>" ></td>
+                </tr>
+            <%
+                }
+            %>
+        </table>
+    <%
+        }
+    %>
     
     
     

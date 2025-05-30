@@ -4,6 +4,7 @@ import model.Admin.*;
 import model.Bill.*;
 import model.Order.*;
 import model.Product.*;
+import model.ProductImage.*;
 import model.ProductOrder.*;
 import model.Review.*;
 import model.User.*;
@@ -25,6 +26,7 @@ public class ViewDatabase extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
         ProductDAO ProductDao = new ProductDAO();
+        ProductImageDAO ProductImageDao = new ProductImageDAO();
         UserDAO UserDao = new UserDAO();
         AdminDAO AdminDao = new AdminDAO();
         OrderDAO OrderDao = new OrderDAO();
@@ -69,6 +71,9 @@ public class ViewDatabase extends HttpServlet {
             
             List<ItemListDTO> item = ItemListDao.findAll();
             request.setAttribute("item", item);
+            
+            List<ProductImageDTO> image = ProductImageDao.findAll();
+            request.setAttribute("image", image);
             
             
         } catch (SQLException e) {

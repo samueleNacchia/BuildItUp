@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.Product.ProductDTO" %>
+<%@ page import="model.ProductImage.ProductImageDTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 
 <%	
         List<ProductDTO> prodotti = (List<ProductDTO>) request.getAttribute("prodotti");
+        Map<Integer, ProductImageDTO> coverImages = (Map<Integer, ProductImageDTO>) request.getAttribute("coverImages");
         int current = 1, total=1;
 		Integer Current = (Integer) request.getAttribute("currentPage");
         Integer Total =  (Integer) request.getAttribute("totalPages");
@@ -25,7 +28,6 @@
 <style>html{display:none}</style>
 
 <%@ include file="header.html"  %>
-<link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="./css/style_catalog.css?v=<%= System.currentTimeMillis() %>">
 <link rel="stylesheet" href="./css/style_header.css?v=<%= System.currentTimeMillis() %>">
@@ -47,15 +49,14 @@
 	
 	Categoria
 	<select name="category" id="category">
-	    <option value="" <%= category == null ? "selected" : "" %>>Tutte le categorie</option>
-	    <option value="CPU" <%= "CPU".equals(category) ? "selected" : "" %>>Processori</option>
-	    <option value="MOBO" <%= "MOBO".equals(category) ? "selected" : "" %>>Schede Madri</option>
-	    <option value="GPU" <%= "GPU".equals(category) ? "selected" : "" %>>Schede Grafiche</option>
-	    <option value="RAM" <%= "RAM".equals(category) ? "selected" : "" %>>RAM</option>
-	    <option value="MEM" <%= "MEM".equals(category) ? "selected" : "" %>>Memorie</option>
-	    <option value="PSU" <%= "PSU".equals(category) ? "selected" : "" %>>Alimentatori</option>
-	    <option value="CASE" <%= "CASE".equals(category) ? "selected" : "" %>>Case</option>
-	    <option value="COOLING" <%= "COOLING".equals(category) ? "selected" : "" %>>Raffreddamento</option>
+		<option value="CPU" <% if ("CPU".equals(category)) { %>selected<% } %>>CPU</option>
+		<option value="GPU" <% if ("GPU".equals(category)) { %>selected<% } %>>GPU</option>
+		<option value="MOBO" <% if ("MOBO".equals(category)) { %>selected<% } %>>MOBO</option>
+		<option value="CASE" <% if ("CASE".equals(category)) { %>selected<% } %>>CASE</option>
+		<option value="COOLING" <% if ("COOLING".equals(category)) { %>selected<% } %>>COOLING</option>
+		<option value="RAM" <% if ("RAM".equals(category)) { %>selected<% } %>>RAM</option>
+		<option value="MEM" <% if ("MEM".equals(category)) { %>selected<% } %>>MEM</option>
+		<option value="PSU" <% if ("PSU".equals(category)) { %>selected<% } %>>PSU</option>
 	</select>
 		
 	<label>
@@ -79,23 +80,23 @@
 			<div class="products">
 			<% 
 				for (ProductDTO product : prodotti) {
+					ProductImageDTO image = coverImages.get(product.getId());
 			%>
 					<a href="productDetails?id=<%= product.getId() %>" class="product-link">
 					<div class="product-card">
 						<%
-							byte[] imgBytes = product.getImage1();
-							if (imgBytes != null) {
+					        if (image != null) {
+		    			%>
+		        			<img src="image?id=<%= image.getId() %>" alt="Immagine di copertina">
+					    <%
+					        } else {
 					    %>
-				    	<img src="image?id=<%= product.getId() %>&n=1" >
-						<%
-							} else {
-						%>
-							    	<img src="img/default.jpg" alt="Nessuna immagine disponibile">
-						<%
-							}
-						%>
+					        <img src="img/default.jpg" alt="Nessuna immagine disponibile">
+					    <%
+					        }
+					    %>
 						<h3><%= product.getName() %></h3>
-						<h4><%= String.format("%.2f",product.getPrice()) %> €</h4>
+						<h4><%= product.getPrice() %> €</h4>
 						<%
 							if (product.getDiscount()>0){
 						%>

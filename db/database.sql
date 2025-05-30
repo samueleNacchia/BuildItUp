@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS storage;
 CREATE DATABASE storage;
 USE storage;
 
-CREATE TABLE Admin (	
+CREATE TABLE Admin (
   email varchar(100) not null,
   password varchar(128) not null,
   primary key(email, password)
@@ -29,10 +29,22 @@ CREATE TABLE Products(
   price decimal(10,2) unsigned,
   discount decimal(5,4) unsigned,
   isOnSale boolean,
-  stocks int unsigned,
-  image1 mediumblob,
-  image2 mediumblob,
-  image3 mediumblob
+  stocks int unsigned
+);
+
+CREATE TABLE ProductImages (
+  ID int primary key auto_increment,	
+  ID_product int not null,
+  image mediumblob,
+  isCover boolean default false,
+  
+  -- Colonna generata: contiene product_id solo se is_cover è TRUE
+    isCover_flag INT GENERATED ALWAYS AS (
+        CASE WHEN isCover THEN ID_product ELSE NULL END
+    ) STORED,
+
+    -- Indicizzazione univoca solo per i valori con is_cover = TRUE
+    UNIQUE KEY unique_cover_per_product (isCover_flag)
 );
 
 CREATE TABLE Orders (	
@@ -115,7 +127,28 @@ INSERT INTO Products (name, category, description, price, discount, isOnSale, st
   ('Intel i7 13700K', 'CPU', '13th gen 16-core processor', 429.99, 0.1000, TRUE, 25),
   ('NVIDIA RTX 4070', 'GPU', '8GB GDDR6X ray tracing card', 599.99, 0.0500, TRUE, 10),
   ('MSI B650 Tomahawk', 'MOBO', 'AM5 socket ATX motherboard', 199.90, 0.0000, FALSE, 8),
-  ('Corsair 4000D', 'CASE', 'Mid tower case with airflow', 89.99, 0.1500, TRUE, 20);
+  ('AMD Ryzen 9 7950X', 'CPU', '16-core high-performance processor', 699.00, 0.1500, TRUE, 20),
+  ('ASUS ROG Strix RTX 4080', 'GPU', '16GB GDDR6X ray tracing card', 1199.99, 0.1000, TRUE, 12),
+  ('Gigabyte X670 AORUS Elite', 'MOBO', 'AM5 socket ATX motherboard', 269.90, 0.0500, TRUE, 15),
+  ('Corsair Vengeance LPX 16GB', 'RAM', 'DDR4 3200MHz memory kit', 79.99, 0.0000, FALSE, 40),
+  ('Samsung 970 EVO Plus 1TB', 'MEM', 'NVMe M.2 internal SSD', 129.99, 0.1000, TRUE, 30),
+  ('Seagate Barracuda 2TB', 'MEM', '7200 RPM desktop hard drive', 59.99, 0.0000, FALSE, 25),
+  ('Cooler Master Hyper 212', 'COOLING', 'Air CPU cooler with RGB', 39.99, 0.2000, TRUE, 50),
+  ('NZXT H510 Elite', 'CASE', 'Mid-tower PC case with tempered glass', 149.99, 0.0000, FALSE, 10),
+  ('EVGA SuperNOVA 750W', 'PSU', 'Modular power supply unit', 109.99, 0.1000, TRUE, 22),
+  ('Thermaltake Toughpower 850W', 'PSU', '80+ Gold modular power supply', 129.99, 0.0000, FALSE, 15),
+  ('AMD Radeon RX 7900 XT', 'GPU', '24GB GDDR6 gaming card', 899.99, 0.0800, TRUE, 10),
+  ('Kingston Fury Beast 32GB', 'RAM', 'DDR5 5200MHz memory kit', 249.99, 0.1000, TRUE, 20),
+  ('Intel i5 13600KF', 'CPU', '14-core processor, unlocked for overclocking', 319.99, 0.0800, TRUE, 18),
+  ('NVIDIA RTX 4060 Ti', 'GPU', '8GB GDDR6 mid-range GPU', 399.99, 0.0600, TRUE, 15),
+  ('ASRock B650M Pro RS', 'MOBO', 'AM5 mATX motherboard with DDR5 support', 149.90, 0.0000, FALSE, 10),
+  ('Be Quiet! Pure Power 11 650W', 'PSU', '80+ Gold quiet power supply', 94.99, 0.0000, FALSE, 18),
+  ('Noctua NH-D15', 'COOLING', 'Premium dual tower CPU cooler', 99.95, 0.1500, TRUE, 12),
+  ('G.Skill Trident Z5 32GB', 'RAM', 'DDR5 6000MHz memory kit', 279.99, 0.1200, TRUE, 16),
+  ('Crucial P3 Plus 2TB', 'MEM', 'PCIe 4.0 NVMe M.2 SSD', 159.99, 0.1000, TRUE, 25),
+  ('Fractal Design Meshify C', 'CASE', 'Compact ATX case with mesh front panel', 99.99, 0.0000, TRUE, 8),
+  ('NVIDIA RTX 4080', 'GPU', '16GB GDDR6X ray tracing card', 599.99, 0.0500, TRUE, 10),
+  ('NVIDIA RTX 3070 ti', 'GPU', '8GB GDDR6X ray tracing card', 599.99, 0.0500, TRUE, 10);
 
 -- Orders
 INSERT INTO Orders (ID_user, orderDate, status) VALUES
@@ -141,27 +174,3 @@ INSERT INTO ProductOrder (ID_product, ID_order, price, quantity) VALUES
   (4, 1, 89.99, 1),
   (2, 2, 599.99, 1),
   (3, 3, 199.90, 1);
- 
-/* 
--- Lists
-INSERT INTO Lists (ID_user, type, lastAccess) VALUES
-(NULL, 'cart', CURRENT_TIMESTAMP),
-(NULL, 'wishlist', CURRENT_TIMESTAMP),
-(NULL, 'cart', CURRENT_TIMESTAMP);
-
-
--- ItemList
-INSERT INTO ItemList (ID_list, ID_product, quantity) VALUES
-(1, 1, 2),
-(1, 2, 1),
-(2, 3, NULL),
-(3, 1, 1),
-(3, 3, 10);
-*/
-  
--- Newsletters
-INSERT INTO Newsletters (email) VALUES
-('mario.rossi@example.com'),
-('giulia.bianchi@example.com'),
-('andrea.verdi@example.com');
-  

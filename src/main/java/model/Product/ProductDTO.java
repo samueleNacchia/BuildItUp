@@ -12,16 +12,11 @@ public class ProductDTO {
     private float discount;
     private boolean isOnSale;
     private int stocks;
-    private byte[] image1;
-    private byte[] image3;
-    private byte[] image2;
-      
     
     public ProductDTO() {
     }
     
-    public ProductDTO(String name, Category category, String description, float price, float discount, 
-    				  boolean isOnSale, int stocks, byte[] image1, byte[] image2, byte[] image3) {
+    public ProductDTO(String name, Category category, String description, float price, float discount, boolean isOnSale, int stocks) {
     	
     	this.name = name;
     	this.category = category;
@@ -30,9 +25,6 @@ public class ProductDTO {
         this.discount = discount;
         this.isOnSale = isOnSale;
         this.stocks = stocks;
-        this.image1 = image1;
-        this.image2 = image2;
-        this.image3 = image3;
     }
 
     public int getId() {
@@ -89,27 +81,6 @@ public class ProductDTO {
 	}
 	public void setStocks(int stocks) {
 		this.stocks = stocks;
-	}
-
-	public byte[] getImage1() {
-		return image1;
-	}
-	public void setImage1(byte[] image1) {
-		this.image1 = image1;
-	}
-	
-	public byte[] getImage2() {
-		return image2;
-	}
-	public void setImage2(byte[] image2) {
-		this.image2 = image2;
-	}
-
-	public byte[] getImage3() {
-		return image3;
-	}
-	public void setImage3(byte[] image3) {
-		this.image3 = image3;
 	}
 
 }

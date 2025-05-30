@@ -1,4 +1,4 @@
-package controller;
+package controller.lists;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpSession;
 import model.ListType;
 import model.List.*;
 
-import static controller.function.GetCookie.*;
-import static controller.function.HashFunction.*;
+import static controller.functions.GetCookie.*;
+import static controller.functions.HashFunction.*;
 
 import java.sql.SQLException;
 
@@ -27,7 +27,7 @@ public class ListManager {
 
         if (userId != null) {
             list = listDao.findByUser(userId, type);
-            if (list == null) {
+            if (list == null && create) {
                 list = new ListDTO();
                 list.setType(type);
                 list.setId_user(userId);

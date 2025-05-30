@@ -11,6 +11,23 @@ main.homepage {
   	flex: 1;
 }
 
+input[type="submit"] {
+    background-color: #2ecc71;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 15px auto;
+    transition: background-color 0.3s ease;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #2c3e50;
+}
+
 .homepage >div{
 	border-bottom: 5px solid #000;
 	width: 80%;
@@ -159,4 +176,18 @@ main.homepage {
   	width: 100%;
   	height: auto;
   	object-fit: cover;
+}
+
+
+/* ---- ICONS ---- */
+a i.fa-heart:hover {
+    color: red !important;
+}
+
+a i.fa-shopping-cart:hover {
+    color: #2ecc71 !important;
+}
+
+a i.fa-user:hover {
+    color: white !important;
 }

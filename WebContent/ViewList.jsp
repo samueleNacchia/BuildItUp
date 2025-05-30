@@ -89,12 +89,12 @@
                     <% if (type.equals("cart")) { %>
                     
                     <a href="AddToList?type=<%=type%>&id=<%=product.getId()%>" style="text-decoration: none;  ">
-  					<input type="submit" value="+">
+  					<input type="submit" class="add" value="+">
 					</a>
                     <% } %>
                     
                     <a href="DeleteFromList?type=<%=type%>&id=<%=product.getId()%>" style="text-decoration: none;  ">
-  					<input type="submit" value="-" style="background-color: red;">
+  					<input type="submit" class="delete" value="-"">
 					</a>
 					</td>
                     
@@ -105,7 +105,7 @@
         </table>
          <% if (type.equals("cart")) { %>
   			<a href="GetList?type=<%=type%>&to=checkout" style="text-decoration: none;">
-  				<input type="submit" value="Acquista">
+  				<input type="submit" class="update" value="Acquista">
 			</a>
 			
        <% } %>

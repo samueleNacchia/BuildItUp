@@ -1,4 +1,4 @@
-package controller;
+package controller.lists;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,15 +13,15 @@ import model.Product.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/AddToList")
-public class AddToList extends HttpServlet {
-    private static final long serialVersionUID = 1L; 
+@WebServlet("/DeleteFromList")
+public class DeleteFromList extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
+    	ItemListDAO ItemListDao = new ItemListDAO();
         
-    	ItemListDAO itemsDao = new ItemListDAO();
-    	
     	try {
             ListType type = ListType.valueOf(request.getParameter("type"));
             int productId = Integer.parseInt(request.getParameter("id"));
@@ -29,36 +29,24 @@ public class AddToList extends HttpServlet {
             ProductDAO productDao = new ProductDAO();
             ProductDTO product = productDao.findByCode(productId);
             
-            if (product != null && product.isOnSale() && product.getStocks()>0) {
-            	
-            	ListDTO list = ListManager.getList(request, response, type, true);
-	            
-            	if (list == null) {
+            ListDTO list = ListManager.getList(request, response, type, false);
+            
+            if (product != null) {
+                
+	            if (list == null) {
 	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lista non trovata o creata");
 	                return;
 	            }
-	
-	            //Controllo se il prodotto è già nella lista
-	            ItemListDTO existingItem = itemsDao.findProduct(list.getId(), productId);
+	           
+	            ItemListDTO item = ItemListDao.findProduct(list.getId(), productId);
 	            
-	            if (existingItem == null && product != null && product.isOnSale()) {
-	            	
-	                //Se non c’è, creo un nuovo item
-	                ItemListDTO newItem = new ItemListDTO();
-	                newItem.setId_list(list.getId());
-	                newItem.setId_product(productId);
-	                
-	                if(type.name().equalsIgnoreCase("cart"))
-	                	newItem.setQuantity(1); 
-	                
-	                itemsDao.save(newItem);
-	            } 
 	            
-	            else if(type.name().equalsIgnoreCase("cart") && product.getStocks() > existingItem.getQuantity()) {
-	            	existingItem.setQuantity(existingItem.getQuantity() + 1);
-	            	itemsDao.update(existingItem);
-	            	
-	            }
+	            	if(type.name().equals("cart") && item.getQuantity() > 1) {
+	            		item.setQuantity(item.getQuantity() - 1);
+	            		ItemListDao.update(item);
+	            	} else {
+	            		ItemListDao.deleteFromList(list.getId(), productId);
+	            	}
             }
             
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -75,11 +63,9 @@ public class AddToList extends HttpServlet {
             }
          
 
-        } catch (SQLException e) {
+        } catch (SQLException | IllegalArgumentException | NullPointerException e) {
             e.printStackTrace();
-        } catch (IllegalArgumentException | NullPointerException e) {
-        	e.printStackTrace();
-        }
+        } 
     }
 
     @Override
@@ -87,4 +73,5 @@ public class AddToList extends HttpServlet {
         doGet(request, response);
     }
 }
+
 

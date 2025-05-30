@@ -1,4 +1,4 @@
-package controller.function;
+package controller.functions;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

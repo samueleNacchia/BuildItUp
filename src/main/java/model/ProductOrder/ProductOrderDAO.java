@@ -127,7 +127,7 @@ public class ProductOrderDAO {
         List<ProductDTO> result = new ArrayList<>();
 
         StringBuilder query = new StringBuilder("""
-            SELECT p.ID, p.name, p.image1, p.price, p.discount, SUM(po.quantity) AS quantity
+            SELECT p.ID, p.name, p.price, p.discount, SUM(po.quantity) AS quantity
             FROM ProductOrder po JOIN Products p ON po.ID_product = p.ID  WHERE p.isOnSale=TRUE """);
 
         if (category != null && !category.isEmpty()) query.append(" AND p.category = ?");
@@ -135,7 +135,7 @@ public class ProductOrderDAO {
         if (minPrice != null) query.append(" AND p.price >= ?");
         if (maxPrice != null) query.append(" AND p.price <= ?");
 
-        query.append(" GROUP BY p.ID, p.name, p.image1, p.price ORDER BY quantity DESC");
+        query.append(" GROUP BY p.ID, p.name, p.price ORDER BY quantity DESC");
 
         if (limit > 0) {
             query.append(" LIMIT ?");
@@ -160,7 +160,6 @@ public class ProductOrderDAO {
                     ProductDTO product = new ProductDTO();
                     product.setId(rs.getInt("ID"));
                     product.setName(rs.getString("name"));
-                    product.setImage1(rs.getBytes("image1"));
                     product.setPrice(rs.getFloat("price"));
                     product.setDiscount(rs.getFloat("discount"));
                     result.add(product);

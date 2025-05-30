@@ -43,7 +43,7 @@
     </table>
 
     <a href="SaveOrder" style="text-decoration: none;">
-  		<input type="submit" value="Conferma Ordine">
+  		<input type="submit" class="update" value="Conferma Ordine">
 	</a>
     
 </body>

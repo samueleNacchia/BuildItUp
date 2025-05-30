@@ -5,12 +5,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Product.ProductDAO;
-import model.Product.ProductDTO;
+import model.Product.*;
+import model.ProductImage.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @WebServlet("/CatalogViewer")
@@ -49,15 +51,26 @@ public class CatalogViewer extends HttpServlet {
             e.printStackTrace();
         }
 
-        ProductDAO productDao = new ProductDAO();
+        ProductDAO productDao = new ProductDAO(); 
+        ProductImageDAO imageDao = new ProductImageDAO();
 
         try {
-            List<ProductDTO> prodotti = productDao.getFilteredProducts(type, 0, name, category, minPrice, maxPrice, page, pageSize);
+            List<ProductDTO> products = productDao.getFilteredProducts(type, 0, name, category, minPrice, maxPrice, page, pageSize);
+        
             int totalProducts = productDao.countFiltered(type, category, minPrice, maxPrice, name);
             int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
-
             
-            request.setAttribute("prodotti", prodotti);
+            
+            Map<Integer, ProductImageDTO> coverImages = new HashMap<>();
+            for(ProductDTO product: products) {
+                ProductImageDTO img = imageDao.findProductCover(product.getId());
+                if (img != null) {
+                    coverImages.put(product.getId(), img);
+                }
+            }
+            
+            request.setAttribute("prodotti", products);
+            request.setAttribute("coverImages", coverImages);
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("category", category);
