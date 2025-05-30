@@ -78,7 +78,7 @@ public class AddProduct extends HttpServlet {
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
         response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("/AdminPage.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath()+"/AdminPage.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

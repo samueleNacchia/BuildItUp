@@ -21,10 +21,13 @@ public class UpdateProduct extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductDAO productDao = new ProductDAO();
 
-		try { 
-			if( request.getContentType() != null && request.getContentType().toLowerCase().startsWith("multipart/")){
-				int idProduct =  Integer.parseInt(request.getParameter("id"));
-				ProductDTO product = productDao.findByCode(idProduct);	
+		try {
+			String idStr = request.getParameter("id");
+			
+			if(idStr!=null) {
+				int idProduct =  Integer.parseInt(idStr);
+				ProductDTO product = productDao.findByCode(idProduct);
+
 				boolean onSaleBefore = product.isOnSale();
 				
 				product.setDescription(request.getParameter("descrizione"));
@@ -32,15 +35,15 @@ public class UpdateProduct extends HttpServlet {
 				product.setDiscount(Float.parseFloat(request.getParameter("sconto")));
 				product.setOnSale("true".equals(request.getParameter("inVendita")));
 				product.setStocks(Integer.parseInt(request.getParameter("stocks")));
-				
-				productDao.update(product);
 					
+				productDao.update(product);
+						
 				if(!product.isOnSale() && onSaleBefore) {
 					ItemListDAO itemListDao = new ItemListDAO();
 					itemListDao.deleteProductFromLists(idProduct);
 				}
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -49,7 +52,7 @@ public class UpdateProduct extends HttpServlet {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
 		response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("/AdminPage.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath()+"/AdminPage.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -165,7 +165,7 @@ public class ProductDAO {
         if ("bestsellers".equalsIgnoreCase(type)) {
             query.append("SELECT COUNT(DISTINCT p.ID) FROM ProductOrder po JOIN Products p ON po.ID_product = p.ID WHERE p.isOnSale=TRUE");
             
-            if (category != null) {
+            if (category != null && !category.isEmpty()) {
                 query.append(" AND p.category = ?");
                 params.add(category);
             }
@@ -181,6 +181,7 @@ public class ProductDAO {
                 query.append(" AND p.name LIKE ?");
                 params.add("%" + name + "%");
             }
+            
         } else {
             
             query.append("SELECT COUNT(*) FROM Products WHERE isOnSale=TRUE");

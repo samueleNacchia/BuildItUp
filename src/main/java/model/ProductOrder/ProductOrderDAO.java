@@ -135,7 +135,7 @@ public class ProductOrderDAO {
         if (minPrice != null) query.append(" AND p.price >= ?");
         if (maxPrice != null) query.append(" AND p.price <= ?");
 
-        query.append(" GROUP BY p.ID, p.name, p.price ORDER BY quantity DESC");
+        query.append(" GROUP BY p.ID ORDER BY quantity DESC");
 
         if (limit > 0) {
             query.append(" LIMIT ?");

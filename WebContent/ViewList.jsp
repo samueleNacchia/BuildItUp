@@ -76,7 +76,7 @@
                     <td><%= String.format("%.2f", price) %></td>
                     <td>
                     	<!--<a href="Product?id=x"> -->
-                    	<img src="<%= request.getContextPath() %>/image?id=<%= product.getId() %>&n=1" >
+                    	<img src="/image?cover=true&id=<%= product.getId() %>" >
              			<!-- </a> -->
                     </td>
                     

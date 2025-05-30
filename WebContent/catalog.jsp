@@ -49,6 +49,7 @@
 	
 	Categoria
 	<select name="category" id="category">
+		<option value="" <% if ("".equals(category)) { %>selected<% } %>>Tutte le categorie</option>
 		<option value="CPU" <% if ("CPU".equals(category)) { %>selected<% } %>>CPU</option>
 		<option value="GPU" <% if ("GPU".equals(category)) { %>selected<% } %>>GPU</option>
 		<option value="MOBO" <% if ("MOBO".equals(category)) { %>selected<% } %>>MOBO</option>
@@ -115,7 +116,8 @@
 	%>
 		<div id="pagination">
 		<% 
-			for (int i = 1; i <= total; i++) {
+			
+			for (int i=1; total>1 && i<=total; i++) {
 				String active = "";
 				if (i == current) active = "active";
 							

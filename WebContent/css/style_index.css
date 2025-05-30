@@ -30,7 +30,7 @@ h1, h2 {
 
 .homepage >div{
 	border-bottom: 5px solid #000;
-	width: 80%;
+	width: 90%;
 	margin: 0 auto;
 }
 
@@ -51,7 +51,7 @@ h1, h2 {
   	background-color: #fff;
   	border-radius: 8px;
   	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  	width: 220px;
+  	width: 180px;
   	padding: 1rem;
   	text-align: center;
   	transition: transform 0.2s;

@@ -44,12 +44,12 @@
     </select></label>
     <label>Disponibilità: <input type="number" name="stocks" min="0" step="1" required /></label>
 
-	<label>Immagine di copertina: <input type="file" name="copertina" accept="image/*"></label>
+	<label>Immagine di copertina: <input type="file" name="copertina" id="fileInput1" accept="image/*"></label>
 
-    <label>Altre Immagini: <input type="file" name="immagini" id="fileInput" accept="image/*" multiple></label>
+    <label>Altre Immagini: <input type="file" name="immagini" id="fileInput2" accept="image/*" multiple></label>
     <br>
-	<button type="button" onclick="document.getElementById('fileInput').value = '';">Reset</button>
-	
+    <button type="reset">Reset</button>
+	<button type="button" onclick="document.getElementById('fileInput1').value = '';document.getElementById('fileInput2').value = '';">Reset Immagini</button>
     <input type="submit" class="add" value="Aggiungi Prodotto">
 </form>
 
@@ -86,11 +86,11 @@
 		        <input type="submit" class="update" value="Update" onclick="return confirm('Aggiornare <%= product.getName() %>?')" />
 		</form> 
 	
-			<a href="AddToList?type=wishlist&id=<%=product.getId()%>" style="text-decoration: none; cursor: pointer; enctype="multipart/form-data"">
+			<a href="AddToList?type=wishlist&id=<%=product.getId()%>" style="text-decoration: none; cursor: pointer;">
   				<i class="fa-solid fa-heart" id="wishlist-icon" style="font-size: 20px; color: dimgray;"></i>
 			</a>
 
-			<a href="AddToList?type=cart&id=<%=product.getId()%>" style="text-decoration: none; cursor: pointer; enctype="multipart/form-data"">
+			<a href="AddToList?type=cart&id=<%=product.getId()%>" style="text-decoration: none; cursor: pointer;">
   				<i class="fa-solid fa-shopping-cart" id="cart-icon" style="font-size: 20px; color: dimgray"></i>
 			</a>
 			</td> 
@@ -112,12 +112,14 @@
         %>        
         <form action="AddImages" method="post" enctype="multipart/form-data">
             <input type="hidden" name="productId" value="<%= product.getId() %>">
-            <input type="file" name="copertina" accept="image/*">
+            <input type="file" name="copertina" id="cover" accept="image/*">
+            <button type="reset">Reset Immagine</button>
             <input type="submit" class="add" value="Aggiungi Copertina">
         </form>
         <form action="AddImages" method="post" enctype="multipart/form-data">
             <input type="hidden" name="productId" value="<%= product.getId() %>">
             <input type="file" name="immagini" accept="image/*" multiple>
+            <button type="reset">Reset Immagini</button>
             <input type="submit" class="add" value="Aggiungi immagini">
         </form>
     </div>
