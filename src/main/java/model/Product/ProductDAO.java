@@ -232,7 +232,7 @@ public class ProductDAO {
 
     //VERSIONE CON SEPARAZIONE
     public List<ProductDTO> getFilteredProducts(String type, int limit, String name, String category,
-    		Double minPrice, Double maxPrice, int page, int pageSize) throws SQLException {
+    		Double minPrice, Double maxPrice, int page, int pageSize, boolean onlyOnSale) throws SQLException {
 
     	List<ProductDTO> products =  new ArrayList<>();;
 
@@ -254,8 +254,13 @@ public class ProductDAO {
         }
 
         // Costruzione query per altri tipi di filtri
-        StringBuilder query = new StringBuilder("SELECT * FROM Products WHERE isOnSale=TRUE");
+        StringBuilder query = new StringBuilder("SELECT * FROM Products WHERE 1=1");
 
+        
+        if (!onlyOnSale) {
+            query.append(" AND isOnSale=TRUE");
+        }
+        
         if ("discounts".equalsIgnoreCase(type)) {
             query.append(" AND discount > 0");
         }
@@ -294,14 +299,16 @@ public class ProductDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    ProductDTO product = new ProductDTO();
+                	ProductDTO product = new ProductDTO();
                     product.setId(rs.getInt("ID"));
                     product.setName(rs.getString("name"));
+                    product.setCategory(Category.valueOf(rs.getString("category")));
+                    product.setDescription(rs.getString("description"));
                     product.setPrice(rs.getFloat("price"));
                     product.setDiscount(rs.getFloat("discount"));
-                    product.setCategory(Category.valueOf(rs.getString("category")));
-                    product.setDiscount(rs.getFloat("discount"));
-                    
+                    product.setOnSale(rs.getBoolean("isOnSale"));
+                    product.setStocks(rs.getInt("stocks"));
+      
                     products.add(product);
                 }
             }

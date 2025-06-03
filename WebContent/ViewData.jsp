@@ -1,8 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="model.Product.ProductDTO" %>
-<%@ page import="model.ProductImage.ProductImageDTO" %>
-<%@ page import="model.User.UserDTO" %>
-<%@ page import="model.Admin.AdminDTO" %>
 <%@ page import="model.Order.OrderDTO" %>
 <%@ page import="model.ProductOrder.ProductOrderDTO" %>
 <%@ page import="model.Review.ReviewDTO" %>
@@ -13,10 +9,17 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
+
 <% DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); %>
 
+<!DOCTYPE html>
 <html>
 <head>
+<!-- <td><fmt:formatDate value="${o.orderDate}" pattern="dd/MM/yyyy" /></td> -->
     <title>Product-Users</title>
 	<link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 </head>
@@ -25,14 +28,7 @@
 
 	<h1>Utenti</h1>
 	
-    <%
-        List<UserDTO> utenti = (List<UserDTO>) request.getAttribute("utenti");
-        if (utenti == null || utenti.isEmpty()) {
-    %>
-        <p>Nessun utente disponibile.</p>
-    <%
-        } else {
-    %>
+    <c:if test="${not empty utenti}">
         <table>
             <tr>
                 <th>Codice</th>
@@ -45,75 +41,48 @@
                 <th>CAP</th>
                 <th>tel</th>
             </tr>
-            <%
-                for (UserDTO u : utenti) {
-            %>
+            <c:forEach var="utente" items="${utenti}">
                 <tr>
-                    <td><%= u.getId() %></td>
-                    <td><%= u.getEmail() %></td>
-                    <td><%= u.getPassword() %></td>
-                    <td><%= u.getName() %></td>
-                    <td><%= u.getSurname() %></td>
-                    <td><%= u.getVia() %></td>
-                    <td><%= u.getRoadNum() %></td>
-                    <td><%= u.getPostalCode() %></td>
-                    <td><%= u.getTel() %></td>
+                    <td>${utente.id}</td>
+                    <td>${utente.email}</td>
+                    <td>${utente.password}</td>
+                    <td><${utente.name}</td>
+                    <td>${utente.surname}</td>
+                    <td>${utente.via}</td>
+                    <td>${utente.roadNum}</td>
+                    <td>${utente.postalCode}</td>
+                    <td>${utente.tel}</td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
-    
-    
+    </c:if>
+       
     <h1>Admin</h1>
 	
-    <%
-        List<AdminDTO> admin = (List<AdminDTO>) request.getAttribute("admin");
-        if (admin == null || admin.isEmpty()) {
-    %>
-        <p>Nessun admin disponibile.</p>
-    <%
-        } else {
-    %>
+    <c:if test="${not empty admin}">
         <table>
             <tr>
                 <th>Email</th>
                 <th>Password</th>
             </tr>
-            <%
-                for (AdminDTO a : admin) {
-            %>
+            <c:forEach var="admin" items="${admin}">
                 <tr>
-                    <td><%= a.getEmail() %></td>
-                    <td><%= a.getPassword() %></td>
+                    <td>${admin.email}</td>
+                    <td>${admin.password}</td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
+    </c:if>
     
     
     
     
     <h1>Prodotti</h1>
 	
-    <%	
-        List<ProductDTO> prodotti = (List<ProductDTO>) request.getAttribute("prodotti");
-        if (prodotti == null || prodotti.isEmpty()) {
-    %>
-        <p>Nessun prodotto disponibile.</p>
-    <%
-        } else {
-    %>
+     <c:if test="${not empty prodotti}">
         <table>
             <tr>
-                <th>Codice</th>
+                 <th>Codice</th>
                 <th>Nome</th>
                 <th>Categoria</th>
                 <th>Descrizione</th>
@@ -122,62 +91,42 @@
                 <th>InVendita</th>
                 <th>Quantità</th>
             </tr>
-            <%
-                for (ProductDTO p : prodotti) {
-            %>
+            <c:forEach var="prodotto" items="${prodotti}">
                 <tr>
-                    <td><%= p.getId() %></td>
-                    <td><%= p.getName() %></td>
-                    <td><%= p.getCategory() %></td>
-                    <td><%= p.getDescription() %></td>
-                    <td><%= p.getPrice() %></td>
-                    <td><%= p.getDiscount() %></td>
-                    <td><%= p.isOnSale() %></td>
-                    <td><%= p.getStocks() %></td>
+                    <td>${prodotto.id}</td>
+                    <td>${prodotto.name}</td>
+                    <td>${prodotto.category}</td>
+                    <td>${prodotto.description}</td>
+                    <td>${prodotto.price}</td>
+                    <td>${prodotto.discount}</td>
+                    <td>${prodotto.onSale}</td>
+                    <td>${prodotto.stocks}</td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
+    </c:if>
     
     
     <h1>Immagini</h1>
 	
-    <%	
-        List<ProductImageDTO> images = (List<ProductImageDTO>) request.getAttribute("image");
-        if (images == null || images.isEmpty()) {
-    %>
-        <p>Nessuna immagine disponibile.</p>
-    <%
-        } else {
-    %>
+    <c:if test="${not empty image}">
         <table>
             <tr>
                 <th>Codice</th>
                 <th>Id Prodotto</th>
                 <th>Immagine</th>
             </tr>
-            <%
-                for (ProductImageDTO i : images) {
-            %>
+            <c:forEach var="image" items="${image}">
                 <tr>
-                    <td><%= i.getId() %></td>
-                    <td><%= i.getIdProduct() %></td>
-                    <td><img src="image?id=<%= i.getId() %>" ></td>
+                    <td>${image.id}</td>
+                    <td>${image.idProduct}</td>
+                    <td><img src="image?id=${image.id}"></td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
+    </c:if>
     
-    
-    
+
     <h1>Ordini</h1>
 	
     <%	

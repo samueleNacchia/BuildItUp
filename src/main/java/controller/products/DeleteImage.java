@@ -23,7 +23,11 @@ public class DeleteImage extends HttpServlet {
             e.printStackTrace();
         }
 
-        response.sendRedirect("AdminPage.jsp");
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+        response.setContentType("text/html;charset=UTF-8");
+        response.sendRedirect(request.getContextPath()+"/AdminPanelServlet");
     }
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

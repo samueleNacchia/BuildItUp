@@ -1,6 +1,7 @@
 package model.Order;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import model.Status;
 import model.User.UserDTO;
@@ -52,5 +53,12 @@ public class OrderDTO {
 		this.status = status;
 	}
 	
+	public String getOrderDateFormatted() {
+	    return orderDate != null ? orderDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
+	}
+	
+	public String getStatusName() {
+	    return status != null ? status.name() : "";
+	}
 	
 }

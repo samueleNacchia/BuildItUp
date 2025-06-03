@@ -1,6 +1,7 @@
 package model.Review;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ReviewDTO {
 	
@@ -54,4 +55,8 @@ public class ReviewDTO {
 	public void setReviewDate(LocalDate reviewDate) {
 		this.reviewDate = reviewDate;
 	}	
+	
+	public String getReviewDateFormatted() {
+	    return reviewDate != null ? reviewDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
+	}
 }

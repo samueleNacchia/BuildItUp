@@ -13,28 +13,42 @@ import model.Order.OrderDTO;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.json.JSONObject;
+
 @WebServlet("/UpdateOrder")
 public class UpdateOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		OrderDAO orderDao = new OrderDAO();
-		OrderDTO order = new OrderDTO();
-		
-		order.setId(Integer.parseInt(request.getParameter("id")));
-		order.setStatus(Status.valueOf(request.getParameter("stato")));
-		
-		try {
-			orderDao.updateStatus(order);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
-		response.setContentType("text/html;charset=UTF-8");
-		response.sendRedirect(request.getContextPath()+"/AdminPage.jsp");
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+
+	    String idParam = request.getParameter("id");
+	    String statoParam = request.getParameter("stato");
+
+	    JSONObject json = new JSONObject();
+	    json.put("functionName", "updateStatus");
+	    
+	    
+	    try {
+	        
+	    	int orderId = Integer.parseInt(idParam);
+	        Status newStatus = Status.valueOf(statoParam);
+	        
+			orderDao.updateStatus(orderId,newStatus);
+			json.put("status", true);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			json.put("status", false);
+		}
+	
+	    response.getWriter().write(json.toString());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

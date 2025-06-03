@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import controller.lists.ListManager;
@@ -87,7 +88,7 @@ public class SaveOrder extends HttpServlet {
         	order.setId_user(1); //DA CAMBIARE
         	order.setOrderDate(now);
         	order.setStatus(Status.In_elaborazione);
-        	orderDao.save(order);   	
+        	orderDao.save(order); 
             
             for(ItemListDTO item : items) {
             	product = item.getProduct();
@@ -112,11 +113,20 @@ public class SaveOrder extends HttpServlet {
             bill.setTotal(total);
             billDao.save(bill);
             
+            LocalDate orderDate = order.getOrderDate();
+
+            String formattedDate = orderDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            
+            request.setAttribute("data", formattedDate);
+            request.setAttribute("ordine",order);
+            request.setAttribute("fattura",bill);
+            
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     		response.setHeader("Pragma", "no-cache");
     		response.setDateHeader("Expires", 0);
             response.setContentType("text/html;charset=UTF-8");
-            response.sendRedirect("OrderSummary.jsp?id=" + order.getId());
+            request.getRequestDispatcher("/OrderSummary.jsp").forward(request, response);
+            
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,41 +1,44 @@
 @charset "UTF-8";
 
-
-
+.item.search form,
+.item.search input[type="text"] {
+  all: unset;
+}
 
 #sl {
   	font-family: "Fira Sans", sans-serif;
   	font-weight: 400;
-  	font-size: 50px;
+  	font-size: 3rem;
   	color: white;
   	padding-left: 0px;
 }
 
 #logo {
-  	transform: scale(1.5);
-  	padding-left: 50%;
+  	transform: scale(1);
 }
 
 #src {
   	border-radius: 10px;
-  	width: 350px;
-  	height: 35px;
-  	font-size: 15px;
+  	width: 22rem;
+  	height: 2.2rem;
+  	font-size: 1.2rem;;
   	background-image: url('../images/search.png');
   	background-position: 10px 7px;
   	background-repeat: no-repeat;
-  	padding-left: 40px;
+  	padding-left: 2rem;
   	background-color: white;
 }
 
 .subheader {
-  	max-width: 100%;
+  	width: 100%;
+    min-width: max-content;
+    overflow-x: visible;
   	font-size: 1.2rem;
   	box-sizing: border-box;
-  	overflow-x: visible;
   	background: linear-gradient(to bottom, #263238, #297678);
   	position: sticky;
   	top: 0;
+  	left: 0;
   	border-bottom-right-radius: 25%;
   	border-bottom-left-radius: 25%;
   	z-index: 100;
@@ -50,7 +53,8 @@
 }
 
 .tab {
-  	max-width: 100%;
+  	width: 100%;
+  	min-width: max-content;
   	background-color: #263238;
   	padding: 1em 0.5em;
   	box-sizing: border-box;
@@ -87,4 +91,67 @@
 .item-link:hover {
   	color: #5cade2;
   	text-decoration: underline;
+}
+
+@media (max-width: 1200px) {
+	.subheader {
+    	display: none;
+  	}
+  
+  	.tab {
+  		top: 0;
+  		position: sticky;
+    	font-size: 1em;
+    	padding: 0.5em;
+  	}
+  	
+  	#sl {
+	  	font-size: 2em;
+	}
+
+	#logo {
+	  	transform: scale(0.8);
+	}
+
+	#src {
+	  	width: 14rem;
+  	    height: 1.6rem;
+  		font-size: 1rem;;
+	  	padding-left: 1.5rem;
+	}
+	a i{
+		width: 1.2rem;
+    	transform: scale(0.7);
+	}
+}
+
+@media (max-width: 800px) {
+	#sl {
+	  	font-size: 1.2rem;
+	}
+		#src {
+	  	width: 12rem;
+  	    height: 1.2rem;
+  		font-size: 0.6rem;;
+	  	padding-left: 0.8rem;
+	}
+	a i{
+		width: 0.8rem;
+    	transform: scale(0.5);
+	}
+	
+}
+
+
+/* ---- ICONS ---- */
+a i.fa-heart:hover {
+    color: red !important;
+}
+
+a i.fa-shopping-cart:hover {
+    color: #2ecc71 !important;
+}
+
+a i.fa-user:hover {
+    color: white !important;
 }
