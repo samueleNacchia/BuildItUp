@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 //import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -94,6 +96,12 @@ public class SaveOrder extends HttpServlet {
             	product = item.getProduct();
             	price = product.getPrice() * (1-product.getDiscount());
             	
+            	// Arrotondamento a 2 decimali
+            	BigDecimal bd = new BigDecimal(Float.toString(price));
+            	bd = bd.setScale(2, RoundingMode.HALF_UP);
+
+            	price = bd.floatValue();
+            	
             	productOrder.setId_product(product.getId());
             	productOrder.setId_order(order.getId());
             	productOrder.setPrice(price);
@@ -113,20 +121,26 @@ public class SaveOrder extends HttpServlet {
             bill.setTotal(total);
             billDao.save(bill);
             
-            LocalDate orderDate = order.getOrderDate();
-
-            String formattedDate = orderDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            
-            request.setAttribute("data", formattedDate);
-            request.setAttribute("ordine",order);
-            request.setAttribute("fattura",bill);
-            
+                        
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     		response.setHeader("Pragma", "no-cache");
     		response.setDateHeader("Expires", 0);
             response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/OrderSummary.jsp").forward(request, response);
             
+            request.setAttribute("ordine",order);
+            request.setAttribute("fattura",bill);
+            
+            /*
+            // Salva in sessione invece che in request
+            HttpSession session = request.getSession();
+            session.setAttribute("ordine", order);
+            session.setAttribute("fattura", bill);
+
+            // Reindirizza per evitare il problema del refresh
+            response.sendRedirect("OrderSummary.jsp");
+            */
+            
+            request.getRequestDispatcher("/OrderSummary.jsp").forward(request, response);
 
         } catch (SQLException e) {
             e.printStackTrace();

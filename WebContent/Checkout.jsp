@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>Riepilogo Ordine</title>
+    <style>html{display:none}</style>
     <%@ include file="header.html" %>
     <link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
 </head>
@@ -51,8 +52,12 @@
                 <input class="btn" type="submit" value="Conferma Ordine">
             </form>
         </main>
-
-        <%@ include file="footer.html" %>
     </div>   
+    <%@ include file="footer.html" %>
+	<script>
+	  window.addEventListener("load", function() {
+	    document.documentElement.style.display = "block";
+	  });
+	</script>
 </body>
 </html>

@@ -114,11 +114,9 @@
                 </div>
 
             </div>
-        </main>
-
-        <%@ include file="footer.html" %>
+        </main>    
     </div>
-
+	<%@ include file="footer.html" %>
     <script>
         window.addEventListener("load", function() {
             document.documentElement.style.display = "block";

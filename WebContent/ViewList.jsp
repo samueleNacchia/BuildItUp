@@ -20,101 +20,107 @@
         </c:choose>
         ${titolo}
     </title>
+    <style>html{display:none}</style>
     <link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
 </head>
 
 <body>
-<div class="page-wrapper">
-		<%@ include file="header.html" %>
-		<main>
-	    <a href="Home">Home</a>
-	    <h1>${titolo}</h1>
-	
-	    <c:if test="${not empty type}">
-	        <c:choose>
-	            <c:when test="${empty items}">
-	                <p id="empty-message">
-	                    <c:choose>
-	                        <c:when test="${type == 'wishlist'}">
-	                            La wishlist è vuota
-	                        </c:when>
-	                        <c:when test="${type == 'cart'}">
-	                            Il carrello è vuoto
-	                        </c:when>
-	                        <c:otherwise>
-	                            La lista è vuota
-	                        </c:otherwise>
-	                    </c:choose>
-	                </p>
-	            </c:when>
-	            <c:otherwise>
-	                <table id="product-table">
-	                    <tr>
-	                        <th>Nome</th>
-	                        <th>Prezzo</th>
-	                        <th>Immagine</th>
-	                        <c:if test="${type == 'cart'}">
-	                            <th>Quantità</th>
-	                        </c:if>
-	                        <th>Azioni</th>
-	                    </tr>
-	
-	                    <c:forEach var="item" items="${items}">
-	                        <c:set var="product" value="${item.product}" />
-	                        
-	                        <tr id="product-${product.id}">
-	                            <td>${product.name}</td>
-	                            <td><fmt:formatNumber value="${product.price}" maxFractionDigits="2" />€</td>
-	                            <td><img src="image?cover=true&id=${product.id}" alt="Immagine ${product.name}" /></td>
-	
-	                            <c:if test="${type == 'cart'}">
-	                                <td id="quantity-${product.id}">${item.quantity}</td>
-	                            </c:if>
-	
-	                            <td>
-	                                <c:if test="${type == 'cart'}">
-	                                    <button class="add" onclick="addItem(${product.id}, 'cart')">+</button>
-	                                </c:if>
-	
-	                                <button id="btn-delete-${product.id}" class="delete" onclick="deleteItem(${product.id}, '${type}')">
-	                                    <c:choose>
-	                                        <c:when test="${item.quantity <= 1}"> X </c:when>
-	                                        <c:otherwise> - </c:otherwise>
-	                                    </c:choose>
-	                                </button>
-	                            </td>
-	                        </tr>
-	                    </c:forEach>
-	                </table>
-	                
-	                <c:if test="${type == 'cart'}">
-	            		<a id="btn-checkout" href="GetList?type=cart&to=checkout" style="text-decoration: none;">
-	                		<input class="btn" type="submit" class="update" value="Acquista" />
-	            		</a>
-	       			</c:if>
-	       			
-	            </c:otherwise>
-	        </c:choose>
-	
-	        <p id="empty-message" style="display: none;">
-	            <c:choose>
-	                <c:when test="${type == 'wishlist'}">
-	                    La wishlist è vuota
-	                </c:when>
-	                <c:when test="${type == 'cart'}">
-	                    Il carrello è vuoto
-	                </c:when>
-	                <c:otherwise>
-	                    La lista è vuota
-	                </c:otherwise>
-	            </c:choose>
-	        </p>
-	       
-	        <script src="script/UpdateItemList.js"></script>
-	    </c:if>
-	     
-	</main>
+	<div class="page-wrapper">
+			<%@ include file="header.html" %>
+			<main>
+		    <a href="Home">Home</a>
+		    <h1>${titolo}</h1>
+		
+		    <c:if test="${not empty type}">
+		        <c:choose>
+		            <c:when test="${empty items}">
+		                <p id="empty-message">
+		                    <c:choose>
+		                        <c:when test="${type == 'wishlist'}">
+		                            La wishlist è vuota
+		                        </c:when>
+		                        <c:when test="${type == 'cart'}">
+		                            Il carrello è vuoto
+		                        </c:when>
+		                        <c:otherwise>
+		                            La lista è vuota
+		                        </c:otherwise>
+		                    </c:choose>
+		                </p>
+		            </c:when>
+		            <c:otherwise>
+		                <table id="product-table">
+		                    <tr>
+		                        <th>Nome</th>
+		                        <th>Prezzo</th>
+		                        <th>Immagine</th>
+		                        <c:if test="${type == 'cart'}">
+		                            <th>Quantità</th>
+		                        </c:if>
+		                        <th>Azioni</th>
+		                    </tr>
+		
+		                    <c:forEach var="item" items="${items}">
+		                        <c:set var="product" value="${item.product}" />
+		                        
+		                        <tr id="product-${product.id}">
+		                            <td>${product.name}</td>
+		                            <td><fmt:formatNumber value="${product.price * (1-product.discount)}" maxFractionDigits="2" />€</td>
+		                            <td><img src="image?cover=true&id=${product.id}" alt="Immagine ${product.name}" /></td>
+		
+		                            <c:if test="${type == 'cart'}">
+		                                <td id="quantity-${product.id}">${item.quantity}</td>
+		                            </c:if>
+		
+		                            <td>
+		                                <c:if test="${type == 'cart'}">
+		                                    <button class="add" onclick="addItem(${product.id}, 'cart')">+</button>
+		                                </c:if>
+		
+		                                <button id="btn-delete-${product.id}" class="delete" onclick="deleteItem(${product.id}, '${type}')">
+		                                    <c:choose>
+		                                        <c:when test="${item.quantity <= 1}"> X </c:when>
+		                                        <c:otherwise> - </c:otherwise>
+		                                    </c:choose>
+		                                </button>
+		                            </td>
+		                        </tr>
+		                    </c:forEach>
+		                </table>
+		                
+		                <c:if test="${type == 'cart'}">
+		            		<a id="btn-checkout" href="GetList?type=cart&to=checkout" style="text-decoration: none;">
+		                		<input class="btn" type="submit" class="update" value="Acquista" />
+		            		</a>
+		       			</c:if>
+		       			
+		            </c:otherwise>
+		        </c:choose>
+		
+		        <p id="empty-message" style="display: none;">
+		            <c:choose>
+		                <c:when test="${type == 'wishlist'}">
+		                    La wishlist è vuota
+		                </c:when>
+		                <c:when test="${type == 'cart'}">
+		                    Il carrello è vuoto
+		                </c:when>
+		                <c:otherwise>
+		                    La lista è vuota
+		                </c:otherwise>
+		            </c:choose>
+		        </p>
+		       
+		        <script src="script/AJAX.js"></script>
+		    </c:if>
+		     
+		</main>
+	</div>
 	<%@ include file="footer.html" %>
-</div>
+	<script>
+	  window.addEventListener("load", function() {
+	    document.documentElement.style.display = "block";
+	  });
+	</script>
 </body>
 </html>

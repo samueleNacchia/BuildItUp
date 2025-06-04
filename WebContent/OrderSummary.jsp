@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Conferma Ordine</title>
+    <style>html{display:none}</style>
     <%@ include file="header.html" %>
     <link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 </head>
@@ -15,17 +16,15 @@
             <div class="container">
 
                 <c:choose>
-                    <c:when test="${not empty ordine and not empty fattura and not empty data}">
+                    <c:when test="${not empty ordine and not empty fattura}">
                         <h1 style="color:green">Ordine Confermato!</h1>
 
                         <div class="order-info">
-                            <p><strong>Numero Ordine:</strong> ${ordine.id}</p>
-                            <p><strong>ID Utente:</strong> ${ordine.id_user}</p>
-                            <p><strong>Totale:</strong> 
-                                <fmt:formatNumber value="${fattura.total}" type="currency" currencySymbol="€" maxFractionDigits="2" />     
-                            </p>
-                            <p><strong>Data Ordine:</strong>${data}</p>
-                            <p><strong>Stato:</strong> ${ordine.status}</p>
+                            <p><strong>Numero Ordine: </strong>${ordine.id}</p>
+                            <p><strong>ID Utente: </strong>${ordine.id_user}</p>
+                            <p><strong>Totale: </strong>${fattura.total} €</p>
+                            <p><strong>Data Ordine: </strong>${ordine.orderDateFormatted}</p>
+                            <p><strong>Stato: </strong>${ordine.status}</p>
                         </div>
 
                         <div class="back-link">
@@ -40,7 +39,12 @@
 
             </div>
         </main>
-       	<%@ include file="footer.html" %> 
     </div>
+    <%@ include file="footer.html" %> 
+    <script>
+  window.addEventListener("load", function() {
+    document.documentElement.style.display = "block";
+  });
+</script>
 </body>
 </html>
