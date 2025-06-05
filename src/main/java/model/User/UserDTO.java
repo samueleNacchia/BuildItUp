@@ -10,11 +10,12 @@ public class UserDTO {
 	private int roadNum;
 	private String postalCode;
 	private String tel;
+	private String provincia;
 	
 	public UserDTO() {
 	}
 	
-	public UserDTO(String email, String password, String name, String surname, String via, int roadNum, String postalCode, String tel) {
+	public UserDTO(String email, String password, String name, String surname, String via, int roadNum, String postalCode, String tel, String provincia) {
 		this.email = email;
 		this.password = password;
 		this.name = name;
@@ -23,6 +24,7 @@ public class UserDTO {
 		this.roadNum = roadNum;
 		this.postalCode = postalCode;
 		this.tel = tel;
+		this.provincia = provincia;
 	}
 	
 	public int getId() {
@@ -86,5 +88,11 @@ public class UserDTO {
 	}
 	public void setTel(String tel) {
 		this.tel = tel;
+	}
+	public String getProvincia() {
+		return provincia;
+	}
+	public void setProvincia(String prov) {
+		this.provincia= prov;
 	}
 }
