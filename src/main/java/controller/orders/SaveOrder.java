@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 //import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -32,13 +33,13 @@ public class SaveOrder extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
-    	/*HttpSession session = request.getSession(false);
-        Integer userId = (Integer) session.getAttribute("userId");
-        */
-        /*if (userId == null) {
-             response.sendRedirect("login.jsp");
+    	HttpSession session = request.getSession(false);
+        Integer userId = (Integer) session.getAttribute("id");
+        
+        if (userId == null) {
+             response.sendRedirect("LogIn_page.jsp");
              return;
-        }*/
+        }
          
         ProductDTO product = new ProductDTO();
         ProductDAO productDao = new ProductDAO();
@@ -87,7 +88,7 @@ public class SaveOrder extends HttpServlet {
             }
             
             //order.setId_user(userId);
-        	order.setId_user(1); //DA CAMBIARE
+        	order.setId_user((int)userId); //DA CAMBIARE
         	order.setOrderDate(now);
         	order.setStatus(Status.In_elaborazione);
         	orderDao.save(order); 
