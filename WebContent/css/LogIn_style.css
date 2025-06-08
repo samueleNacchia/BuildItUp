@@ -24,7 +24,7 @@ body {
     margin: auto;
 }
 
-.error-msg {
+.error-msg-form{
     background-color: #ffe0e0;
     color: #b10000;
     padding: 10px;
@@ -32,6 +32,12 @@ body {
     margin-bottom: 15px;
     font-weight: bold;
     text-align: center;
+}
+.error-msg {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    display: block;
 }
 
 .success-msg {

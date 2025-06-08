@@ -38,7 +38,16 @@ label {
     color: #555;
 }
 
-.error-msg {
+.error {
+    color: #b00020;
+    font-size: 0.9em;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+
+.error-pwd {
     background-color: #ffe0e0;
     color: #b10000;
     padding: 10px;
