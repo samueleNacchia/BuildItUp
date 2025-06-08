@@ -98,6 +98,29 @@ public class OrderDAO {
         return orders;
     }
 
+    public List<OrderDTO> findByUserCode(int u_code) throws SQLException {
+        String query = "SELECT * FROM Orders WHERE ID_user = ?"; // filtro per utente, non per ID ordine
+        List<OrderDTO> orders = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, u_code);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    OrderDTO order = new OrderDTO();
+                    order.setId(rs.getInt("ID"));
+                    order.setId_user(rs.getInt("ID_user"));
+                    order.setOrderDate(rs.getDate("orderDate").toLocalDate());
+                    order.setStatus(Status.valueOf(rs.getString("status")));
+
+                    orders.add(order);
+                }
+            }
+        }
+        return orders;
+    }
+
+
     // Metodo per aggiornare un ordine nel database
     public boolean update(OrderDTO order) throws SQLException {
         String query = "UPDATE Orders SET ID_user=?, orderDate=?, status=? WHERE ID=?";
