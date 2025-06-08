@@ -1,7 +1,7 @@
 package controller;
 
-import model.User.UserDAO;
-import model.User.UserDTO;
+import model.User.*;
+import model.Admin.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -21,22 +21,40 @@ public class LogInServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = HashFunction.generateToken(request.getParameter("password"));
+        
+        AdminDAO aDAO = new AdminDAO();
+        AdminDTO admin = null;
+        HttpSession session = request.getSession();
+
+        try {
+            admin = new AdminDTO(email, password);
+            if (aDAO.isAdmin(admin)) {
+                session.setAttribute("ruolo", 1);
+                response.sendRedirect("AdminPanel.jsp");
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            response.sendRedirect("LogIn_page.jsp?error=server");
+            return;
+        }
 
         UserDAO dao = new UserDAO();
         UserDTO user = null;
-		try {
-			user = dao.findByEmail(email);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		//System.out.println("form " + password + "  \n  db   " +user.getPassword());
+        try {
+            user = dao.findByEmail(email);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendRedirect("LogIn_page.jsp?error=server");
+            return;
+        }
+
         if (user != null && password.equals(user.getPassword())) {
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
             session.setAttribute("id", user.getId());
-            session.setAttribute("password", password);
-            session.setAttribute("email", email);
+            session.setAttribute("ruolo", 2);
             response.sendRedirect("index.jsp");
+            return; // 
         } else {
             response.sendRedirect("LogIn_page.jsp?error=1");
         }
