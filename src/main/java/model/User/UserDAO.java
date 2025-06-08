@@ -135,7 +135,7 @@ public class UserDAO {
 
     // Metodo per aggiornare un utente nel database
     public boolean update(UserDTO user) throws SQLException {
-        String query = "UPDATE Users SET email=?, password=?, name=?, surname=?, via=?, roadNum=?, postalCode=?, tel=?, WHERE ID=?";
+        String query = "UPDATE Users SET email=?, password=?, name=?, surname=?, via=?, roadNum=?, postalCode=?, tel=? WHERE ID=?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
