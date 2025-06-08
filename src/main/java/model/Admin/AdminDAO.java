@@ -20,7 +20,7 @@ public class AdminDAO {
 
     // Metodo per verificare le credenziali di un admin
     public boolean isAdmin(AdminDTO admin) throws SQLException {
-        String query = "SELECT * FROM Users WHERE email = ? AND password = ?";
+        String query = "SELECT * FROM admin WHERE email = ? AND password = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
