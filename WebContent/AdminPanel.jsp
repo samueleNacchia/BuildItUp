@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <title>Admin Panel</title>
     <style>html{display:none}</style>
-    <%@ include file="header.html" %>
+    <%@ include file="headerAdmin.html" %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>" />
 </head>
@@ -75,11 +75,11 @@
 			                        
 			                    </form>
 			
-			                        <button id="wishlist-icon" onclick="addToList(${product.id}, 'wishlist')">
+			                        <button id="wishlist-icon" onclick="addToList(${product.id}, 'wishlist', 1)">
 			                            <i class="fa-solid fa-heart" style="font-size: 20px; color: dimgray"></i>
 			                        </button>
 			
-			                        <button id="cart-icon" onclick="addToList(${product.id}, 'cart')">
+			                        <button id="cart-icon" onclick="addToList(${product.id}, 'cart', 1)">
 			                            <i class="fa-solid fa-shopping-cart" style="font-size: 20px; color: dimgray"></i>
 			                        </button>
 			                    </td>
@@ -171,11 +171,24 @@
 			
 		</main>
 	</div>
+	
+	<div id="toast" class="toast">Prodotto aggiunto!</div>
+	
 	<%@ include file="footer.html" %>
 	<script>
 		        window.addEventListener("load", function() {
 		            document.documentElement.style.display = "block";
 		        });
+		        
+		        
+		        function showToast(message) {
+		            const toast = document.getElementById("toast");
+		            toast.textContent = message;
+		            toast.className = "toast show";
+		            setTimeout(() => {
+		                toast.className = "toast";
+		            }, 3000);
+		        }
 	</script>
 	<script src="script/AJAX.js"></script>
 </body>

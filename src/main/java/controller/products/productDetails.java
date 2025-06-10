@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 
-@WebServlet("/ProductDetails")
-public class ProductDetails extends HttpServlet {
+@WebServlet("/productDetails")
+public class productDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     

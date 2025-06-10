@@ -20,88 +20,60 @@ public class AddToList extends HttpServlet {
     private static final long serialVersionUID = 1L; 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-    	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
- 		response.setHeader("Pragma", "no-cache");
- 		response.setDateHeader("Expires", 0);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
         response.setContentType("application/json;charset=UTF-8");
-    	
-    	ItemListDAO itemsDao = new ItemListDAO();
-    	boolean success = false;
-    	int newQuantity = 0;
-    	
-    	try {
+
+        ItemListDAO itemsDao = new ItemListDAO();
+        boolean addedSuccess = false;
+        int newQuantity = 0;
+
+        try {
             ListType type = ListType.valueOf(request.getParameter("type"));
             int productId = Integer.parseInt(request.getParameter("id"));
-            
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+
             ProductDAO productDao = new ProductDAO();
             ProductDTO product = productDao.findByCode(productId);
-            
-            if (product != null && product.isOnSale() && product.getStocks()>0) {
-            	
-            	ListDTO list = ListManager.getList(request, response, type, true);
-	            
-            	if (list == null) {
-	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lista non trovata o creata");
-	                return;
-	            }
-	
-	            //Controllo se il prodotto è già nella lista
-	            ItemListDTO existingItem = itemsDao.findProduct(list.getId(), productId);
-	            
-	            if (existingItem == null && product != null && product.isOnSale()) {
-	            	
-	                //Se non c’è, creo un nuovo item
-	                ItemListDTO newItem = new ItemListDTO();
-	                newItem.setId_list(list.getId());
-	                newItem.setId_product(productId);
-	                
-	                if(type.name().equalsIgnoreCase("cart"))
-	                	newItem.setQuantity(1); 
-	                
-	                itemsDao.save(newItem);
-	                success = true;
-	                newQuantity = 1;
-	            } 
-	            
-	            else if(type.name().equalsIgnoreCase("cart") && product.getStocks() > existingItem.getQuantity()) {
-	            	existingItem.setQuantity(existingItem.getQuantity() + 1);
-	            	itemsDao.update(existingItem);
-	            	success = true;
-	            	newQuantity = existingItem.getQuantity();
-	            }
-	            
+
+            if (product != null && product.isOnSale() && product.getStocks() > 0) {
+                ListDTO list = ListManager.getList(request, response, type, true);
+
+                if (list == null) {
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lista non trovata o creata");
+                    return;
+                }
+
+                ItemListDTO existingItem = itemsDao.findProduct(list.getId(), productId);
+
+                if (existingItem == null) {
+                    ItemListDTO newItem = new ItemListDTO();
+                    newItem.setId_list(list.getId());
+                    newItem.setId_product(productId);
+                    newItem.setQuantity(quantity);
+                    itemsDao.save(newItem);
+                    addedSuccess = true;
+                    newQuantity = quantity;
+                } else if (type.name().equalsIgnoreCase("cart") && product.getStocks() > existingItem.getQuantity() + quantity) {
+                    existingItem.setQuantity(existingItem.getQuantity() + quantity);
+                    itemsDao.update(existingItem);
+                    addedSuccess = true;
+                    newQuantity = existingItem.getQuantity();
+                }
             }
-            
-           
-            
-            
+
             JSONObject json = new JSONObject();
             json.put("functionName", "UpdateQuantityJSON");
             json.put("quantity", newQuantity);
-            json.put("success", success);
+            json.put("success", addedSuccess);
+
             response.getWriter().print(json.toString());
-            
-           /*
-            // torna alla pagina precedente
-            String referer = request.getHeader("Referer");
-            if (referer != null) {
-                response.sendRedirect(referer);
-            } else {
-                response.sendRedirect(request.getContextPath() + "/index.html");
-            }*/
-         
 
-        } catch (SQLException e) {
+        } catch (SQLException | IllegalArgumentException | NullPointerException e) {
             e.printStackTrace();
-        } catch (IllegalArgumentException | NullPointerException e) {
-        	e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
     }
 }

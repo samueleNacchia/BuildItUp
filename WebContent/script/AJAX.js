@@ -121,17 +121,20 @@ function updateStatus(orderId) {
 
 /*UPDATE ITEM LIST*/
 
-function addToList(productId, type) {
-    const params = `type=${encodeURIComponent(type)}&id=${encodeURIComponent(productId)}`;
-    loadAjaxRequest("AddToList", "GET", params, function(response) {
+function addToList(productId, type, quantity) {
+    const params = `type=${encodeURIComponent(type)}&id=${encodeURIComponent(productId)}&quantity=${encodeURIComponent(quantity)}`;
+    loadAjaxRequest("AddToList", "POST", params, function(response) {
         
-        if (response.success) {
-            if (type === "cart") alert("Prodotto aggiunto al carrello!");
-            else if (type === "wishlist") alert("Prodotto aggiunto alla wishlist!");
-            else alert("Prodotto aggiunto alla lista!");
-        } else {
-            console.log("Errore: " + (response.message || "Operazione fallita."));
-        }
+		if (response.success) {
+			
+			showToast(`Prodotto aggiunto ${type === "cart" ? "al carrello" : "alla lista"}!`, false);
+			
+		} else {
+		       
+			console.log("Errore: " + (response.message || "Operazione fallita."));
+	        showToast("Errore durante l'aggiunta.", true);
+		}
+		
     });
 }
 

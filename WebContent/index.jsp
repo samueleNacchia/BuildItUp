@@ -20,6 +20,7 @@
 	                <div class="products">
 	                
 	                  	<c:forEach var="prodotto" items="${scontati}">
+	                  	<a href="productDetails?id=${prodotto.id}" class="product-link">
 						    <div class="product-card">
 						        <c:set var="coverImage" value="${coverImages[prodotto.id]}" />
 						
@@ -37,6 +38,7 @@
 						            <fmt:formatNumber value="${prodotto.discount * 100}" maxFractionDigits="2" />%
 						        </h3>
 						    </div>
+						    </a>
 						</c:forEach>	
 							
 	                </div>
@@ -52,6 +54,7 @@
 	                <div class="products">
 	                    <c:forEach var="prodotto" items="${bestsellers}">
 	                    	<c:set var="coverImage" value="${coverImages[prodotto.id]}" />
+	                    	<a href="productDetails?id=${prodotto.id}" class="product-link">
 	    					<div class="product-card">
 		        				<c:choose>
 						            <c:when test="${not empty coverImage}">
@@ -64,6 +67,7 @@
 		        				<h3>${prodotto.name}</h3>
 		        				<h3>${prodotto.price}€</h3>
 	    				</div>
+	    				</a>
 						</c:forEach>
 	                </div>
 	                <div class="view-all">
