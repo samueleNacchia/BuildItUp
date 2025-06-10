@@ -30,11 +30,13 @@
         <% if (prodottiScontati != null && !prodottiScontati.isEmpty()) { %>
             <div id="discounts">
                 <h1>Discounts</h1>
+                
                 <div class="products">
                     <%
 					    for (ProductDTO product : prodottiScontati) {
 					        ProductImageDTO cover = coverImages.get(product.getId());
 					%>
+					<a href="ProductDetails?id=<%= product.getId() %>" class="product-link">
     				<div class="product-card">
         				<% if (cover != null) { %>
             				<img src="image?id=<%= cover.getId() %>" alt="Immagine di copertina">
@@ -44,6 +46,7 @@
         				<h3><%= product.getName() %></h3>
         				<h3 class="discount"><%= String.format("%.2f",product.getDiscount()*100) %>%</h3>
     				</div>
+    				</a>
 					<%
     					}
 					%>
@@ -62,6 +65,7 @@
 					    for (ProductDTO product : prodottiBestseller) {
 					        ProductImageDTO cover = coverImages.get(product.getId());
 					%>
+					<a href="ProductDetails?id=<%= product.getId() %>" class="product-link">
     				<div class="product-card">
         				<% if (cover != null) { %>
             				<img src="image?id=<%= cover.getId() %>" alt="Immagine di copertina">
@@ -71,6 +75,7 @@
         				<h3><%= product.getName() %></h3>
         				<h3><%= product.getPrice() %>€</h3>
     				</div>
+    				</a>
 					<%
     					}
 					%>
@@ -92,7 +97,7 @@
     </a>
 
     <div id="newsletter">
-        <form method="POST" action="iscrizione">
+        <form method="POST" action="SignToNewsletter">
             <label for="email">Iscriviti alla newsletter</label>
             <input type="email" id="email" name="email">
             <input type="submit">

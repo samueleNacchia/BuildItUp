@@ -13,6 +13,8 @@ import model.Product.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.json.JSONObject;
+
 @WebServlet("/AddToList")
 public class AddToList extends HttpServlet {
     private static final long serialVersionUID = 1L; 
@@ -20,7 +22,14 @@ public class AddToList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
+    	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+ 		response.setHeader("Pragma", "no-cache");
+ 		response.setDateHeader("Expires", 0);
+        response.setContentType("application/json;charset=UTF-8");
+    	
     	ItemListDAO itemsDao = new ItemListDAO();
+    	boolean success = false;
+    	int newQuantity = 0;
     	
     	try {
             ListType type = ListType.valueOf(request.getParameter("type"));
@@ -52,27 +61,36 @@ public class AddToList extends HttpServlet {
 	                	newItem.setQuantity(1); 
 	                
 	                itemsDao.save(newItem);
+	                success = true;
+	                newQuantity = 1;
 	            } 
 	            
 	            else if(type.name().equalsIgnoreCase("cart") && product.getStocks() > existingItem.getQuantity()) {
 	            	existingItem.setQuantity(existingItem.getQuantity() + 1);
 	            	itemsDao.update(existingItem);
-	            	
+	            	success = true;
+	            	newQuantity = existingItem.getQuantity();
 	            }
+	            
             }
             
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    		response.setHeader("Pragma", "no-cache");
-    		response.setDateHeader("Expires", 0);
-            response.setContentType("text/html;charset=UTF-8");
            
+            
+            
+            JSONObject json = new JSONObject();
+            json.put("functionName", "UpdateQuantityJSON");
+            json.put("quantity", newQuantity);
+            json.put("success", success);
+            response.getWriter().print(json.toString());
+            
+           /*
             // torna alla pagina precedente
             String referer = request.getHeader("Referer");
             if (referer != null) {
                 response.sendRedirect(referer);
             } else {
                 response.sendRedirect(request.getContextPath() + "/index.html");
-            }
+            }*/
          
 
         } catch (SQLException e) {
@@ -87,4 +105,3 @@ public class AddToList extends HttpServlet {
         doGet(request, response);
     }
 }
-

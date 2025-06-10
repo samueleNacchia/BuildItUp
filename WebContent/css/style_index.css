@@ -179,15 +179,3 @@ h1, h2 {
 }
 
 
-/* ---- ICONS ---- */
-a i.fa-heart:hover {
-    color: red !important;
-}
-
-a i.fa-shopping-cart:hover {
-    color: #2ecc71 !important;
-}
-
-a i.fa-user:hover {
-    color: white !important;
-}

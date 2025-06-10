@@ -83,7 +83,7 @@
 				for (ProductDTO product : prodotti) {
 					ProductImageDTO image = coverImages.get(product.getId());
 			%>
-					<a href="productDetails?id=<%= product.getId() %>" class="product-link">
+					<a href="ProductDetails?id=<%= product.getId() %>" class="product-link">
 					<div class="product-card">
 						<%
 					        if (image != null) {
