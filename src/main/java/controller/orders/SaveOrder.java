@@ -6,10 +6,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 //import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import controller.lists.ListManager;
@@ -29,13 +33,13 @@ public class SaveOrder extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
-    	/*HttpSession session = request.getSession(false);
-        Integer userId = (Integer) session.getAttribute("userId");
-        */
-        /*if (userId == null) {
-             response.sendRedirect("login.jsp");
+    	HttpSession session = request.getSession(false);
+        Integer userId = (Integer) session.getAttribute("id");
+        
+        if (userId == null) {
+             response.sendRedirect("LogIn_page.jsp");
              return;
-        }*/
+        }
          
         ProductDTO product = new ProductDTO();
         ProductDAO productDao = new ProductDAO();
@@ -84,14 +88,20 @@ public class SaveOrder extends HttpServlet {
             }
             
             //order.setId_user(userId);
-        	order.setId_user(1); //DA CAMBIARE
+        	order.setId_user((int)userId); //DA CAMBIARE
         	order.setOrderDate(now);
         	order.setStatus(Status.In_elaborazione);
-        	orderDao.save(order);   	
+        	orderDao.save(order); 
             
             for(ItemListDTO item : items) {
             	product = item.getProduct();
             	price = product.getPrice() * (1-product.getDiscount());
+            	
+            	// Arrotondamento a 2 decimali
+            	BigDecimal bd = new BigDecimal(Float.toString(price));
+            	bd = bd.setScale(2, RoundingMode.HALF_UP);
+
+            	price = bd.floatValue();
             	
             	productOrder.setId_product(product.getId());
             	productOrder.setId_order(order.getId());
@@ -112,11 +122,26 @@ public class SaveOrder extends HttpServlet {
             bill.setTotal(total);
             billDao.save(bill);
             
+                        
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     		response.setHeader("Pragma", "no-cache");
     		response.setDateHeader("Expires", 0);
             response.setContentType("text/html;charset=UTF-8");
-            response.sendRedirect("OrderSummary.jsp?id=" + order.getId());
+            
+            request.setAttribute("ordine",order);
+            request.setAttribute("fattura",bill);
+            
+            /*
+            // Salva in sessione invece che in request
+            HttpSession session = request.getSession();
+            session.setAttribute("ordine", order);
+            session.setAttribute("fattura", bill);
+
+            // Reindirizza per evitare il problema del refresh
+            response.sendRedirect("OrderSummary.jsp");
+            */
+            
+            request.getRequestDispatcher("/OrderSummary.jsp").forward(request, response);
 
         } catch (SQLException e) {
             e.printStackTrace();

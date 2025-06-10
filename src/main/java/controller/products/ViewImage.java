@@ -19,6 +19,7 @@ public class ViewImage extends HttpServlet {
     	
         ProductImageDAO productImageDao = new ProductImageDAO();
         ProductImageDTO image = null;
+        
 		try {
 			if(request.getParameter("cover")!= null && request.getParameter("cover").equals("true"))
 				image = productImageDao.findProductCover(id);

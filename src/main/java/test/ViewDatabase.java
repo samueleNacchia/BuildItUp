@@ -70,7 +70,7 @@ public class ViewDatabase extends HttpServlet {
             request.setAttribute("liste", liste);
             
             List<ItemListDTO> item = ItemListDao.findAll();
-            request.setAttribute("item", item);
+            request.setAttribute("items", item);
             
             List<ProductImageDTO> image = ProductImageDao.findAll();
             request.setAttribute("image", image);

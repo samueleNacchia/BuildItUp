@@ -2,16 +2,16 @@
 
 <Context>
     <Resource 
-   	 	name="jdbc/storage"
+        name="jdbc/storage"
         auth="Container"
         type="javax.sql.DataSource"
         driverClassName="com.mysql.cj.jdbc.Driver"
         username="user"
         password="12345678"
         url="jdbc:mysql://localhost:3306/storage?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
-        maxTotal="200s"
+        maxTotal="200"
         maxIdle="100"
-        maxWaitMillis="-1"
+        maxWaitMillis="10000"
         factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
         validationQuery="SELECT 1"/>
 </Context>

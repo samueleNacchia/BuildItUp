@@ -1,6 +1,7 @@
 package model.Bill;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class BillDTO {
 
@@ -38,5 +39,8 @@ public class BillDTO {
 		this.billDate = billDate;
 	}
 	
+	public String getBillDateFormatted() {
+	    return billDate != null ? billDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
+	}
 	
 }

@@ -1,19 +1,53 @@
 body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #319193;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    flex: 1;
+}
+
+/* Corretto il selettore: prima era "page-wrapper" senza punto */
 .login-container {
     background-color: #fff;
     padding: 35px 45px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
     width: 420px;
+    margin: auto;
+}
+
+.error-msg-form{
+    background-color: #ffe0e0;
+    color: #b10000;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+.error-msg {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.success-msg {
+    background-color: #e0ffe0;
+    color: #007000;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
 }
 
 h2 {
@@ -45,15 +79,20 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
-.register-button{
-	background-color : #5b55ed;
-	
-}
-.register-button:hover{
-	background-color : #423eb3;
-	
-}
 
 button:hover {
     background-color: #45a049;
+}
+
+.register-button {
+    background-color: #5b55ed;
+}
+
+.register-button:hover {
+    background-color: #423eb3;
+}
+
+/* Fa sì che il footer rimanga in fondo anche con poco contenuto */
+footer {
+    margin-top: auto;
 }

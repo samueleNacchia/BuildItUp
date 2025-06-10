@@ -77,6 +77,32 @@ public class UserDAO {
 
         return user;
     }
+    public UserDTO findByEmail(String email) throws SQLException {
+        String query = "SELECT * FROM Users WHERE email = ?";
+        UserDTO user = null;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    user = new UserDTO();
+                    user.setId(rs.getInt("ID"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPassword(rs.getString("password"));
+                    user.setName(rs.getString("name"));
+                    user.setSurname(rs.getString("surname"));
+                    user.setVia(rs.getString("via"));
+                    user.setRoadNum(rs.getInt("roadNum"));
+                    user.setPostalCode(rs.getString("postalCode"));
+                    user.setTel(rs.getString("tel"));
+                }
+            }
+        }
+
+        return user;
+    }
 
     // Metodo per recuperare tutti i utenti
     public List<UserDTO> findAll() throws SQLException {
@@ -109,7 +135,7 @@ public class UserDAO {
 
     // Metodo per aggiornare un utente nel database
     public boolean update(UserDTO user) throws SQLException {
-        String query = "UPDATE Users SET email=?, password=?, name=?, surname=?, via=?, roadNum=?, postalCode=?, tel=?, WHERE ID=?";
+        String query = "UPDATE Users SET email=?, password=?, name=?, surname=?, via=?, roadNum=?, postalCode=?, tel=? WHERE ID=?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {

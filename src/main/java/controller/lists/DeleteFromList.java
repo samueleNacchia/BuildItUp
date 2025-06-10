@@ -13,14 +13,24 @@ import model.Product.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.json.JSONObject;
+
 @WebServlet("/DeleteFromList")
 public class DeleteFromList extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
+    	
+    	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+ 		response.setHeader("Pragma", "no-cache");
+ 		response.setDateHeader("Expires", 0);
+ 		response.setContentType("application/json;charset=UTF-8");
+    	
     	ItemListDAO ItemListDao = new ItemListDAO();
+        boolean deleted = false;
+        int newQuantity = 0;
+        boolean success = false;
         
     	try {
             ListType type = ListType.valueOf(request.getParameter("type"));
@@ -40,31 +50,49 @@ public class DeleteFromList extends HttpServlet {
 	           
 	            ItemListDTO item = ItemListDao.findProduct(list.getId(), productId);
 	            
+	            if (item == null) {
+	                // item non presente, non si può decrementare o eliminare
+	                JSONObject json = new JSONObject();
+	                json.put("success", false);
+	                json.put("message", "Prodotto non presente nella lista.");
+	                response.getWriter().print(json.toString());
+	                return;
+	            }
 	            
-	            	if(type.name().equals("cart") && item.getQuantity() > 1) {
-	            		item.setQuantity(item.getQuantity() - 1);
-	            		ItemListDao.update(item);
-	            	} else {
-	            		ItemListDao.deleteFromList(list.getId(), productId);
-	            	}
+	            if(type.name().equals("cart") && item.getQuantity() > 1) {
+	           		item.setQuantity(item.getQuantity() - 1);
+	           		ItemListDao.update(item);
+	           		newQuantity = item.getQuantity();
+	           	} else {
+	           		ItemListDao.deleteFromList(list.getId(), productId);
+	           		deleted = true;
+	           	}
+	            	
+	           	success = true;
             }
             
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    		response.setHeader("Pragma", "no-cache");
-    		response.setDateHeader("Expires", 0);
-            response.setContentType("text/html;charset=UTF-8");
+            JSONObject json = new JSONObject();
+            json.put("functionName", "UpdateQuantityJSON");
+            json.put("quantity", newQuantity);
+            json.put("deleted", deleted);
+            json.put("success", success);
+            response.getWriter().print(json.toString());
            
             // torna alla pagina precedente
-            String referer = request.getHeader("Referer");
+            /*String referer = request.getHeader("Referer");
             if (referer != null) {
                 response.sendRedirect(referer);
             } else {
                 response.sendRedirect(request.getContextPath() + "/index.html");
-            }
+            }*/
          
 
         } catch (SQLException | IllegalArgumentException | NullPointerException e) {
-            e.printStackTrace();
+        	e.printStackTrace();
+            JSONObject json = new JSONObject();
+            json.put("success", false);
+            json.put("message", "Errore interno: " + e.getMessage());
+            response.getWriter().print(json.toString());
         } 
     }
 

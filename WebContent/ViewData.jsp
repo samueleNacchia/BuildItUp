@@ -1,23 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="model.Product.ProductDTO" %>
-<%@ page import="model.ProductImage.ProductImageDTO" %>
-<%@ page import="model.User.UserDTO" %>
-<%@ page import="model.Admin.AdminDTO" %>
-<%@ page import="model.Order.OrderDTO" %>
-<%@ page import="model.ProductOrder.ProductOrderDTO" %>
-<%@ page import="model.Review.ReviewDTO" %>
-<%@ page import="model.Bill.BillDTO" %>
-<%@ page import="model.Newsletter.NewsletterDTO" %>
-<%@ page import="model.List.ListDTO" %>
-<%@ page import="model.ItemList.ItemListDTO" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<% DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); %>
-
+<!DOCTYPE html>
 <html>
 <head>
     <title>Product-Users</title>
+    <style>html{display:none}</style>
 	<link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
@@ -25,14 +13,7 @@
 
 	<h1>Utenti</h1>
 	
-    <%
-        List<UserDTO> utenti = (List<UserDTO>) request.getAttribute("utenti");
-        if (utenti == null || utenti.isEmpty()) {
-    %>
-        <p>Nessun utente disponibile.</p>
-    <%
-        } else {
-    %>
+    <c:if test="${not empty utenti}">
         <table>
             <tr>
                 <th>Codice</th>
@@ -45,75 +26,48 @@
                 <th>CAP</th>
                 <th>tel</th>
             </tr>
-            <%
-                for (UserDTO u : utenti) {
-            %>
+            <c:forEach var="utente" items="${utenti}">
                 <tr>
-                    <td><%= u.getId() %></td>
-                    <td><%= u.getEmail() %></td>
-                    <td><%= u.getPassword() %></td>
-                    <td><%= u.getName() %></td>
-                    <td><%= u.getSurname() %></td>
-                    <td><%= u.getVia() %></td>
-                    <td><%= u.getRoadNum() %></td>
-                    <td><%= u.getPostalCode() %></td>
-                    <td><%= u.getTel() %></td>
+                    <td>${utente.id}</td>
+                    <td>${utente.email}</td>
+                    <td>${utente.password}</td>
+                    <td><${utente.name}</td>
+                    <td>${utente.surname}</td>
+                    <td>${utente.via}</td>
+                    <td>${utente.roadNum}</td>
+                    <td>${utente.postalCode}</td>
+                    <td>${utente.tel}</td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
-    
-    
+    </c:if>
+       
     <h1>Admin</h1>
 	
-    <%
-        List<AdminDTO> admin = (List<AdminDTO>) request.getAttribute("admin");
-        if (admin == null || admin.isEmpty()) {
-    %>
-        <p>Nessun admin disponibile.</p>
-    <%
-        } else {
-    %>
+    <c:if test="${not empty admin}">
         <table>
             <tr>
                 <th>Email</th>
                 <th>Password</th>
             </tr>
-            <%
-                for (AdminDTO a : admin) {
-            %>
+            <c:forEach var="admin" items="${admin}">
                 <tr>
-                    <td><%= a.getEmail() %></td>
-                    <td><%= a.getPassword() %></td>
+                    <td>${admin.email}</td>
+                    <td>${admin.password}</td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
+    </c:if>
     
     
     
     
     <h1>Prodotti</h1>
 	
-    <%	
-        List<ProductDTO> prodotti = (List<ProductDTO>) request.getAttribute("prodotti");
-        if (prodotti == null || prodotti.isEmpty()) {
-    %>
-        <p>Nessun prodotto disponibile.</p>
-    <%
-        } else {
-    %>
+     <c:if test="${not empty prodotti}">
         <table>
             <tr>
-                <th>Codice</th>
+                 <th>Codice</th>
                 <th>Nome</th>
                 <th>Categoria</th>
                 <th>Descrizione</th>
@@ -122,72 +76,45 @@
                 <th>InVendita</th>
                 <th>Quantità</th>
             </tr>
-            <%
-                for (ProductDTO p : prodotti) {
-            %>
+            <c:forEach var="prodotto" items="${prodotti}">
                 <tr>
-                    <td><%= p.getId() %></td>
-                    <td><%= p.getName() %></td>
-                    <td><%= p.getCategory() %></td>
-                    <td><%= p.getDescription() %></td>
-                    <td><%= p.getPrice() %></td>
-                    <td><%= p.getDiscount() %></td>
-                    <td><%= p.isOnSale() %></td>
-                    <td><%= p.getStocks() %></td>
+                    <td>${prodotto.id}</td>
+                    <td>${prodotto.name}</td>
+                    <td>${prodotto.category}</td>
+                    <td>${prodotto.description}</td>
+                    <td>${prodotto.price}</td>
+                    <td>${prodotto.discount}</td>
+                    <td>${prodotto.onSale}</td>
+                    <td>${prodotto.stocks}</td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
+    </c:if>
     
     
     <h1>Immagini</h1>
 	
-    <%	
-        List<ProductImageDTO> images = (List<ProductImageDTO>) request.getAttribute("image");
-        if (images == null || images.isEmpty()) {
-    %>
-        <p>Nessuna immagine disponibile.</p>
-    <%
-        } else {
-    %>
+    <c:if test="${not empty image}">
         <table>
             <tr>
                 <th>Codice</th>
                 <th>Id Prodotto</th>
                 <th>Immagine</th>
             </tr>
-            <%
-                for (ProductImageDTO i : images) {
-            %>
+            <c:forEach var="image" items="${image}">
                 <tr>
-                    <td><%= i.getId() %></td>
-                    <td><%= i.getIdProduct() %></td>
-                    <td><img src="image?id=<%= i.getId() %>" ></td>
+                    <td>${image.id}</td>
+                    <td>${image.idProduct}</td>
+                    <td><img src="image?id=${image.id}"></td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
+    </c:if>
     
-    
-    
+
     <h1>Ordini</h1>
-	
-    <%	
-        List<OrderDTO> ordini = (List<OrderDTO>) request.getAttribute("ordini");
-        if (ordini == null || ordini.isEmpty()) {
-    %>
-        <p>Nessun ordine disponibile.</p>
-    <%
-        } else {
-    %>
+    
+     <c:if test="${not empty ordini}">
         <table>
             <tr>
                 <th>Codice</th>
@@ -195,34 +122,21 @@
                 <th>Data</th>
                 <th>Stato</th>
             </tr>
-            <%
-                for (OrderDTO o : ordini) {
-            %>
+            <c:forEach var="ordine" items="${ordini}">
                 <tr>
-                    <td><%= o.getId() %></td>
-                    <td><%= o.getId_user() %></td>
-                    <td><%= o.getOrderDate().format(formatter) %></td>
-                    <td><%= o.getStatus() %></td>
+                    <td>${ordine.id}</td>
+                    <td>${ordine.id_user}</td>
+                    <td>${ordine.orderDateFormatted}</td>
+                    <td>${ordine.status}</td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
+    </c:if>
     
     
     <h1>ProdottiOrdine</h1>
-	
-    <%	
-        List<ProductOrderDTO> prodottiOrdine = (List<ProductOrderDTO>) request.getAttribute("prodottiOrdinati");
-        if (prodottiOrdine == null || prodottiOrdine.isEmpty()) {
-    %>
-        <p>Nessun prodotto disponibile.</p>
-    <%
-        } else {
-    %>
+    
+    <c:if test="${not empty prodottiOrdinati}">
         <table>
             <tr>
                 <th>Codice Prodotto</th>
@@ -230,193 +144,126 @@
                 <th>Prezzo</th>
                 <th>Quantità</th>
             </tr>
-            <%
-                for (ProductOrderDTO po : prodottiOrdine) {
-            %>
+            <c:forEach var="prodottoOrdine" items="${prodottiOrdinati}">
                 <tr>
-                    <td><%= po.getId_product() %></td>
-                    <td><%= po.getId_order() %></td>
-                    <td><%= po.getPrice() %></td>
-                    <td><%= po.getQuantity() %></td>
+                    <td>${prodottoOrdine.id_product}</td>
+                    <td>${prodottoOrdine.id_order}</td>
+                    <td>${prodottoOrdine.price} €</td>
+                    <td>${prodottoOrdine.quantity}</td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
+	</c:if>
     
     
     
     <h1>Recensioni</h1>
 	
-    <%	
-        List<ReviewDTO> recensioni = (List<ReviewDTO>) request.getAttribute("recensioniProdotto");
-        if (recensioni == null || recensioni.isEmpty()) {
-    %>
-        <p>Nessuna recensione del prodotto disponibile.</p>
-    <%
-        } else {
-    %>
+	
+	<c:if test="${not empty recensioniProdotto}">
         <table>
             <tr>
-                <th>Codice utente</th>
+               	<th>Codice utente</th>
                 <th>Codice prodotto</th>
                 <th>Testo</th>
                 <th>Voto</th>
                 <th>Data</th>
             </tr>
-            <%
-                for (ReviewDTO r : recensioni) {
-            %>
+            <c:forEach var="recensione" items="${recensioniProdotto}">
                 <tr>
-                    <td><%= r.getId_user() %></td>
-                    <td><%= r.getId_product() %></td>
-                    <td><%= r.getText() %></td>
-                    <td><%= r.getVote() %></td>
-                    <td><%= r.getReviewDate().format(formatter) %></td>
+                    <td>${recensione.id_user}</td>
+                    <td>${recensione.id_product}</td>
+                    <td>${recensione.text}</td>
+                    <td>${recensione.vote}</td>
+                    <td>${recensione.reviewDateFormatted}</td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>   
+	</c:if>
+   
     
     <h1>Fatture</h1>
 	
-    <%	
-        List<BillDTO> fatture = (List<BillDTO>) request.getAttribute("fatture");
-        if (fatture == null || fatture.isEmpty()) {
-    %>
-        <p>Nessuna fattura disponibile.</p>
-    <%
-        } else {
-    %>
+	
+	<c:if test="${not empty fatture}">
         <table>
             <tr>
-                <th>Codice ordine</th>
+               	<th>Codice ordine</th>
                 <th>Totale</th>
                 <th>Data</th>
             </tr>
-            <%
-                for (BillDTO b : fatture) {
-            %>
+            <c:forEach var="fattura" items="${fatture}">
                 <tr>
-                    <td><%= b.getId_order() %></td>
-                    <td><%= b.getTotal() %></td>
-                    <td><%= b.getBillDate().format(formatter) %></td>
+                    <td>${fattura.id_order}</td>
+                    <td>${fattura.total} €</td>
+                    <td>${fattura.billDateFormatted}</td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
-    
+	</c:if>
     
     <h1>Newsletter</h1>
 	
-    <%	
-        List<NewsletterDTO> Newsletter = (List<NewsletterDTO>) request.getAttribute("news");
-        if (Newsletter == null || Newsletter.isEmpty()) {
-    %>
-        <p>Nessuna Newsletter disponibile.</p>
-    <%
-        } else {
-    %>
+	
+	<c:if test="${not empty news}">
         <table>
-            <tr>
-                <th>Email</th>
-            </tr>
-            <%
-                for (NewsletterDTO n : Newsletter) {
-            %>
-                <tr>
-                    <td><%= n.getEmail() %></td>
-                </tr>
-            <%
-                }
-            %>
+            <tr><th>Email</th></tr>
+            <c:forEach var="newsletter" items="${news}">
+                <tr><td>${newsletter.email}</td></tr>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
-    
+	</c:if>
     
     
     <h1>Liste</h1>
 	
-    <%	
-        List<ListDTO> liste = (List<ListDTO>) request.getAttribute("liste");
-        if (liste == null || liste.isEmpty()) {
-    %>
-        <p>Nessuna lista disponibile.</p>
-    <%
-        } else {
-    %>
+	<c:if test="${not empty liste}">
         <table>
             <tr>
-                <th>Codice</th>
+               	<th>Codice</th>
                 <th>Token</th>
                 <th>Codice utente</th>
                 <th>Tipologia</th>
                 <th>Ultimo accesso</th>
             </tr>
-            <%
-                for (ListDTO l : liste) {
-            %>
+            <c:forEach var="lista" items="${liste}">
                 <tr>
-                    <td><%= l.getId() %></td>
-                    <td><%= l.getToken() %></td>
-                    <td><%= l.getId_user() %></td>
-                    <td><%= l.getType() %></td>
-                    <td><%= l.getLastAccess() %></td>
+                    <td>${lista.id}</td>
+                    <td>${lista.token}</td>
+                    <td>${lista.id_user}</td>
+                    <td>${lista.type}</td>
+                    <td>${lista.lastAccess}</td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
+	</c:if>
     
     
     
     <h1>Item delle liste</h1>
 	
-    <%	
-        List<ItemListDTO> item = (List<ItemListDTO>) request.getAttribute("item");
-        if (item == null || item.isEmpty()) {
-    %>
-        <p>Nessuna fattura disponibile.</p>
-    <%
-        } else {
-    %>
+	<c:if test="${not empty items}">
         <table>
             <tr>
-                <th>Codice lista</th>
+               	<th>Codice lista</th>
                 <th>Codice prodotto</th>
                 <th>Quantità</th>
             </tr>
-            <%
-                for (ItemListDTO i : item) {
-            %>
+            <c:forEach var="item" items="${items}">
                 <tr>
-                    <td><%= i.getId_list() %></td>
-                    <td><%= i.getId_product() %></td>
-                    <td><%= i.getQuantity() %></td>
+                    <td>${item.id_list}</td>
+                    <td>${item.id_product}</td>
+                    <td>${item.quantity}</td>
                 </tr>
-            <%
-                }
-            %>
+            </c:forEach>
         </table>
-    <%
-        }
-    %>
-    
+	</c:if>
+	
+	
+	<script>
+	  window.addEventListener("load", function() {
+	    document.documentElement.style.display = "block";
+	  });
+	</script>  
 </body>
 </html>

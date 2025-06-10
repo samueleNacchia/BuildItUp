@@ -55,7 +55,7 @@ public class CatalogViewer extends HttpServlet {
         ProductImageDAO imageDao = new ProductImageDAO();
 
         try {
-            List<ProductDTO> products = productDao.getFilteredProducts(type, 0, name, category, minPrice, maxPrice, page, pageSize);
+            List<ProductDTO> products = productDao.getFilteredProducts(type, 0, name, category, minPrice, maxPrice, page, pageSize, false);
         
             int totalProducts = productDao.countFiltered(type, category, minPrice, maxPrice, name);
             int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
