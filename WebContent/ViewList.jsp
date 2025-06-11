@@ -74,7 +74,7 @@
 		
 		                            <td>
 		                                <c:if test="${type == 'cart'}">
-		                                    <button class="add" onclick="addItem(${product.id}, 'cart')">+</button>
+		                                    <button id="btn-add-${product.id}" class="add" onclick="addItem(${product.id}, 'cart')">+</button>
 		                                </c:if>
 		
 		                                <button id="btn-delete-${product.id}" class="delete" onclick="deleteItem(${product.id}, '${type}')">

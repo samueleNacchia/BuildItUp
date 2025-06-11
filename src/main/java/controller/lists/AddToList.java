@@ -20,7 +20,7 @@ public class AddToList extends HttpServlet {
     private static final long serialVersionUID = 1L; 
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
@@ -28,12 +28,17 @@ public class AddToList extends HttpServlet {
 
         ItemListDAO itemsDao = new ItemListDAO();
         boolean addedSuccess = false;
+        int quantityToAdd = 1;
         int newQuantity = 0;
 
         try {
             ListType type = ListType.valueOf(request.getParameter("type"));
             int productId = Integer.parseInt(request.getParameter("id"));
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            String quantityStr = request.getParameter("quantity");
+            
+            
+            if(quantityStr != null && !quantityStr.isEmpty())
+            	quantityToAdd = Integer.parseInt(quantityStr);
 
             ProductDAO productDao = new ProductDAO();
             ProductDTO product = productDao.findByCode(productId);
@@ -52,12 +57,13 @@ public class AddToList extends HttpServlet {
                     ItemListDTO newItem = new ItemListDTO();
                     newItem.setId_list(list.getId());
                     newItem.setId_product(productId);
-                    newItem.setQuantity(quantity);
+                    newItem.setQuantity(quantityToAdd);
                     itemsDao.save(newItem);
                     addedSuccess = true;
-                    newQuantity = quantity;
-                } else if (type.name().equalsIgnoreCase("cart") && product.getStocks() > existingItem.getQuantity() + quantity) {
-                    existingItem.setQuantity(existingItem.getQuantity() + quantity);
+                    newQuantity = quantityToAdd;
+                    
+                } else if (type.name().equalsIgnoreCase("cart") && product.getStocks() > existingItem.getQuantity() + quantityToAdd) {
+                    existingItem.setQuantity(existingItem.getQuantity() + quantityToAdd);
                     itemsDao.update(existingItem);
                     addedSuccess = true;
                     newQuantity = existingItem.getQuantity();
@@ -75,5 +81,9 @@ public class AddToList extends HttpServlet {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
+    }
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	doGet(request,response);
     }
 }

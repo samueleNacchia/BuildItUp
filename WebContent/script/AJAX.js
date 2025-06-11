@@ -123,7 +123,7 @@ function updateStatus(orderId) {
 
 function addToList(productId, type, quantity) {
     const params = `type=${encodeURIComponent(type)}&id=${encodeURIComponent(productId)}&quantity=${encodeURIComponent(quantity)}`;
-    loadAjaxRequest("AddToList", "POST", params, function(response) {
+    loadAjaxRequest("AddToList", "GET", params, function(response) {
         
 		if (response.success) {
 			
@@ -139,16 +139,29 @@ function addToList(productId, type, quantity) {
 }
 
 function addItem(productId, type) {
+	// previeni doppi click se già disabilitato
+    const button = document.getElementById("btn-add-" + productId);
+    if (button.disabled) return; 
+
+    button.disabled = true;
+
     const params = `type=${encodeURIComponent(type)}&id=${encodeURIComponent(productId)}`;
     loadAjaxRequest("AddToList", "GET", params, function(response) {
         UpdateQuantityJSON(response, productId);
+        button.disabled = false;
     });
 }
 
 function deleteItem(productId, type) {
+	const button = document.getElementById("btn-add-" + productId);
+	    if (button.disabled) return; 
+
+	    button.disabled = true;
+	
     const params = `type=${encodeURIComponent(type)}&id=${encodeURIComponent(productId)}`;
     loadAjaxRequest("DeleteFromList", "GET", params, function(response) {
         UpdateQuantityJSON(response, productId);
+		button.disabled = false;
     });
 }
 
