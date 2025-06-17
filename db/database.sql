@@ -11,13 +11,14 @@ CREATE TABLE Admin (
 CREATE TABLE Users (	
   ID int primary key AUTO_INCREMENT,
   email varchar(100) not null,
-  password varchar(100) not null,
+  password varchar(128) not null,
   name varchar(50),
   surname varchar(50),
   via varchar(100),
   roadNum int unsigned,
   postalCode varchar(5),
-  tel varchar(16)
+  tel varchar(16),
+  prov char(2)
 );
 
 

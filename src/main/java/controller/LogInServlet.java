@@ -53,7 +53,8 @@ public class LogInServlet extends HttpServlet {
         if (user != null && password.equals(user.getPassword())) {
             session.setAttribute("id", user.getId());
             session.setAttribute("ruolo", 2);
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("Home");
+            System.out.println("Il ruolo è " + (int) session.getAttribute("ruolo"));
             return; // 
         } else {
             response.sendRedirect("LogIn_page.jsp?error=1");

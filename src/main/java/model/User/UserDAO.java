@@ -20,7 +20,7 @@ public class UserDAO {
 
  // Metodo per salvare un utente nel database
     public void save(UserDTO user) throws SQLException {
-        String query = "INSERT INTO Users (email, password, name, surname, via, roadNum, postalCode, tel) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Users (email, password, name, surname, via, roadNum, postalCode, tel,prov) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
    
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -33,6 +33,7 @@ public class UserDAO {
             stmt.setInt(6, user.getRoadNum());
             stmt.setString(7, user.getPostalCode());
             stmt.setString(8, user.getTel());
+            stmt.setString(9, user.getProvincia());
             
             stmt.executeUpdate();
 

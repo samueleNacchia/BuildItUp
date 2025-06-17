@@ -1,0 +1,146 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-wrapper {
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+/* Contenitore principale della pagina */
+.content {
+  flex: 1;
+  padding: 160px 20px 20px;
+  width: 100%;
+}
+
+/* Titolo e bottoni */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.button-row button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #297678;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.button-row button:hover {
+  background-color: #1c5254;
+}
+
+/* Dati personali e storico ordini */
+.dati-personali, #storico-ordini {
+  max-width: 800px;
+  margin: 0 auto 50px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #f1f1f1;
+}
+
+.dati-personali h2, #storico-ordini h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dati-personali p {
+  margin-bottom: 10px;
+}
+
+form.update {
+  margin-top: 20px;
+  text-align: center;
+}
+
+form.update input[type="text"] {
+  margin-bottom: 10px;
+  padding: 8px;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+form.update input[type="submit"] {
+  padding: 10px 15px;
+  background-color: #297678;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+form.update input[type="submit"]:hover {
+  background-color: #1c5254;
+}
+
+/* Dettagli ordine */
+.ordine-box {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 10px;
+  background-color: #ffffff;
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.product-image {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.product-info p {
+  margin: 5px 0;
+}
+
+/* FOOTER */
+.page-footer {
+    background-color: #263238;
+    padding: 20px 0;
+    text-align: center;
+    width: 100vw;
+    margin: 0;
+}

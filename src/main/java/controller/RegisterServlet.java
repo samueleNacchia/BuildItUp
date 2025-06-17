@@ -43,6 +43,7 @@ public class RegisterServlet extends HttpServlet {
         user.setVia(request.getParameter("ind"));
         user.setRoadNum(Integer.parseInt(request.getParameter("civ")));
         user.setPostalCode(request.getParameter("cap"));
+        user.setProvincia(request.getParameter("provincia"));
 
         try {
 			dao.save(user);
