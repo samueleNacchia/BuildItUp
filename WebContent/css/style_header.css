@@ -4,7 +4,10 @@
 .item.search input[type="text"] {
   all: unset;
 }
-
+.sl{
+	text-decoration:none; 
+	color:white;
+}
 #sl {
   	font-family: "Fira Sans", sans-serif;
   	font-weight: 400;
