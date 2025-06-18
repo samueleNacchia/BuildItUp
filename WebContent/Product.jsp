@@ -47,8 +47,8 @@
 			    </div>
 		
 			    <!-- Bottoni -->
-			    <button class="carousel-button prev" onclick="prevImage()">‹</button>
-			    <button class="carousel-button next" onclick="nextImage()">›</button>
+			    <button class="carousel-button prev" id="prevImage">‹</button>
+			    <button class="carousel-button next" id="nextImage">›</button>
 			</div>
 
 
@@ -111,6 +111,11 @@
 
 <script>
 
+window.onload = function () {
+    initCarousel();
+};
+
+
 function changeQty(delta) {
     const input = document.getElementById("quantity");
     let current = parseInt(input.value);
@@ -138,35 +143,53 @@ function showToast(message, isError = false) {
 }
 
 function initCarousel() {
-	  const container = document.getElementById("carouselImages");
-	  const images = container.querySelectorAll("img");
-	  const total = images.length;
+    const container = document.getElementById("carouselImages");
+    const images = container.querySelectorAll("img");
+    const total = images.length;
 
-	  if (total === 0) return;
+    if (total === 0) return;
 
-	  let current = 0;
+    let current = 0;
 
-	  function updateCarousel() {
-	    container.style.transform = `translateX(-${current * 100}%)`;
-	  }
+    // Imposta la larghezza totale del contenitore: 100% per ogni immagine
+    container.style.width = `${100 * total}%`;
+    container.style.display = "flex";
+    container.style.overflow = "hidden"; // opzionale
 
-	  window.nextImage = function () {
-	    current = (current + 1) % total;
-	    updateCarousel();
-	  };
 
-	  window.prevImage = function () {
-	    current = (current - 1 + total) % total;
-	    updateCarousel();
-	  };
+    // Ogni immagine prende la larghezza relativa al totale
+    images.forEach(img => {
+	    img.style.flex = "0 0 100%";
+	    img.style.width = "100%";
+	    img.style.maxWidth = "100%";
+	    img.style.height = "400px"; // o quello che usi
+	    img.style.objectFit = "contain";
+	
+    });
 
-	  container.style.width = `${100 * total}%`;
-	  images.forEach(img => {
-	    img.style.width = `${100 / total}%`;
-	  });
 
-	  updateCarousel();
-	}
+    function updateCarousel() {
+        container.style.transform = `translateX(-${current * 100}%)`;
+    }
+
+    function nextImage() {
+        current = (current + 1) % total;
+        updateCarousel();
+    }
+
+    function prevImage() {
+        current = (current - 1 + total) % total;
+        updateCarousel();
+    }
+
+    document.getElementById("nextImage").addEventListener("click", nextImage);
+    document.getElementById("prevImage").addEventListener("click", prevImage);
+
+    updateCarousel(); // Mostra l'immagine iniziale
+}
+
+
+window.addEventListener("load", initCarousel);
 
 	
 

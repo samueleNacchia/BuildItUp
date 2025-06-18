@@ -123,7 +123,7 @@ public class ProductOrderDAO {
     }
     
     
-   public List<ProductDTO> getBestsellers(String category, String name, Double minPrice, Double maxPrice, int limit, int offset) throws SQLException {
+   public List<ProductDTO> getBestsellers(String category, String name, Double minPrice, Double maxPrice, String order, int limit, int offset) throws SQLException {
         List<ProductDTO> result = new ArrayList<>();
 
         StringBuilder query = new StringBuilder("""
@@ -135,7 +135,12 @@ public class ProductOrderDAO {
         if (minPrice != null) query.append(" AND p.price >= ?");
         if (maxPrice != null) query.append(" AND p.price <= ?");
 
-        query.append(" GROUP BY p.ID ORDER BY quantity DESC");
+        query.append(" GROUP BY p.ID");
+        
+        if (order != null) {
+        	if (order.compareTo("priceASC")==0) query.append(" ORDER BY price ASC");
+        	else query.append(" ORDER BY price DESC");
+        }
 
         if (limit > 0) {
             query.append(" LIMIT ?");

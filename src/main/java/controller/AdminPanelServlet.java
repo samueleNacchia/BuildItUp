@@ -54,7 +54,7 @@ public class AdminPanelServlet extends HttpServlet {
 			}
 			
 			ordini = orderDao.getFilteredOrders(from, to, userId);
-			prodotti = productDao.getFilteredProducts(null, 0, name, category, null, null, 0, 0, true);
+			prodotti = productDao.getFilteredProducts(null, 0, name, category, null, null, null, 0, 0, true);
 			
 			for (ProductDTO p : prodotti) {
 			    immaginiPerProdotto.put(p.getId(), imageDao.findAllByProduct(p.getId()));

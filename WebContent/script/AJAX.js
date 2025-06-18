@@ -153,7 +153,7 @@ function addItem(productId, type) {
 }
 
 function deleteItem(productId, type) {
-	const button = document.getElementById("btn-add-" + productId);
+	const button = document.getElementById("btn-delete-" + productId);
 	    if (button.disabled) return; 
 
 	    button.disabled = true;

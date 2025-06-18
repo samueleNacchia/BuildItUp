@@ -39,6 +39,16 @@
                             <option value="PSU" <c:if test="${category == 'PSU'}">selected</c:if>>PSU</option>
                         </select>
 
+
+						<!-- order by -->
+						Ordina
+                        <select name="order" id="order">
+                            <option value="" <c:if test="${empty category}">selected</c:if>>Rilevanza</option>
+                            <option value="priceASC" <c:if test="${order == 'priceASC'}">selected</c:if>>Prezzo crescente</option>
+                            <option value="priceDESC" <c:if test="${order == 'priceDESC'}">selected</c:if>>Prezzo decrescente</option>
+                        </select>
+						
+	
                         <label>
                             <input type="radio" name="type" value="discounts" <c:if test="${type == 'discounts'}">checked</c:if>>
                             In sconto
@@ -72,9 +82,12 @@
                                     </c:choose>
                                     <h3>${product.name}</h3>
                                     <h4>${product.price}€</h4>
-                                    <h3 class="discount">
-                                        <fmt:formatNumber value="${product.discount * 100}" maxFractionDigits="2" />%
-                                    </h3>
+                                    <c:if test="${product.discount > 0}">
+									    <h3 class="discount">
+									        <fmt:formatNumber value="${product.discount * 100}" maxFractionDigits="2" />%
+									    </h3>
+									</c:if>
+
                                 </div>
                             </a>
                         </c:forEach>
@@ -101,6 +114,10 @@
 						    <c:if test="${not empty name}">
 						      	<c:param name="name" value="${name}" />
 						    </c:if>
+						    <c:if test="${not empty order}">
+						      	<c:param name="order" value="${order}" />
+						    </c:if>
+						    
 						  	</c:url>
 						
 						  	<c:set var="active" value="" />
