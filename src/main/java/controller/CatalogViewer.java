@@ -37,6 +37,7 @@ public class CatalogViewer extends HttpServlet {
         String maxPriceStr = request.getParameter("maxPrice");
         String name = request.getParameter("name");
         String type = request.getParameter("type"); // discounts, bestsellers, null
+        String order = request.getParameter("order");
 
         Double minPrice = null;
         Double maxPrice = null;
@@ -55,7 +56,7 @@ public class CatalogViewer extends HttpServlet {
         ProductImageDAO imageDao = new ProductImageDAO();
 
         try {
-            List<ProductDTO> products = productDao.getFilteredProducts(type, 0, name, category, minPrice, maxPrice, page, pageSize, false);
+            List<ProductDTO> products = productDao.getFilteredProducts(type, 0, name, category, minPrice, maxPrice, order, page, pageSize, false);
         
             int totalProducts = productDao.countFiltered(type, category, minPrice, maxPrice, name);
             int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
@@ -78,6 +79,7 @@ public class CatalogViewer extends HttpServlet {
             request.setAttribute("maxPrice", maxPrice);
             request.setAttribute("name", name);
             request.setAttribute("type", type);
+            request.setAttribute("order", order);
 
         } catch (SQLException e) {
             e.printStackTrace();

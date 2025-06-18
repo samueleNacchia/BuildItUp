@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="./css/style_footer.css?v=<%= System.currentTimeMillis() %>">
 <link rel="stylesheet" href="./css/style_product.css?v=<%= System.currentTimeMillis() %>">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 
 
 </head>
@@ -28,28 +30,22 @@
     <main class="homepage">
         <div class="product-wrapper">
 
-            <!-- CAROUSEL -->
-            <div class="carousel">
-			    <div class="carousel-images" id="carouselImages">
-			        <!-- Immagine di copertina -->
-			        <c:forEach var="img" items="${immagini}">
-			            <c:if test="${img.cover}">
-			                <img src="image?id=${img.id}" alt="Copertina" />
-			            </c:if>
-			        </c:forEach>
-			
-			        <!-- Tutte le altre -->
-			        <c:forEach var="img" items="${immagini}">
-			            <c:if test="${not img.cover}">
-			                <img src="image?id=${img.id}" alt="Immagine prodotto" />
-			            </c:if>
-			        </c:forEach>
-			    </div>
-		
-			    <!-- Bottoni -->
-			    <button class="carousel-button prev" onclick="prevImage()">‹</button>
-			    <button class="carousel-button next" onclick="nextImage()">›</button>
+			<div class="swiper mySwiper">
+				<div class="swiper-wrapper">
+					<c:forEach var="image" items="${immagini}">
+				    	<div class="swiper-slide">
+				        	<img src="image?id=${image.id}" style="width: 100%; height: 400px; object-fit: contain;" />
+				     	</div>
+			    	</c:forEach>
+			  </div>
+			  
+			  <div class="swiper-button-next"></div>
+			  <div class="swiper-button-prev"></div>
+
+			  <div class="swiper-pagination"></div>
 			</div>
+
+
 
 
             <!-- DETTAGLI -->
@@ -106,10 +102,35 @@
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
 <script src="script/AJAX.js"></script>
 
 
 <script>
+
+window.addEventListener("load", function () {
+    const slides = document.querySelectorAll(".swiper-slide");
+    const slideCount = slides.length;
+
+    if (slideCount === 0) return; // Niente da inizializzare
+
+    const swiper = new Swiper(".mySwiper", {
+        loop: slideCount >= 3,
+        allowTouchMove: slideCount > 1,
+        navigation: slideCount > 1 ? {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        } : false,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+        },
+        slidesPerView: 1,
+        spaceBetween: 10
+    });
+});
 
 function changeQty(delta) {
     const input = document.getElementById("quantity");
@@ -136,39 +157,6 @@ function showToast(message, isError = false) {
         toast.className = "toast";
     }, 3000);
 }
-
-function initCarousel() {
-	  const container = document.getElementById("carouselImages");
-	  const images = container.querySelectorAll("img");
-	  const total = images.length;
-
-	  if (total === 0) return;
-
-	  let current = 0;
-
-	  function updateCarousel() {
-	    container.style.transform = `translateX(-${current * 100}%)`;
-	  }
-
-	  window.nextImage = function () {
-	    current = (current + 1) % total;
-	    updateCarousel();
-	  };
-
-	  window.prevImage = function () {
-	    current = (current - 1 + total) % total;
-	    updateCarousel();
-	  };
-
-	  container.style.width = `${100 * total}%`;
-	  images.forEach(img => {
-	    img.style.width = `${100 / total}%`;
-	  });
-
-	  updateCarousel();
-	}
-
-	
 
 
 </script>

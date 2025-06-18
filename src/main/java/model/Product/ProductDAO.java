@@ -232,7 +232,7 @@ public class ProductDAO {
 
     //VERSIONE CON SEPARAZIONE
     public List<ProductDTO> getFilteredProducts(String type, int limit, String name, String category,
-    		Double minPrice, Double maxPrice, int page, int pageSize, boolean onlyOnSale) throws SQLException {
+    		Double minPrice, Double maxPrice, String order, int page, int pageSize, boolean onlyOnSale) throws SQLException {
 
     	List<ProductDTO> products =  new ArrayList<>();;
 
@@ -250,7 +250,7 @@ public class ProductDAO {
         		effectiveLimit = limit;	
 
             ProductOrderDAO productOrderDao = new ProductOrderDAO();
-            return productOrderDao.getBestsellers(category, name, minPrice, maxPrice, effectiveLimit, offset);
+            return productOrderDao.getBestsellers(category, name, minPrice, maxPrice, order, effectiveLimit, offset);
         }
 
         // Costruzione query per altri tipi di filtri
@@ -269,10 +269,11 @@ public class ProductDAO {
         if (minPrice != null) query.append(" AND price >= ?");
         if (maxPrice != null) query.append(" AND price <= ?");
         if (name != null && !name.isEmpty()) query.append(" AND name LIKE ?");
-
-        if ("discounts".equalsIgnoreCase(type)) {
-        	query.append(" ORDER BY discount DESC");
+        if (order != null) {
+        	if (order.compareTo("priceASC")==0) query.append(" ORDER BY price ASC");
+        	else query.append(" ORDER BY price DESC");
         }
+
         
         // Gestione LIMIT e OFFSET
         if (pageSize > 0 && page > 0) {

@@ -21,52 +21,6 @@
 	}
 
 
-
-   .carousel {
-	  width: 600px;  /* scegli la larghezza che vuoi */
-	  overflow: hidden;
-	  position: relative;
-	}
-	
-	.carousel-images {
-	  display: flex;
-	  transition: transform 0.4s ease;
-	  /* la larghezza la imposta JS */
-	}
-	
-	.carousel-images img {
-	  flex-shrink: 0;
-	  width: 100%; /* ognuna prende tutta la larghezza del container */
-	  height: 400px; /* fissa un'altezza */
-	  object-fit: contain;
-	}
-	
-
-
-
-	
-	.carousel-button {
-	  position: absolute;
-	  top: 50%;
-	  transform: translateY(-50%);
-	  background: rgba(0, 0, 0, 0.4);
-	  color: white;
-	  border: none;
-	  font-size: 2rem;
-	  padding: 0.3em 0.6em;
-	  cursor: pointer;
-	  z-index: 10;
-	  border-radius: 50%;
-	}
-	
-	.carousel-button.prev {
-	  left: 10px;
-	}
-	.carousel-button.next {
-	  right: 10px;
-	}
-
-
     .product-details {
       flex: 1;
       display: flex;
@@ -172,4 +126,27 @@
 	.toast.error {
 	  background-color: #f44336;
 	}
-    
+	
+	
+	.swiper {
+	  width: 50%;
+	  height: 400px;
+	  margin-bottom: 30px;
+	}
+	
+	.swiper-wrapper {
+	  display: flex;
+	}
+	
+	.swiper-slide {
+	  text-align: center;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	}
+	
+	:root {
+  		--swiper-navigation-color: #297678;
+  		--swiper-pagination-color: #297678;
+	}
+	

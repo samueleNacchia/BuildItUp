@@ -148,3 +148,34 @@ main {
 .filter-form-horizontal button:hover {
   	background-color: green;
 }
+
+#price-slider {
+  width: 300px;      /* o 100% se vuoi che sia responsive */
+  margin: 20px 0;    /* margini verticali */
+}
+
+.noUi-target {
+  height: 10px;      /* altezza della barra */
+  border-radius: 5px;
+}
+
+.noUi-horizontal .noUi-handle {
+  width: 20px;       /* larghezza maniglie */
+  height: 20px;      /* altezza maniglie */
+  top: -6px;         /* per centrare verticalmente */
+  border-radius: 50%;
+  background-color: #297678; /* colore maniglie (blu scuro o avio?) */
+  cursor: grab;
+  border: none !important;
+}
+
+.noUi-horizontal .noUi-handle:active {
+  cursor: grabbing;
+  background-color: grey;
+}
+
+
+.noUi-connect {
+  background-color: #c0e4d2;
+}
+

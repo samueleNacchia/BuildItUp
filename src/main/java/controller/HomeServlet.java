@@ -26,8 +26,8 @@ public class HomeServlet extends HttpServlet {
 		ProductImageDAO imageDao = new ProductImageDAO();
 		
 		try {
-            List<ProductDTO> disc = productDao.getFilteredProducts("discounts", 5, null, null, null, null, 0, 0, false);
-            List<ProductDTO> bs = productDao.getFilteredProducts("bestsellers", 5,  null, null, null, null, 0, 0, false);            
+            List<ProductDTO> disc = productDao.getFilteredProducts("discounts", 5, null, null, null, null, null, 0, 0, false);
+            List<ProductDTO> bs = productDao.getFilteredProducts("bestsellers", 5,  null, null, null, null, null, 0, 0, false);            
             
             Map<Integer, ProductImageDTO> coverImages = new HashMap<>();
 
