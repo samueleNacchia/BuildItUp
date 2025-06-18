@@ -2,29 +2,42 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<c:set var="minPrice" value="${param.minPrice != null ? param.minPrice : 0}" />
+<c:set var="maxPrice" value="${param.maxPrice != null ? param.maxPrice : 1000}" />
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>BuildItUp</title>
     <style>html{display:none}</style>
     <%@ include file="header.html" %>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style_catalog.css?v=<%= System.currentTimeMillis() %>">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
+    
 </head>
+
 <body>
     <div class="page-wrapper">
         <a href="Home">Home</a>
-        <main class="homepage">
+        <main class="homepage"><br>
 
             <div class="catalog-layout">
 
                 <section class="filter-bar-horizontal">
 
                     <form method="POST" action="CatalogViewer" class="filter-form-horizontal">
-                        Prezzo minimo:
-                        <input type="number" name="minPrice" value="${minPrice}"><br>
-
-                        Prezzo massimo:
-                        <input type="number" name="maxPrice" value="${maxPrice}"><br>
+                        
+                        <label for="price-slider">Prezzo:  &nbsp;&nbsp;</label>
+					    <div id="price-slider" style="margin-top: 10px;"></div>
+					    <div id="price-values" style="margin-top: 5px; font-size: 14px;"></div>
+					  	
+					
+						<input type="hidden" name="minPrice" id="minPrice" value="${minPrice}">
+						<input type="hidden" name="maxPrice" id="maxPrice" value="${maxPrice}">
+                        
 
                         Categoria
                         <select name="category" id="category">
@@ -139,5 +152,35 @@
             document.documentElement.style.display = "block";
         });
     </script>
+    
+    <script>
+	  const slider = document.getElementById('price-slider');
+	  const minInput = document.getElementById('minPrice');
+	  const maxInput = document.getElementById('maxPrice');
+	  const display = document.getElementById('price-values');
+	
+	  noUiSlider.create(slider, {
+	    start: [${minPrice}, ${maxPrice}], // valori iniziali
+	    connect: true,
+	    range: {
+	      'min': 0,
+	      'max': 1000
+	    },
+	    step: 10,
+	    tooltips: [true, true],
+	    format: {
+	      to: value => Math.round(value),
+	      from: value => parseInt(value)
+	    }
+	  });
+	
+	  slider.noUiSlider.on('update', function (values) {
+	    const min = values[0];
+	    const max = values[1];
+	    minInput.value = min;
+	    maxInput.value = max;
+	  });
+	</script>
+    
 </body>
 </html>
