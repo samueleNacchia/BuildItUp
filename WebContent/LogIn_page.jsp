@@ -36,7 +36,7 @@
 			    <input type="password" id="password" name="password" placeholder="Password" required>
 			    <span id="passwordError" class="error-msg"></span>
 				<br>
-			    <button type="submit">Login</button>
+			    <button class="login" type="submit">Login</button>
 		</form>
 
         <br>
@@ -82,12 +82,15 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 });
 </script>
 
-
-    </div>
  
-     <%@ include file="footer.html" %>
-    </div>
-
     
+    </div>
+           
+ </div>
+
+     <footer>
+<%@ include file="../footer.html" %>
+    </footer>
+   
 </body>
 </html>

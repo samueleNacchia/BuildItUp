@@ -70,7 +70,7 @@ input {
     border-radius: 5px;
 }
 
-button {
+button.login {
     width: 100%;
     padding: 0.7em;
     background-color: #4CAF50;
@@ -80,11 +80,18 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+button.login:hover {
     background-color: #45a049;
 }
 
 .register-button {
+	width: 100%;
+    padding: 0.7em;
+    background-color: #4CAF50;
+    color:white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     background-color: #5b55ed;
 }
 
@@ -92,7 +99,4 @@ button:hover {
     background-color: #423eb3;
 }
 
-/* Fa sì che il footer rimanga in fondo anche con poco contenuto */
-footer {
-    margin-top: auto;
-}
+

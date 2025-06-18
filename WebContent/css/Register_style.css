@@ -21,7 +21,9 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
     width: 420px;
-    margin: auto;
+    margin: auto ;
+    margin-bottom: 3%;
+    margin-top: 3%;
 }
 
 h2 {
@@ -68,7 +70,7 @@ input[type="email"] {
     box-sizing: border-box;
 }
 
-button {
+button.reg {
     width: 100%;
     padding: 12px;
     background-color: #4CAF50;
@@ -81,15 +83,24 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
+button.reg:hover {
     background-color: #45a049;
 }
 
-.register-button {
+.log {
+	width: 100%;
+    padding: 12px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
     background-color: #5b55ed;
 }
 
-.register-button:hover {
+.log:hover {
     background-color: #423eb3;
 }
 

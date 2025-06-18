@@ -30,8 +30,8 @@ public class LogInServlet extends HttpServlet {
             admin = new AdminDTO(email, password);
             if (aDAO.isAdmin(admin)) {
                 session.setAttribute("ruolo", 1);
-                response.sendRedirect("AdminPanel.jsp");
-
+                response.sendRedirect(request.getContextPath()+"/admin/AdminPanel.jsp");
+                return;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,6 +58,7 @@ public class LogInServlet extends HttpServlet {
             return; // 
         } else {
             response.sendRedirect("LogIn_page.jsp?error=1");
+            return;
         }
     }
 }

@@ -69,10 +69,10 @@
     <input type="text" id="prov" name="prov" placeholder="SA" required>
     <div class="error" id="provError"></div>
 
-    <button type="submit">Registrati</button>
+    <button class ="reg"type="submit">Registrati</button>
 </form>
         <form action="LogIn_page.jsp" method="get">
-            <button type="submit" class="register-button">Torna al Login</button>
+            <button type="submit" class="log">Torna al Login</button>
         </form><script>
 function resetError(id) {
     document.getElementById(id + "Error").textContent = "";
