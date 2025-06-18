@@ -55,9 +55,9 @@
 	    <h1>Benvenuto, <%= user.getName() %> !</h1>
 	
 			<div class="button-row">
-		    	<button onclick="toggleSection('dati-personali')">Dati Personali</button>
-		   		<button onclick="toggleSection('storico-ordini')">Storico Ordini</button>
-		   		<button onclick="hideSections()">Nascondi</button>
+		    	<button class="b" onclick="toggleSection('dati-personali')">Dati Personali</button>
+		   		<button class="b" onclick="toggleSection('storico-ordini')">Storico Ordini</button>
+		   		<button class="b" onclick="hideSections()">Nascondi</button>
 			</div>
 		    
 		    <div class ="dati-personali" id="dati-personali" style="display:none;">

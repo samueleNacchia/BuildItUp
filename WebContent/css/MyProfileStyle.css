@@ -44,7 +44,7 @@ h1 {
   margin-bottom: 30px;
 }
 
-.button-row button {
+.button-row .b {
   padding: 10px 20px;
   font-size: 1rem;
   background-color: #297678;
@@ -54,7 +54,7 @@ h1 {
   cursor: pointer;
 }
 
-.button-row button:hover {
+.button-row .b:hover {
   background-color: #1c5254;
 }
 
