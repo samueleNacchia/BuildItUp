@@ -26,7 +26,6 @@
 	    <meta charset="UTF-8">
 	    <title>My Profile</title>
 	    <link rel="stylesheet" type="text/css" href="../css/MyProfileStyle.css">
-		<link rel="stylesheet" href="css/style_index.css?v=<%= System.currentTimeMillis() %>">
 	    <link rel="stylesheet" href="../css/style_header.css?v=<%= System.currentTimeMillis() %>">
 	    <link rel="stylesheet" href="../css/style_footer.css?v=<%= System.currentTimeMillis() %>">
 	 
@@ -64,16 +63,17 @@
 		    <div class ="dati-personali" id="dati-personali" style="display:none;">
 		        <h2>Dati Personali</h2>
 		        <p><strong>Email:</strong> <%= user.getEmail() %></p>
-		        <p><strong>Nome:</strong> <%= user.getName() %></p>
+		        <p><strong>Nome:</strong>  <%= user.getName() %></p>
 		        <p><strong>Cognome:</strong> <%= user.getSurname() %></p>
 		        <p><strong>Telefono:</strong> <%= user.getTel() %></p>
 		        <p><strong>Indirizzo:</strong> <%= user.getVia() %>, <%= user.getRoadNum() %> - <%= user.getPostalCode()%> - <%= user.getProvincia() %></p>
 		        
-		        <form class ="update" action="UpdateAddressServlet" method="post">
+		        <form class ="update" action="../UpdateAddressServlet" method="post">
 		            <h3>Aggiorna indirizzo</h3>
-		            <input type="text" name="ind" placeholder="Via" required><br>
-		            <input type="text" name="civ" placeholder="Civico" required><br>
-		            <input type="text" name="cap" placeholder="CAP" required><br>
+		            <input type="text" name="ind" value="<%= user.getVia() %>" required><br>
+		            <input type="text" name="civ" value="<%= user.getRoadNum()%>" required><br>
+		            <input type="text" name="cap" value="<%= user.getPostalCode()%>" required><br>
+		             <input type="text" name="prov" value=" <%= user.getProvincia() %>" required><br>
 		            <input type="submit" value="Aggiorna indirizzo">
 		        </form>
 		    </div>
@@ -91,11 +91,21 @@
 	    %>
 	    <div class="ordine-box">
 	        <details>
+	        <form action="<%= request.getContextPath() %>/cancelOrder" method="post">
+    <input type="hidden" name="orderId" value="<%= ordine.getId() %>">
+    <% if ("In_elaborazione".equals(ordine.getStatus().toString()) || "Elaborato".equals(ordine.getStatus().toString())) { %>
+        <p Style="text-indent : 1.5em"> <button class="cancel"type="submit">Annulla Ordine</button> </p>
+    <% } %>
+</form>
 	            <summary>
-				    <strong>Ordine #<%= ordine.getId() %></strong> -
-				    Stato: <%= ordine.getStatus() %> -
-				    Pagato il: <%= bill != null ? bill.getBillDate() : "N/A" %> -
-				    Totale: €<%= bill != null ? String.format("%.2f", bill.getTotal()) : "0.00" %>
+	            <%
+    String statoFormattato = ordine.getStatus().toString().replace("_", " ");
+    statoFormattato = statoFormattato.substring(0, 1).toUpperCase() + statoFormattato.substring(1).toLowerCase();
+%>
+				    <strong>Ordine #<%= ordine.getId() %></strong> 
+				    Stato: <%= statoFormattato %><br>
+				    <p Style="text-indent : 1.1em">Pagato il: <%= bill != null ? bill.getBillDate() : "N/A" %>  -
+				    Totale: €<%= bill != null ? String.format("%.2f", bill.getTotal()) : "0.00" %> </p>
 				</summary>
 	            <%
 	                int id = ordine.getId();
@@ -110,7 +120,7 @@
 	                     alt="<%= product.getName() %>" 
 	                     width="100" height="100">
 	                <div class="product-info">
-	                    <p><strong>Nome:</strong> <%= product.getName() %></p>
+	                    <p ><strong>Nome: <a href="${pageContext.request.contextPath}/productDetails?id=<%= product.getId()%> " style="text-decoration: none; color: #000000; font-size: 1.1em"> <%= product.getName() %> </a></strong> </p>
 	                    <p><strong>ID:</strong> <%= pr.getId_product() %></p>
 	                    <p><strong>Prezzo:</strong> €<%= pr.getPrice() %></p>
 	                    <p><strong>Quantità:</strong> <%= pr.getQuantity() %></p>
@@ -130,10 +140,8 @@
 	    %>
 	</div>
 	</div>
-		    <footer class="page-footer">
-	        <%@ include file="/footer.html" %>
-	    </footer>
-		  	  
+		<%@ include file="../footer.html" %>
+	          
 	
 	</body>
 	</html>
