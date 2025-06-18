@@ -26,7 +26,6 @@
 	    <meta charset="UTF-8">
 	    <title>My Profile</title>
 	    <link rel="stylesheet" type="text/css" href="../css/MyProfileStyle.css">
-		<link rel="stylesheet" href="css/style_index.css?v=<%= System.currentTimeMillis() %>">
 	    <link rel="stylesheet" href="../css/style_header.css?v=<%= System.currentTimeMillis() %>">
 	    <link rel="stylesheet" href="../css/style_footer.css?v=<%= System.currentTimeMillis() %>">
 	 
@@ -92,6 +91,12 @@
 	    %>
 	    <div class="ordine-box">
 	        <details>
+	        <form action="<%= request.getContextPath() %>/cancelOrder" method="post">
+    <input type="hidden" name="orderId" value="<%= ordine.getId() %>">
+    <% if ("In_elaborazione".equals(ordine.getStatus().toString()) || "Elaborato".equals(ordine.getStatus().toString())) { %>
+        <p Style="text-indent : 1.5em"> <button class="cancel"type="submit">Annulla Ordine</button> </p>
+    <% } %>
+</form>
 	            <summary>
 	            <%
     String statoFormattato = ordine.getStatus().toString().replace("_", " ");
@@ -135,10 +140,8 @@
 	    %>
 	</div>
 	</div>
-		    <footer class="page-footer">
-	        <%@ include file="/footer.html" %>
-	    </footer>
-		  	  
+		<%@ include file="../footer.html" %>
+	          
 	
 	</body>
 	</html>

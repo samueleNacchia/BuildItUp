@@ -12,7 +12,6 @@
 </head>
 <body>
     <div class="page-wrapper">
-        <a href="Home">Home</a>
         <main class="homepage">
 
             <div class="catalog-layout">
