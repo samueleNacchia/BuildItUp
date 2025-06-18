@@ -69,11 +69,12 @@
 		        <p><strong>Telefono:</strong> <%= user.getTel() %></p>
 		        <p><strong>Indirizzo:</strong> <%= user.getVia() %>, <%= user.getRoadNum() %> - <%= user.getPostalCode()%> - <%= user.getProvincia() %></p>
 		        
-		        <form class ="update" action="UpdateAddressServlet" method="post">
+		        <form class ="update" action="../UpdateAddressServlet" method="post">
 		            <h3>Aggiorna indirizzo</h3>
-		            <input type="text" name="ind" placeholder="Via" required><br>
-		            <input type="text" name="civ" placeholder="Civico" required><br>
-		            <input type="text" name="cap" placeholder="CAP" required><br>
+		            <input type="text" name="ind" value="<%= user.getVia() %>" required><br>
+		            <input type="text" name="civ" value="<%= user.getRoadNum()%>" required><br>
+		            <input type="text" name="cap" value="<%= user.getPostalCode()%>" required><br>
+		             <input type="text" name="prov" value=" <%= user.getProvincia() %>" required><br>
 		            <input type="submit" value="Aggiorna indirizzo">
 		        </form>
 		    </div>
