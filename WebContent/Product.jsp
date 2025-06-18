@@ -48,34 +48,46 @@
 
 
 
-            <!-- DETTAGLI -->
             <div class="product-details">
-                <h1 class="product-title">${prodotto.name}</h1>
-                <p class="product-description">${prodotto.description}</p>
+    <h1 class="product-title">${prodotto.name}</h1>
+    <p class="product-description">${prodotto.description}</p>
 
-                <c:set var="prezzoScontato" value="${prodotto.price}" />
-                <c:if test="${prodotto.discount > 0}">
-                    <c:set var="prezzoScontato" value="${prodotto.price * (1 - prodotto.discount)}" />
-                </c:if>
+    <c:choose>
+        <c:when test="${not prodotto.onSale}">
+            <div class="not-available" style="color: red; font-weight: bold;">
+                Non disponibile
+            </div>
+        </c:when>
 
+        <c:otherwise>
+            <c:set var="prezzoScontato" value="${prodotto.price}" />
+            <c:if test="${prodotto.discount > 0}">
+                <c:set var="prezzoScontato" value="${prodotto.price * (1 - prodotto.discount)}" />
+            </c:if>
+
+            <div class="product-price">
                 <c:choose>
                     <c:when test="${prodotto.discount > 0}">
-                        <div class="product-price">
-                            <span class="original-price" style="text-decoration: line-through; color: red;">
-                                <fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
-                            </span>
-                            <span class="discounted-price" style="color: green; font-weight: bold; margin-left: 10px;">
-                                <fmt:formatNumber value="${prezzoScontato}" type="number" maxFractionDigits="2" />€
-                            </span>
-                        </div>
+                        <span class="original-price" style="text-decoration: line-through; color: red;">
+                            <fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
+                        </span>
+                        <span class="discounted-price" style="color: green; font-weight: bold; margin-left: 10px;">
+                            <fmt:formatNumber value="${prezzoScontato}" type="number" maxFractionDigits="2" />€
+                        </span>
                     </c:when>
                     <c:otherwise>
-                        <div class="product-price">
-                            <fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
-                        </div>
+                        <fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
                     </c:otherwise>
                 </c:choose>
+            </div>
 
+            <c:if test="${prodotto.stocks == 0}">
+                <div class="not-available" style="color: orange; font-weight: bold;">
+                    Al momento non disponibile
+                </div>
+            </c:if>
+
+            <c:if test="${prodotto.stocks > 0}">
                 <div class="quantity-selector">
                     <label for="quantity">Quantità:</label>
                     <button type="button" onclick="changeQty(-1)">−</button>
@@ -92,7 +104,11 @@
                         <i class="fa-solid fa-cart-shopping"></i> Aggiungi al carrello
                     </button>
                 </div>
-            </div>
+            </c:if>
+        </c:otherwise>
+    </c:choose>
+</div>
+
         </div>
     </main>
 
