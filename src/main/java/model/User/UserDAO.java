@@ -71,7 +71,8 @@ public class UserDAO {
                 	user.setVia(rs.getString("via"));
                 	user.setRoadNum(rs.getInt("roadNum"));
                 	user.setPostalCode(rs.getString("postalCode"));
-                	user.setTel(rs.getString("tel")); 
+                	user.setTel(rs.getString("tel"));
+                	user.setProvincia(rs.getString("prov"));
                 }
             }
         }
@@ -98,6 +99,7 @@ public class UserDAO {
                     user.setRoadNum(rs.getInt("roadNum"));
                     user.setPostalCode(rs.getString("postalCode"));
                     user.setTel(rs.getString("tel"));
+                    user.setProvincia(rs.getString("prov"));
                 }
             }
         }
@@ -126,6 +128,7 @@ public class UserDAO {
                 user.setRoadNum(rs.getInt("roadNum"));
                 user.setPostalCode(rs.getString("postalCode"));
                 user.setTel(rs.getString("tel"));
+                user.setProvincia(rs.getString("prov"));
                 
                 users.add(user);
             }
@@ -136,7 +139,7 @@ public class UserDAO {
 
     // Metodo per aggiornare un utente nel database
     public boolean update(UserDTO user) throws SQLException {
-        String query = "UPDATE Users SET email=?, password=?, name=?, surname=?, via=?, roadNum=?, postalCode=?, tel=? WHERE ID=?";
+        String query = "UPDATE Users SET email=?, password=?, name=?, surname=?, via=?, roadNum=?, postalCode=?, tel=?, prov=? WHERE ID=?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -149,7 +152,9 @@ public class UserDAO {
         	stmt.setInt(6, user.getRoadNum());
         	stmt.setString(7, user.getPostalCode());
         	stmt.setString(8, user.getTel());
-        	stmt.setInt(9, user.getId());
+         	stmt.setString(9,user.getProvincia());
+        	stmt.setInt(10, user.getId());
+   
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
