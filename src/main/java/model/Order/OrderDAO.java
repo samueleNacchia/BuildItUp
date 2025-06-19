@@ -196,15 +196,21 @@ public class OrderDAO {
 
         return orders;
     }
+    
 
-public boolean cancelOrder(int orderId) throws SQLException {
-    String query = "UPDATE Orders SET status = ? WHERE ID = ?";
-    try (Connection conn = dataSource.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(query)) {
-
-        stmt.setString(1, "Annullato");
-        stmt.setInt(2, orderId);
-        return stmt.executeUpdate() > 0;
-    }
-}
+	public boolean cancelOrder(int orderId) throws SQLException {
+		
+	    String query = "UPDATE Orders SET status = ? WHERE ID = ?";
+	    
+	    try (Connection conn = dataSource.getConnection();
+	    		
+	        PreparedStatement stmt = conn.prepareStatement(query)) {
+	
+	        stmt.setString(1, "Annullato");
+	        stmt.setInt(2, orderId);
+	        return stmt.executeUpdate() > 0;
+	    }
+	}
+	
+	
 }

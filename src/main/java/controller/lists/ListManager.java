@@ -20,7 +20,7 @@ public class ListManager {
         HttpSession session = request.getSession(false);
         Integer userId = null;
         if (session != null) 
-            userId = (Integer) session.getAttribute("userId");
+            userId = (Integer) session.getAttribute("id");
         
 
         ListDTO list;

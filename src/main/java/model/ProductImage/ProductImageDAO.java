@@ -60,7 +60,8 @@ public class ProductImageDAO {
                     productImage = new ProductImageDTO();
                     productImage.setId(rs.getInt("ID"));  
                     productImage.setIdProduct(rs.getInt("ID_product")); 
-                    productImage.setImage(rs.getBytes("image"));                    
+                    productImage.setImage(rs.getBytes("image"));  
+                    productImage.setCover(rs.getBoolean("isCover"));  
                 }
             }
         }
@@ -109,6 +110,7 @@ public class ProductImageDAO {
             		productImage.setId(rs.getInt("ID"));  
                     productImage.setIdProduct(rs.getInt("ID_product")); 
                     productImage.setImage(rs.getBytes("image"));
+                    productImage.setCover(rs.getBoolean("isCover"));  
                         
                     productImages.add(productImage);
             	}
@@ -134,7 +136,8 @@ public class ProductImageDAO {
                 productImage.setId(rs.getInt("ID"));
                 productImage.setIdProduct(rs.getInt("ID_product"));
                 productImage.setImage(rs.getBytes("image")); 
-  
+                productImage.setCover(rs.getBoolean("isCover"));  
+                
                 productImages.add(productImage);
             }
         }

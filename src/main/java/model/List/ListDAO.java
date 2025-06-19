@@ -83,7 +83,7 @@ public class ListDAO {
     // Metodo per recuperare una lista per utente e tipo (wishlist o carrello)
     public ListDTO findByUser(int idUser, ListType type) throws SQLException {
         String query = "SELECT * FROM Lists WHERE ID_user=? AND type=?";
-        ListDTO list = new ListDTO();
+        ListDTO list = null;
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
