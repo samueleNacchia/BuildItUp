@@ -30,7 +30,6 @@ public class ReviewDAO {
             stmt.setString(3, review.getText());
             stmt.setInt(4, review.getVote());
             stmt.setDate(5, java.sql.Date.valueOf(review.getReviewDate()));
-            stmt.setBoolean(6, review.getIsVerified());
 
             stmt.executeUpdate();
 
@@ -95,6 +94,53 @@ public class ReviewDAO {
        
         return reviews;
     }
+    
+    public List<ReviewDTO> findAllforUser(int id_user) throws SQLException {
+        List<ReviewDTO> reviews = new ArrayList<>();
+        String query = "SELECT * FROM Reviews WHERE ID_user = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+        	stmt.setInt(1, id_user);
+        	
+        	try(ResultSet rs = stmt.executeQuery()){
+        	
+	            while (rs.next()) { 
+	           
+	                ReviewDTO review = new ReviewDTO();
+	                review.setId_user(rs.getInt(id_user));
+	                review.setId_product((Integer.parseInt("ID_product")));
+	                review.setText(rs.getString("text"));
+	                review.setVote(rs.getInt("vote"));
+	                review.setReviewDate(rs.getDate("reviewDate").toLocalDate());
+	                
+	                reviews.add(review);
+	            }
+        	}
+        }
+       
+        return reviews;
+    }
+    
+    //Lista di codici dei prodotti recensiti 
+    public List<Integer> findProductIdsReviewedByUser(int userId) throws SQLException {
+        List<Integer> productIds = new ArrayList<Integer>();
+        String sql = "SELECT DISTINCT id_product FROM Reviews WHERE ID_user = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                productIds.add(rs.getInt("id_product"));
+            }
+        }
+
+        return productIds; 
+    }
+    
     
     
  // Metodo per recuperare tutte le recensioni
