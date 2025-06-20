@@ -20,7 +20,8 @@ public class UpdateAddressServlet extends HttpServlet {
 			user = (UserDTO) dao.findByCode( (int) session.getAttribute("id"));
 		} catch (SQLException e) {
 			System.out.println("Utente non trovato");
-			response.sendRedirect(request.getContextPath() + "/user/MyProfile.jsp");
+			
+			response.sendRedirect(request.getContextPath() + "/user/MyProfile");
 			e.printStackTrace();
 		}
 
@@ -40,13 +41,13 @@ public class UpdateAddressServlet extends HttpServlet {
             } catch (SQLException e) {
 				System.out.println("Update non riuscito");
 
-				response.sendRedirect(request.getContextPath() + "/user/MyProfile.jsp");
+				response.sendRedirect(request.getContextPath() + "/user/MyProfile");
 				return;
 			}
 
            
         }
 
-        response.sendRedirect(request.getContextPath() + "/user/MyProfile.jsp");
+        response.sendRedirect(request.getContextPath() + "/user/MyProfile");
     }
 }

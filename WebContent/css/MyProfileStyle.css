@@ -75,7 +75,18 @@ h1 {
 .dati-personali p {
   margin-bottom: 10px;
 }
-
+.review
+{
+	padding: 6px 12px;
+  font-size: 0.8rem;
+  background-color: #5b55ed; 
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+	
+}
 form.update {
   margin-top: 20px;
   text-align: center;
@@ -137,6 +148,16 @@ details summary {
 
 
 .cancel{
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  background-color: #c62828; /* rosso scuro */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.delRev{
   padding: 6px 12px;
   font-size: 0.8rem;
   background-color: #c62828; /* rosso scuro */

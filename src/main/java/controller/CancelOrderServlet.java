@@ -33,9 +33,9 @@ public class CancelOrderServlet extends HttpServlet {
 
             boolean success = orderDAO.cancelOrder(orderId);
             if (success) {
-                response.sendRedirect("user/MyProfile.jsp?cancelSuccess=1");
+                response.sendRedirect("user/MyProfile?cancelSuccess=1");
             } else {
-                response.sendRedirect("user/MyProfile.jsp?cancelFailed=1");
+                response.sendRedirect("user/MyProfile?cancelFailed=1");
             }
 
         } catch (SQLException e) {

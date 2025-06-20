@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/AdminPanelServlet")
+@WebServlet("/admin/AdminPanelServlet")
 public class AdminPanelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -73,8 +73,7 @@ public class AdminPanelServlet extends HttpServlet {
 	    response.setHeader("Pragma", "no-cache");
 	    response.setDateHeader("Expires", 0);
 	    response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("/AdminPanel.jsp").forward(request, response);
-	}
+	    request.getRequestDispatcher("/admin/AdminPanel.jsp").forward(request, response);	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

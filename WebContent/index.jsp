@@ -78,7 +78,7 @@
 	    </main>
 	    
 	    <a href="products" class="btn">Visualizza Database</a>
-	    <a href="admin/AdminPanelServlet" class="btn">Modifica Database</a>
+	    <a href="${pageContext.request.contextPath}/admin/AdminPanelServlet" class="btn">Modifica Database</a>
 	  
 	    <div id="newsletter">
 	        <form method="POST" action="iscrizione">

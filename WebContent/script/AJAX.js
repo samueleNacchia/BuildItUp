@@ -108,7 +108,7 @@ function updateStatus(orderId) {
     const newStatus = select.value;
     const params = "id=" + encodeURIComponent(orderId) + "&stato=" + encodeURIComponent(newStatus);
 
-   	loadAjaxRequest("UpdateOrder", "GET", params, function(response) {
+   	loadAjaxRequest("../UpdateOrder", "GET", params, function(response) {
      	if (response.status && response.functionName === "updateStatus") {
           	console.log("Ordine aggiornato con successo");
         } else {
@@ -193,7 +193,6 @@ function UpdateQuantityJSON(response, productId) {
         }
     }
 }
-
 
 
 

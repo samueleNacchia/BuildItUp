@@ -193,6 +193,9 @@
 		            }, 3000);
 		        }
 	</script>
-	<script src="script/AJAX.js"></script>
+
+
+<script src="../script/AJAX.js"></script>
+
 </body>
 </html>
