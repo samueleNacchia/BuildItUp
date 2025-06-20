@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Product.*;
 import model.Review.ReviewDAO;
 
 import java.io.IOException;
@@ -25,7 +26,11 @@ public class DeleteReviewServlet extends HttpServlet {
 
             if (userId != null) {
                 rv.delete(userId, productId);
-
+                
+                ProductDAO productDao = new ProductDAO();
+                ProductDTO product = productDao.findByCode(productId);
+                productDao.updateValutation(product, false);
+                
                 response.sendRedirect(request.getContextPath() + "/review-status.jsp?id=" + productId + "&action=deleted");
             } else {
 

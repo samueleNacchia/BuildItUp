@@ -53,6 +53,14 @@
 
             <div class="product-details">
     			<h1 class="product-title">${prodotto.name}</h1>
+    			<span class="stars">
+	    			<c:forEach begin="1" end="5" var="i">
+						<i class="fa-star <c:out value='${i <= prodotto.avgReview ? "fas" : "far"}'/>"></i>
+					</c:forEach>
+					(${prodotto.numReview})
+				</span>
+					
+    			
     			<p class="product-description">${prodotto.description}</p>
 
 	    		<c:choose>

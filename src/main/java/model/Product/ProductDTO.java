@@ -12,6 +12,8 @@ public class ProductDTO {
     private float discount;
     private boolean isOnSale;
     private int stocks;
+    private int numReview;
+    private int avgReview;
     
     public ProductDTO() {
     }
@@ -81,6 +83,20 @@ public class ProductDTO {
 	}
 	public void setStocks(int stocks) {
 		this.stocks = stocks;
+	}
+
+	public int getNumReview() {
+		return numReview;
+	}
+	public void setNumReview(int numReview) {
+		this.numReview = numReview;
+	}
+
+	public int getAvgReview() {
+		return avgReview;
+	}
+	public void setAvgReview(int avgReview) {
+		this.avgReview = avgReview;
 	}
 
 }

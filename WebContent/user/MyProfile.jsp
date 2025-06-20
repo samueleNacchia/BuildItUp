@@ -14,7 +14,13 @@
 		
 		UserDTO user = userDAO.findByCode((int)session.getAttribute("id"));
 	    OrderDAO orderDAO = new OrderDAO();
-		List<OrderDTO> ordini = orderDAO.findByUserCode(user.getId());
+	    List<OrderDTO> ordini = new ArrayList<>();
+	    if(user != null){
+			ordini = orderDAO.findByUserCode(user.getId());
+	    }else{
+	    	response.sendRedirect(request.getContextPath() + "/logout");
+	    	return;
+	    }
 	    BillDAO billDAO = new BillDAO(); // DAO per recuperare il totale da Bills
 	    ProductOrderDAO pOrderDAO = new ProductOrderDAO(); // Per recuperare la lista prodotti 
 		ProductDAO pDAO = new ProductDAO ();

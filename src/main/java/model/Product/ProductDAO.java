@@ -71,7 +71,9 @@ public class ProductDAO {
                     product.setPrice(rs.getFloat("price"));
                     product.setDiscount(rs.getFloat("discount"));
                     product.setOnSale(rs.getBoolean("isOnSale"));
-                    product.setStocks(rs.getInt("stocks"));                     
+                    product.setStocks(rs.getInt("stocks"));
+                    product.setNumReview(rs.getInt("numReview"));
+                    product.setAvgReview(rs.getInt("avgReview"));
                 }
             }
         }
@@ -99,6 +101,8 @@ public class ProductDAO {
                 product.setDiscount(rs.getFloat("discount"));
                 product.setOnSale(rs.getBoolean("isOnSale"));
                 product.setStocks(rs.getInt("stocks"));
+                product.setNumReview(rs.getInt("numReview"));
+                product.setAvgReview(rs.getInt("avgReview"));
   
                 products.add(product);
             }
@@ -137,6 +141,42 @@ public class ProductDAO {
             stmt.setInt(2, id);	
         	
             int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+    
+    public boolean updateValutation(ProductDTO product, boolean add) throws SQLException {
+        String getReviewsQuery = "SELECT vote FROM Reviews WHERE ID_product = ?";
+        String updateProductQuery = "UPDATE Products SET numReview = ?, avgReview = ? WHERE ID = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement getReviewsStmt = connection.prepareStatement(getReviewsQuery);
+             PreparedStatement updateStmt = connection.prepareStatement(updateProductQuery)) {
+
+            getReviewsStmt.setInt(1, product.getId());
+            ResultSet rs = getReviewsStmt.executeQuery();
+
+            int count = 0;
+            float sum = 0f;
+
+            while (rs.next()) {
+            	sum += rs.getInt("vote");
+                count++;
+            }
+          
+            int newNumReview = product.getNumReview() + (add ? 1 : -1);
+            newNumReview = Math.max(newNumReview, 0);
+
+            int newAvg = (count > 0) ? Math.round((float)sum / count) : 0;
+
+            updateStmt.setInt(1, newNumReview);
+            updateStmt.setFloat(2, newAvg);
+            updateStmt.setInt(3, product.getId());
+            
+            product.setAvgReview(newNumReview);
+            product.setNumReview(newNumReview);
+            
+            int rowsAffected = updateStmt.executeUpdate();
             return rowsAffected > 0;
         }
     }

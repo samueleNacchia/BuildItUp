@@ -10,8 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/logout")
 public class LogOutServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)	throws IOException {
     		
     		HttpSession session = request.getSession(false);
     		if (session != null)
@@ -19,5 +18,9 @@ public class LogOutServlet extends HttpServlet {
     			session.invalidate();
         }
     		 response.sendRedirect(request.getContextPath() + "/Home");
+    }
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	doGet(request,response);
     }
 }

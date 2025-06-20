@@ -38,7 +38,10 @@ public class ReviewServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Integer id_user = (Integer)session.getAttribute("id");
 		
-		if (id_user == null) response.sendRedirect(request.getContextPath() + "/LogIn_page.jsp");
+		if (id_user == null) { 
+			response.sendRedirect(request.getContextPath() + "/LogIn_page.jsp");
+			return;
+		}
 		
 		int code = Integer.parseInt(request.getParameter("productId"));
 		
@@ -99,7 +102,10 @@ public class ReviewServlet extends HttpServlet {
 			reviewDTO.setIsVerified(isVerified);
 			rv.save(reviewDTO);
 			
-			response.sendRedirect(request.getContextPath() + "/review-status.jsp?id=" + code + "&action=addedd");
+			ProductDTO product = productDAO.findByCode(code);
+			productDAO.updateValutation(product, true);
+			
+			response.sendRedirect(request.getContextPath() + "/review-status.jsp?id=" + code + "&action=added");
 
 			
             
