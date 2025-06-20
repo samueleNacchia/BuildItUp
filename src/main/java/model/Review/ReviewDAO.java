@@ -30,7 +30,7 @@ public class ReviewDAO {
             stmt.setString(3, review.getText());
             stmt.setInt(4, review.getVote());
             stmt.setDate(5, java.sql.Date.valueOf(review.getReviewDate()));
-
+            stmt.setBoolean(6, review.getIsVerified());            
             stmt.executeUpdate();
 
         } catch (SQLException e) {
