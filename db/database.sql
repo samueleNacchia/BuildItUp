@@ -62,6 +62,7 @@ CREATE TABLE Reviews (
   text varchar(100),
   vote int unsigned,
   reviewDate date,
+  IsVerified boolean,
   primary key (ID_user, ID_product), 
   foreign key(ID_user) references Users(ID),
   foreign key(ID_product) references Products(ID)
@@ -161,7 +162,8 @@ INSERT INTO Orders (ID_user, orderDate, status) VALUES
 INSERT INTO Reviews (ID_user, ID_product, text, vote, reviewDate) VALUES
   (1, 1, 'Ottimo processore, molto veloce!', 5, '2025-05-11'),
   (2, 2, 'Prestazioni eccezionali in 1440p!', 4, '2025-05-13'),
-  (3, 4, 'Case ben ventilato ma un pò rumoroso.', 3, '2025-05-14');
+  (3, 4, 'Case ben ventilato ma un pò rumoroso.', 3, '2025-05-14'),
+  (1, 2, 'Scheda grafica da paura! Riesco benissimo a farci girare Microsoft EDGE', 5, '2025-06-19');
 
 -- Bills
 INSERT INTO Bills (ID_order, total, billDate) VALUES

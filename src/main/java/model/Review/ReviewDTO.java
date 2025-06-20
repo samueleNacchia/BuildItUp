@@ -10,6 +10,7 @@ public class ReviewDTO {
 	private String text;
 	private int vote;
 	private LocalDate reviewDate;
+	private boolean IsVerified;
 	
 	public ReviewDTO() {
 	}
@@ -33,6 +34,15 @@ public class ReviewDTO {
 	}
 	public void setId_product(int id_product) {
 		this.id_product = id_product;
+	}
+	
+
+	public boolean getIsVerified() {
+		return IsVerified;
+	}
+
+	public void setIsVerified(boolean isVerified) {
+		IsVerified = isVerified;
 	}
 
 	public String getText() {

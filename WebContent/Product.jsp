@@ -28,6 +28,9 @@
     <%@ include file="header.html" %>
 
     <main class="homepage">
+    
+    
+    
         <div class="product-wrapper">
 
 			<div class="swiper mySwiper">
@@ -49,67 +52,166 @@
 
 
             <div class="product-details">
-    <h1 class="product-title">${prodotto.name}</h1>
-    <p class="product-description">${prodotto.description}</p>
+    			<h1 class="product-title">${prodotto.name}</h1>
+    			<p class="product-description">${prodotto.description}</p>
 
-    <c:choose>
-        <c:when test="${not prodotto.onSale}">
-            <div class="not-available" style="color: red; font-weight: bold;">
-                Non disponibile
-            </div>
-        </c:when>
-
-        <c:otherwise>
-            <c:set var="prezzoScontato" value="${prodotto.price}" />
-            <c:if test="${prodotto.discount > 0}">
-                <c:set var="prezzoScontato" value="${prodotto.price * (1 - prodotto.discount)}" />
-            </c:if>
-
-            <div class="product-price">
-                <c:choose>
-                    <c:when test="${prodotto.discount > 0}">
-                        <span class="original-price" style="text-decoration: line-through; color: red;">
-                            <fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
-                        </span>
-                        <span class="discounted-price" style="color: green; font-weight: bold; margin-left: 10px;">
-                            <fmt:formatNumber value="${prezzoScontato}" type="number" maxFractionDigits="2" />€
-                        </span>
-                    </c:when>
-                    <c:otherwise>
-                        <fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
-                    </c:otherwise>
-                </c:choose>
-            </div>
-
-            <c:if test="${prodotto.stocks == 0}">
-                <div class="not-available" style="color: orange; font-weight: bold;">
-                    Al momento non disponibile
-                </div>
-            </c:if>
-
-            <c:if test="${prodotto.stocks > 0}">
-                <div class="quantity-selector">
-                    <label for="quantity">Quantità:</label>
-                    <button type="button" onclick="changeQty(-1)">−</button>
-                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="${prodotto.stocks}">
-                    <button type="button" onclick="changeQty(1)">+</button>
-                </div>
-
-                <div class="action-buttons">
-                    <button type="button" class="wishlist" onclick="addToList(${prodotto.id}, 'wishlist', 1)">
-                        <i class="fa-regular fa-heart"></i> Wishlist
-                    </button>
-
-                    <button type="button" class="add-to-cart" onclick="addToList(${prodotto.id}, 'cart', document.getElementById('quantity').value)">
-                        <i class="fa-solid fa-cart-shopping"></i> Aggiungi al carrello
-                    </button>
-                </div>
-            </c:if>
-        </c:otherwise>
-    </c:choose>
-</div>
-
+	    		<c:choose>
+	        		<c:when test="${not prodotto.onSale}">
+			            <div class="not-available" style="color: red; font-weight: bold;">
+			                Non disponibile
+			            </div>
+	        		</c:when>
+	
+		        	<c:otherwise>
+			            <c:set var="prezzoScontato" value="${prodotto.price}" />
+			            <c:if test="${prodotto.discount > 0}">
+			                <c:set var="prezzoScontato" value="${prodotto.price * (1 - prodotto.discount)}" />
+			            </c:if>
+		
+			            <div class="product-price">
+			                <c:choose>
+			                    <c:when test="${prodotto.discount > 0}">
+			                        <span class="original-price" style="text-decoration: line-through; color: red;">
+			                            <fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
+			                        </span>
+			                        <span class="discounted-price" style="color: green; font-weight: bold; margin-left: 10px;">
+			                            <fmt:formatNumber value="${prezzoScontato}" type="number" maxFractionDigits="2" />€
+			                        </span>
+			                    </c:when>
+			                    <c:otherwise>
+			                        <fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
+			                    </c:otherwise>
+			                </c:choose>
+			            </div>
+		
+			            <c:if test="${prodotto.stocks == 0}">
+			                <div class="not-available" style="color: orange; font-weight: bold;">
+			                    Al momento non disponibile
+			                </div>
+			            </c:if>
+		
+			            <c:if test="${prodotto.stocks > 0}">
+			                <div class="quantity-selector">
+			                    <label for="quantity">Quantità:</label>
+			                    <button type="button" onclick="changeQty(-1)">−</button>
+			                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="${prodotto.stocks}">
+			                    <button type="button" onclick="changeQty(1)">+</button>
+			                </div>
+			
+			                <div class="action-buttons">
+			                    <button type="button" class="wishlist" onclick="addToList(${prodotto.id}, 'wishlist', 1)">
+			                        <i class="fa-regular fa-heart"></i> Wishlist
+			                    </button>
+			
+			                    <button type="button" class="add-to-cart" onclick="addToList(${prodotto.id}, 'cart', document.getElementById('quantity').value)">
+			                        <i class="fa-solid fa-cart-shopping"></i> Aggiungi al carrello
+			                    </button>
+			                </div>
+			            </c:if>
+	        		</c:otherwise>
+    			</c:choose>
+			</div>
         </div>
+        
+        <br><br><br>
+        
+        <h2 id="sezioneRecensioni">Recensioni</h2> <br><br><br>
+        <div id="review-wrapper">
+        	
+			    
+			    <c:set var="hasReviewed" value="false" />
+
+				<c:forEach var="entry" items="${recensioni}">
+				    <c:set var="review" value="${entry.key}" />
+				    <c:if test="${review.id_user == userId}">
+				        <c:set var="hasReviewed" value="true" />
+				    </c:if>
+				</c:forEach>
+				
+				<c:if test="${not hasReviewed}">
+				    <div id="write-review-panel">
+				        <h3>Scrivi una recensione</h3>
+				        <p>Hai provato questo prodotto? Lascia la tua opinione!</p>
+				        <a href="${pageContext.request.contextPath}/user/WriteReview.jsp?productId=${prodotto.id}">
+				            <button>Scrivi recensione</button>
+				        </a>
+				    </div>
+				</c:if>
+
+				 
+			    
+			    <div id="reviews-panel">
+				    <c:choose>
+				        <c:when test="${empty recensioni}">
+				            <p>Nessuna recensione per questo prodotto.</p>
+				        </c:when>
+				        <c:otherwise>
+				            <c:forEach var="entry" items="${recensioni}">
+				                <c:set var="review" value="${entry.key}" />
+				                <c:set var="user" value="${entry.value}" />
+				
+				                <c:if test="${review.id_user == userId}">
+				                    <div id="reviews-data-panel">
+				                        <div id="reviews-data">
+				                        	<span>(La tua recensione)</span><br>
+				                            <span class="stars">
+				                                <c:forEach begin="1" end="5" var="i">
+				                                    <i class="fa-star <c:out value='${i <= review.vote ? "fas" : "far"}'/>"></i>
+				                                </c:forEach>
+				                            </span>
+				                            <span>${user.name}</span>
+				                        </div>
+				
+				                        <span id="data">
+				                            ${review.reviewDate.dayOfMonth}/${review.reviewDate.monthValue}/${review.reviewDate.year}
+				                        </span>
+				
+				                        <p>${review.text}</p>
+				                        
+				                        <form action="${pageContext.request.contextPath}/DeleteReviewServlet" method="post" style="text-align: right;">
+								            <input type="hidden" name="productId" value="${prodotto.id}" />
+								            <button type="submit" title="Elimina recensione" style="background: none; border: none; cursor: pointer;">
+								                <i class="fa-solid fa-trash" style="color: red;"></i>
+								            </button>
+								        </form>
+				                    </div>
+				                </c:if>
+				            </c:forEach>
+				
+				            <c:forEach var="entry" items="${recensioni}">
+				                <c:set var="review" value="${entry.key}" />
+				                <c:set var="user" value="${entry.value}" />
+				
+				                <c:if test="${review.id_user != userId}">
+				                    <div id="reviews-data-panel">
+				                        <div id="reviews-data">
+				                            <span class="stars">
+				                                <c:forEach begin="1" end="5" var="i">
+				                                    <i class="fa-star <c:out value='${i <= review.vote ? "fas" : "far"}'/>"></i>
+				                                </c:forEach>
+				                            </span>
+				                            <span>${user.name}</span>
+				                        </div>
+				
+				                        <span id="data">
+				                            ${review.reviewDate.dayOfMonth}/${review.reviewDate.monthValue}/${review.reviewDate.year}
+				                        </span>
+				
+				                        <p>${review.text}</p>
+				                    </div>
+				                </c:if>
+				            </c:forEach>
+				        </c:otherwise>
+				    </c:choose>
+				</div>
+
+			
+        </div>
+        
+        
+        <br><br><br>
+        
+        
     </main>
 
     <div id="toast" class="toast">Prodotto aggiunto!</div>

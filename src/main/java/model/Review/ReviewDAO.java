@@ -20,7 +20,7 @@ public class ReviewDAO {
 
  // Metodo per salvare una recensione nel database
     public void save(ReviewDTO review) throws SQLException {
-        String query = "INSERT INTO Reviews (ID_user, ID_product, text, vote, reviewDate) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Reviews (ID_user, ID_product, text, vote, reviewDate, IsVerified) VALUES (?, ?, ?, ?, ?, ?)";
    
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -30,6 +30,7 @@ public class ReviewDAO {
             stmt.setString(3, review.getText());
             stmt.setInt(4, review.getVote());
             stmt.setDate(5, java.sql.Date.valueOf(review.getReviewDate()));
+            stmt.setBoolean(6, review.getIsVerified());
 
             stmt.executeUpdate();
 

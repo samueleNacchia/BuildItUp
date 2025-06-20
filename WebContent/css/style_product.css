@@ -117,12 +117,12 @@
 	  opacity: 1;
 	}
 	
-	/* ✅ Verde per successo */
+	/* Verde per successo */
 	.toast.success {
 	  background-color: #4CAF50;
 	}
 	
-	/* ❌ Rosso per errore */
+	/* Rosso per errore */
 	.toast.error {
 	  background-color: #f44336;
 	}
@@ -149,4 +149,89 @@
   		--swiper-navigation-color: #297678;
   		--swiper-pagination-color: #297678;
 	}
+	
+	
+	#review-wrapper{
+		display: flex; 
+		justify-content: space-between; 
+		align-items: flex-start;
+		gap: 3%;
+	}
+	
+	
+	#write-review-panel{
+		width: 15%; 
+		border: 1px solid #ccc;
+		padding: 15px; 
+		border-radius: 8px;
+		margin-left: 2%;
+	}
+	
+	
+	#reviews-panel{
+		width: 80%;
+		margin: 0 auto;
+	}
+	
+	#reviews-data-panel{
+		border: 1px solid #ddd; 
+		margin-bottom: 15px; 
+		padding: 10px; 
+		border-radius: 6px;
+		margin-right: 5%;
+	}
+	
+	#reviews-data-panel p{
+		font-size: 1.2em;
+	}
+	
+	
+	#reviews-data {
+	    display: flex;
+	    flex-direction: column;
+	    align-items: flex-start;
+	}
+
+	
+	#data{
+		color: grey;
+	}
+	
+	#sezioneRecensioni{
+		margin: 0 auto;
+	}
+	
+	#write-review-panel button {
+		background-color: #263238;
+		color: white;
+		border: none;
+		padding: 10px 20px;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+	
+	#write-review-panel button:hover {
+		background-color: #297678;
+	}
+	
+	
+	.stars i {
+	    color: #FFD700; 
+	    margin-right: 3px;
+	    font-size: 1.2rem;
+	}
+	
+	.stars {
+	    margin-right: 10px;
+	    margin-bottom: 10px;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
