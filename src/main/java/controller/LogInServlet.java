@@ -1,12 +1,14 @@
 package controller;
 
 import model.User.*;
+import model.ListType;
 import model.Admin.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 import controller.functions.HashFunction;
+import controller.lists.ListManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -51,7 +53,15 @@ public class LogInServlet extends HttpServlet {
         }
 
         if (user != null && password.equals(user.getPassword())) {
-            session.setAttribute("id", user.getId());
+        	try {
+        		ListManager  manager = new ListManager();
+        		manager.mergeList(ListType.cart, user, request, response);
+        		manager.mergeList(ListType.wishlist, user, request, response);
+        	} catch (SQLException e) {
+        	    e.printStackTrace();
+        	}
+        	
+        	session.setAttribute("id", user.getId());
             session.setAttribute("ruolo", 2);
             response.sendRedirect(request.getContextPath()+"/common/Home");
             return; 

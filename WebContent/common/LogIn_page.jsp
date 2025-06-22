@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="../css/LogIn_style.css">
-    <link rel="stylesheet" href="../css/style_index.css">
     <link rel="stylesheet" href="../css/style_header.css">
     <link rel="stylesheet" href="../css/style_footer.css">
 </head>
