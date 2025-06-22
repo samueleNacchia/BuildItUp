@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@WebServlet("/CatalogViewer")
+@WebServlet("/common/CatalogViewer")
 public class CatalogViewer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -90,7 +90,7 @@ public class CatalogViewer extends HttpServlet {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
 		response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("/catalog.jsp").forward(request, response);
+        request.getRequestDispatcher("/common/catalog.jsp").forward(request, response);
     }
 
 

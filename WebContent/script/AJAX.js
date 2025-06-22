@@ -123,7 +123,7 @@ function updateStatus(orderId) {
 
 function addToList(productId, type, quantity) {
     const params = `type=${encodeURIComponent(type)}&id=${encodeURIComponent(productId)}&quantity=${encodeURIComponent(quantity)}`;
-    loadAjaxRequest("AddToList", "GET", params, function(response) {
+    loadAjaxRequest("../unlogged/AddToList", "GET", params, function(response) {
         
 		if (response.success) {
 			
@@ -146,7 +146,7 @@ function addItem(productId, type) {
     button.disabled = true;
 
     const params = `type=${encodeURIComponent(type)}&id=${encodeURIComponent(productId)}`;
-    loadAjaxRequest("AddToList", "GET", params, function(response) {
+    loadAjaxRequest("../unlogged/AddToList", "GET", params, function(response) {
         UpdateQuantityJSON(response, productId);
         button.disabled = false;
     });
@@ -159,7 +159,7 @@ function deleteItem(productId, type) {
 	    button.disabled = true;
 	
     const params = `type=${encodeURIComponent(type)}&id=${encodeURIComponent(productId)}`;
-    loadAjaxRequest("DeleteFromList", "GET", params, function(response) {
+    loadAjaxRequest("../unlogged/DeleteFromList", "GET", params, function(response) {
         UpdateQuantityJSON(response, productId);
 		button.disabled = false;
     });

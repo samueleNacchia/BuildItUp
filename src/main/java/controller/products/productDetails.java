@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@WebServlet("/productDetails")
+@WebServlet("/common/productDetails")
 public class productDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -67,7 +67,7 @@ public class productDetails extends HttpServlet {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
         response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("/Product.jsp").forward(request, response);
+        request.getRequestDispatcher("/common/Product.jsp").forward(request, response);
         
 	}
 

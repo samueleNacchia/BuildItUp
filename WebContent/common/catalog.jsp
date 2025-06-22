@@ -10,10 +10,10 @@
 <head>
     <title>BuildItUp</title>
     <style>html{display:none}</style>
-    <%@ include file="header.html" %>
+    <%@ include file="../common/header.jsp" %>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style_catalog.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="../css/style_catalog.css?v=<%= System.currentTimeMillis() %>">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
     
@@ -28,7 +28,7 @@
 
                 <section class="filter-bar-horizontal">
 
-                    <form method="POST" action="CatalogViewer" class="filter-form-horizontal">
+                    <form method="POST" action="/common/CatalogViewer" class="filter-form-horizontal">
                         
                         <label for="price-slider">Prezzo:  &nbsp;&nbsp;</label>
 					    <div id="price-slider" style="margin-top: 10px;"></div>
@@ -146,7 +146,7 @@
             </div>
         </main>    
     </div>
-	<%@ include file="footer.html" %>
+	<%@ include file="../common/footer.html" %>
     <script>
         window.addEventListener("load", function() {
             document.documentElement.style.display = "block";

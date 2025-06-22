@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@WebServlet("/Home")
+@WebServlet("/common/Home")
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -50,7 +50,7 @@ public class HomeServlet extends HttpServlet {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
         response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("../common/index.jsp").forward(request, response);
         
 	}
 

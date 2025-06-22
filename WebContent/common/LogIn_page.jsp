@@ -1,18 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="css/LogIn_style.css">
-    <link rel="stylesheet" href="css/style_index.css">
-    <link rel="stylesheet" href="css/style_header.css">
-    <link rel="stylesheet" href="css/style_footer.css">
+    <link rel="stylesheet" href="../css/LogIn_style.css">
+    <link rel="stylesheet" href="../css/style_index.css">
+    <link rel="stylesheet" href="../css/style_header.css">
+    <link rel="stylesheet" href="../css/style_footer.css">
 </head>
 <body>
 
 <div class="page-wrapper">
-  <%@ include file="header.html" %> 
+  <%@ include file="../common/header.jsp" %> 
   
     <div class="login-container">
         <h2>Accedi</h2>
@@ -89,7 +91,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
  </div>
 
      <footer>
-<%@ include file="../footer.html" %>
+<%@ include file="../common/footer.html" %>
     </footer>
    
 </body>

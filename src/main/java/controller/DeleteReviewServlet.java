@@ -12,7 +12,7 @@ import model.Review.ReviewDAO;
 import java.io.IOException;
 
 
-@WebServlet("/DeleteReviewServlet")
+@WebServlet("/user/DeleteReviewServlet")
 public class DeleteReviewServlet extends HttpServlet {
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,15 +31,15 @@ public class DeleteReviewServlet extends HttpServlet {
                 ProductDTO product = productDao.findByCode(productId);
                 productDao.updateValutation(product, false);
                 
-                response.sendRedirect(request.getContextPath() + "/review-status.jsp?id=" + productId + "&action=deleted");
+                response.sendRedirect(request.getContextPath() + "/user/review-status.jsp?id=" + productId + "&action=deleted");
             } else {
 
-            	response.sendRedirect(request.getContextPath() + "/LogIn_page.jsp");
+            	response.sendRedirect(request.getContextPath() + "/common/LogIn_page.jsp");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/review-status.jsp?action=error");
+            response.sendRedirect(request.getContextPath() + "/user/review-status.jsp?action=error");
         }
     }
 }

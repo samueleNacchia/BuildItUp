@@ -14,9 +14,9 @@
 <title></title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="./css/style_header.css?v=<%= System.currentTimeMillis() %>">
-<link rel="stylesheet" href="./css/style_footer.css?v=<%= System.currentTimeMillis() %>">
-<link rel="stylesheet" href="./css/style_product.css?v=<%= System.currentTimeMillis() %>">
+<link rel="stylesheet" href="../css/style_header.css?v=<%= System.currentTimeMillis() %>">
+<link rel="stylesheet" href="../css/style_footer.css?v=<%= System.currentTimeMillis() %>">
+<link rel="stylesheet" href="../css/style_product.css?v=<%= System.currentTimeMillis() %>">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
@@ -25,7 +25,7 @@
 </head>
 <body>
 <div class="page-wrapper">
-    <%@ include file="header.html" %>
+    <%@ include file="../common/header.jsp" %>
 
     <main class="homepage">
     
@@ -53,13 +53,12 @@
 
             <div class="product-details">
     			<h1 class="product-title">${prodotto.name}</h1>
-    			<span class="stars">
-	    			<c:forEach begin="1" end="5" var="i">
+    			    			<span class="stars">
+	    			<c:forEach begin="1" end="5" var="i">Add commentMore actions
 						<i class="fa-star <c:out value='${i <= prodotto.avgReview ? "fas" : "far"}'/>"></i>
 					</c:forEach>
 					(${prodotto.numReview})
 				</span>
-					
     			
     			<p class="product-description">${prodotto.description}</p>
 
@@ -97,7 +96,7 @@
 			                    Al momento non disponibile
 			                </div>
 			            </c:if>
-		
+					<c:if test="${sessionScope.ruolo != 1}">
 			            <c:if test="${prodotto.stocks > 0}">
 			                <div class="quantity-selector">
 			                    <label for="quantity">Quantità:</label>
@@ -111,11 +110,12 @@
 			                        <i class="fa-regular fa-heart"></i> Wishlist
 			                    </button>
 			
-			                    <button type="button" class="add-to-cart" onclick="addToList(${prodotto.id}, 'cart', document.getElementById('quantity').value)">
+			                    <button type="button" class="add-to-cart"   onclick="addToList(${prodotto.id}, 'cart', document.getElementById('quantity').value)">
 			                        <i class="fa-solid fa-cart-shopping"></i> Aggiungi al carrello
 			                    </button>
 			                </div>
 			            </c:if>
+			         </c:if>
 	        		</c:otherwise>
     			</c:choose>
 			</div>
@@ -135,7 +135,7 @@
 				        <c:set var="hasReviewed" value="true" />
 				    </c:if>
 				</c:forEach>
-				
+				<c:if test="${sessionScope.ruolo != 1}">
 				<c:if test="${not hasReviewed}">
 				    <div id="write-review-panel">
 				        <h3>Scrivi una recensione</h3>
@@ -145,7 +145,7 @@
 				        </a>
 				    </div>
 				</c:if>
-
+				</c:if>
 				 
 			    
 			    <div id="reviews-panel">
@@ -176,7 +176,7 @@
 				
 				                        <p>${review.text}</p>
 				                        
-				                        <form action="${pageContext.request.contextPath}/DeleteReviewServlet" method="post" style="text-align: right;">
+				                        <form action="${pageContext.request.contextPath}/user/DeleteReviewServlet" method="post" style="text-align: right;">
 								            <input type="hidden" name="productId" value="${prodotto.id}" />
 								            <button type="submit" title="Elimina recensione" style="background: none; border: none; cursor: pointer;">
 								                <i class="fa-solid fa-trash" style="color: red;"></i>
@@ -224,19 +224,19 @@
 
     <div id="toast" class="toast">Prodotto aggiunto!</div>
 
-    <%@ include file="footer.html" %>
+    <%@ include file="../common/footer.html" %>
 </div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 
-<script src="script/AJAX.js"></script>
+<script src="../script/AJAX.js"></script>
 
 
 <script>
 
-window.addEventListener("load", function () {
+window.EventListener("load", function () {
     const slides = document.querySelectorAll(".swiper-slide");
     const slideCount = slides.length;
 

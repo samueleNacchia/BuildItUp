@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
-@WebServlet("/DeleteFromList")
+@WebServlet("/unlogged/DeleteFromList")
 public class DeleteFromList extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

@@ -32,7 +32,7 @@
 </head>
 <body>
 <div class="page-wrapper">
-    <%@ include file="/header.html" %>
+    <%@ include file="../common/header.jsp" %>
 
     <div class="content">
         <h1>Benvenuto, ${user.name}!</h1>
@@ -40,7 +40,6 @@
         <div class="button-row">
             <button class="b" onclick="toggleSection('dati-personali')">Dati Personali</button>
             <button class="b" onclick="toggleSection('storico-ordini')">Storico Ordini</button>
-           <a href="${pageContext.request.contextPath}/logout"> <button class="b">Log Out</button> </a>
             <button class="b" onclick="hideSections()">Nascondi</button>
             
             
@@ -144,7 +143,7 @@
         </div>
     </div>
 
-    <%@ include file="../footer.html" %>
+    <%@ include file="../common/footer.html" %>
 </div>
 </body>
-</html>-
+</html>

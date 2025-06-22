@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
 <body>
 
 <div class="page-wrapper">
-    <%@ include file="/header.html" %>
+    <%@ include file="../common/header.jsp" %>
 
     <main class="homepage">
     
@@ -25,7 +26,7 @@
         <h2>Scrivi una Recensione</h2>
         <p>Condividi la tua esperienza.</p>
 
-        <form action="${pageContext.request.contextPath}/ReviewServlet" method="post" class="review-form">
+        <form action="${pageContext.request.contextPath}/user/ReviewServlet" method="post" class="review-form">
             <input type="hidden" name="productId" value="${param.productId}" />
 
             <label for="vote">Valutazione:</label>
@@ -53,6 +54,6 @@
  
     
 </div>
-	<%@ include file="../footer.html" %>
+	<%@ include file="../common/footer.html" %>
 </body>
 </html>

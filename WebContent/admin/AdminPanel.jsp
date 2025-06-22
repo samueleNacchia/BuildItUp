@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <title>Admin Panel</title>
     <style>html{display:none}</style>
-    <%@ include file="../headerAdmin.html" %>
+    <%@ include file="../admin/headerAdmin.html" %>
     <link rel="stylesheet" href="../css/style_header.css?v=<%= System.currentTimeMillis() %>">
    	<link rel="stylesheet" href="../css/style_footer.css?v=<%= System.currentTimeMillis() %>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -18,7 +18,7 @@
 	<div class="page-container">
 		<main>
 			<h1>Pannello di Amministrazione</h1>
-			<a href="Home">Home</a>
+  		<a href="${pageContext.request.contextPath}/Home">Home</a>
 	
 			<h2>Inserisci Nuovo Prodotto</h2>
 			<form action="AddProduct" method="post" enctype="multipart/form-data">
@@ -177,7 +177,7 @@
 	
 	<div id="toast" class="toast">Prodotto aggiunto!</div>
 	
-	<%@ include file="/footer.html" %>
+	<%@ include file="../common/footer.html" %>
 	<script>
 		        window.addEventListener("load", function() {
 		            document.documentElement.style.display = "block";

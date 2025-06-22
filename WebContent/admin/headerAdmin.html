@@ -6,9 +6,10 @@
     	<div class="item logo">
         	<img src="./images/logo.png" id="logo">
       	</div>
-      
+      	
       	<div class="item title">
-        	<span id="sl">Build It Up!</span>
+            <span id="sl"><a href="${pageContext.request.contextPath}/common/Home" class="sl">Build It Up!</a>
+        	</span>
       	</div>
       
       	<div class="item search">
@@ -24,19 +25,15 @@
       	</nav>
       
       	<div class="item icons">
-        	<a href="GetList?type=wishlist" style="text-decoration: none;  ">
-		  		<i class="fa-solid fa-heart" id="wishlist-icon" style="font-size: 35px; color: dimgray;"></i>
-			</a>
+        	
 		
-        	<a href="GetList?type=cart" style="text-decoration: none; cursor: pointer;">
-		  		<i class="fa-solid fa-shopping-cart" id="cart-icon" style="font-size: 35px; color: dimgray"></i>
-			</a>
-		
-			<a href="" style="text-decoration: none; cursor: pointer;">
-		  		<i class="fa-solid fa-user" id="user-icon" style="font-size: 35px; color: dimgray"></i>
-			</a>	
-      	</div>
-      
+			<div class="dropdown">
+				  <i class="fa-solid fa-user" id="user-icon" style="font-size: 35px; color: dimgray; cursor: pointer;"></i>
+				  <div class="dropdown-content">
+				  <a href="${pageContext.request.contextPath}/admin/AdminPanelServlet">Admin Panel</a>
+				    <a href="${pageContext.request.contextPath}/common/logout">Logout</a>	
+     	 		</div>
+      		</div>
   	</section>
 </header>
   

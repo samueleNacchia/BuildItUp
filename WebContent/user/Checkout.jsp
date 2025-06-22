@@ -7,12 +7,12 @@
 <head>
     <title>Riepilogo Ordine</title>
     <style>html{display:none}</style>
-    <%@ include file="header.html" %>
-    <link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
+    <%@ include file="../common/header.jsp" %>
+    <link rel="stylesheet" href="../css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
 </head>
 <body>
     <div class="page-wrapper">
-        <a href="Home">Home</a>
+        
 
         <main class="homepage">
             <h2>Riepilogo del tuo ordine</h2>
@@ -48,12 +48,12 @@
                 </tr>
             </table>
 
-            <form class="btn-form " action="SaveOrder" method="post">
+            <form class="btn-form " action="../user/SaveOrder" method="post">
                 <input class="btn" type="submit" value="Conferma Ordine">
             </form>
         </main>
     </div>   
-    <%@ include file="footer.html" %>
+    <%@ include file="../common/footer.html" %>
 	<script>
 	  window.addEventListener("load", function() {
 	    document.documentElement.style.display = "block";

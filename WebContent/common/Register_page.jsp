@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <!DOCTYPE html>
@@ -6,15 +7,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrazione</title>
-    <link rel="stylesheet" href="css/Register_style.css">
-    <link rel="stylesheet" href="css/style_index.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="../css/Register_style.css">
     <link rel="stylesheet" href="./css/style_header.css?v=<%= System.currentTimeMillis() %>">
     <link rel="stylesheet" href="./css/style_footer.css?v=<%= System.currentTimeMillis() %>">
     
 </head>
 <body>
 <div class="page-wrapper">
-    <%@ include file="header.html" %>
+    <%@ include file="../common/header.jsp" %>
     <div class="register-container">
         <h2>Registrazione</h2>
 
@@ -22,7 +22,14 @@
             String error = request.getParameter("error");
             if ("pwd".equals(error)) {
         %>
-            <div class="error-pwd"> ⚠️ Le password non corrispondono. Riprova.</div>
+            <div class="error-top"> ⚠️ Le password non corrispondono. Riprova.</div>
+        <%
+            }
+        %>
+                <%
+            if ("dupe".equals(error)) {
+        %>
+            <div class="error-top"> ⚠️ L'email è già registrata. Riprova.</div>
         <%
             }
         %>
@@ -71,7 +78,7 @@
 
     <button class ="reg"type="submit">Registrati</button>
 </form>
-        <form action="LogIn_page.jsp" method="get">
+        <form action="../common/LogIn_page.jsp" method="get">
             <button type="submit" class="log">Torna al Login</button>
         </form><script>
 function resetError(id) {
@@ -123,8 +130,12 @@ function validateNome() {
 function validateCognome() {
     const cognome = document.getElementById("cognome").value.trim();
     resetError("cognome");
-    if (cognome.length < 2 || !/^[A-Za-zÀ-ÖØ-öø-ÿ]+$/.test(cognome)) {
-        document.getElementById("cognomeError").textContent = "Inserisci un cognome valido (solo lettere).";
+
+    // Regex: lettere (anche accentate), spazi, apostrofi, trattini
+    const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,50}$/;
+
+    if (cognome.length < 2 || !regex.test(cognome)) {
+        document.getElementById("cognomeError").textContent = "Inserisci un cognome valido (solo lettere e spazi).";
         return false;
     }
     return true;
@@ -205,7 +216,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
         
         
     </div>
-      <%@ include file="footer.html" %>
+      <%@ include file="../common/footer.html" %>
 </div>
 
 

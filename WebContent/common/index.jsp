@@ -7,8 +7,10 @@
 <head>
 	<title>BuildItUp</title>
 	<style>html{display:none}</style>
-	 <%@ include file="header.html" %>
-    <link rel="stylesheet" href="css/style_index.css?v=<%= System.currentTimeMillis() %>">
+	
+	
+	 <%@ include file="../common/header.jsp" %>
+    <link rel="stylesheet" href="../css/style_index.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
 	<div class="page-wrapper">
@@ -77,7 +79,7 @@
 	        </c:if>
 	    </main>
 	    
-	    <a href="products" class="btn">Visualizza Database</a>
+	    <a href="../products" class="btn">Visualizza Database</a>
 	    <a href="${pageContext.request.contextPath}/admin/AdminPanelServlet" class="btn">Modifica Database</a>
 	  
 	    <div id="newsletter">
@@ -88,7 +90,7 @@
 	        </form>
 	    </div>
 	</div>
-	<%@ include file="footer.html" %>
+	<%@ include file="../common/footer.html" %>
 	<script>
 	  window.addEventListener("load", function() {
 	    document.documentElement.style.display = "block";

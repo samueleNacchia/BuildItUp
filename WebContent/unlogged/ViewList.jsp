@@ -21,12 +21,12 @@
         ${titolo}
     </title>
     <style>html{display:none}</style>
-    <link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
+    <link rel="stylesheet" href="../css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
 </head>
 
 <body>
 	<div class="page-wrapper">
-			<%@ include file="header.html" %>
+			<%@ include file="../common/header.jsp" %>
 			<main>
 		    <a href="Home">Home</a>
 		    <h1>${titolo}</h1>
@@ -89,7 +89,7 @@
 		                </table>
 		                
 		                <c:if test="${type == 'cart'}">
-		            		<a id="btn-checkout" href="GetList?type=cart&to=checkout" style="text-decoration: none;">
+		            		<a id="btn-checkout" href="../unlogged/GetList?type=cart&to=checkout" style="text-decoration: none;">
 		                		<input class="btn" type="submit" class="update" value="Acquista" />
 		            		</a>
 		       			</c:if>
@@ -111,12 +111,12 @@
 		            </c:choose>
 		        </p>
 		       
-		        <script src="script/AJAX.js"></script>
+		        <script src="../script/AJAX.js"></script>
 		    </c:if>
 		     
 		</main>
 	</div>
-	<%@ include file="footer.html" %>
+	<%@ include file="../common/footer.html" %>
 	<script>
 	  window.addEventListener("load", function() {
 	    document.documentElement.style.display = "block";

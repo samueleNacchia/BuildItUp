@@ -29,11 +29,14 @@ public class RegisterServlet extends HttpServlet {
         try {
 			if (dao.findByEmail(email)!= null)
 			{
+				System.out.println("Duplicato");
 			    response.sendRedirect("Register_page.jsp?error=dupe");
+			    return;
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
+        System.out.println("inizio salvataggio");
         UserDTO user = new UserDTO();
         user.setEmail(email);
         user.setPassword(HashFunction.generateToken(password));
@@ -53,5 +56,6 @@ public class RegisterServlet extends HttpServlet {
 		}
 
         response.sendRedirect("LogIn_page.jsp?success=1");
+        return;
     }
 }

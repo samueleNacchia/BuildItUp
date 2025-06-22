@@ -25,7 +25,7 @@ import model.ListType;
 import model.Status;
 
 
-@WebServlet("/SaveOrder")
+@WebServlet("/user/SaveOrder")
 public class SaveOrder extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class SaveOrder extends HttpServlet {
         Integer userId = (Integer) session.getAttribute("id");
         
         if (userId == null) {
-             response.sendRedirect("LogIn_page.jsp");
+             response.sendRedirect("../common/LogIn_page.jsp");
              return;
         }
          
@@ -80,7 +80,7 @@ public class SaveOrder extends HttpServlet {
             		itemsDao.deleteFromList(item.getId_list(), product.getId());
             		
             		response.setContentType("text/html;charset=UTF-8");
-            	    response.sendRedirect("OrderSummary.jsp");
+            	    response.sendRedirect("../user/OrderSummary.jsp");
             	    return;
             	}
             }
@@ -139,7 +139,7 @@ public class SaveOrder extends HttpServlet {
             response.sendRedirect("OrderSummary.jsp");
             */
             
-            request.getRequestDispatcher("/OrderSummary.jsp").forward(request, response);
+            request.getRequestDispatcher("../user/OrderSummary.jsp").forward(request, response);
 
         } catch (SQLException e) {
             e.printStackTrace();

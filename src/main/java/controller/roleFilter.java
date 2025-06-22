@@ -13,13 +13,11 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/admin/*", "/user/*"})
+@WebFilter(urlPatterns = {"/admin/*", "/user/*", "/unlogged/*, /common/*"})
 public class roleFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        // Se servono inizializzazioni
-    }
+    public void init(FilterConfig filterConfig) throws ServletException {}
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -27,38 +25,57 @@ public class roleFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-
         HttpSession session = req.getSession(false);
-        
-        if (session == null || session.getAttribute("ruolo") == null) {
-        	if(session == null)
-        		System.out.println("sessione nulla");
-        	// Nessuna sessione o ruolo -> redirect login
-        	else 
-        		System.out.println("ruolo nullo");
-        	res.sendRedirect(req.getContextPath() + "/LogIn_page.jsp");
-            return;
-        }
 
-        int role = (int) session.getAttribute("ruolo");
         String path = req.getRequestURI();
+        Integer role = null;
 
-        // Controllo accesso
-        if (path.contains("/admin/") && role != 1) {
-            // Non admin ma cerca di accedere a risorsa admin
-            //res.sendError(HttpServletResponse.SC_FORBIDDEN, "Accesso negato");
-            res.sendRedirect(req.getContextPath() + "/LogIn_page.jsp");
-            return;
-        } else if (path.contains("/user/")&& role != 2) {
-            // Solo utenti o admin possono accedere a /user/*
-           // res.sendError(HttpServletResponse.SC_FORBIDDEN, "Accesso negato");
-            res.sendRedirect(req.getContextPath() + "/LogIn_page.jsp");
-            return;
-        } else {
-            // Accesso consentito
-            chain.doFilter(request, response);
+        // Estrai il ruolo dalla sessione se disponibile
+        if (session != null) {
+            Object ruoloAttr = session.getAttribute("ruolo");
+            if (ruoloAttr instanceof Integer) {
+                role = (Integer) ruoloAttr;
+            }
         }
+        System.out.println("Il ruolo vale " + role);
+
+        // 1. /unlogged/ → accesso per non loggati o utenti (ruolo 2)
+        if (path.contains("/unlogged/")) {
+        	System.out.println("unlogged");
+            if (role == null || role == 2) {
+            	System.out.println("unlogged controllo effettuato");
+
+            	chain.doFilter(request, response);
+                return;
+            } else {
+                res.sendRedirect(req.getContextPath() + "/common/LogIn_page.jsp");
+                return;
+            }
+        }
+
+        // 2. /admin/ → solo ruolo 1
+        if (path.contains("/admin/")) {
+            if (role != null && role == 1) {
+                chain.doFilter(request, response);
+                return;
+            } else {
+                res.sendRedirect(req.getContextPath() + "/common/LogIn_page.jsp");
+                return;
+            }
+        }
+
+        // 3. /user/ → solo ruolo 2
+        if (path.contains("/user/")) {
+            if (role != null && role == 2) {
+                chain.doFilter(request, response);
+                return;
+            } else {
+                res.sendRedirect(req.getContextPath() + "/common/LogIn_page.jsp");
+                return;
+            }
+        }
+
+        // 4. Default: blocca tutto il resto
+        res.sendRedirect(req.getContextPath() + "/common/LogIn_page.jsp");
     }
-
-
 }

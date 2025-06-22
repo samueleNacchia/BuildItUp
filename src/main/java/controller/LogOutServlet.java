@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/logout")
+@WebServlet("/common/logout")
 public class LogOutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
@@ -18,7 +18,7 @@ public class LogOutServlet extends HttpServlet {
     		{
     			session.invalidate();
         }
-    		 response.sendRedirect(request.getContextPath() + "/Home");
+    		 response.sendRedirect(request.getContextPath() + "/common/Home");
     }
 
 

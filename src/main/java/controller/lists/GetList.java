@@ -15,12 +15,12 @@ import model.Product.ProductDAO;
 import model.ItemList.*;
 import model.ListType;
 
-@WebServlet("/GetList")
+@WebServlet("/unlogged/GetList")
 public class GetList extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        System.out.println("GetList");
     	ItemListDAO itemsDao = new ItemListDAO();
         ProductDAO productDao = new ProductDAO();
     	
@@ -55,9 +55,9 @@ public class GetList extends HttpServlet {
             String str = request.getParameter("to");
 
             if (str!=null && str.equals("checkout"))
-                request.getRequestDispatcher("/Checkout.jsp").forward(request, response);
+                request.getRequestDispatcher("../user/Checkout.jsp").forward(request, response);
             else 
-                request.getRequestDispatcher("/ViewList.jsp").forward(request, response);
+                request.getRequestDispatcher("../unlogged/ViewList.jsp").forward(request, response);
             
 
         } catch (SQLException e) {
