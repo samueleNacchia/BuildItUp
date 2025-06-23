@@ -20,9 +20,10 @@ public class GetList extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("GetList");
+
     	ItemListDAO itemsDao = new ItemListDAO();
         ProductDAO productDao = new ProductDAO();
+    	boolean flag = false;
     	
     	try {
     		if(request.getParameter("type") != null) {
@@ -32,7 +33,8 @@ public class GetList extends HttpServlet {
 	            List<ItemListDTO> items = null;
 	            if (list != null) {
 	                items = itemsDao.findByList(list.getId());
-	                if (items != null) {
+	                if (items != null && !items.isEmpty()) {
+	                	flag = true;
 	                    for (ItemListDTO item : items) {
 	                        try {
 	                            item.setProduct(productDao.findByCode(item.getId_product()));
@@ -54,10 +56,14 @@ public class GetList extends HttpServlet {
             
             String str = request.getParameter("to");
 
-            if (str!=null && str.equals("checkout"))
-                request.getRequestDispatcher("../user/Checkout.jsp").forward(request, response);
-            else 
-                request.getRequestDispatcher("../unlogged/ViewList.jsp").forward(request, response);
+            if (str!=null && str.equals("checkout")) {
+            	if(flag == false) {
+            		response.sendRedirect(request.getContextPath()+"/common/Home");
+            		return;
+            	}
+                request.getRequestDispatcher("/user/Checkout.jsp").forward(request, response);
+            } else 
+                request.getRequestDispatcher("/unlogged/ViewList.jsp").forward(request, response);
             
 
         } catch (SQLException e) {

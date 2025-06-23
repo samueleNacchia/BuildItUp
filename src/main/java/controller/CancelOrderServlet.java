@@ -10,8 +10,9 @@ import java.sql.SQLException;
 
 @WebServlet("/cancelOrder")
 public class CancelOrderServlet extends HttpServlet {
-    
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String orderIdStr = request.getParameter("orderId");
@@ -33,9 +34,9 @@ public class CancelOrderServlet extends HttpServlet {
 
             boolean success = orderDAO.cancelOrder(orderId);
             if (success) {
-                response.sendRedirect("user/MyProfile?cancelSuccess=1");
+                response.sendRedirect(request.getContextPath()+"/user/MyProfile?cancelSuccess=1");
             } else {
-                response.sendRedirect("user/MyProfile?cancelFailed=1");
+                response.sendRedirect(request.getContextPath()+"/user/MyProfile?cancelFailed=1");
             }
 
         } catch (SQLException e) {

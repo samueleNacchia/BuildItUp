@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../css/style_footer.css?v=<%= System.currentTimeMillis() %>">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_footer.css?v=<%= System.currentTimeMillis() %>">
   	<script>
 document.addEventListener("DOMContentLoaded", function () {
   const btn = document.createElement("button");

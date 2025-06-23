@@ -14,8 +14,9 @@ import java.io.IOException;
 
 @WebServlet("/user/DeleteReviewServlet")
 public class DeleteReviewServlet extends HttpServlet {
-	
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
         	
         	HttpSession session = request.getSession();

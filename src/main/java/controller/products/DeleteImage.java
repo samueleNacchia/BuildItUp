@@ -10,7 +10,7 @@ import model.ProductImage.ProductImageDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/DeleteImage")
+@WebServlet("/admin/DeleteImage")
 public class DeleteImage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,7 @@ public class DeleteImage extends HttpServlet {
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
         response.setContentType("text/html;charset=UTF-8");
-        response.sendRedirect(request.getContextPath()+"/AdminPanelServlet");
+        response.sendRedirect(request.getContextPath()+"/admin/AdminPanelServlet");
     }
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

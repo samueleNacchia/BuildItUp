@@ -6,14 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="../css/LogIn_style.css">
-    <link rel="stylesheet" href="../css/style_header.css">
-    <link rel="stylesheet" href="../css/style_footer.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/LogIn_style.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
 
 <div class="page-wrapper">
-  <%@ include file="../common/header.jsp" %> 
+  <%@ include file="header.jsp" %> 
   
     <div class="login-container">
         <h2>Accedi</h2>
@@ -90,7 +88,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
  </div>
 
      <footer>
-<%@ include file="../common/footer.html" %>
+<%@ include file="footer.jsp" %>
     </footer>
    
 </body>

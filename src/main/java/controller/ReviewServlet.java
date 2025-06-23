@@ -6,32 +6,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Order.OrderDAO;
-import model.Order.OrderDTO;
-import model.Product.ProductDAO;
-import model.Product.ProductDTO;
-import model.ProductImage.ProductImageDAO;
-import model.ProductImage.ProductImageDTO;
-import model.ProductOrder.ProductOrderDAO;
-import model.ProductOrder.ProductOrderDTO;
-import model.Review.ReviewDAO;
-import model.Review.ReviewDTO;
-import model.User.UserDAO;
-import model.User.UserDTO;
+import model.Order.*;
+import model.Product.*;
+import model.ProductOrder.*;
+import model.Review.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @WebServlet("/user/ReviewServlet")
-
 public class ReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -85,13 +73,13 @@ public class ReviewServlet extends HttpServlet {
 	        productDAO.updateValutation(product, true);
 
 	        response.sendRedirect(request.getContextPath() + "/user/review-status.jsp?id=" + code + "&action=added");
-	        return; // <<-- IMPORTANTISSIMO
+	        return;
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        request.setAttribute("errore", "Errore durante il recupero dei dati.");
 	        request.getRequestDispatcher("/common/error.jsp").forward(request, response);
-	        return; // <<-- FONDAMENTALE
+	        return;
 	    }
 	}
 }

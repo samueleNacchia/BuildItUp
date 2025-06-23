@@ -6,18 +6,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Product.ProductDAO;
-import model.Product.ProductDTO;
-import model.ProductImage.ProductImageDAO;
-import model.ProductImage.ProductImageDTO;
-import model.Review.ReviewDAO;
-import model.Review.ReviewDTO;
-import model.User.UserDAO;
-import model.User.UserDTO;
+import model.Product.*;
+import model.ProductImage.*;
+import model.Review.*;
+import model.User.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +40,7 @@ public class productDetails extends HttpServlet {
             List<ProductImageDTO> images = image.findAllByProduct(code);
             List<ReviewDTO> recensioni = rv.findAllforProduct(code);
 
-            Map<ReviewDTO, UserDTO> recensioneUtente = new LinkedHashMap();
+            Map<ReviewDTO, UserDTO> recensioneUtente = new LinkedHashMap<ReviewDTO, UserDTO>();
             for (ReviewDTO r : recensioni) {
                 UserDTO u = user.findByCode(r.getId_user());
                 recensioneUtente.put(r, u);
@@ -70,7 +65,5 @@ public class productDetails extends HttpServlet {
         request.getRequestDispatcher("/common/Product.jsp").forward(request, response);
         
 	}
-
-	
 
 }

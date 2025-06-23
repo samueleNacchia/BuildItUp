@@ -14,30 +14,23 @@
 <title></title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="../css/style_header.css?v=<%= System.currentTimeMillis() %>">
-<link rel="stylesheet" href="../css/style_footer.css?v=<%= System.currentTimeMillis() %>">
-<link rel="stylesheet" href="../css/style_product.css?v=<%= System.currentTimeMillis() %>">
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_product.css?v=<%= System.currentTimeMillis() %>">
 
 </head>
-<body>
+<body data-context-path="${pageContext.request.contextPath}">
 <div class="page-wrapper">
-    <%@ include file="../common/header.jsp" %>
+    <%@ include file="header.jsp" %>
 
     <main class="homepage">
-    
-    
-    
+
         <div class="product-wrapper">
 
 			<div class="swiper mySwiper">
 				<div class="swiper-wrapper">
 					<c:forEach var="image" items="${immagini}">
 				    	<div class="swiper-slide">
-				        	<img src="image?id=${image.id}" style="width: 100%; height: 400px; object-fit: contain;" />
+				        	<img src="<%= request.getContextPath() %>/image?id=${image.id}" style="width: 100%; height: 400px; object-fit: contain;" />
 				     	</div>
 			    	</c:forEach>
 			  </div>
@@ -49,12 +42,10 @@
 			</div>
 
 
-
-
             <div class="product-details">
     			<h1 class="product-title">${prodotto.name}</h1>
-    			    			<span class="stars">
-	    			<c:forEach begin="1" end="5" var="i">Add commentMore actions
+    			<span class="stars">
+	    			<c:forEach begin="1" end="5" var="i">
 						<i class="fa-star <c:out value='${i <= prodotto.avgReview ? "fas" : "far"}'/>"></i>
 					</c:forEach>
 					(${prodotto.numReview})
@@ -224,19 +215,19 @@
 
     <div id="toast" class="toast">Prodotto aggiunto!</div>
 
-    <%@ include file="../common/footer.html" %>
+    <%@ include file="footer.jsp" %>
 </div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 
-<script src="../script/AJAX.js"></script>
+<script src="<%= request.getContextPath() %>/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>
 
 
 <script>
 
-window.EventListener("load", function () {
+window.addEventListener("load", function () {
     const slides = document.querySelectorAll(".swiper-slide");
     const slideCount = slides.length;
 

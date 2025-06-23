@@ -7,14 +7,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrazione</title>
-    <link rel="stylesheet" href="../css/Register_style.css">
-    <link rel="stylesheet" href="./css/style_header.css?v=<%= System.currentTimeMillis() %>">
-    <link rel="stylesheet" href="./css/style_footer.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Register_style.css?v=<%= System.currentTimeMillis() %>">
     
 </head>
 <body>
 <div class="page-wrapper">
-    <%@ include file="../common/header.jsp" %>
+    <%@ include file="header.jsp" %>
     <div class="register-container">
         <h2>Registrazione</h2>
 
@@ -216,7 +214,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
         
         
     </div>
-      <%@ include file="../common/footer.html" %>
+      <%@ include file="footer.jsp" %>
 </div>
 
 

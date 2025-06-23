@@ -78,14 +78,6 @@ public class DeleteFromList extends HttpServlet {
             json.put("success", success);
             response.getWriter().print(json.toString());
            
-            // torna alla pagina precedente
-            /*String referer = request.getHeader("Referer");
-            if (referer != null) {
-                response.sendRedirect(referer);
-            } else {
-                response.sendRedirect(request.getContextPath() + "/index.html");
-            }*/
-         
 
         } catch (SQLException | IllegalArgumentException | NullPointerException e) {
         	e.printStackTrace();

@@ -143,7 +143,7 @@
         </div>
     </div>
 
-    <%@ include file="../common/footer.html" %>
+    <%@ include file="/common/footer.jsp" %>
 </div>
 </body>
 </html>

@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <title>Conferma Ordine</title>
     <style>html{display:none}</style>
-    <%@ include file="../common/header.jsp" %>
-    <link rel="stylesheet" href="../css/StyleView.css?v=<%= System.currentTimeMillis() %>">
+    <%@ include file="/common/header.jsp" %>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
     <div class="page-wrapper">
@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="back-link">
-                            <a href="../common/Home">Torna alla home</a>
+                            <a href="<%= request.getContextPath() %>/common/Home">Torna alla home</a>
                         </div>
                     </c:when>
                     <c:otherwise>
@@ -40,7 +40,7 @@
             </div>
         </main>
     </div>
-    <%@ include file="../common/footer.html" %> 
+    <%@ include file="/common/footer.jsp" %> 
     <script>
   window.addEventListener("load", function() {
     document.documentElement.style.display = "block";

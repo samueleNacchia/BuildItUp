@@ -21,14 +21,15 @@
         ${titolo}
     </title>
     <style>html{display:none}</style>
-    <link rel="stylesheet" href="../css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
+    
 </head>
 
-<body>
+<body data-context-path="${pageContext.request.contextPath}">
+
 	<div class="page-wrapper">
-			<%@ include file="../common/header.jsp" %>
+			<%@ include file="/common/header.jsp" %>
 			<main>
-		    <a href="Home">Home</a>
 		    <h1>${titolo}</h1>
 		
 		    <c:if test="${not empty type}">
@@ -66,7 +67,7 @@
 		                        <tr id="product-${product.id}">
 		                            <td>${product.name}</td>
 		                            <td><fmt:formatNumber value="${product.price * (1-product.discount)}" maxFractionDigits="2" />€</td>
-		                            <td><img src="image?cover=true&id=${product.id}" alt="Immagine ${product.name}" /></td>
+		                            <td><img src="<%= request.getContextPath() %>/image?cover=true&id=${product.id}" alt="Immagine ${product.name}" /></td>
 		
 		                            <c:if test="${type == 'cart'}">
 		                                <td id="quantity-${product.id}">${item.quantity}</td>
@@ -89,7 +90,7 @@
 		                </table>
 		                
 		                <c:if test="${type == 'cart'}">
-		            		<a id="btn-checkout" href="../unlogged/GetList?type=cart&to=checkout" style="text-decoration: none;">
+		            		<a id="btn-checkout" href="<%= request.getContextPath()%>/unlogged/GetList?type=cart&to=checkout" style="text-decoration: none;">
 		                		<input class="btn" type="submit" class="update" value="Acquista" />
 		            		</a>
 		       			</c:if>
@@ -111,12 +112,12 @@
 		            </c:choose>
 		        </p>
 		       
-		        <script src="../script/AJAX.js"></script>
+		        <script src="<%= request.getContextPath() %>/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>
 		    </c:if>
 		     
 		</main>
 	</div>
-	<%@ include file="../common/footer.html" %>
+	<%@ include file="/common/footer.jsp" %>
 	<script>
 	  window.addEventListener("load", function() {
 	    document.documentElement.style.display = "block";

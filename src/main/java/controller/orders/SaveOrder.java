@@ -30,120 +30,97 @@ public class SaveOrder extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-    	HttpSession session = request.getSession(false);
-        Integer userId = (Integer) session.getAttribute("id");
-        
+
+        HttpSession session = request.getSession(false);
+        Integer userId = (Integer) (session != null ? session.getAttribute("id") : null);
+
         if (userId == null) {
-             response.sendRedirect("../common/LogIn_page.jsp");
-             return;
+            response.sendRedirect(request.getContextPath() + "/common/LogIn_page.jsp");
+            return;
         }
-         
-        ProductDTO product = new ProductDTO();
+
         ProductDAO productDao = new ProductDAO();
-        
         OrderDAO orderDao = new OrderDAO();
-        OrderDTO order = new OrderDTO();
-        
         ProductOrderDAO productOrderDao = new ProductOrderDAO();
-        ProductOrderDTO productOrder = new ProductOrderDTO();
-        
-        BillDTO bill = new BillDTO();
         BillDAO billDao = new BillDAO();
+        ItemListDAO itemsDao = new ItemListDAO();
         
-    	ItemListDAO itemsDao = new ItemListDAO();
-    	LocalDate now = LocalDate.now();
-    	float price, total = 0;
-    	
-    	
-    	try {
+        LocalDate now = LocalDate.now();
+        float price, total = 0;
+
+        try {
             ListDTO list = ListManager.getList(request, response, ListType.cart, false);
+            if (list == null) {
+                response.sendRedirect(request.getContextPath() + "/common/Home");
+                return;
+            }
 
-            List<ItemListDTO> items = null;
-            if (list != null) {
-                items = itemsDao.findByList(list.getId());
-                if (items != null) {
-                    for (ItemListDTO item : items) {
-                        try {
-                            item.setProduct(productDao.findByCode(item.getId_product()));
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
+            List<ItemListDTO> items = itemsDao.findByList(list.getId());
+            if (items == null || items.isEmpty()) {
+                response.sendRedirect(request.getContextPath() + "/common/Home");
+                return;
+            }
+
+            for (ItemListDTO item : items) {
+                try {
+                    item.setProduct(productDao.findByCode(item.getId_product()));
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-            }     
-            
-            for(ItemListDTO item : items) {
-            	product = item.getProduct();
-            	
-            	if(product.getStocks()<item.getQuantity()) {
-            		itemsDao.deleteFromList(item.getId_list(), product.getId());
-            		
-            		response.setContentType("text/html;charset=UTF-8");
-            	    response.sendRedirect("../user/OrderSummary.jsp");
-            	    return;
-            	}
             }
-            
-            //order.setId_user(userId);
-        	order.setId_user((int)userId); //DA CAMBIARE
-        	order.setOrderDate(now);
-        	order.setStatus(Status.In_elaborazione);
-        	orderDao.save(order); 
-            
-            for(ItemListDTO item : items) {
-            	product = item.getProduct();
-            	price = product.getPrice() * (1-product.getDiscount());
-            	
-            	// Arrotondamento a 2 decimali
-            	BigDecimal bd = new BigDecimal(Float.toString(price));
-            	bd = bd.setScale(2, RoundingMode.HALF_UP);
 
-            	price = bd.floatValue();
-            	
-            	productOrder.setId_product(product.getId());
-            	productOrder.setId_order(order.getId());
-            	productOrder.setPrice(price);
-            	productOrder.setQuantity(item.getQuantity());
-            	productOrderDao.save(productOrder);
-            
-            	total += (price*item.getQuantity());
-            	
-            	int newStock = product.getStocks()-item.getQuantity();
-            	productDao.updateStock(product.getId(), newStock);
-            	
-            	itemsDao.deleteFromList(item.getId_list(), product.getId());
+            for (ItemListDTO item : items) {
+                ProductDTO product = item.getProduct();
+                if (product.getStocks() < item.getQuantity()) {
+                    itemsDao.deleteFromList(item.getId_list(), product.getId());
+                    response.sendRedirect(request.getContextPath() + "/user/OrderSummary.jsp");
+                    return;
+                }
             }
-            
+
+            OrderDTO order = new OrderDTO();
+            order.setId_user(userId);
+            order.setOrderDate(now);
+            order.setStatus(Status.In_elaborazione);
+            orderDao.save(order); 
+
+            for (ItemListDTO item : items) {
+                ProductDTO product = item.getProduct();
+                price = product.getPrice() * (1 - product.getDiscount());
+
+                BigDecimal bd = new BigDecimal(Float.toString(price));
+                bd = bd.setScale(2, RoundingMode.HALF_UP);
+                price = bd.floatValue();
+
+                ProductOrderDTO productOrder = new ProductOrderDTO();
+                productOrder.setId_product(product.getId());
+                productOrder.setId_order(order.getId());
+                productOrder.setPrice(price);
+                productOrder.setQuantity(item.getQuantity());
+                productOrderDao.save(productOrder);
+
+                total += price * item.getQuantity();
+
+                int newStock = product.getStocks() - item.getQuantity();
+                productDao.updateStock(product.getId(), newStock);
+
+                itemsDao.deleteFromList(item.getId_list(), product.getId());
+            }
+
+            BillDTO bill = new BillDTO();
             bill.setId_order(order.getId());
             bill.setBillDate(now);
             bill.setTotal(total);
             billDao.save(bill);
             
-                        
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    		response.setHeader("Pragma", "no-cache");
-    		response.setDateHeader("Expires", 0);
-            response.setContentType("text/html;charset=UTF-8");
-            
-            request.setAttribute("ordine",order);
-            request.setAttribute("fattura",bill);
-            
-            /*
-            // Salva in sessione invece che in request
-            HttpSession session = request.getSession();
             session.setAttribute("ordine", order);
             session.setAttribute("fattura", bill);
 
-            // Reindirizza per evitare il problema del refresh
-            response.sendRedirect("OrderSummary.jsp");
-            */
-            
-            request.getRequestDispatcher("../user/OrderSummary.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/user/OrderSummary.jsp");
 
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore nel database");
         } catch (IllegalArgumentException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Tipo lista non valido");
         }

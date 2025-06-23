@@ -12,17 +12,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/register")
+@WebServlet("/common/register")
 public class RegisterServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirm = request.getParameter("confirm");
 
         if (!password.equals(confirm)) {
-            response.sendRedirect("Register_page.jsp?error=pwd");
+            response.sendRedirect(request.getContextPath()+"/Register_page.jsp?error=pwd");
             return;
         }
         UserDAO dao = new UserDAO();
@@ -30,13 +31,13 @@ public class RegisterServlet extends HttpServlet {
 			if (dao.findByEmail(email)!= null)
 			{
 				System.out.println("Duplicato");
-			    response.sendRedirect("Register_page.jsp?error=dupe");
+			    response.sendRedirect(request.getContextPath()+"/Register_page.jsp?error=dupe");
 			    return;
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
-        System.out.println("inizio salvataggio");
+   
         UserDTO user = new UserDTO();
         user.setEmail(email);
         user.setPassword(HashFunction.generateToken(password));
@@ -55,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-        response.sendRedirect("LogIn_page.jsp?success=1");
+        response.sendRedirect(request.getContextPath()+"/LogIn_page.jsp?success=1");
         return;
     }
 }

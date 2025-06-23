@@ -6,10 +6,10 @@
 <head>
     <title>Product-Users</title>
     <style>html{display:none}</style>
-	<link rel="stylesheet" href="css/StyleView.css?v=<%= System.currentTimeMillis() %>">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
-	<a href="Home">Home</a>
+	<a href="common/Home">Home</a>
 
 	<h1>Utenti</h1>
 	

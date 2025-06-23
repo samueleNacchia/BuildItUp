@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@WebServlet("/GetOrdersJSON")
+@WebServlet("/admin/GetOrdersJSON")
 public class GetOrdersJSON extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

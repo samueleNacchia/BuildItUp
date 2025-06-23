@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../css/style_header.css?">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_header.css?v=<%= System.currentTimeMillis() %>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">  
 
 <header class="tab">

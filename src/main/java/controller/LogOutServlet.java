@@ -10,8 +10,9 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/common/logout")
 public class LogOutServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+    private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     		
     		HttpSession session = request.getSession(false);
     		if (session != null)
@@ -22,7 +23,7 @@ public class LogOutServlet extends HttpServlet {
     }
 
 
-protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	doGet(request,response);
-}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		doGet(request,response);
+	}
 }

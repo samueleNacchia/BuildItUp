@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
-@WebServlet("/UpdateOrder")
+@WebServlet("/admin/UpdateOrder")
 public class UpdateOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     

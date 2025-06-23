@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE html>
@@ -8,17 +9,14 @@
     <meta charset="UTF-8" />
     <title>Admin Panel</title>
     <style>html{display:none}</style>
-    <%@ include file="../admin/headerAdmin.html" %>
-    <link rel="stylesheet" href="../css/style_header.css?v=<%= System.currentTimeMillis() %>">
-   	<link rel="stylesheet" href="../css/style_footer.css?v=<%= System.currentTimeMillis() %>">
+    <%@ include file="headerAdmin.jsp" %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="../css/StyleView.css?v=<%= System.currentTimeMillis() %>" />
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/StyleView.css?v=<%= System.currentTimeMillis() %>" />
 </head>
-<body>
+<body data-context-path="${pageContext.request.contextPath}">
 	<div class="page-container">
 		<main>
 			<h1>Pannello di Amministrazione</h1>
-  		<a href="${pageContext.request.contextPath}/Home">Home</a>
 	
 			<h2>Inserisci Nuovo Prodotto</h2>
 			<form action="AddProduct" method="post" enctype="multipart/form-data">
@@ -75,23 +73,14 @@
 			                        <td><input type="number" name="stocks" min="0" value="${product.stocks}" step="1" /></td>
 			                        <td>
 			                            <input type="submit" class="update" value="Update" onclick="return confirm('Aggiornare ${product.name}?')" />
-			                        
+			                        </td>
 			                    </form>
-			
-			                        <button id="wishlist-icon" onclick="addToList(${product.id}, 'wishlist', 1)">
-			                            <i class="fa-solid fa-heart" style="font-size: 20px; color: dimgray"></i>
-			                        </button>
-			
-			                        <button id="cart-icon" onclick="addToList(${product.id}, 'cart', 1)">
-			                            <i class="fa-solid fa-shopping-cart" style="font-size: 20px; color: dimgray"></i>
-			                        </button>
-			                    </td>
 			
 			                    <td colspan="11">
 			                        <div style="display: flex; align-items: center; gap: 10px;">
 			                            <c:forEach var="img" items="${immaginiPerProdotto[product.id]}">
 			                                <form action="DeleteImage" method="post" style="display:inline">
-			                                    <img src="image?id=${img.id}" height="100" />
+			                                    <img src="<%= request.getContextPath() %>/image?id=${img.id}" height="100" />
 			                                    <input type="hidden" name="imageId" value="${img.id}" />
 			                                    <input type="submit" class="delete" value="X" onclick="return confirm('Eliminare questa immagine?')" />
 			                                </form>
@@ -153,13 +142,27 @@
 							                <td>${order.id_user}</td>
 							                <td>${order.orderDateFormatted}</td>
 							                <td>
-								            	<select id="status-${order.id}" onChange="updateStatus(${order.id})" name="stato">
-								                   	<option value="In_elaborazione" <c:if test="${order.statusName == 'In_elaborazione'}">selected</c:if>>In_elaborazione</option>
-								                    <option value="Elaborato" <c:if test="${order.statusName == 'Elaborato'}">selected</c:if>>Elaborato</option>
-								                    <option value="Spedito" <c:if test="${order.statusName == 'Spedito'}">selected</c:if>>Spedito</option>
-								                    <option value="Consegnato" <c:if test="${order.statusName == 'Consegnato'}">selected</c:if>>Consegnato</option>
-								                    <option value="Annullato" <c:if test="${order.statusName == 'Annullato'}">selected</c:if>>Annullato</option>
-								                 </select>
+												<c:set var="allStatuses" value="${fn:split('In_elaborazione,Elaborato,Spedito,Consegnato,Annullato', ',')}" />
+
+												<c:forEach var="status" items="${allStatuses}" varStatus="loop">
+												    <c:if test="${status == order.statusName}">
+												        <c:set var="currentIndex" value="${loop.index}" />
+												    </c:if>
+												</c:forEach>
+												
+												<!-- Select con solo gli stati successivi o uguali allo stato corrente -->
+												<select id="status-${order.id}" name="stato"
+												        onChange="updateStatus(${order.id})"
+												        <c:if test="${order.statusName == 'Annullato' || order.statusName == 'Consegnato'}">disabled</c:if>>
+												    
+												    <c:forEach var="status" items="${allStatuses}" varStatus="loop">
+												        <c:if test="${loop.index >= currentIndex}">
+												            <option value="${status}" <c:if test="${order.statusName == status}">selected</c:if>>
+												                ${status}
+												            </option>
+												        </c:if>
+												    </c:forEach>
+												</select>
 							                </td>
 							            </tr>
 							    </c:forEach>
@@ -177,7 +180,7 @@
 	
 	<div id="toast" class="toast">Prodotto aggiunto!</div>
 	
-	<%@ include file="../common/footer.html" %>
+	<%@ include file="/common/footer.jsp" %>
 	<script>
 		        window.addEventListener("load", function() {
 		            document.documentElement.style.display = "block";
@@ -195,7 +198,7 @@
 	</script>
 
 
-<script src="../script/AJAX.js"></script>
+<script src="<%= request.getContextPath() %>/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>
 
 </body>
 </html>

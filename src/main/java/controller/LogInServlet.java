@@ -18,8 +18,9 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/common/login")
 public class LogInServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String email = request.getParameter("email");
         String password = HashFunction.generateToken(request.getParameter("password"));
@@ -48,7 +49,7 @@ public class LogInServlet extends HttpServlet {
             user = dao.findByEmail(email);
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("../common/LogIn_page.jsp?error=server");
+            response.sendRedirect(request.getContextPath()+"/common/LogIn_page.jsp?error=server");
             return;
         }
 
@@ -66,7 +67,7 @@ public class LogInServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath()+"/common/Home");
             return; 
         } else {
-            response.sendRedirect("../common/LogIn_page.jsp?error=1");
+            response.sendRedirect(request.getContextPath()+"/common/LogIn_page.jsp?error=1");
             return;
         }
     }

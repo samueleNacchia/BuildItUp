@@ -12,7 +12,7 @@ import model.ProductImage.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/AddImages")
+@WebServlet("/admin/AddImages")
 @MultipartConfig(maxFileSize = 1024 * 1024 * 16)
 
 public class AddImages extends HttpServlet {
@@ -53,7 +53,7 @@ public class AddImages extends HttpServlet {
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
         response.setContentType("text/html;charset=UTF-8");
-        response.sendRedirect(request.getContextPath()+"/AdminPanelServlet");
+        response.sendRedirect(request.getContextPath()+"/admin/AdminPanelServlet");
     }
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

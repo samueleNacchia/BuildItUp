@@ -14,7 +14,7 @@ import model.ItemList.ItemListDAO;
 import model.Product.*;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 16) // max 16MB per file
-@WebServlet("/UpdateProduct")
+@WebServlet("/admin/UpdateProduct")
 public class UpdateProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -52,7 +52,7 @@ public class UpdateProduct extends HttpServlet {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
 		response.setContentType("text/html;charset=UTF-8");
-		response.sendRedirect(request.getContextPath()+"/AdminPanelServlet");
+		response.sendRedirect(request.getContextPath()+"/admin/AdminPanelServlet");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

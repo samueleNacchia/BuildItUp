@@ -7,8 +7,8 @@
 <head>
     <title>Riepilogo Ordine</title>
     <style>html{display:none}</style>
-    <%@ include file="../common/header.jsp" %>
-    <link rel="stylesheet" href="../css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
+    <%@ include file="/common/header.jsp" %>
+    <link rel="stylesheet" href="<%= request.getContextPath()%>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
 </head>
 <body>
     <div class="page-wrapper">
@@ -48,12 +48,12 @@
                 </tr>
             </table>
 
-            <form class="btn-form " action="../user/SaveOrder" method="post">
+            <form class="btn-form " action="<%= request.getContextPath()%>/user/SaveOrder" method="post">
                 <input class="btn" type="submit" value="Conferma Ordine">
             </form>
         </main>
     </div>   
-    <%@ include file="../common/footer.html" %>
+    <%@ include file="/common/footer.jsp" %>
 	<script>
 	  window.addEventListener("load", function() {
 	    document.documentElement.style.display = "block";

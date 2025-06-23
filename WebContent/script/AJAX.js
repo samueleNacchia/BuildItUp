@@ -1,5 +1,6 @@
-/*LOADER*/
+const contextPath = document.body.getAttribute("data-context-path");
 
+/*LOADER*/
 function loadAjaxRequest(url, method, params, cFunction) {
     const request = new XMLHttpRequest();
 
@@ -108,7 +109,7 @@ function updateStatus(orderId) {
     const newStatus = select.value;
     const params = "id=" + encodeURIComponent(orderId) + "&stato=" + encodeURIComponent(newStatus);
 
-   	loadAjaxRequest("../UpdateOrder", "GET", params, function(response) {
+   	loadAjaxRequest(contextPath+"/admin/UpdateOrder", "GET", params, function(response) {
      	if (response.status && response.functionName === "updateStatus") {
           	console.log("Ordine aggiornato con successo");
         } else {
@@ -123,7 +124,7 @@ function updateStatus(orderId) {
 
 function addToList(productId, type, quantity) {
     const params = `type=${encodeURIComponent(type)}&id=${encodeURIComponent(productId)}&quantity=${encodeURIComponent(quantity)}`;
-    loadAjaxRequest("../unlogged/AddToList", "GET", params, function(response) {
+    loadAjaxRequest(contextPath+"/unlogged/AddToList", "GET", params, function(response) {
         
 		if (response.success) {
 			
@@ -146,7 +147,7 @@ function addItem(productId, type) {
     button.disabled = true;
 
     const params = `type=${encodeURIComponent(type)}&id=${encodeURIComponent(productId)}`;
-    loadAjaxRequest("../unlogged/AddToList", "GET", params, function(response) {
+    loadAjaxRequest(contextPath+"/unlogged/AddToList", "GET", params, function(response) {
         UpdateQuantityJSON(response, productId);
         button.disabled = false;
     });
@@ -159,7 +160,7 @@ function deleteItem(productId, type) {
 	    button.disabled = true;
 	
     const params = `type=${encodeURIComponent(type)}&id=${encodeURIComponent(productId)}`;
-    loadAjaxRequest("../unlogged/DeleteFromList", "GET", params, function(response) {
+    loadAjaxRequest(contextPath+"/unlogged/DeleteFromList", "GET", params, function(response) {
         UpdateQuantityJSON(response, productId);
 		button.disabled = false;
     });
@@ -193,7 +194,3 @@ function UpdateQuantityJSON(response, productId) {
         }
     }
 }
-
-
-
-

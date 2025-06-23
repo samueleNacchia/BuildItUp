@@ -22,8 +22,9 @@ import java.sql.SQLException;
 
 @WebServlet("/user/MyProfile")
 public class MyProfileServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("id") == null) {
@@ -73,10 +74,10 @@ public class MyProfileServlet extends HttpServlet {
                 }
             }
 
-            // ✅ Recupera i productId già recensiti dall'utente
+            //Recupera i productId già recensiti dall'utente
             List<Integer> prodottiRecensiti = reviewDAO.findProductIdsReviewedByUser(userId);
 
-            // ✅ Set degli attributi da passare alla JSP
+            //Set degli attributi da passare alla JSP
             request.setAttribute("user", user);
             request.setAttribute("ordini", ordini);
             request.setAttribute("billsMap", billsMap);

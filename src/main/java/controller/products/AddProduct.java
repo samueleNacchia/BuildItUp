@@ -17,7 +17,7 @@ import model.Product.*;
 import model.ProductImage.*;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 16) // max 16MB per file
-@WebServlet("/AddProduct")
+@WebServlet("/admin/AddProduct")
 public class AddProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -73,12 +73,11 @@ public class AddProduct extends HttpServlet {
 	        }
         }
 
-        // Redirect o forward alla pagina Admin
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
         response.setContentType("text/html;charset=UTF-8");
-        response.sendRedirect(request.getContextPath()+"/AdminPanelServlet");
+        response.sendRedirect(request.getContextPath()+"/admin/AdminPanelServlet");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

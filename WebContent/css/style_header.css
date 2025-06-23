@@ -180,6 +180,7 @@ a i.fa-user:hover {
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  border-radius: 10px;
 }
 
 .dropdown:hover .dropdown-content {

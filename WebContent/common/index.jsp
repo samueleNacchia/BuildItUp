@@ -9,8 +9,8 @@
 	<style>html{display:none}</style>
 	
 	
-	 <%@ include file="../common/header.jsp" %>
-    <link rel="stylesheet" href="../css/style_index.css?v=<%= System.currentTimeMillis() %>">
+	 <%@ include file="header.jsp" %>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_index.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
 	<div class="page-wrapper">
@@ -22,7 +22,7 @@
 	                <div class="products">
 	                
 	                  	<c:forEach var="prodotto" items="${scontati}">
-	                  	<a href="productDetails?id=${prodotto.id}" class="product-link">
+	                  	<a href="<%= request.getContextPath() %>/common/productDetails?id=${prodotto.id}" class="product-link">
 						    <div class="product-card">
 						        <c:set var="coverImage" value="${coverImages[prodotto.id]}" />
 						
@@ -60,7 +60,7 @@
 	    					<div class="product-card">
 		        				<c:choose>
 						            <c:when test="${not empty coverImage}">
-						                <img src="image?id=${coverImage.id}" alt="Immagine di copertina" />
+						                <img src="<%= request.getContextPath() %>/image?id=${coverImage.id}" alt="Immagine di copertina" />
 						            </c:when>
 						            <c:otherwise>
 						                <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
@@ -79,8 +79,7 @@
 	        </c:if>
 	    </main>
 	    
-	    <a href="../products" class="btn">Visualizza Database</a>
-	    <a href="${pageContext.request.contextPath}/admin/AdminPanelServlet" class="btn">Modifica Database</a>
+	    <a href="<%= request.getContextPath()%>/products" class="btn">Visualizza Database</a>
 	  
 	    <div id="newsletter">
 	        <form method="POST" action="iscrizione">
@@ -90,7 +89,7 @@
 	        </form>
 	    </div>
 	</div>
-	<%@ include file="../common/footer.html" %>
+	<%@ include file="footer.jsp" %>
 	<script>
 	  window.addEventListener("load", function() {
 	    document.documentElement.style.display = "block";

@@ -50,7 +50,7 @@ public class HomeServlet extends HttpServlet {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
         response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("../common/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/common/index.jsp").forward(request, response);
         
 	}
 

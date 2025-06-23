@@ -5,26 +5,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Newsletter.NewsletterDAO;
-import model.Newsletter.NewsletterDTO;
-import model.Product.ProductDTO;
-import model.ProductImage.ProductImageDTO;
+import model.Newsletter.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 
 @WebServlet("/SignToNewsletter")
 public class SignToNewsletter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
-    public SignToNewsletter() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
@@ -51,17 +41,12 @@ public class SignToNewsletter extends HttpServlet {
             e.printStackTrace();
             
             response.sendRedirect(request.getContextPath() + "/newsletter-status.jsp?status=fail");
-        }
-		
-		
-        
+        }  
     }
     
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().write("Servlet attiva!");
+        doPost(request,response);
     }
-
-
 
 }
