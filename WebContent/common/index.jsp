@@ -90,10 +90,8 @@
 	    </div>
 	</div>
 	<%@ include file="footer.jsp" %>
-	<script>
-	  window.addEventListener("load", function() {
-	    document.documentElement.style.display = "block";
-	  });
+	<script src="<%= request.getContextPath()%>/script/indexScript.js">
+	 
 	</script>
 </body>
 </html>

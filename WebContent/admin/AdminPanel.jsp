@@ -181,21 +181,7 @@
 	<div id="toast" class="toast">Prodotto aggiunto!</div>
 	
 	<%@ include file="/common/footer.jsp" %>
-	<script>
-		        window.addEventListener("load", function() {
-		            document.documentElement.style.display = "block";
-		        });
-		        
-		        
-		        function showToast(message) {
-		            const toast = document.getElementById("toast");
-		            toast.textContent = message;
-		            toast.className = "toast show";
-		            setTimeout(() => {
-		                toast.className = "toast";
-		            }, 3000);
-		        }
-	</script>
+	<script src ="<%= request.getContextPath()%>/script/adminPanelScript.js"></script>
 
 
 <script src="<%= request.getContextPath() %>/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>

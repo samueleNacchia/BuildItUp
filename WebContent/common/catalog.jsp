@@ -27,17 +27,21 @@
             <div class="catalog-layout">
 
                 <section class="filter-bar-horizontal">
-
+<br><br><br>
                     <form method="POST" action="CatalogViewer" class="filter-form-horizontal">
                         
-                        <label for="price-slider">Prezzo:  &nbsp;&nbsp;</label>
-					    <div id="price-slider" style="margin-top: 10px;"></div>
-					    <div id="price-values" style="margin-top: 5px; font-size: 14px;"></div>
-					  	
-					
+                       <label for="price-slider">Prezzo:  &nbsp;&nbsp;</label>
+						<div id="price-slider" 
+						     style="margin-top: 10px;" 
+						     data-min="${minPrice}" 
+						     data-max="${maxPrice}">
+						</div>
+						
+						<div id="price-values" style="margin-top: 5px; font-size: 14px;"></div>
+						
 						<input type="hidden" name="minPrice" id="minPrice" value="${minPrice}">
 						<input type="hidden" name="maxPrice" id="maxPrice" value="${maxPrice}">
-                        
+						
 
                         Categoria
                         <select name="category" id="category">
@@ -147,40 +151,8 @@
         </main>    
     </div>
 	<%@ include file="footer.jsp" %>
-    <script>
-        window.addEventListener("load", function() {
-            document.documentElement.style.display = "block";
-        });
-    </script>
     
-    <script>
-	  const slider = document.getElementById('price-slider');
-	  const minInput = document.getElementById('minPrice');
-	  const maxInput = document.getElementById('maxPrice');
-	  const display = document.getElementById('price-values');
-	
-	  noUiSlider.create(slider, {
-	    start: [${minPrice}, ${maxPrice}], // valori iniziali
-	    connect: true,
-	    range: {
-	      'min': 0,
-	      'max': 1000
-	    },
-	    step: 10,
-	    tooltips: [true, true],
-	    format: {
-	      to: value => Math.round(value),
-	      from: value => parseInt(value)
-	    }
-	  });
-	
-	  slider.noUiSlider.on('update', function (values) {
-	    const min = values[0];
-	    const max = values[1];
-	    minInput.value = min;
-	    maxInput.value = max;
-	  });
-	</script>
-    
+<script src="<%= request.getContextPath()%>/script/catalogScript.js"></script>
+
 </body>
 </html>

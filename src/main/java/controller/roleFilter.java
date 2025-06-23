@@ -37,13 +37,10 @@ public class roleFilter implements Filter {
                 role = (Integer) ruoloAttr;
             }
         }
-        System.out.println("Il ruolo vale " + role);
 
         // 1. /unlogged/ → accesso per non loggati o utenti (ruolo 2)
         if (path.contains("/unlogged/")) {
-        	System.out.println("unlogged");
             if (role == null || role == 2) {
-            	System.out.println("unlogged controllo effettuato");
 
             	chain.doFilter(request, response);
                 return;

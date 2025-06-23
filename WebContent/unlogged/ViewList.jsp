@@ -118,10 +118,7 @@
 		</main>
 	</div>
 	<%@ include file="/common/footer.jsp" %>
-	<script>
-	  window.addEventListener("load", function() {
-	    document.documentElement.style.display = "block";
-	  });
-	</script>
+	<script src="<%= request.getContextPath()%>/script/indexScript.js">
+	 </script>
 </body>
 </html>

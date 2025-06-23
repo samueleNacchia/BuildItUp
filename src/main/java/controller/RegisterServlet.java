@@ -23,7 +23,7 @@ public class RegisterServlet extends HttpServlet {
         String confirm = request.getParameter("confirm");
 
         if (!password.equals(confirm)) {
-            response.sendRedirect(request.getContextPath()+"/Register_page.jsp?error=pwd");
+            response.sendRedirect(request.getContextPath()+"/common/Register_page.jsp?error=pwd");
             return;
         }
         UserDAO dao = new UserDAO();
@@ -31,7 +31,7 @@ public class RegisterServlet extends HttpServlet {
 			if (dao.findByEmail(email)!= null)
 			{
 				System.out.println("Duplicato");
-			    response.sendRedirect(request.getContextPath()+"/Register_page.jsp?error=dupe");
+			    response.sendRedirect(request.getContextPath()+"/common/Register_page.jsp?error=dupe");
 			    return;
 			}
 		} catch (SQLException | IOException e) {
