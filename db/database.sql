@@ -31,7 +31,7 @@ CREATE TABLE Products(
   discount decimal(5,4) unsigned,
   isOnSale boolean,
   numReview int default 0,
-  avgReview int default 0,
+  avgReview decimal(10,1),
   stocks int unsigned
 );
 

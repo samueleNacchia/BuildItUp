@@ -62,9 +62,23 @@
             <div class="product-details">
     			<h1 class="product-title">${prodotto.name}</h1>
     			<span class="stars">
-	    			<c:forEach begin="1" end="5" var="i">
-						<i class="fa-star <c:out value='${i <= prodotto.avgReview ? "fas" : "far"}'/>"></i>
+    				
+    				<span id="avgN">${prodotto.avgReview}</span>
+    				
+	    			<c:forEach var="i" begin="1" end="5">
+					    <c:choose>
+					        <c:when test="${i <= prodotto.avgReview}">
+					            <i class="fas fa-star"></i> <!-- stella piena -->
+					        </c:when>
+					        <c:when test="${i - 0.5 == prodotto.avgReview}">
+					            <i class="fas fa-star-half-alt"></i> <!-- mezza stella -->
+					        </c:when>
+					        <c:otherwise>
+					            <i class="far fa-star"></i> <!-- stella vuota -->
+					        </c:otherwise>
+					    </c:choose>
 					</c:forEach>
+
 					(${prodotto.numReview})
 				</span>
     			
@@ -195,7 +209,7 @@
 				                        <form action="${pageContext.request.contextPath}/user/DeleteReviewServlet" method="post" style="text-align: right;">
 								            <input type="hidden" name="productId" value="${prodotto.id}" />
 								            <button type="submit" title="Elimina recensione" id="delreview">
-								                <i class="fa-solid fa-trash"></i>
+								                <i class="fa-solid fa-trash" style="color: red"></i>
 								            </button>
 								        </form>
 				                    </div>

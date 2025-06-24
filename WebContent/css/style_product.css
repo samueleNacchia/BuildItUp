@@ -271,10 +271,8 @@
 		cursor: pointer;
 	}
 	
-	
-	.fa-solid fa-trash{
-	
-		color: red;
+	#avgN{
+		
+		font-size: 1.3em;
 	}
-	
 	

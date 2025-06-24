@@ -13,7 +13,7 @@ public class ProductDTO {
     private boolean isOnSale;
     private int stocks;
     private int numReview;
-    private int avgReview;
+    private float avgReview;
     
     public ProductDTO() {
     }
@@ -92,10 +92,10 @@ public class ProductDTO {
 		this.numReview = numReview;
 	}
 
-	public int getAvgReview() {
+	public float getAvgReview() {
 		return avgReview;
 	}
-	public void setAvgReview(int avgReview) {
+	public void setAvgReview(float avgReview) {
 		this.avgReview = avgReview;
 	}
 

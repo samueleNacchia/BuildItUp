@@ -73,7 +73,7 @@ public class ProductDAO {
                     product.setOnSale(rs.getBoolean("isOnSale"));
                     product.setStocks(rs.getInt("stocks"));
                     product.setNumReview(rs.getInt("numReview"));
-                    product.setAvgReview(rs.getInt("avgReview"));
+                    product.setAvgReview(rs.getFloat("avgReview"));
                 }
             }
         }
@@ -102,7 +102,7 @@ public class ProductDAO {
                 product.setOnSale(rs.getBoolean("isOnSale"));
                 product.setStocks(rs.getInt("stocks"));
                 product.setNumReview(rs.getInt("numReview"));
-                product.setAvgReview(rs.getInt("avgReview"));
+                product.setAvgReview(rs.getFloat("avgReview"));
   
                 products.add(product);
             }
@@ -164,16 +164,16 @@ public class ProductDAO {
                 count++;
             }
           
-            int newNumReview = product.getNumReview() + (add ? 1 : -1);
+            int newNumReview = count;
             newNumReview = Math.max(newNumReview, 0);
 
-            int newAvg = (count > 0) ? Math.round((float)sum / count) : 0;
-
+            float newAvg = (count > 0) ? Math.round((sum / count) * 10f) / 10f : 0f;
+            
             updateStmt.setInt(1, newNumReview);
             updateStmt.setFloat(2, newAvg);
             updateStmt.setInt(3, product.getId());
             
-            product.setAvgReview(newNumReview);
+            product.setAvgReview(newAvg);
             product.setNumReview(newNumReview);
             
             int rowsAffected = updateStmt.executeUpdate();
