@@ -54,6 +54,11 @@ CREATE TABLE Orders (
   ID int primary key auto_increment,
   ID_user int not null,
   orderDate date,
+    via varchar(100),
+  roadNum int unsigned,
+  postalCode varchar(5),
+  tel varchar(16),
+  prov char(2),
   status enum('In_elaborazione', 'Elaborato', 'Spedito', 'Consegnato', 'Annullato'),
   foreign key(ID_user) references Users(ID)
 );

@@ -8,53 +8,117 @@
     <title>Riepilogo Ordine</title>
     <style>html{display:none}</style>
     <%@ include file="/common/header.jsp" %>
-    <link rel="stylesheet" href="<%= request.getContextPath()%>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
+    <link rel="stylesheet" href="<%= request.getContextPath()%>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
+    <script src="<%= request.getContextPath()%>/script/checkoutValidation.js?v=<%= System.currentTimeMillis() %>"></script>  
 </head>
 <body>
-    <div class="page-wrapper">
-        
+<div class="page-wrapper">
 
-        <main class="homepage">
-            <h2>Riepilogo del tuo ordine</h2>
+    <main class="homepage">
+        <h2>Riepilogo del tuo ordine</h2>
 
-            <table>
+        <table>
+            <tr>
+                <th>Prodotto</th>
+                <th>Quantità</th>
+                <th>Prezzo unitario</th>
+                <th>Subtotale</th>
+            </tr>
+
+            <c:set var="total" value="0" />
+
+            <c:forEach var="item" items="${items}">
+                <c:set var="product" value="${item.product}" />
+                <c:set var="quantity" value="${item.quantity}" />
+                <c:set var="price" value="${product.price * (1 - product.discount)}" />
+                <c:set var="subtotal" value="${quantity * price}" />
+                <c:set var="total" value="${total + subtotal}" />
+
                 <tr>
-                    <th>Prodotto</th>
-                    <th>Quantità</th>
-                    <th>Prezzo unitario</th>
-                    <th>Subtotale</th>
+                    <td>${product.name}</td>
+                    <td>${quantity}</td>
+                    <td>€ <fmt:formatNumber value="${price}" maxFractionDigits="2" /></td>
+                    <td>€ <fmt:formatNumber value="${subtotal}" maxFractionDigits="2" /></td>
                 </tr>
+            </c:forEach>
 
-                <c:set var="total" value="0" />
+            <tr class="totale">
+                <td colspan="3"><strong>Totale</strong></td>
+                <td><strong>€ <fmt:formatNumber value="${total}" maxFractionDigits="2" /></strong></td>
+            </tr>
+        </table>
+<div class="form-row">
+       
+	<div class="container">
+    <h3>Riepilogo Indirizzo e Dati Carta</h3>
 
-                <c:forEach var="item" items="${items}">
-                    <c:set var="product" value="${item.product}" />
-                    <c:set var="quantity" value="${item.quantity}" />
-                    <c:set var="price" value="${product.price * (1 - product.discount)}" />
-                    <c:set var="subtotal" value="${quantity * price}" />
-                    <c:set var="total" value="${total + subtotal}" />
+   <form action="${pageContext.request.contextPath}/user/SaveOrder" method="post" onblur="return validateAll()" onsubmit="return validateAll()">
 
-                    <tr>
-                        <td>${product.name}</td>
-                        <td>${quantity}</td>
-                        <td>€ <fmt:formatNumber value="${price}" maxFractionDigits="2" /></td>
-                        <td>€ <fmt:formatNumber value="${subtotal}" maxFractionDigits="2" /></td>
-                    </tr>  
-                </c:forEach>
+		  <div class="form-row">
+		    <div id="addressSection">
+		     
+		      <div id="addressDisplay">
+		        <p>
+		            ${userAddress.via}, ${userAddress.roadNum} <br> ${userAddress.postalCode} (${userAddress.provincia})
+		        </p>
+		        <button type="button" id="editAddressBtn">Modifica Indirizzo</button>
+		      </div>
+		
+		      <div id="addressFields" style="display:none; margin-top: 15px;">
+    
+			    <label for="street">Via:</label>
+			    <input type="text" id="street" name="street" value="${userAddress.via}" placeholder="Es: Via Roma" onblur="validateInd()">
+			    <br>
+			    <span id="streetError" class="error-message"></span>
+			
+			    <label for="civic">Civico:</label>
+			    <input type="number" id="civic" name="civic" value="${userAddress.roadNum}" placeholder="Es: 12/A" onblur="validateCiv()">
+			    <span id="civicError" class="error-message"></span>
+			
+			    <label for="zip">CAP:</label>
+			    <input type="number" id="zip" name="zip" value="${userAddress.postalCode}" placeholder="Es: 00100" onblur="validateCap()">
+			    <br>
+			    <span id="zipError" class="error-message"></span>
+			
+			    <label for="province">Provincia:</label>
+			    <input type="text" id="province" name="province" value="${userAddress.provincia}" maxlength="2">
+  				<br>
+  				<span id="provinceError" class="error"></span>
+			</div>
 
-                <tr class="totale">
-                    <td colspan="3"><strong>Totale</strong></td>
-                    <td><strong>€ <fmt:formatNumber value="${total}" maxFractionDigits="2" /></strong></td>
-                </tr>
-            </table>
+		    </div>
+		
+		    <div id="paymentSection">
+		      <!-- Qui metti tutti i dati carta -->
+		      <h3>Dati della Carta</h3>
+		     	<label for="cardNumber">Numero Carta:</label>
+				<input type="text" id="cardNumber" name="cardNumber" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" required>
+				<span id="cardNumberError" class="error-message"></span>
+				
+				<label for="expiry">Scadenza (MM/AA):</label>
+				<input type="text" id="expiry" name="expiry" maxlength="5" placeholder="MM/AA" required>
+				<span id="expiryError" class="error-message"></span>
+				
+				<label for="cvv">CVV:</label>
+				<input type="text" id="cvv" name="cvv" maxlength="4" placeholder="CVV" required>
+				<span id="cvvError" class="error-message"></span>
+				</div>
+		  </div>
+		
+		  <br><br>
+		  <input class="add" type="submit" value="Conferma ordine">
+		
+		</form>
+		
+		</div>
+		</div>
+      
+    </main>
+</div>
 
-            <form class="btn-form " action="<%= request.getContextPath()%>/user/SaveOrder" method="post">
-                <input class="btn" type="submit" value="Conferma Ordine">
-            </form>
-        </main>
-    </div>   
-    <%@ include file="/common/footer.jsp" %>
-	<script src="<%= request.getContextPath()%>/script/indexScript.js">
-	</script>
+<%@ include file="/common/footer.jsp" %>
+
+<script src="<%= request.getContextPath()%>/script/checkoutScript.js"></script>
+<script src="<%= request.getContextPath()%>/script/indexScript.js"></script>
 </body>
 </html>

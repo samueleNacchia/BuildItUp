@@ -61,7 +61,8 @@ public class GetList extends HttpServlet {
             		response.sendRedirect(request.getContextPath()+"/common/Home");
             		return;
             	}
-                request.getRequestDispatcher("/user/Checkout.jsp").forward(request, response);
+
+                request.getRequestDispatcher("/user/Checkout").forward(request, response);
             } else 
                 request.getRequestDispatcher("/unlogged/ViewList.jsp").forward(request, response);
             

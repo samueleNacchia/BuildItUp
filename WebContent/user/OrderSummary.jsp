@@ -24,8 +24,10 @@
                             <p><strong>ID Utente: </strong>${ordine.id_user}</p>
                             <p><strong>Totale: </strong>${fattura.total} €</p>
                             <p><strong>Data Ordine: </strong>${ordine.orderDateFormatted}</p>
-                            <p><strong>Stato: </strong>${ordine.status}</p>
+                            <p><strong>Stato: </strong>In elaborazione</p>
+                            <p><strong>Indirizzo di spedizione </strong> ${ordine.via} , ${ordine.roadNum}  - ${ordine.postalCode} (${ordine.provincia})   </p>                       
                         </div>
+                        
 
                         <div class="back-link">
                             <a href="<%= request.getContextPath() %>/common/Home">Torna alla home</a>

@@ -83,16 +83,17 @@ public class UserDTO {
 		this.postalCode = postalCode;
 	}
 	
-	public String getTel() {
-		return tel;
-	}
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
+	
 	public String getProvincia() {
 		return provincia;
 	}
 	public void setProvincia(String prov) {
 		this.provincia= prov;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 }

@@ -26,7 +26,7 @@ public class OrderDAO {
 
  // Metodo per salvare un ordine nel database
     public void save(OrderDTO order) throws SQLException {
-        String query = "INSERT INTO Orders (ID_user, orderDate, status) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Orders (ID_user, orderDate, status,via, roadNum, postalCode, prov) VALUES (?, ?, ?,?, ?, ?,?)";
         
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -34,7 +34,11 @@ public class OrderDAO {
             stmt.setInt(1, order.getId_user());
             stmt.setDate(2, java.sql.Date.valueOf(order.getOrderDate()));
             stmt.setString(3, order.getStatus().name());
-          
+            stmt.setString(4, order.getVia());
+            stmt.setInt(5, order.getRoadNum());
+            stmt.setString(6, order.getPostalCode());
+            stmt.setString(7, order.getProvincia());
+            
             stmt.executeUpdate();
 
             // Recupera l'ID generato automaticamente (se presente)
@@ -67,6 +71,10 @@ public class OrderDAO {
                 	order.setId_user(rs.getInt("ID_user"));
                 	order.setOrderDate(rs.getDate("orderDate").toLocalDate());
                 	order.setStatus(Status.valueOf(rs.getString("status")));
+                	order.setVia(rs.getString("via"));
+                	order.setRoadNum(rs.getInt("roadNum"));
+                	order.setPostalCode(rs.getString("postalCode"));
+                	order.setProvincia(rs.getString("prov"));
                 }
             }
         }
@@ -90,7 +98,11 @@ public class OrderDAO {
                 order.setId_user(rs.getInt("ID_user"));
             	order.setOrderDate(rs.getDate("orderDate").toLocalDate());
             	order.setStatus(Status.valueOf(rs.getString("status")));
-                
+            	order.setVia(rs.getString("via"));
+            	order.setRoadNum(rs.getInt("roadNum"));
+            	order.setPostalCode(rs.getString("postalCode"));
+            	order.setProvincia(rs.getString("prov"));
+            	
                 orders.add(order);
             }
         }
@@ -112,7 +124,11 @@ public class OrderDAO {
                     order.setId_user(rs.getInt("ID_user"));
                     order.setOrderDate(rs.getDate("orderDate").toLocalDate());
                     order.setStatus(Status.valueOf(rs.getString("status")));
-
+                    order.setVia(rs.getString("via"));
+                	order.setRoadNum(rs.getInt("roadNum"));
+                	order.setPostalCode(rs.getString("postalCode"));
+                	order.setProvincia(rs.getString("prov"));
+                    
                     orders.add(order);
                 }
             }
@@ -123,7 +139,7 @@ public class OrderDAO {
 
     // Metodo per aggiornare un ordine nel database
     public boolean update(OrderDTO order) throws SQLException {
-        String query = "UPDATE Orders SET ID_user=?, orderDate=?, status=? WHERE ID=?";
+        String query = "UPDATE Orders SET ID_user=?, orderDate=?, status=?, via=?, roadNum=?, postalCode=?, prov=? WHERE ID=?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -131,8 +147,11 @@ public class OrderDAO {
         	stmt.setInt(1, order.getId_user());
             stmt.setDate(2, java.sql.Date.valueOf(order.getOrderDate()));
             stmt.setString(3, order.getStatus().name());
-            stmt.setInt(4, order.getId());
-
+            stmt.setString(4, order.getVia());
+            stmt.setInt(5,order.getRoadNum());
+            stmt.setString(6, order.getPostalCode());
+            stmt.setString(7, order.getProvincia());
+            stmt.setInt(8, order.getId());
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         }
@@ -187,7 +206,7 @@ public class OrderDAO {
                 order.setId_user(rs.getInt("ID_user"));
             	order.setOrderDate(rs.getDate("orderDate").toLocalDate());
             	order.setStatus(Status.valueOf(rs.getString("status")));
-                
+                order.setVia("via");
                 orders.add(order);
             }
         } catch (SQLException e) {

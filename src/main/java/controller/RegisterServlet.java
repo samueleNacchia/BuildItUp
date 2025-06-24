@@ -56,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-        response.sendRedirect(request.getContextPath()+"/LogIn_page.jsp?success=1");
+        response.sendRedirect(request.getContextPath()+"/common/LogIn_page.jsp?success=1");
         return;
     }
 }

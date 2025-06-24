@@ -24,13 +24,13 @@ import model.Bill.*;
 import model.ListType;
 import model.Status;
 
-
 @WebServlet("/user/SaveOrder")
 public class SaveOrder extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    	
+    	System.out.println("Servlet iniziata");
         HttpSession session = request.getSession(false);
         Integer userId = (Integer) (session != null ? session.getAttribute("id") : null);
 
@@ -38,29 +38,38 @@ public class SaveOrder extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/common/LogIn_page.jsp");
             return;
         }
-
+        System.out.println("Id non nullo");
         ProductDAO productDao = new ProductDAO();
         OrderDAO orderDao = new OrderDAO();
         ProductOrderDAO productOrderDao = new ProductOrderDAO();
         BillDAO billDao = new BillDAO();
         ItemListDAO itemsDao = new ItemListDAO();
-        
+
         LocalDate now = LocalDate.now();
         float price, total = 0;
 
         try {
+        	System.out.println("Inizio recupero indirizzo");
+            // Recupero dati form (se presenti)
+            String indirizzo = request.getParameter("street");
+            int civico = Integer.parseInt(request.getParameter("civic"));
+            String cap = String.valueOf(request.getParameter("zip"));
+            String provincia = request.getParameter("province");
+            System.out.println("Recupero inirizzo finito");
+            
             ListDTO list = ListManager.getList(request, response, ListType.cart, false);
             if (list == null) {
                 response.sendRedirect(request.getContextPath() + "/common/Home");
                 return;
             }
+            System.out.println("La lista è salvata bene");
 
             List<ItemListDTO> items = itemsDao.findByList(list.getId());
             if (items == null || items.isEmpty()) {
                 response.sendRedirect(request.getContextPath() + "/common/Home");
                 return;
             }
-
+            System.out.println("Recupero item lista eseguito");
             for (ItemListDTO item : items) {
                 try {
                     item.setProduct(productDao.findByCode(item.getId_product()));
@@ -82,8 +91,15 @@ public class SaveOrder extends HttpServlet {
             order.setId_user(userId);
             order.setOrderDate(now);
             order.setStatus(Status.In_elaborazione);
-            orderDao.save(order); 
 
+            // Salva i dati indirizzo nell'ordine (se OrderDTO ha i campi corrispondenti)
+            order.setVia(indirizzo);
+            order.setRoadNum(civico);
+            order.setPostalCode(cap);
+            order.setProvincia(provincia);
+            System.out.println("Set indirizzo riuscito");
+            orderDao.save(order);
+            System.out.println("Salvataggio ordine riuscito");
             for (ItemListDTO item : items) {
                 ProductDTO product = item.getProduct();
                 price = product.getPrice() * (1 - product.getDiscount());
@@ -112,7 +128,7 @@ public class SaveOrder extends HttpServlet {
             bill.setBillDate(now);
             bill.setTotal(total);
             billDao.save(bill);
-            
+            System.out.println("Salvataggio fattura");
             session.setAttribute("ordine", order);
             session.setAttribute("fattura", bill);
 

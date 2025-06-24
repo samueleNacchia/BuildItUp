@@ -11,6 +11,11 @@ public class OrderDTO {
 	private int id_user;
 	private LocalDate orderDate;
 	private Status status;
+	private String via;
+	private int roadNum;
+	private String postalCode;
+	private String provincia;
+	
 	
 	public OrderDTO(){
 	}
@@ -60,5 +65,32 @@ public class OrderDTO {
 	public String getStatusName() {
 	    return status != null ? status.name() : "";
 	}
+	public String getVia() {
+		return via;
+	}
+	public void setVia(String via) {
+		this.via = via;
+	}
 	
+	public int getRoadNum() {
+		return roadNum;
+	}
+	public void setRoadNum(int roadNum) {
+		this.roadNum = roadNum;
+	}
+	
+	public String getPostalCode() {
+		return postalCode;
+	}
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+	
+	
+	public String getProvincia() {
+		return provincia;
+	}
+	public void setProvincia(String prov) {
+		this.provincia= prov;
+	}
 }

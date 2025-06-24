@@ -70,11 +70,12 @@
                             <summary>
                                 <c:set var="stato" value="${fn:replace(ordine.status, '_', ' ')}" />
                                 <c:set var="statoFormattato" value="${fn:toUpperCase(fn:substring(stato, 0, 1))}${fn:toLowerCase(fn:substring(stato, 1, fn:length(stato)))}" />
-                                <strong>Ordine #${ordine.id}</strong> 
-                                Stato: ${statoFormattato}<br>
-                                <p style="text-indent:1.1em">
-                                    Pagato il: ${billsMap[ordine.id] != null ? billsMap[ordine.id].billDate : 'N/A'} - 
-                                    Totale: 
+                               
+                                <strong>Ordine #${ordine.id}</strong> <br>
+                              	<p style="text-indent:1.1em"><strong>Indirizzo di spedizione </strong> ${ordine.via} , ${ordine.roadNum}  - ${ordine.postalCode} (${ordine.provincia})   </p>                
+                                <p style="text-indent:1.1em">Stato: ${statoFormattato}<br></p>
+                                <p style="text-indent:1.1em">  Pagato il: ${billsMap[ordine.id] != null ? billsMap[ordine.id].billDate : 'N/A'}  </p>
+                                <p style="text-indent:1.1em">Totale: 
                                     <c:choose>
                                         <c:when test="${billsMap[ordine.id] != null}">
                                             <fmt:formatNumber value="${billsMap[ordine.id].total}" type="currency" currencySymbol="€" maxFractionDigits="2" />
@@ -94,7 +95,7 @@
                                          width="100" height="100" />
                                     <div class="product-info">
                                         <p><strong>Nome:
-                                            <a href="${pageContext.request.contextPath}/productDetails?id=${product.id}" style="text-decoration: none; color: #000000; font-size: 1.1em;">
+                                            <a href="${pageContext.request.contextPath}/common/productDetails?id=${product.id}" style="text-decoration: none; color: #000000; font-size: 1.1em;">
                                                 ${product.name}
                                             </a>
                                         </strong></p>
