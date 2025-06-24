@@ -11,7 +11,7 @@
     <style>html{display:none}</style>
     <%@ include file="headerAdmin.jsp" %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/StyleView.css?v=<%= System.currentTimeMillis() %>" />
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/AdminPanel	.css?v=<%= System.currentTimeMillis() %>" />
 </head>
 <body data-context-path="${pageContext.request.contextPath}">
 	<div class="page-container">
@@ -50,10 +50,10 @@
 					    <tr>
 					        <th>Nome</th>
 					        <th>Descrizione</th>
-					        <th>Prezzo</th>
-					        <th>Sconto</th>
+					        <th class="col">Prezzo</th>
+					        <th class="col">Sconto</th>
 					        <th>InVendita</th>
-					        <th>Quantità</th>
+					        <th class="col">Quantità</th>
 					        <th>Azioni</th>
 					        <th>Immagini</th>
 					    </tr>

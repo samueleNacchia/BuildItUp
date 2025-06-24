@@ -657,30 +657,26 @@ button i.fa-user:hover {
 	  opacity: 1;
 }
 
-/* --------- Qui aggiungo solo lo stile per affiancare indirizzo e pagamento --------- */
 form {
-  width: 90%;          /* larghezza circa 90% della pagina */
-  max-width: 900px;    /* opzionale, per non sforare troppo su schermi molto grandi */
-  margin: 0 auto;      /* centro orizzontalmente */
+  width: 90%;          
+  max-width: 90%;    
+  margin: 0 auto;      
   background-color: #ffffff;
   padding: 16px;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  box-sizing: border-box; /* importante per includere padding nella larghezza */
+  box-sizing: border-box; 
 }
 
-/* Contenitore flex per indirizzo e pagamento */
 .form-row {
   display: flex;
   justify-content: space-between;
-  /* Qui togli il gap, usiamo margini per controllare */
   gap: 0;
   flex-wrap: nowrap;
   align-items: flex-start;
   width: 100%;
   box-sizing: border-box;
-  /* Puoi impostare un max-width per il contenitore esterno se vuoi */
-  max-width: 100vw; /* opzionale */
+  max-width: 100vw; 
   margin: 0 auto;
 }
 
@@ -695,15 +691,15 @@ form {
   max-width: 35vw; 
 }
 
-/* per creare lo spazio di circa 30% fra i due box, usiamo margine */
+
 #addressSection {
-  margin-right: 15vw; /* uno spazio che porta distanza totale a circa 30% */
+  margin-right: 15vw; 
 }
 #paymentSection {
   margin-left: 0;
 }
 
-/* RESPONSIVE - per schermi piccoli */
+
 @media (max-width: 800px) {
   .form-row {
     flex-direction: column;
@@ -718,7 +714,7 @@ form {
 
 input[type="submit"].add {
   display: block;
-  margin: 20px auto 0 auto; /* margine superiore per distanziarlo, orizzontalmente centrato */
+  margin: 20px auto 0 auto; 
   background-color: #0080c0;
   padding: 8px 20px;
   font-size: 14px;
@@ -737,7 +733,7 @@ input[type="submit"].add:hover {
     color: red;
     font-size: 0.85rem;
     margin: 4px 0 8px 0;
-    max-width: 80%; /* Si adatta all'input */
+    max-width: 80%; 
     word-wrap: break-word;
 }
 

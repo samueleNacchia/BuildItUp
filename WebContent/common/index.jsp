@@ -28,7 +28,7 @@
 						
 						        <c:choose>
 						            <c:when test="${not empty coverImage}">
-						                <img src="${pageContext.request.contextPath}${'/image?id='}${coverImage.id}" alt="Immagine di copertina" />
+						                <img src="image?id=${coverImage.id}" alt="Immagine di copertina" />
 						            </c:when>
 						            <c:otherwise>
 						                <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
@@ -79,7 +79,7 @@
 	        </c:if>
 	    </main>
 	    
-	    <a href="<%= request.getContextPath()%>/products" class="btn">Visualizza Database</a>
+	    <a href="${pageContext.request.contextPath}/products" class="btn">Visualizza Database</a>
 	  
 	    <div id="newsletter">
 	        <form method="POST" action="iscrizione">
