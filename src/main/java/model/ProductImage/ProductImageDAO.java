@@ -28,7 +28,7 @@ public class ProductImageDAO {
 
             stmt.setInt(1, productImage.getIdProduct());
             stmt.setBytes(2, productImage.getImage());
-            stmt.setBoolean(3, productImage.isCover());
+            stmt.setBoolean(3, productImage.getIsCover());
 
             stmt.executeUpdate();
 

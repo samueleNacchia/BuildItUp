@@ -56,16 +56,22 @@ public class ReviewServlet extends HttpServlet {
 	        if (ordini != null) {
 	            for (OrderDTO ordine : ordini) {
 	                List<ProductOrderDTO> productsOrder = productOrderDAO.findAllforOrder(ordine.getId());
+	                
 	                for (ProductOrderDTO pr : productsOrder) {
-	                    if (pr.getId_product() == code) {
-	                        isVerified = true;
-	                        break;
-	                    }
+	                	
+	                	if (code == pr.getId_product()) {
+	                	    
+	                	    isVerified = true;
+	                	    break;
+	                	}
+
+
 	                }
 	                if (isVerified) break;
 	            }
 	        }
 
+	        
 	        reviewDTO.setIsVerified(isVerified);
 	        rv.save(reviewDTO);
 

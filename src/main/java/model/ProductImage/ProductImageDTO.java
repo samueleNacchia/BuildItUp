@@ -44,7 +44,7 @@ public class ProductImageDTO {
 		this.image = image;
 	}
 	
-	public boolean isCover() {
+	public boolean getIsCover() {
 		return isCover;
 	}
 	public void setCover(boolean isCover) {

@@ -28,10 +28,27 @@
 
 			<div class="swiper mySwiper">
 				<div class="swiper-wrapper">
+				
+					<c:if test="${empty immagini}">
+					    <p class="notavlb">
+					        Immagini non disponibili
+					    </p>
+					</c:if>
+				
+					 <c:forEach var="image" items="${immagini}">
+			            <c:if test="${image.isCover}">
+			                <div class="swiper-slide">
+			                    <img src="${pageContext.request.contextPath}/image?id=${image.id}"/>
+			                </div>
+			            </c:if>
+			        </c:forEach>
+			        
 					<c:forEach var="image" items="${immagini}">
-				    	<div class="swiper-slide">
-				        	<img src="<%= request.getContextPath() %>/image?id=${image.id}" style="width: 100%; height: 400px; object-fit: contain;" />
-				     	</div>
+				    	<c:if test="${!image.isCover}">
+					        <div class="swiper-slide">
+					            <img src="${pageContext.request.contextPath}/image?id=${image.id}"/>
+					        </div>
+					    </c:if>
 			    	</c:forEach>
 			  </div>
 			  
@@ -55,7 +72,7 @@
 
 	    		<c:choose>
 	        		<c:when test="${not prodotto.onSale}">
-			            <div class="not-available" style="color: red; font-weight: bold;">
+			            <div class="notavlb">
 			                Non disponibile
 			            </div>
 	        		</c:when>
@@ -69,10 +86,10 @@
 			            <div class="product-price">
 			                <c:choose>
 			                    <c:when test="${prodotto.discount > 0}">
-			                        <span class="original-price" style="text-decoration: line-through; color: red;">
+			                        <span id="original-price">
 			                            <fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
 			                        </span>
-			                        <span class="discounted-price" style="color: green; font-weight: bold; margin-left: 10px;">
+			                        <span id="discounted-price">
 			                            <fmt:formatNumber value="${prezzoScontato}" type="number" maxFractionDigits="2" />€
 			                        </span>
 			                    </c:when>
@@ -83,7 +100,7 @@
 			            </div>
 		
 			            <c:if test="${prodotto.stocks == 0}">
-			                <div class="not-available" style="color: orange; font-weight: bold;">
+			                <div class="notavlb">
 			                    Al momento non disponibile
 			                </div>
 			            </c:if>
@@ -151,6 +168,14 @@
 				
 				                <c:if test="${review.id_user == userId}">
 				                    <div id="reviews-data-panel">
+				                    
+				                    	<c:if test="${review.isVerified}">
+										    <span class="review-type">✔ Recensione verificata</span>
+										    <br><br>
+										</c:if>
+										
+										
+										
 				                        <div id="reviews-data">
 				                        	<span>(La tua recensione)</span><br>
 				                            <span class="stars">
@@ -169,8 +194,8 @@
 				                        
 				                        <form action="${pageContext.request.contextPath}/user/DeleteReviewServlet" method="post" style="text-align: right;">
 								            <input type="hidden" name="productId" value="${prodotto.id}" />
-								            <button type="submit" title="Elimina recensione" style="background: none; border: none; cursor: pointer;">
-								                <i class="fa-solid fa-trash" style="color: red;"></i>
+								            <button type="submit" title="Elimina recensione" id="delreview">
+								                <i class="fa-solid fa-trash"></i>
 								            </button>
 								        </form>
 				                    </div>
@@ -183,6 +208,14 @@
 				
 				                <c:if test="${review.id_user != userId}">
 				                    <div id="reviews-data-panel">
+				                    
+				                    	<c:if test="${review.isVerified}">
+										    <span class="review-type">✔ Recensione verificata</span>
+										    <br><br>
+										</c:if>
+										
+										
+														                    	
 				                        <div id="reviews-data">
 				                            <span class="stars">
 				                                <c:forEach begin="1" end="5" var="i">

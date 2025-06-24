@@ -37,12 +37,12 @@ public class ReviewDTO {
 	}
 	
 
-	public boolean getIsVerified() {
+	public boolean isIsVerified() {
 		return IsVerified;
 	}
 
-	public void setIsVerified(boolean isVerified) {
-		IsVerified = isVerified;
+	public void setIsVerified(boolean flag) {
+		IsVerified = flag;
 	}
 
 	public String getText() {
