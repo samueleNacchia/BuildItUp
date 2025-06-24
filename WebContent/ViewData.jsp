@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
-	<a href="../common/Home">Home</a>
+	<a href="<%= request.getContextPath() %>/common/Home">Home</a>
 
 	<h1>Utenti</h1>
 	
@@ -260,7 +260,7 @@
 	</c:if>
 	
 	
-	<script src="<%= request.getContextPath()%>/script/indexScript.jsp">
+	<script src="<%= request.getContextPath()%>/script/indexScript.js">
 	</script>  
 </body>
 </html>

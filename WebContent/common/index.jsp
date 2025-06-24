@@ -28,7 +28,7 @@
 						
 						        <c:choose>
 						            <c:when test="${not empty coverImage}">
-						                <img src="image?id=${coverImage.id}" alt="Immagine di copertina" />
+						                <img src="${pageContext.request.contextPath}${'/image?id='}${coverImage.id}" alt="Immagine di copertina" />
 						            </c:when>
 						            <c:otherwise>
 						                <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
@@ -60,7 +60,7 @@
 	    					<div class="product-card">
 		        				<c:choose>
 						            <c:when test="${not empty coverImage}">
-						                <img src="<%= request.getContextPath() %>/image?id=${coverImage.id}" alt="Immagine di copertina" />
+						                <img src="${pageContext.request.contextPath}/image?id=${coverImage.id}" alt="Immagine di copertina" />
 						            </c:when>
 						            <c:otherwise>
 						                <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
