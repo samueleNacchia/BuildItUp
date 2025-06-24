@@ -26,37 +26,40 @@
 
         <div class="product-wrapper">
 
-			<div class="swiper mySwiper">
-				<div class="swiper-wrapper">
-				
-					<c:if test="${empty immagini}">
-					    <p class="notavlb">
-					        Immagini non disponibili
-					    </p>
-					</c:if>
-				
-					 <c:forEach var="image" items="${immagini}">
-			            <c:if test="${image.isCover}">
-			                <div class="swiper-slide">
-			                    <img src="${pageContext.request.contextPath}/image?id=${image.id}"/>
-			                </div>
-			            </c:if>
-			        </c:forEach>
-			        
-					<c:forEach var="image" items="${immagini}">
-				    	<c:if test="${!image.isCover}">
-					        <div class="swiper-slide">
-					            <img src="${pageContext.request.contextPath}/image?id=${image.id}"/>
-					        </div>
-					    </c:if>
-			    	</c:forEach>
-			  </div>
+			<c:choose>
+			  <c:when test="${empty immagini}">
+			    <div class="swiper-placeholder">
+			      <p>Immagini non disponibili</p>
+			    </div>
+			  </c:when>
 			  
-			  <div class="swiper-button-next"></div>
-			  <div class="swiper-button-prev"></div>
+			  <c:otherwise>
+			    <div class="swiper mySwiper">
+			      <div class="swiper-wrapper">
+			        <c:forEach var="image" items="${immagini}">
+			          <c:if test="${image.isCover}">
+			            <div class="swiper-slide">
+			              <img src="${pageContext.request.contextPath}/image?id=${image.id}"/>
+			            </div>
+			          </c:if>
+			        </c:forEach>
+			        <c:forEach var="image" items="${immagini}">
+			          <c:if test="${!image.isCover}">
+			            <div class="swiper-slide">
+			              <img src="${pageContext.request.contextPath}/image?id=${image.id}"/>
+			            </div>
+			          </c:if>
+			        </c:forEach>
+			      </div>
+			
+			      <div class="swiper-button-next"></div>
+			      <div class="swiper-button-prev"></div>
+			      <div class="swiper-pagination"></div>
+			    </div>
+			  </c:otherwise>
+			  
+			</c:choose>
 
-			  <div class="swiper-pagination"></div>
-			</div>
 
 
             <div class="product-details">
