@@ -311,7 +311,8 @@ public class ProductDAO {
         if (name != null && !name.isEmpty()) query.append(" AND name LIKE ?");
         if (order != null) {
         	if (order.compareTo("priceASC")==0) query.append(" ORDER BY price ASC");
-        	else query.append(" ORDER BY price DESC");
+        	else if (order.compareTo("priceDESC")==0) query.append(" ORDER BY price DESC");
+        	else if (order.compareTo("avgRate") == 0) query.append(" ORDER BY avgReview DESc");
         }
 
         

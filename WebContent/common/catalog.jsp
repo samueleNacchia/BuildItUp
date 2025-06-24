@@ -63,6 +63,7 @@
                             <option value="" <c:if test="${empty category}">selected</c:if>>Rilevanza</option>
                             <option value="priceASC" <c:if test="${order == 'priceASC'}">selected</c:if>>Prezzo crescente</option>
                             <option value="priceDESC" <c:if test="${order == 'priceDESC'}">selected</c:if>>Prezzo decrescente</option>
+                            <option value="avgRate" <c:if test="${order == 'avgRate'}">selected</c:if>>Media recensioni</option>
                         </select>
 						
 	
