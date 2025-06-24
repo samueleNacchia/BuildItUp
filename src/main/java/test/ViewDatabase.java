@@ -82,7 +82,7 @@ public class ViewDatabase extends HttpServlet {
         }
         
         response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("/ViewData.jsp").forward(request, response);
+        request.getRequestDispatcher(request.getContextPath()+"/ViewData.jsp").forward(request, response);
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
