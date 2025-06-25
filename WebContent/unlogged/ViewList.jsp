@@ -59,9 +59,10 @@
                         <td>
                             <c:if test="${type == 'cart'}">
                                 <button id="btn-add-${product.id}" class="add" onclick="addItem(${product.id}, 'cart')">+</button>
+                                <button id="btn-add-${product.id}" class="add" onclick="addToList(${product.id}, 'wishlist',1)">Aggiungi alla wishlist</button>
                             </c:if>
                             <c:if test="${type == 'wishlist'}">
-                                <button id="btn-add-${product.id}" class="add" onclick="addItem(${product.id}, 'cart')">Aggiungi al carrello</button>
+                                <button id="btn-add-${product.id}" class="add" onclick="addToList(${product.id}, 'cart',1)">Aggiungi al carrello</button>
                             </c:if>
 
                             <button id="btn-delete-${product.id}" class="delete" onclick="deleteItem(${product.id}, '${type}')">
@@ -115,11 +116,35 @@
         </c:if>
 
         <br><br>
+       
+        <script>
+        function showToast(message, isError = false) {
+    const toast = document.getElementById("toast");
+    if (!toast) return;
+
+    toast.textContent = message;
+    toast.classList.remove("success", "error");
+    toast.classList.add("show");
+
+    if (isError) {
+        toast.classList.add("error");
+    } else {
+        toast.classList.add("success");
+    }
+
+    setTimeout(() => {
+        toast.classList.remove("show", "success", "error");
+    }, 3000);
+}
+</script>
 
         <script src="<%= request.getContextPath() %>/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>
     </main>
-</div>
+    <div id="toast" class="toast">Prodotto aggiunto!</div>
+
 <%@ include file="/common/footer.jsp" %>
+ </div>
+
 <script src="<%= request.getContextPath()%>/script/indexScript.js"></script>
 
 </body>

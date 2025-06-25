@@ -19,7 +19,7 @@
       	</div>
       
       	<div class="item search">
-        	<form action="CatalogViewer" method="get">
+        	<form action="${pageContext.request.contextPath}/common/CatalogViewer" method="get">
           		<input type="text" name="name" placeholder="Cerca prodotto" id="src">
         	</form>
         	

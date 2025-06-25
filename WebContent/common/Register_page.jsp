@@ -51,7 +51,7 @@
 		    <div class="error" id="cognomeError"></div>
 		
 		    <label>Cellulare:</label>
-		    <input type="text" id="cell" name="cell" placeholder="012 345 6789" required>
+		    <input type="text" id="cell" name="cell" maxlength="15" placeholder="012 345 6789" required>
 		    <div class="error" id="cellError"></div>
 		
 		    <label>Indirizzo:</label>

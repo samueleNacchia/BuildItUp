@@ -172,32 +172,31 @@
 	}
     
     
-    .toast {
-	  position: fixed;
-	  bottom: 20px;
-	  right: 20px;
-	  padding: 15px 25px;
-	  border-radius: 6px;
-	  color: white;
-	  opacity: 0;
-	  transition: opacity 0.5s ease-in-out;
-	  z-index: 1000;
-	}
-	
-	.toast.show {
-	  opacity: 1;
-	}
-	
-	/* Verde per successo */
-	.toast.success {
-	  background-color: #4CAF50;
-	}
-	
-	/* Rosso per errore */
-	.toast.error {
-	  background-color: #f44336;
-	}
-	
+ .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 6px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+.toast.success {
+    background-color: #4CAF50;
+}
+
+.toast.error {
+    background-color: #f44336;
+}
+
 	
 	.swiper {
 	  width: 65%;

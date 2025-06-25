@@ -192,8 +192,22 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', function (e) {
       if (!validateAll()) {
         e.preventDefault();
+        console.log("Invio bloccato: dati non validi");
+      }
+    });
+
+    form.addEventListener('keydown', function (e) {
+      if (e.key === "Enter") {
+        if (!validateAll()) {
+          e.preventDefault();
+          console.log("Enter bloccato: dati non validi");
+        }
       }
     });
   }
-
+  document.getElementById("checkoutForm").addEventListener("submit", function (e) {
+    if (!validateAll()) {
+      e.preventDefault();
+    }
+  });
 });

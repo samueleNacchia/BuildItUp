@@ -13,32 +13,31 @@
 	
 	
     <security-constraint>
-      <web-resource-collection>
-        <web-resource-name>Viewpoint Secure URLs</web-resource-name>
-        <url-pattern>/*</url-pattern>
-      </web-resource-collection>
-      <user-data-constraint>
-        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-      </user-data-constraint>
-    </security-constraint>
-
-	<!-- Mapping delle servlet -->
-    <!--
-    <servlet>
-   		<servlet-name>ProductListServlet</servlet-name>
-    	<servlet-class>controller.ProductListServlet</servlet-class>
-	</servlet>
+		<web-resource-collection>
+			<web-resource-name>All</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
 	
-	 <servlet-mapping>
-   		<servlet-name>ProductListServlet</servlet-name>
-    	<url-pattern>/products</url-pattern>
-	 </servlet-mapping>
-	-->
-    <!-- Configurazione della servlet di errore -->
-    <error-page>
-        <error-code>404</error-code>
-        <location>/error404.jsp</location>
-    </error-page>
+	<filter>
+		<filter-name>httpHeaderSecurity</filter-name>
+		<filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
+		<init-param>
+			<param-name>antiClickJackingEnabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>antiClickJackingOption</param-name>
+			<param-value>DENY</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>httpHeaderSecurity</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
     <!-- Configurazione della risorsa JNDI per il database -->
     <resource-ref>

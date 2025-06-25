@@ -186,12 +186,14 @@ function UpdateQuantityJSON(response, productId) {
         if (productRow && response.deleted) {
             productRow.remove();
 
-			if (table && table.rows.length <= 1) { 
-			    table.remove();
-			    if (emptyMessage) emptyMessage.style.display = "block";
-			    if (btnCheckout) btnCheckout.style.display = "none";
-			}
+            // Conta SOLO le righe ancora presenti nella tabella
+            const remainingRows = table.querySelectorAll("tr[id^='product-']").length;
 
+            if (remainingRows === 0) {
+                if (table) table.style.display = "none";
+                if (emptyMessage) emptyMessage.style.display = "block";
+                if (btnCheckout) btnCheckout.style.display = "none";
+            }
         }
     }
 }

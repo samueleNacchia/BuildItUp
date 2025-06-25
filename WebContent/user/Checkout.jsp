@@ -51,7 +51,7 @@
 	<div class="container">
     <h3>Riepilogo Indirizzo e Dati Carta</h3>
 
-   <form action="${pageContext.request.contextPath}/user/SaveOrder" method="post" onblur="return validateAll()" onsubmit="return validateAll()">
+   <form action="${pageContext.request.contextPath}/user/SaveOrder" id="checkoutForm" method="post" >
 
 		  <div class="form-row">
 		    <div id="addressSection">
@@ -66,21 +66,21 @@
 		      <div id="addressFields" style="display:none; margin-top: 15px;">
     
 			    <label for="street">Via:</label>
-			    <input type="text" id="street" name="street" value="${userAddress.via}" placeholder="Es: Via Roma" onblur="validateInd()">
+			    <input type="text" id="street" name="street" value="${userAddress.via}" placeholder="Es: Via Roma" required onblur="validateInd()">
 			    <br>
 			    <span id="streetError" class="error-message"></span>
 			
 			    <label for="civic">Civico:</label>
-			    <input type="number" id="civic" name="civic" value="${userAddress.roadNum}" placeholder="Es: 12/A" onblur="validateCiv()">
+			    <input type="number" id="civic" name="civic" value="${userAddress.roadNum}" placeholder="Es: 12/A" required onblur="validateCiv()">
 			    <span id="civicError" class="error-message"></span>
 			
 			    <label for="zip">CAP:</label>
-			    <input type="number" id="zip" name="zip" value="${userAddress.postalCode}" placeholder="Es: 00100" onblur="validateCap()">
+			    <input type="number" id="zip" name="zip" value="${userAddress.postalCode}" placeholder="Es: 00100" required onblur="validateCap()">
 			    <br>
 			    <span id="zipError" class="error-message"></span>
 			
 			    <label for="province">Provincia:</label>
-			    <input type="text" id="province" name="province" value="${userAddress.provincia}" maxlength="2">
+			    <input type="text" id="province" name="province" value="${userAddress.provincia}" maxlength="2" required>
   				<br>
   				<span id="provinceError" class="error"></span>
 			</div>

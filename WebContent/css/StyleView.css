@@ -227,17 +227,31 @@ button i.fa-user:hover {
 }
 
 
-.toast {
-  visibility: hidden;
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 24px;
+ .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 6px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1000;
+    pointer-events: none;
 }
 
 .toast.show {
-  visibility: visible;
-  opacity: 1;
+    opacity: 1;
 }
+
+.toast.success {
+    background-color: #4CAF50;
+}
+
+.toast.error {
+    background-color: #f44336;
+}
+
 
 
 #empty-message {
@@ -374,11 +388,6 @@ input[type="checkbox"] {
     padding: 6px 10px;
   }
 
-  .toast {
-    bottom: 15px;
-    right: 15px;
-    font-size: 14px;
-  }
 
   .container {
     width: 95%;
