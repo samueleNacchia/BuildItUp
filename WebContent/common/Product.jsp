@@ -251,7 +251,7 @@
 				        <c:set var="hasReviewed" value="true" />
 				    </c:if>
 				</c:forEach>
-				<c:if test="${sessionScope.ruolo != 1}">
+				<c:if test="${sessionScope.ruolo != true}">
 				<c:if test="${not hasReviewed}">
 				    <div id="write-review-panel">
 				        <h3>Scrivi una recensione</h3>
