@@ -37,19 +37,33 @@
 		    <c:if test="${not empty type}">
 		        <c:choose>
 		            <c:when test="${empty items}">
-		                <p id="empty-message">
-		                    <c:choose>
-		                        <c:when test="${type == 'wishlist'}">
-		                            La wishlist è vuota
-		                        </c:when>
-		                        <c:when test="${type == 'cart'}">
-		                            Il carrello è vuoto
-		                        </c:when>
-		                        <c:otherwise>
-		                            La lista è vuota
-		                        </c:otherwise>
-		                    </c:choose>
-		                </p>
+		                <div id="empty-message">
+					    <span class="icon">
+					        <c:choose>
+					            <c:when test="${type == 'wishlist'}"><i class="fa-solid fa-heart" style="font-size: 35px; color: red;"></i>
+</c:when>
+					            <c:when test="${type == 'cart'}"><i class="fa-solid fa-shopping-cart" style="font-size: 30px; color: green;"></i></c:when>
+					            <c:otherwise>📦</c:otherwise>
+					        </c:choose>
+					    </span>
+					    
+					    <c:choose>
+					        <c:when test="${type == 'wishlist'}">
+					            La tua wishlist è vuota.
+					        </c:when>
+					        <c:when test="${type == 'cart'}">
+					            Il tuo carrello è vuoto.
+					        </c:when>
+					        <c:otherwise>
+					            La lista è vuota.
+					        </c:otherwise>
+					    </c:choose>
+					    
+					    <br>
+					    <a href="${pageContext.request.contextPath}/common/Home" class="btn-return">Torna al catalogo</a>
+					</div>
+
+
 		            </c:when>
 		            <c:otherwise>
 		                <table id="product-table">

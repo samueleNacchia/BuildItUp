@@ -19,7 +19,7 @@
 <div class="page-wrapper">
 
     <main class="homepage">
-        <h2>Riepilogo del tuo ordine</h2>
+        <h2 class="center-title">Riepilogo del tuo ordine</h2>
 
         <table>
            

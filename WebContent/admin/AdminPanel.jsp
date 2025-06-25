@@ -39,20 +39,22 @@
 			    <label>Immagine di copertina: <input type="file" name="copertina" id="fileInput1" accept="image/*" /></label>
 			    <label>Altre Immagini: <input type="file" name="immagini" id="fileInput2" accept="image/*" multiple /></label>
 			    <br />
-			    <button class="delete" type="reset">Reset</button>
-			    <button class="delete" type="button" onclick="document.getElementById('fileInput1').value='';document.getElementById('fileInput2').value='';">Reset Immagini</button>
-			    <input type="submit" class="add" value="Aggiungi Prodotto" />
+			    <div class="button-container">
+				    <button class="delete" type="reset">Reset</button>
+				    <button class="delete" type="button" onclick="document.getElementById('fileInput1').value='';document.getElementById('fileInput2').value='';">Reset Immagini</button>
+				    <input type="submit" class="add" value="Aggiungi Prodotto" />
+				</div>
 			</form>
 			<c:choose>
 				<c:when test="${not empty prodotti}">
 					<h2 align="center">Prodotti in Catalogo</h2>
-					<table>
+					<table >
 					    <tr>
 					        <th>Nome</th>
 					        <th>Descrizione</th>
 					        <th class="col">Prezzo</th>
 					        <th class="col">Sconto</th>
-					        <th>InVendita</th>
+					        <th class="col">In Vendita</th>
 					        <th class="col">Quantità</th>
 					        <th>Azioni</th>
 					        <th>Immagini</th>
@@ -64,13 +66,13 @@
 			                        <input type="hidden" name="id" value="${product.id}" />
 			                        <td>${product.name}<input type="hidden" name="name" value="${product.name}" /></td>
 			                        <td><input type="text" name="descrizione" value="${product.description}" /></td>
-			                        <td><input type="number" min="0" name="prezzo" value="${product.price}" step="0.01" /></td>
-			                        <td><input type="number" max="1" min="0" name="sconto" value="${product.discount}" step="0.0001" /></td>
+			                        <td class ="rid"><input type="number" min="0" name="prezzo" value="${product.price}" step="0.01" /></td>
+			                        <td class ="rid"><input type="number" max="1" min="0" name="sconto" value="${product.discount}" step="0.0001" /></td>
 			                        <input type="hidden" name="category" value="${product.category}" />
-			                        <td>
+			                        <td class ="rid">
 			                            <input type="checkbox" name="inVendita" value="true" <c:if test="${product.onSale}">checked</c:if> />
 			                        </td>
-			                        <td><input type="number" name="stocks" min="0" value="${product.stocks}" step="1" /></td>
+			                        <td class ="rid"><input type="number" name="stocks" min="0" value="${product.stocks}" step="1" /></td>
 			                        <td>
 			                            <input type="submit" class="update" value="Update" onclick="return confirm('Aggiornare ${product.name}?')" />
 			                        </td>
@@ -126,7 +128,7 @@
 			
 			    <c:choose>
 			        <c:when test="${not empty ordini}">
-						<table id="order-table">
+						<table id="order-table" style="margin: auto;">
 						    <thead>
 						        <tr>
 						            <th>ID Ordine</th>
