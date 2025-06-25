@@ -2,10 +2,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">  
 <header class="tab">
    	<section class="tab-items">
-   
-    	<div class="item logo">
-        	<img src="./images/logo.png" id="logo">
-      	</div>
       	
       	<div class="item title">
             <span id="sl"><a href="${pageContext.request.contextPath}/common/Home" class="sl">Build It Up!</a>
@@ -47,7 +43,7 @@
       	<a class="item-link" href="AdminPanelServlet?category=CASE">Case</a>
       	<a class="item-link" href="AdminPanelServlet?category=PSU">Alimentatori</a>
       	<a class="item-link" href="AdminPanelServlet?category=RAM">RAM</a>
-      	<a class="item-link" href="AdminPanelServlet?category=MEM">Memorie di massa</a>
+      	<a class="item-link" href="AdminPanelServlet?category=MEM">Archiviazione</a>
       	<a class="item-link" href="AdminPanelServlet">Catalogo</a>
   	</section>
 </nav>

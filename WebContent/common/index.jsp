@@ -19,69 +19,109 @@
 	<div class="page-wrapper">
 	    <main class="homepage">
 	    
-	    
-			<c:if test="${not empty scontati}">
-	        
-	            <div id="discounts">
-	                <h1>Discounts</h1>
-	                <div class="products">
-	                
-	                  	<c:forEach var="prodotto" items="${scontati}">
-	                  	<a href="${pageContext.request.contextPath}/common/productDetails?id=${prodotto.id}" class="product-link">
-						    <div class="product-card">
-						        <c:set var="coverImage" value="${coverImages[prodotto.id]}" />
-						
-						        <c:choose>
-						            <c:when test="${not empty coverImage}">
-						                <img src="<%= request.getContextPath() %>/image?id=${coverImage.id}" alt="Immagine di copertina" />
-						            </c:when>
-						            <c:otherwise>
-						                <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
-						            </c:otherwise>
-						        </c:choose>
-						
-						        <h3>${prodotto.name}</h3>
-						        <h3 class="discount">
-						            <fmt:formatNumber value="${prodotto.discount * 100}" maxFractionDigits="2" />%
-						        </h3>
-						    </div>
-						    </a>
-						</c:forEach>	
-							
-	                </div>
-	                <div class="view-all">
-	                    <a class="out" href="CatalogViewer?type=discounts">View All</a>
-	                </div>
-	            </div>
-	        </c:if>
-	
-	        <c:if test="${not empty bestsellers}">
-	            <div id="bestsellers">
-	                <h1>Best Sellers</h1>
-	                <div class="products">
-	                    <c:forEach var="prodotto" items="${bestsellers}">
-	                    	<c:set var="coverImage" value="${coverImages[prodotto.id]}" />
-	                    	<a href="productDetails?id=${prodotto.id}" class="product-link">
-	    					<div class="product-card">
-		        				<c:choose>
-						            <c:when test="${not empty coverImage}">
-						                <img src="${pageContext.request.contextPath}/image?id=${coverImage.id}" alt="Immagine di copertina" />
-						            </c:when>
-						            <c:otherwise>
-						                <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
-						            </c:otherwise>
-						        </c:choose>
-		        				<h3>${prodotto.name}</h3>
-		        				<h3>${prodotto.price}€</h3>
-	    				</div>
-	    				</a>
-						</c:forEach>
-	                </div>
-	                <div class="view-all">
-	                    <a class="out" href="CatalogViewer?type=bestsellers">View All</a>
-	                </div>
-	            </div>
-	        </c:if>
+		<c:if test="${not empty scontati}">
+			    <div id="discounts">
+			        <h1>Discounts</h1>
+			        <div class="products">
+			            <c:forEach var="product" items="${scontati}">
+			                <c:set var="coverImage" value="${coverImages[product.id]}" />
+			                <a href="${pageContext.request.contextPath}/common/productDetails?id=${product.id}" class="product-link">
+			                    <div class="product-card">
+
+			                        <c:choose>
+			                            <c:when test="${not empty coverImage}">
+			                                <img src="${pageContext.request.contextPath}/image?id=${coverImage.id}" alt="Immagine di copertina" />
+			                            </c:when>
+			                            <c:otherwise>
+			                                <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
+			                            </c:otherwise>
+			                        </c:choose>
+			
+			                        <h3 class="product-title">${product.name}</h3>
+			
+			                        <div class="product-price">
+			                            <c:choose>
+			                                <c:when test="${product.discount > 0}">
+			                                	<c:set var="prezzoScontato" value="${product.price * (1 - product.discount)}" />
+			                                    
+			                                    <span class="original-price">
+			                                        <fmt:formatNumber value="${product.price}" type="number" maxFractionDigits="2" />€
+			                                    </span>
+			                                    <span class="discounted-price">
+			                                        <fmt:formatNumber value="${prezzoScontato}" type="number" maxFractionDigits="2" />€
+			                                    </span>
+			                                    <span class="discount-percentage">
+			                                        -<fmt:formatNumber value="${product.discount * 100}" maxFractionDigits="0" />%
+			                                    </span>
+			                                </c:when>
+			                                <c:otherwise>
+			                                    <span class="price">
+			                                        <fmt:formatNumber value="${product.price}" type="number" maxFractionDigits="2" />€
+			                                    </span>
+			                                </c:otherwise>
+			                            </c:choose>
+			                        </div>
+			                    </div>
+			                </a>
+			            </c:forEach>
+			        </div>
+			        <div class="view-all">
+			            <a class="out" href="CatalogViewer?type=discounts">View All</a>
+			        </div>
+			    </div>
+			</c:if>
+			
+			<c:if test="${not empty bestsellers}">
+			    <div id="bestsellers">
+			        <h1>Best Sellers</h1>
+			        <div class="products">
+			            <c:forEach var="product" items="${bestsellers}">
+			                <c:set var="coverImage" value="${coverImages[product.id]}" />
+			                <a href="${pageContext.request.contextPath}/common/productDetails?id=${product.id}" class="product-link">
+			                    <div class="product-card">
+
+			                        <c:choose>
+			                            <c:when test="${not empty coverImage}">
+			                                <img src="${pageContext.request.contextPath}/image?id=${coverImage.id}" alt="Immagine di copertina" />
+			                            </c:when>
+			                            <c:otherwise>
+			                                <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
+			                            </c:otherwise>
+			                        </c:choose>
+			
+			                        <h3 class="product-title">${product.name}</h3>
+			
+			                        <div class="product-price">
+			                            <c:choose>
+			                                <c:when test="${product.discount > 0}">
+			                                	<c:set var="prezzoScontato" value="${product.price * (1 - product.discount)}" />
+			                                    
+			                                    <span class="original-price">
+			                                        <fmt:formatNumber value="${product.price}" type="number" maxFractionDigits="2" />€
+			                                    </span>
+			                                    <span class="discounted-price">
+			                                        <fmt:formatNumber value="${prezzoScontato}" type="number" maxFractionDigits="2" />€
+			                                    </span>
+			                                    <span class="discount-percentage">
+			                                        -<fmt:formatNumber value="${product.discount * 100}" maxFractionDigits="0" />%
+			                                    </span>
+			                                </c:when>
+			                                <c:otherwise>
+			                                    <span class="price">
+			                                        <fmt:formatNumber value="${product.price}" type="number" maxFractionDigits="2" />€
+			                                    </span>
+			                                </c:otherwise>
+			                            </c:choose>
+			                        </div>
+			                    </div>
+			                </a>
+			            </c:forEach>
+			        </div>
+			        <div class="view-all">
+			            <a class="out" href="CatalogViewer?type=bestsellers">View All</a>
+			        </div>
+			    </div>
+			</c:if>
 	    </main>
 	    
 	    <a href="${pageContext.request.contextPath}/products" class="btn">Visualizza Database</a>
@@ -94,9 +134,8 @@
 	        </form>
 	    </div>
 	</div>
+	
 	<%@ include file="footer.jsp" %>
-	<script src="${pageContext.request.contextPath}/script/indexScript.js">
-	 
-	</script>
+	<script src="${pageContext.request.contextPath}/script/indexScript.js"></script>
 </body>
 </html>

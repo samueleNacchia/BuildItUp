@@ -44,30 +44,34 @@ public class AddToList extends HttpServlet {
             ProductDAO productDao = new ProductDAO();
             ProductDTO product = productDao.findByCode(productId);
 
-            if (product != null && product.isOnSale() && product.getStocks() > 0) {
-                ListDTO list = ListManager.getList(request, response, type, true);
+            ListDTO list = null;
+            
+            if (product != null && product.isOnSale()) {
+                if ((type == ListType.cart && product.getStocks() > 0) || type == ListType.wishlist) {
+                    list = ListManager.getList(request, response, type, true);
 
-                if (list == null) {
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lista non trovata o creata");
-                    return;
-                }
+                    if (list == null) {
+                        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lista non trovata o creata");
+                        return;
+                    }
 
-                ItemListDTO existingItem = itemsDao.findProduct(list.getId(), productId);
+                    ItemListDTO existingItem = itemsDao.findProduct(list.getId(), productId);
 
-                if (existingItem == null) {
-                    ItemListDTO newItem = new ItemListDTO();
-                    newItem.setId_list(list.getId());
-                    newItem.setId_product(productId);
-                    newItem.setQuantity(quantityToAdd);
-                    itemsDao.save(newItem);
-                    addedSuccess = true;
-                    newQuantity = quantityToAdd;
-                    
-                } else if (type.name().equalsIgnoreCase("cart") && product.getStocks() > existingItem.getQuantity() + quantityToAdd) {
-                    existingItem.setQuantity(existingItem.getQuantity() + quantityToAdd);
-                    itemsDao.update(existingItem);
-                    addedSuccess = true;
-                    newQuantity = existingItem.getQuantity();
+                    if (existingItem == null) {
+                        ItemListDTO newItem = new ItemListDTO();
+                        newItem.setId_list(list.getId());
+                        newItem.setId_product(productId);
+                        newItem.setQuantity(quantityToAdd);
+                        itemsDao.save(newItem);
+                        addedSuccess = true;
+                        newQuantity = quantityToAdd;
+
+                    } else if (type == ListType.cart && product.getStocks() >= existingItem.getQuantity() + quantityToAdd) {
+                        existingItem.setQuantity(existingItem.getQuantity() + quantityToAdd);
+                        itemsDao.update(existingItem);
+                        addedSuccess = true;
+                        newQuantity = existingItem.getQuantity();
+                    }
                 }
             }
 

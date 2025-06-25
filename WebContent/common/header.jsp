@@ -30,7 +30,7 @@
       	</nav>
       
       	<div class="item icons">
-      	<c:if test="${sessionScope.ruolo != true}">
+      	<c:if test="${sessionScope.isAdmin != true}">
         	<a href="${pageContext.request.contextPath}/unlogged/GetList?type=wishlist" style="text-decoration: none;  ">
 		  		<i class="fa-solid fa-heart" id="wishlist-icon" style="font-size: 35px; color: dimgray;"></i>
 			</a>
@@ -43,7 +43,7 @@
 				  <i class="fa-solid fa-user" id="user-icon" style="font-size: 35px; color: dimgray; cursor: pointer;"></i>
 				  <div class="dropdown-content">
 				   <c:choose>
-				  <c:when test="${sessionScope.ruolo == true}">
+				  <c:when test="${sessionScope.isAdmin == true}">
 				    <a href="${pageContext.request.contextPath}/admin/AdminPanelServlet">Admin Panel</a>
 				    <a href="${pageContext.request.contextPath}/common/logout">Logout</a>
 				  </c:when>
@@ -77,7 +77,7 @@
     <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=CASE">Case</a>
     <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=PSU">Alimentatori</a>
     <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=RAM">RAM</a>
-    <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=MEM">Memorie di massa</a>
+    <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=MEM">Archiviazione</a>
     <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer">Catalogo</a>
   </div>
 </div>
@@ -93,7 +93,7 @@
       	<a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=CASE">Case</a>
       	<a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=PSU">Alimentatori</a>
       	<a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=RAM">RAM</a>
-      	<a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=MEM">Memorie di massa</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=MEM">Archiviazione</a>
       	<a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer">Catalogo</a>
   	</section>
 </nav>

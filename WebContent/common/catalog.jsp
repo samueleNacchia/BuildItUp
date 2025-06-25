@@ -15,10 +15,8 @@
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_catalog.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_catalog.css?v=<%= System.currentTimeMillis() %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
     
@@ -95,33 +93,50 @@
                 </section>
 
                 <c:if test="${not empty prodotti}">
-                    <div class="products">
-                        <c:forEach var="product" items="${prodotti}">
-                            <c:set var="coverImage" value="${coverImages[product.id]}" />
+				    <div class="products">
+				        <c:forEach var="product" items="${prodotti}">
+				            <c:set var="coverImage" value="${coverImages[product.id]}" />
+				
+				            <a href="${pageContext.request.contextPath}/common/productDetails?id=${product.id}" class="product-link">
+				                <div class="product-card">
+				                    <c:choose>
+				                        <c:when test="${not empty coverImage}">
+				                            <img src="${pageContext.request.contextPath}/image?id=${coverImage.id}" alt="Immagine di copertina" />
+				                        </c:when>
+				                        <c:otherwise>
+				                            <img src="${pageContext.request.contextPath}/img/default.jpg" alt="Nessuna immagine disponibile" />
+				                        </c:otherwise>
+				                    </c:choose>
+				
+				                    <h3>${product.name}</h3>
+				
+				                    <div class="product-price">
+				                        <c:choose>
+				                            <c:when test="${product.discount > 0}">
+									        	<c:set var="prezzoScontato" value="${product.price * (1 - product.discount)}" />
 
-                            <a href="productDetails?id=${product.id}" class="product-link">
-                                <div class="product-card">
-                                    <c:choose>
-                                        <c:when test="${not empty coverImage}">
-                                            <img src="${pageContext.request.contextPath}/image?id=${coverImage.id}" alt="Immagine di copertina" />
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <h3>${product.name}</h3>
-                                    <h4>${product.price}€</h4>
-                                    <c:if test="${product.discount > 0}">
-									    <h3 class="discount">
-									        <fmt:formatNumber value="${product.discount * 100}" maxFractionDigits="2" />%
-									    </h3>
-									</c:if>
-
-                                </div>
-                            </a>
-                        </c:forEach>
-                    </div>
-                </c:if>
+				                                <span class="original-price">
+				                                    <fmt:formatNumber value="${product.price}" type="number" maxFractionDigits="2" />€
+				                                </span>
+				                                <span class="discounted-price">
+				                                    <fmt:formatNumber value="${prezzoScontato}" type="number" maxFractionDigits="2" />€
+				                                </span>
+				                                <span class="discount-percentage">
+				                                    <fmt:formatNumber value="${product.discount * 100}" maxFractionDigits="0" />%
+				                                </span>
+				                            </c:when>
+				                            <c:otherwise>
+				                                <span class="discounted-price">
+				                                    <fmt:formatNumber value="${product.price}" type="number" maxFractionDigits="2" />€
+				                                </span>
+				                            </c:otherwise>
+				                        </c:choose>
+				                    </div>
+				                </div>
+				            </a>
+				        </c:forEach>
+				    </div>
+				</c:if>
 
                 <div id="pagination">
                     <c:if test="${totalPages > 1}">

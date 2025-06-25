@@ -313,6 +313,8 @@ public class ProductDAO {
         	if (order.compareTo("priceASC")==0) query.append(" ORDER BY price ASC");
         	else if (order.compareTo("priceDESC")==0) query.append(" ORDER BY price DESC");
         	else if (order.compareTo("avgRate") == 0) query.append(" ORDER BY avgReview DESc");
+        } else if ("discounts".equalsIgnoreCase(type)) {
+            query.append(" ORDER BY discount DESC");
         }
 
         
