@@ -159,6 +159,9 @@ public class OrderDAO {
     
     // Metodo per aggiornare lo stato di un ordine nel database
     public boolean updateStatus(int idOrder, Status newStatus) throws SQLException {
+        if ("Annullato".equalsIgnoreCase(newStatus.name())) 
+            return cancelOrder(idOrder);
+
         String query = "UPDATE Orders SET status=? WHERE ID=?";
 
         try (Connection connection = dataSource.getConnection();
@@ -167,8 +170,7 @@ public class OrderDAO {
             stmt.setString(1, newStatus.name());
             stmt.setInt(2, idOrder);
 
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+            return stmt.executeUpdate() > 0;
         }
     }
 
@@ -217,19 +219,43 @@ public class OrderDAO {
     }
     
 
-	public boolean cancelOrder(int orderId) throws SQLException {
-		
-	    String query = "UPDATE Orders SET status = ? WHERE ID = ?";
-	    
-	    try (Connection conn = dataSource.getConnection();
-	    		
-	        PreparedStatement stmt = conn.prepareStatement(query)) {
-	
-	        stmt.setString(1, "Annullato");
-	        stmt.setInt(2, orderId);
-	        return stmt.executeUpdate() > 0;
-	    }
-	}
-	
+    public boolean cancelOrder(int orderId) throws SQLException {
+        String updateOrder = "UPDATE Orders SET status = 'Annullato' WHERE ID = ?";
+        String selectProducts = "SELECT ID_product, quantity FROM ProductOrder WHERE ID_order = ?";
+        String updateStock = "UPDATE Products SET stocks = stocks + ? WHERE ID = ?";
+
+        try (Connection conn = dataSource.getConnection()) {
+            conn.setAutoCommit(false);
+
+            try (
+                PreparedStatement updateOrderStmt = conn.prepareStatement(updateOrder);
+                PreparedStatement selectStmt = conn.prepareStatement(selectProducts);
+                PreparedStatement updateStockStmt = conn.prepareStatement(updateStock)
+            ) {
+                updateOrderStmt.setInt(1, orderId);
+                if (updateOrderStmt.executeUpdate() == 0) {
+                    conn.rollback();
+                    return false;
+                }
+
+                selectStmt.setInt(1, orderId);
+                try (ResultSet rs = selectStmt.executeQuery()) {
+                    while (rs.next()) {
+                        updateStockStmt.setInt(1, rs.getInt("quantity"));
+                        updateStockStmt.setInt(2, rs.getInt("ID_product"));
+                        updateStockStmt.executeUpdate();
+                    }
+                }
+
+                conn.commit();
+                return true;
+            } catch (SQLException e) {
+                conn.rollback();
+                throw e;
+            } finally {
+                conn.setAutoCommit(true);
+            }
+        }
+    }
 	
 }

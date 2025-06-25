@@ -2,10 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
-<c:set var="minPrice" value="${param.minPrice != null ? param.minPrice : 0}" />
-<c:set var="maxPrice" value="${param.maxPrice != null ? param.maxPrice : 1000}" />
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,8 +61,6 @@
                             <option value="PSU" <c:if test="${category == 'PSU'}">selected</c:if>>PSU</option>
                         </select>
 
-
-						<!-- order by -->
 						Ordina
                         <select name="order" id="order">
                             <option value="" <c:if test="${empty category}">selected</c:if>>Rilevanza</option>
@@ -126,7 +120,7 @@
 				                                </span>
 				                            </c:when>
 				                            <c:otherwise>
-				                                <span class="discounted-price">
+				                                <span class="price">
 				                                    <fmt:formatNumber value="${product.price}" type="number" maxFractionDigits="2" />€
 				                                </span>
 				                            </c:otherwise>
@@ -137,7 +131,11 @@
 				        </c:forEach>
 				    </div>
 				</c:if>
-
+				
+				<c:if test="${empty prodotti}">
+					<span id="msgNotFound">Nessuna prodotto torvato</span>
+				</c:if>
+				
                 <div id="pagination">
                     <c:if test="${totalPages > 1}">
                         <c:forEach var="i" begin="1" end="${totalPages}">

@@ -22,6 +22,10 @@ main {
   flex-direction: column;
 }
 
+.catalog-layout {
+    text-align: center;
+}
+
 .products {
   	box-sizing: border-box;
   	padding: 2rem;
@@ -36,27 +40,29 @@ main {
 
 .product-price {
 	margin-top: 0.3rem;
-  	font-size: 1rem;
+  	font-size: 1.2rem;
   	display: flex;
   	justify-content: center;
   	align-items: baseline;
   	gap: 0.5rem;
+  	color: #3E78B2;
+  	font-weight: 600;
 }
 
 .product-price .original-price {
-  	color: #888;
+  	color: #B9D6F2;
   	text-decoration: line-through;
-  	font-size: 0.9rem;
+  	font-size: 0.95rem;
 }
 
 .product-price .discounted-price {
-  	color: #e74c3c;
+  	color: #006DAA;
   	font-weight: 700;
-  	font-size: 1.1rem;
+  	font-size: 1.28rem;
 }
 
 .product-price .discount-percentage {
-  	background-color: #e74c3c;
+  	background-color: #003559;
   	color: white;
   	font-weight: 700;
   	font-size: 0.85rem;
@@ -102,6 +108,19 @@ main {
   	text-decoration: none;
   	color: inherit;
   	display: inline-block;
+}
+
+
+#msgNotFound {
+    display: inline-block;
+    color: #c0392b;
+    background-color: #fdecea;
+    border: 1px solid #e74c3c;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    user-select: none;
 }
 
 #pagination {

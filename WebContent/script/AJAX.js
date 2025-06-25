@@ -128,7 +128,7 @@ function addToList(productId, type, quantity) {
         
 		if (response.success) {
 			
-			showToast(`Prodotto aggiunto ${type === "cart" ? "al carrello" : "alla lista"}!`, false);
+			showToast(`Prodotto aggiunto ${type === "cart" ? "al carrello" : "alla wishlist"}!`, false);
 			
 		} else {
 		       

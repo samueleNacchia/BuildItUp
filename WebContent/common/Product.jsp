@@ -15,7 +15,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_product.css?v=<%= System.currentTimeMillis() %>">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_product.css?v=<%= System.currentTimeMillis() %>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
@@ -99,27 +99,31 @@
 	        		</c:when>
 	
 		        	<c:otherwise>
-			            <c:set var="prezzoScontato" value="${prodotto.price}" />
-			            <c:if test="${prodotto.discount > 0}">
-			                <c:set var="prezzoScontato" value="${prodotto.price * (1 - prodotto.discount)}" />
-			            </c:if>
-		
+
 			            <div class="product-price">
 			                <c:choose>
 			                    <c:when test="${prodotto.discount > 0}">
-			                        <span id="original-price">
-			                            <fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
-			                        </span>
-			                        <span id="discounted-price">
-			                            <fmt:formatNumber value="${prezzoScontato}" type="number" maxFractionDigits="2" />€
-			                        </span>
+			                    	<c:set var="prezzoScontato" value="${prodotto.price * (1 - prodotto.discount)}" />
+			                        
+			                        <span class="original-price">
+			                           	<fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
+			                         </span>
+			                         <span class="discounted-price">
+			                          	<fmt:formatNumber value="${prezzoScontato}" type="number" maxFractionDigits="2" />€
+			                         </span>
+			                         <span class="discount-percentage">
+			                          	-<fmt:formatNumber value="${prodotto.discount * 100}" maxFractionDigits="0" />%
+			                         </span>
 			                    </c:when>
 			                    <c:otherwise>
-			                        <fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
+			                        <span class="price">
+				                     	<fmt:formatNumber value="${prodotto.price}" type="number" maxFractionDigits="2" />€
+				                    </span>
 			                    </c:otherwise>
 			                </c:choose>
 			            </div>
 		
+					<c:if test="${sessionScope.isAdmin != true}">
 			            <c:if test="${prodotto.stocks == 0}">
 			                <div class="notavlb">
 			                    Al momento non disponibile
@@ -130,7 +134,6 @@
 			                    </button>
 			                </div>
 			            </c:if>
-					<c:if test="${sessionScope.ruolo != true}">
 			            <c:if test="${prodotto.stocks > 0}">
 			                <div class="quantity-selector">
 			                    <label for="quantity">Quantità:</label>
@@ -164,13 +167,11 @@
 			    <div id="reviews-panel">
 				    <c:choose>
 				        <c:when test="${empty recensioni}">
-						    <div class="review-placeholder">
+				            <div class="review-placeholder">
 						        <i class="fa-regular fa-star"></i>
 						        <p>Nessuna recensione disponibile per questo prodotto.</p>
 						    </div>
-						</c:when>
-
-
+				        </c:when>
 				        <c:otherwise>
 				            <c:forEach var="entry" items="${recensioni}">
 				                <c:set var="review" value="${entry.key}" />
@@ -256,7 +257,7 @@
 				        <c:set var="hasReviewed" value="true" />
 				    </c:if>
 				</c:forEach>
-				<c:if test="${sessionScope.ruolo != true}">
+				<c:if test="${!sessionScope.isAdmin and prodotto.onSale}">
 				<c:if test="${not hasReviewed}">
 				    <div id="write-review-panel">
 				        <h3>Scrivi una recensione</h3>
