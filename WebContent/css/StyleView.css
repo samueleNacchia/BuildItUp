@@ -30,7 +30,7 @@ h1, h2 {
   color: var(--text-color);
 }
 
-/* Layout */
+
 .container {
   width: 90%;
   max-width: 1200px;
@@ -52,7 +52,6 @@ main {
   flex: 1;
 }
 
-/* Form */
 form {
   width: 90%;
   max-width: 900px;
@@ -94,7 +93,6 @@ form textarea {
   resize: vertical;
 }
 
-/* Form Row */
 .form-row {
   display: flex;
   gap: 30px;
@@ -110,7 +108,6 @@ form textarea {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Buttons */
 button,
 input[type="submit"] {
   padding: 8px 16px;
@@ -160,7 +157,7 @@ input[type="submit"].update:hover {
   background-color: #219150;
 }
 
-/* Tabella */
+
 table {
   width: 90%;
   margin: 0 auto;
@@ -200,7 +197,7 @@ table img {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
-/* Link ritorno */
+
 .back-link {
   text-align: center;
   margin-top: 30px;
@@ -216,7 +213,7 @@ table img {
   text-decoration: underline;
 }
 
-/* Icone */
+
 button i.fa-heart:hover {
   color: red !important;
 }
@@ -229,7 +226,7 @@ button i.fa-user:hover {
   color: white !important;
 }
 
-/* Toast */
+
 .toast {
   visibility: hidden;
   background-color: #4CAF50;
@@ -242,7 +239,7 @@ button i.fa-user:hover {
   opacity: 1;
 }
 
-/* Messaggio lista vuota */
+
 #empty-message {
   max-width: 600px;
   margin: 40px auto;
@@ -284,13 +281,13 @@ button i.fa-user:hover {
   background-color: var(--hover-dark);
 }
 
-/* Checkbox */
+
 input[type="checkbox"] {
   transform: scale(1.2);
   margin: 4px;
 }
 
-/* Errori */
+
 .error-message {
   color: red;
   font-size: 0.85rem;
@@ -298,7 +295,7 @@ input[type="checkbox"] {
   word-wrap: break-word;
 }
 
-/* Responsive */
+
 @media (max-width: 1024px) {
   .form-row {
     flex-direction: column;

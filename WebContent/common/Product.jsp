@@ -164,8 +164,13 @@
 			    <div id="reviews-panel">
 				    <c:choose>
 				        <c:when test="${empty recensioni}">
-				            <p>Nessuna recensione per questo prodotto.</p>
-				        </c:when>
+						    <div class="review-placeholder">
+						        <i class="fa-regular fa-star"></i>
+						        <p>Nessuna recensione disponibile per questo prodotto.</p>
+						    </div>
+						</c:when>
+
+
 				        <c:otherwise>
 				            <c:forEach var="entry" items="${recensioni}">
 				                <c:set var="review" value="${entry.key}" />

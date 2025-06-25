@@ -23,116 +23,102 @@
     <style>html{display:none}</style>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    
 </head>
 
 <body data-context-path="${pageContext.request.contextPath}">
 
-	<div class="page-wrapper">
-			<%@ include file="/common/header.jsp" %>
-			<main>
-		    <h1>${titolo}</h1>
-		
-		    <c:if test="${not empty type}">
-		        <c:choose>
-		            <c:when test="${empty items}">
-		                <div id="empty-message">
-					    <span class="icon">
-					        <c:choose>
-					            <c:when test="${type == 'wishlist'}"><i class="fa-solid fa-heart" style="font-size: 35px; color: red;"></i>
-</c:when>
-					            <c:when test="${type == 'cart'}"><i class="fa-solid fa-shopping-cart" style="font-size: 30px; color: green;"></i></c:when>
-					            <c:otherwise>📦</c:otherwise>
-					        </c:choose>
-					    </span>
-					    
-					    <c:choose>
-					        <c:when test="${type == 'wishlist'}">
-					            La tua wishlist è vuota.
-					        </c:when>
-					        <c:when test="${type == 'cart'}">
-					            Il tuo carrello è vuoto.
-					        </c:when>
-					        <c:otherwise>
-					            La lista è vuota.
-					        </c:otherwise>
-					    </c:choose>
-					    
-					    <br>
-					    <a href="${pageContext.request.contextPath}/common/Home" class="btn-return">Torna al catalogo</a>
-					</div>
+<div class="page-wrapper">
+    <%@ include file="/common/header.jsp" %>
+    <main>
+        <h1>${titolo}</h1>
 
+        <c:if test="${not empty type}">
 
-		            </c:when>
-		            <c:otherwise>
-		                <table id="product-table">
-		                    
-		                    <c:forEach var="item" items="${items}">
-		                        <c:set var="product" value="${item.product}" />
-		                        
-		                        <tr id="product-${product.id}">
-		                            <td data-label="Nome">${product.name}</td>
-		                            <td data-label="Prezzo"><fmt:formatNumber value="${product.price * (1-product.discount)}" maxFractionDigits="2" />€</td>
-		                            <td><img src="<%= request.getContextPath() %>/image?cover=true&id=${product.id}" alt="Immagine ${product.name}" /></td>
-		
-		                            <c:if test="${type == 'cart'}">
-		                                <td data-label="Quantità" id="quantity-${product.id}">${item.quantity}</td>
-		                            </c:if>
-		
-		                            <td>
-		                                <c:if test="${type == 'cart'}">
-		                                    <button id="btn-add-${product.id}" class="add" onclick="addItem(${product.id}, 'cart')">+</button>
-		                                </c:if>
-										<c:if test="${type == 'wishlist'}">
-		                                    <button id="btn-add-${product.id}" class="add" onclick="addItem(${product.id}, 'cart')">Aggiungi al carrello</button>
-		                                </c:if>
-									
-		                                <button id="btn-delete-${product.id}" class="delete" onclick="deleteItem(${product.id}, '${type}')">
-		                                    <c:choose>
-		                                        <c:when test="${item.quantity <= 1}"> X </c:when>
-		                                        <c:otherwise> - </c:otherwise>
-		                                    </c:choose>
-		                                </button>
-		                            </td>
-		                        </tr>
-		                    </c:forEach>
-		                </table>
-		                
-		                <c:if test="${type == 'cart'}">
-		                	<div style="text-align: center; margin-top: 20px; transform: scale(1.5)">
-			            		<a id="btn-checkout" href="<%= request.getContextPath()%>/unlogged/GetList?type=cart&to=checkout" style="text-decoration: none;">
-			                		<input class="btn" type="submit" class="update" value="Acquista" />
-			            		</a>
-		            		</div>
-		       			</c:if>
-		       			
-		            </c:otherwise>
-		        </c:choose>
-		        
-		        <br><br>
-		
-		        <p id="empty-message" style="display: none;">
-		            <c:choose>
-		                <c:when test="${type == 'wishlist'}">
-		                    La wishlist è vuota
-		                </c:when>
-		                <c:when test="${type == 'cart'}">
-		                    Il carrello è vuoto
-		                </c:when>
-		                <c:otherwise>
-		                    La lista è vuota
-		                </c:otherwise>
-		            </c:choose>
-		        </p>
-		       
-		        <script src="<%= request.getContextPath() %>/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>
-		    </c:if>
-		     
-		</main>
-	</div>
-	<%@ include file="/common/footer.jsp" %>
-	<script src="<%= request.getContextPath()%>/script/indexScript.js">
-	 </script>
+            <c:choose>
+                <c:when test="${empty items}">
+                    <c:set var="isEmpty" value="true" />
+                </c:when>
+                <c:otherwise>
+                    <c:set var="isEmpty" value="false" />
+                </c:otherwise>
+            </c:choose>
+
+            <table id="product-table" style="${isEmpty ? 'display:none;' : ''}">
+                <c:forEach var="item" items="${items}">
+                    <c:set var="product" value="${item.product}" />
+                    <tr id="product-${product.id}">
+                        <td data-label="Nome">${product.name}</td>
+                        <td data-label="Prezzo"><fmt:formatNumber value="${product.price * (1-product.discount)}" maxFractionDigits="2" />€</td>
+                        <td><img src="<%= request.getContextPath() %>/image?cover=true&id=${product.id}" alt="Immagine ${product.name}" /></td>
+
+                        <c:if test="${type == 'cart'}">
+                            <td data-label="Quantità" id="quantity-${product.id}">${item.quantity}</td>
+                        </c:if>
+
+                        <td>
+                            <c:if test="${type == 'cart'}">
+                                <button id="btn-add-${product.id}" class="add" onclick="addItem(${product.id}, 'cart')">+</button>
+                            </c:if>
+                            <c:if test="${type == 'wishlist'}">
+                                <button id="btn-add-${product.id}" class="add" onclick="addItem(${product.id}, 'cart')">Aggiungi al carrello</button>
+                            </c:if>
+
+                            <button id="btn-delete-${product.id}" class="delete" onclick="deleteItem(${product.id}, '${type}')">
+                                <c:choose>
+                                    <c:when test="${item.quantity <= 1}"> X </c:when>
+                                    <c:otherwise> - </c:otherwise>
+                                </c:choose>
+                            </button>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+
+            <c:if test="${type == 'cart' && !isEmpty}">
+                <div style="text-align: center; margin-top: 20px; transform: scale(1.5)">
+                    <a id="btn-checkout" href="${pageContext.request.contextPath}/unlogged/GetList?type=cart&to=checkout" style="text-decoration: none;">
+                        <input class="btn" type="submit" value="Acquista" />
+                    </a>
+                </div>
+            </c:if>
+
+            <div id="empty-message" style="${isEmpty ? '' : 'display: none;'}; text-align: center; margin-top: 20px;">
+                <span class="icon">
+                    <c:choose>
+                        <c:when test="${type == 'wishlist'}">
+                            <i class="fa-solid fa-heart" style="font-size: 35px; color: red;"></i>
+                        </c:when>
+                        <c:when test="${type == 'cart'}">
+                            <i class="fa-solid fa-shopping-cart" style="font-size: 30px; color: green;"></i>
+                        </c:when>
+                    </c:choose>
+                </span>
+
+                <br>
+                <c:choose>
+                    <c:when test="${type == 'wishlist'}">
+                        La tua wishlist è vuota.
+                    </c:when>
+                    <c:when test="${type == 'cart'}">
+                        Il tuo carrello è vuoto.
+                    </c:when>
+                    <c:otherwise>
+                        La lista è vuota.
+                    </c:otherwise>
+                </c:choose>
+
+                <br>
+                <a href="${pageContext.request.contextPath}/common/Home" class="btn-return">Torna al catalogo</a>
+            </div>
+
+        </c:if>
+
+        <br><br>
+
+        <script src="<%= request.getContextPath() %>/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>
+    </main>
+</div>
+<%@ include file="/common/footer.jsp" %>
+<script src="<%= request.getContextPath()%>/script/indexScript.js"></script>
 </body>
 </html>
