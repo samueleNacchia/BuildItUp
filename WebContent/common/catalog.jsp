@@ -13,7 +13,7 @@
     <%@ include file="header.jsp" %>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_catalog.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_catalog.css?v=<%= System.currentTimeMillis() %>">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
     
@@ -25,22 +25,18 @@
         <main class="homepage">
 
             <div class="catalog-layout">
-
+ <br>
                 <section class="filter-bar-horizontal">
-<br><br><br>
                     <form method="POST" action="CatalogViewer" class="filter-form-horizontal">
-                        
-                       <label for="price-slider">Prezzo:  &nbsp;&nbsp;</label>
-						<div id="price-slider" 
-						     style="margin-top: 10px;" 
-						     data-min="${minPrice}" 
-						     data-max="${maxPrice}">
-						</div>
-						
+                       
+                       <c:set var="maxPriceDisplay" value="${empty maxPrice ? 1000 : maxPrice}" />
+
+						<label for="price-slider">Prezzo:  &nbsp;&nbsp;</label>
+						<div id="price-slider" data-min="${minPrice}" data-max="${maxPriceDisplay}"></div>
 						<div id="price-values" style="margin-top: 5px; font-size: 14px;"></div>
 						
 						<input type="hidden" name="minPrice" id="minPrice" value="${minPrice}">
-						<input type="hidden" name="maxPrice" id="maxPrice" value="${maxPrice}">
+						<input type="hidden" name="maxPrice" id="maxPrice" value="${empty maxPrice ? '' : maxPrice}">
 						
 
                         Categoria
@@ -92,7 +88,7 @@
                                 <div class="product-card">
                                     <c:choose>
                                         <c:when test="${not empty coverImage}">
-                                            <img src="<%= request.getContextPath() %>/image?id=${coverImage.id}" alt="Immagine di copertina" />
+                                            <img src="${pageContext.request.contextPath}/image?id=${coverImage.id}" alt="Immagine di copertina" />
                                         </c:when>
                                         <c:otherwise>
                                             <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
@@ -153,7 +149,7 @@
     </div>
 	<%@ include file="footer.jsp" %>
     
-<script src="<%= request.getContextPath()%>/script/catalogScript.js"></script>
+<script src="${pageContext.request.contextPath}/script/catalogScript.js?v=<%= System.currentTimeMillis() %>"></script>
 
 </body>
 </html>

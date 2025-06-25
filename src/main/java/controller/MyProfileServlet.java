@@ -28,7 +28,7 @@ public class MyProfileServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("id") == null) {
-            response.sendRedirect(request.getContextPath() + "/Login.jsp");
+            response.sendRedirect(request.getContextPath() + "/common/LoginIn_page.jsp");
             return;
         }
 
@@ -48,7 +48,7 @@ public class MyProfileServlet extends HttpServlet {
             BillDAO billDAO = new BillDAO();
             ProductOrderDAO pOrderDAO = new ProductOrderDAO();
             ProductDAO pDAO = new ProductDAO();
-            ReviewDAO reviewDAO = new ReviewDAO(); // <--- aggiunto
+            ReviewDAO reviewDAO = new ReviewDAO();
 
             Map<Integer, BillDTO> billsMap = new HashMap<>();
             Map<Integer, List<ProductOrderDTO>> prodottiPerOrdine = new HashMap<>();
@@ -59,7 +59,7 @@ public class MyProfileServlet extends HttpServlet {
                 try {
                     bill = billDAO.findByOrder(ordine.getId());
                 } catch (SQLException e) {
-                    e.printStackTrace(System.out);
+                    e.printStackTrace();
                 }
                 billsMap.put(ordine.getId(), bill);
 
@@ -83,7 +83,7 @@ public class MyProfileServlet extends HttpServlet {
             request.setAttribute("billsMap", billsMap);
             request.setAttribute("prodottiPerOrdine", prodottiPerOrdine);
             request.setAttribute("prodotti", prodotti);
-            request.setAttribute("prodottiRecensiti", prodottiRecensiti); // <--- nuovo attributo
+            request.setAttribute("prodottiRecensiti", prodottiRecensiti); 
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/user/MyProfile.jsp");
             dispatcher.forward(request, response);

@@ -8,8 +8,8 @@
     <title>Riepilogo Ordine</title>
     <style>html{display:none}</style>
     <%@ include file="/common/header.jsp" %>
-    <link rel="stylesheet" href="<%= request.getContextPath()%>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
-    <script src="<%= request.getContextPath()%>/script/checkoutValidation.js?v=<%= System.currentTimeMillis() %>"></script>  
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
+    <script src="${pageContext.request.contextPath}/script/checkoutValidation.js?v=<%= System.currentTimeMillis() %>"></script>  
 </head>
 <body>
 <div class="page-wrapper">
@@ -89,7 +89,7 @@
 		    </div>
 		
 		    <div id="paymentSection">
-		      <!-- Qui metti tutti i dati carta -->
+		      
 		      <h3>Dati della Carta</h3>
 		     	<label for="cardNumber">Numero Carta:</label>
 				<input type="text" id="cardNumber" name="cardNumber" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" required>
@@ -118,7 +118,7 @@
 
 <%@ include file="/common/footer.jsp" %>
 
-<script src="<%= request.getContextPath()%>/script/checkoutScript.js"></script>
-<script src="<%= request.getContextPath()%>/script/indexScript.js"></script>
+<script src="${pageContext.request.contextPath}/script/checkoutScript.js"></script>
+<script src="${pageContext.request.contextPath}/script/indexScript.js"></script>
 </body>
 </html>

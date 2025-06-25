@@ -21,7 +21,7 @@ public class CheckoutServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("id") == null) {
-            response.sendRedirect(request.getContextPath() + "/Login.jsp");
+            response.sendRedirect(request.getContextPath() + "/common/LogIn_page.jsp");
             return;
         }
 
@@ -32,14 +32,12 @@ public class CheckoutServlet extends HttpServlet {
             UserDTO user = userDAO.findByCode(userId);
 
             if (user == null) {
-                response.sendRedirect(request.getContextPath() + "/logout");
+                response.sendRedirect(request.getContextPath() + "/common/logout");
                 return;
             }
 
-            // Passa l'indirizzo utente alla JSP (assumo che UserDTO abbia i campi indirizzo)
             request.setAttribute("userAddress", user);
 
-            // Inoltra alla JSP di checkout
             RequestDispatcher dispatcher = request.getRequestDispatcher("/user/Checkout.jsp");
             dispatcher.forward(request, response);
 

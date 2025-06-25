@@ -30,7 +30,6 @@ public class RegisterServlet extends HttpServlet {
         try {
 			if (dao.findByEmail(email)!= null)
 			{
-				System.out.println("Duplicato");
 			    response.sendRedirect(request.getContextPath()+"/common/Register_page.jsp?error=dupe");
 			    return;
 			}
@@ -47,12 +46,11 @@ public class RegisterServlet extends HttpServlet {
         user.setVia(request.getParameter("ind"));
         user.setRoadNum(Integer.parseInt(request.getParameter("civ")));
         user.setPostalCode(request.getParameter("cap"));
-        user.setProvincia(request.getParameter("provincia"));
-
+        user.setProvincia(request.getParameter("prov"));        
+     
         try {
 			dao.save(user);
 		} catch (SQLException e) {
-			System.out.println("Errore nel salvataggio");
 			e.printStackTrace();
 		}
 

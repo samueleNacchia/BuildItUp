@@ -25,7 +25,7 @@ public class ReviewServlet extends HttpServlet {
 
 	    HttpSession session = request.getSession();
 	    Integer id_user = (Integer) session.getAttribute("id");
-	    System.out.println("ReviewServlet");
+
 	    if (id_user == null) {
 	        response.sendRedirect(request.getContextPath() + "/common/LogIn_page.jsp");
 	        return;

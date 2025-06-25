@@ -6,7 +6,7 @@
 <head>
     <title>Product-Users</title>
     <style>html{display:none}</style>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
 	<a href="<%= request.getContextPath() %>/common/Home">Home</a>
@@ -260,7 +260,7 @@
 	</c:if>
 	
 	
-	<script src="<%= request.getContextPath()%>/script/indexScript.js">
+	<script src="${pageContext.request.contextPath}/script/indexScript.js">
 	</script>  
 </body>
 </html>

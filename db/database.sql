@@ -31,9 +31,9 @@ CREATE TABLE Products(
   price decimal(10,2) unsigned,
   discount decimal(5,4) unsigned,
   isOnSale boolean,
+  stocks int unsigned,
   numReview int default 0,
-  avgReview decimal(10,1),
-  stocks int unsigned
+  avgReview decimal(10,1)
 );
 
 CREATE TABLE ProductImages (
@@ -88,7 +88,7 @@ CREATE TABLE Bills (
 CREATE TABLE ProductOrder (	
   ID_product int not null,
   ID_order int not null,
-  price decimal(10,2) unsigned,
+  price decimal(10,2),
   quantity int default 1 check (quantity > 0),
   primary key (ID_product, ID_order),
   foreign key(ID_product) references Products(ID),
@@ -120,7 +120,8 @@ CREATE TABLE Newsletters (
 	email varchar(100) primary key not null
 );
 
--- Admins pass: 123123
+-- Admins
+/*
 INSERT INTO Admin (email, password) VALUES
   ('admin@gmail.com', 
   '263fec58861449aacc1c328a4aff64aff4c62df4a2d50b3f207fa89b6e242c9aa778e7a8baeffef85b6ca6d2e7dc16ff0a760d59c13c238f6bcdc32f8ce9cc62');
@@ -151,4 +152,4 @@ INSERT INTO Products (name, category, description, price, discount, isOnSale, st
   ('Crucial P3 Plus 2TB', 'MEM', 'PCIe 4.0 NVMe M.2 SSD', 144.99, 0.1000, TRUE, 25),
   ('Fractal Design Meshify C', 'CASE', 'Compact ATX case with mesh front panel', 99.99, 0.0000, TRUE, 8),
   ('NVIDIA RTX 4080', 'GPU', '16GB GDDR6X ray tracing card', 699.99, 0.0500, TRUE, 10),
-  ('NVIDIA RTX 3070 ti', 'GPU', '8GB GDDR6X ray tracing card', 399.99, 0.0500, TRUE, 10);
+  ('NVIDIA RTX 3070 ti', 'GPU', '8GB GDDR6X ray tracing card', 399.99, 0.0500, TRUE, 10);*/

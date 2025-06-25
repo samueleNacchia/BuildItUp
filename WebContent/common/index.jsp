@@ -10,7 +10,7 @@
 	
 	
 	 <%@ include file="header.jsp" %>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_index.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_index.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
 	<div class="page-wrapper">
@@ -22,7 +22,7 @@
 	                <div class="products">
 	                
 	                  	<c:forEach var="prodotto" items="${scontati}">
-	                  	<a href="<%= request.getContextPath() %>/common/productDetails?id=${prodotto.id}" class="product-link">
+	                  	<a href="${pageContext.request.contextPath}/common/productDetails?id=${prodotto.id}" class="product-link">
 						    <div class="product-card">
 						        <c:set var="coverImage" value="${coverImages[prodotto.id]}" />
 						
@@ -79,10 +79,10 @@
 	        </c:if>
 	    </main>
 	    
-	    <a href="<%= request.getContextPath()%>/products" class="btn">Visualizza Database</a>
+	    <a href="${pageContext.request.contextPath}/products" class="btn">Visualizza Database</a>
 	  
 	    <div id="newsletter">
-	        <form method="POST" action="iscrizione">
+	        <form method="POST" action="${pageContext.request.contextPath}/unlogged/SignToNewsletter">
 	            <label for="email">Iscriviti alla newsletter</label>
 	            <input type="email" id="email" name="email">
 	            <input type="submit">
@@ -90,7 +90,7 @@
 	    </div>
 	</div>
 	<%@ include file="footer.jsp" %>
-	<script src="<%= request.getContextPath()%>/script/indexScript.js">
+	<script src="${pageContext.request.contextPath}/script/indexScript.js">
 	 
 	</script>
 </body>

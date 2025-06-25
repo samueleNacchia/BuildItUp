@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Stato Iscrizione</title>
-    <meta http-equiv="refresh" content="3;URL=Home">
+    <meta http-equiv="refresh" content="2; URL=<%= request.getContextPath() %>/common/Home">
     <style>
         body {
             font-family: sans-serif;

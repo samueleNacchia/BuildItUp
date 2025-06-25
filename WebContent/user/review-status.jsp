@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Stato recensione</title>
-    <meta http-equiv="refresh" content="3;URL=${pageContext.request.contextPath}/common/productDetails?id=${param.id}">
+    <meta http-equiv="refresh" content="2;URL=${pageContext.request.contextPath}/common/productDetails?id=${param.id}">
     <style>
         body {
             font-family: sans-serif;

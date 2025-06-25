@@ -152,6 +152,7 @@ main {
 #price-slider {
   width: 300px;      /* o 100% se vuoi che sia responsive */
   margin: 20px 0;    /* margini verticali */
+  margin-top: 10px;
 }
 
 .noUi-target {

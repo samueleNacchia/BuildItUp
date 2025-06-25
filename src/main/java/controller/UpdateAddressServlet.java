@@ -9,7 +9,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/UpdateAddressServlet")
+@WebServlet("/user/UpdateAddressServlet")
 public class UpdateAddressServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

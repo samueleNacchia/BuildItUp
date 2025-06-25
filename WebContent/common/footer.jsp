@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_footer.css?v=<%= System.currentTimeMillis() %>">
-  	<script src ="<%= request.getContextPath()%>/script/footerScript.js">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_footer.css?v=<%= System.currentTimeMillis() %>">
+  	<script src ="${pageContext.request.contextPath}/script/footerScript.js">
 </script>
 <footer class="main">
     <section class="items">
@@ -33,9 +33,5 @@
       </article>
 
     </section>
-
-  
-  </footer>
-  
-
  
+  </footer>

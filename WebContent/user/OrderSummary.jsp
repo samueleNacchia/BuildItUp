@@ -8,7 +8,7 @@
     <title>Conferma Ordine</title>
     <style>html{display:none}</style>
     <%@ include file="/common/header.jsp" %>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
     <div class="page-wrapper">
@@ -30,12 +30,12 @@
                         
 
                         <div class="back-link">
-                            <a href="<%= request.getContextPath() %>/common/Home">Torna alla home</a>
+                            <a href="${pageContext.request.contextPath}/common/Home">Torna alla home</a>
                         </div>
                     </c:when>
                     <c:otherwise>
                         <h1 style="color:red;">Ordine Fallito!</h1>
-                        <a href="Home" style="color:red;">Torna alla home</a>
+                        <a href="${pageContext.request.contextPath}/common/Home" style="color:red;">Torna alla home</a>
                     </c:otherwise>
                 </c:choose>
 
@@ -43,7 +43,7 @@
         </main>
     </div>
     <%@ include file="/common/footer.jsp" %> 
-    <script src="<%= request.getContextPath()%>/script/indexScript.js">
+    <script src="${pageContext.request.contextPath}/script/indexScript.js">
 </script>
 </body>
 </html>

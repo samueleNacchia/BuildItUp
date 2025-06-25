@@ -7,16 +7,16 @@
 <meta charset="UTF-8">
 <title>Recensione</title>
 
-<link rel="stylesheet" href="../css/style_header.css?v=<%= System.currentTimeMillis() %>">
-<link rel="stylesheet" href="../css/style_footer.css?v=<%= System.currentTimeMillis() %>">
-<link rel="stylesheet" href="../css/style_review.css?v=<%= System.currentTimeMillis() %>">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_header.css?v=<%= System.currentTimeMillis() %>">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_footer.css?v=<%= System.currentTimeMillis() %>">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_review.css?v=<%= System.currentTimeMillis() %>">
 
 
 </head>
 <body>
 
 <div class="page-wrapper">
-    <%@ include file="../common/header.jsp" %>
+    <%@ include file="/common/header.jsp" %>
 
     <main class="homepage">
     

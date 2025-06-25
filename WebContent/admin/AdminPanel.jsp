@@ -11,7 +11,7 @@
     <style>html{display:none}</style>
     <%@ include file="headerAdmin.jsp" %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/StyleView.css?v=<%= System.currentTimeMillis() %>" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleView.css?v=<%= System.currentTimeMillis() %>" />
 </head>
 <body data-context-path="${pageContext.request.contextPath}">
 	<div class="page-container">
@@ -181,10 +181,10 @@
 	<div id="toast" class="toast">Prodotto aggiunto!</div>
 	
 	<%@ include file="/common/footer.jsp" %>
-	<script src ="<%= request.getContextPath()%>/script/adminPanelScript.js"></script>
+	<script src ="${pageContext.request.contextPath}/script/adminPanelScript.js"></script>
 
 
-<script src="<%= request.getContextPath() %>/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>
+<script src="${pageContext.request.contextPath}/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 package listener;
 
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
@@ -17,15 +18,12 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
     	
-    	//System.out.println("ContextListener inizializzato alle " + now());
         scheduler = Executors.newSingleThreadScheduledExecutor();
 
         Runnable dailyTask = () -> {
             try {
-                //System.out.println("Esecuzione task: " + now());
                 ListDAO list = new ListDAO();
                 list.deleteOldList();
-
             } catch (Exception e) {
                 e.printStackTrace(); 
             }
@@ -54,6 +52,5 @@ public class ContextListener implements ServletContextListener {
             scheduler.shutdownNow();
     	
     	AbandonedConnectionCleanupThread.checkedShutdown();
-		//System.out.println("MySQL cleanup thread stopped.");
     }
 }

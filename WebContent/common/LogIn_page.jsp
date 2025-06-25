@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/LogIn_style.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/LogIn_style.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
 
@@ -40,10 +40,10 @@
 
         <br>
 
-        <form action="Register_page.jsp" method="get">
+        <form action="Register_page.jsp" method="post">
             <button type="submit" class="register-button">Registrati</button>
         </form>
-<script src="<%= request.getContextPath()%>/script/logInScript.js"></script>
+<script src="${pageContext.request.contextPath}/script/logInScript.js"></script>
 
  
     

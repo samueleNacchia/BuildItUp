@@ -14,22 +14,20 @@
     <link rel="stylesheet" href="../css/style_header.css">
     <link rel="stylesheet" href="../css/style_footer.css">
 
-    <script src="<%= request.getContextPath()%>/script/myProfileScript.js">
+    <script src="${pageContext.request.contextPath}/script/myProfileScript.js">
     
     </script>
 </head>
 <body>
 <div class="page-wrapper">
-    <%@ include file="../common/header.jsp" %>
+    <%@ include file="/common/header.jsp" %>
 
     <div class="content">
         <h1>Benvenuto, ${user.name}!</h1>
 
         <div class="button-row">
             <button class="b" onclick="toggleSection('dati-personali')">Dati Personali</button>
-            <button class="b" onclick="toggleSection('storico-ordini')">Storico Ordini</button>
-            <button class="b" onclick="hideSections()">Nascondi</button>
-            
+            <button class="b" onclick="toggleSection('storico-ordini')">Storico Ordini</button>     
             
         </div>
 
@@ -41,12 +39,12 @@
             <p><strong>Telefono:</strong> ${user.tel}</p>
             <p><strong>Indirizzo:</strong> ${user.via}, ${user.roadNum} - ${user.postalCode} - ${user.provincia}</p>
 
-            <form class="update" action="../UpdateAddressServlet" method="post">
+            <form class="update" action="UpdateAddressServlet" method="post">
                 <h3>Aggiorna indirizzo</h3>
-                <input type="text" name="ind" value="${user.via}" required><br>
-                <input type="text" name="civ" value="${user.roadNum}" required><br>
-                <input type="text" name="cap" value="${user.postalCode}" required><br>
-                <input type="text" name="prov" value="${user.provincia}" required><br>
+                <label for="ind">Via <input type="text" id="ind" name="ind" value="${user.via}" required></label><br>
+                <label for="civ">Civico <input type="text" id="civ" name="civ" value="${user.roadNum}" required></label><br>
+                <label for="cap">CAP <input type="text" id="cap" name="cap" value="${user.postalCode}" required></label><br>
+                <label for="prov">Provincia <input type="text" id="prov" name="prov" value="${user.provincia}" required></label><br>
                 <input type="submit" value="Aggiorna indirizzo">
             </form>
         </div>
@@ -116,7 +114,7 @@
 										</form>
                                  <!-- ELSE: prodotto GIÀ recensito -->
 									<c:if test="${fn:contains(prodottiRecensiti, pr.id_product)}">
-									    <form action="${pageContext.request.contextPath}/DeleteReviewServlet" method="post" style="margin-top: 10px;">
+									    <form action="DeleteReviewServlet" method="post" style="margin-top: 10px;">
 									        <input type="hidden" name="productId" value="${pr.id_product}" />
 									        <button type="submit" class="delRev">Elimina recensione</button>
 									    </form>

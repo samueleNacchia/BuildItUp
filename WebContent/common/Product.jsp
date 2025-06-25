@@ -15,7 +15,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_product.css?v=<%= System.currentTimeMillis() %>">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_product.css?v=<%= System.currentTimeMillis() %>">
 
 </head>
 <body data-context-path="${pageContext.request.contextPath}">
@@ -64,27 +64,29 @@
 
             <div class="product-details">
     			<h1 class="product-title">${prodotto.name}</h1>
-    			<span class="stars">
-    				
-    				<span id="avgN">${prodotto.avgReview}</span>
-    				
-	    			<c:forEach var="i" begin="1" end="5">
-					    <c:choose>
-					        <c:when test="${i <= prodotto.avgReview}">
-					            <i class="fas fa-star"></i> <!-- stella piena -->
-					        </c:when>
-					        <c:when test="${i - 0.5 == prodotto.avgReview}">
-					            <i class="fas fa-star-half-alt"></i> <!-- mezza stella -->
-					        </c:when>
-					        <c:otherwise>
-					            <i class="far fa-star"></i> <!-- stella vuota -->
-					        </c:otherwise>
-					    </c:choose>
-					</c:forEach>
-
-					(${prodotto.numReview})
-				</span>
     			
+    			<c:if test="${prodotto.numReview > 0}">
+	    			<span class="stars">
+	    				
+	    				<span id="avgN">${prodotto.avgReview}</span>
+	    				
+		    			<c:forEach var="i" begin="1" end="5">
+						    <c:choose>
+						        <c:when test="${i <= prodotto.avgReview}">
+						            <i class="fas fa-star"></i> <!-- stella piena -->
+						        </c:when>
+						        <c:when test="${i - 0.5 == prodotto.avgReview}">
+						            <i class="fas fa-star-half-alt"></i> <!-- mezza stella -->
+						        </c:when>
+						        <c:otherwise>
+						            <i class="far fa-star"></i> <!-- stella vuota -->
+						        </c:otherwise>
+						    </c:choose>
+						</c:forEach>
+	
+						(${prodotto.numReview})
+					</span>
+    			</c:if>
     			<p class="product-description">${prodotto.description}</p>
 
 	    		<c:choose>
@@ -119,6 +121,11 @@
 			            <c:if test="${prodotto.stocks == 0}">
 			                <div class="notavlb">
 			                    Al momento non disponibile
+			                </div>
+			                <div class="action-buttons">
+			                    <button type="button" class="wishlist" onclick="addToList(${prodotto.id}, 'wishlist', 1)">
+			                        <i class="fa-regular fa-heart"></i> Wishlist
+			                    </button>
 			                </div>
 			            </c:if>
 					<c:if test="${sessionScope.ruolo != 1}">
@@ -272,10 +279,10 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 
-<script src="<%= request.getContextPath() %>/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>
+<script src="${pageContext.request.contextPath}/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>
 
 
-<script src="<%= request.getContextPath()%>/script/productScript.js"></script>
+<script src="${pageContext.request.contextPath}/script/productScript.js"></script>
 
 </body>
 </html>
