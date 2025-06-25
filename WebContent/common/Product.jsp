@@ -128,7 +128,7 @@
 			                    </button>
 			                </div>
 			            </c:if>
-					<c:if test="${sessionScope.ruolo != 1}">
+					<c:if test="${sessionScope.ruolo != true}">
 			            <c:if test="${prodotto.stocks > 0}">
 			                <div class="quantity-selector">
 			                    <label for="quantity">Quantità:</label>
@@ -167,7 +167,7 @@
 				        <c:set var="hasReviewed" value="true" />
 				    </c:if>
 				</c:forEach>
-				<c:if test="${sessionScope.ruolo != 1}">
+				<c:if test="${sessionScope.ruolo != true}">
 				<c:if test="${not hasReviewed}">
 				    <div id="write-review-panel">
 				        <h3>Scrivi una recensione</h3>

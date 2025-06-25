@@ -26,7 +26,7 @@
       	</nav>
       
       	<div class="item icons">
-      	<c:if test="${sessionScope.ruolo != 1}">
+      	<c:if test="${sessionScope.ruolo != true}">
         	<a href="${pageContext.request.contextPath}/unlogged/GetList?type=wishlist" style="text-decoration: none;  ">
 		  		<i class="fa-solid fa-heart" id="wishlist-icon" style="font-size: 35px; color: dimgray;"></i>
 			</a>
@@ -39,7 +39,7 @@
 				  <i class="fa-solid fa-user" id="user-icon" style="font-size: 35px; color: dimgray; cursor: pointer;"></i>
 				  <div class="dropdown-content">
 				   <c:choose>
-				  <c:when test="${sessionScope.ruolo == 1}">
+				  <c:when test="${sessionScope.ruolo == true}">
 				    <a href="${pageContext.request.contextPath}/admin/AdminPanelServlet">Admin Panel</a>
 				    <a href="${pageContext.request.contextPath}/common/logout">Logout</a>
 				  </c:when>

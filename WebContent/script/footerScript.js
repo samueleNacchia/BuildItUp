@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const btn = document.createElement("button");
     btn.id = "scrollToTopBtn";
     btn.title = "Torna su";
-    btn.innerText = "top";
+    btn.innerText = "TOP";
     
     Object.assign(btn.style, {
         display : "none",

@@ -28,19 +28,19 @@ public class roleFilter implements Filter {
         HttpSession session = req.getSession(false);
 
         String path = req.getRequestURI();
-        Integer role = null;
+        Boolean role = null;
 
         // Estrai il ruolo dalla sessione se disponibile
         if (session != null) {
             Object ruoloAttr = session.getAttribute("ruolo");
-            if (ruoloAttr instanceof Integer) {
-                role = (Integer) ruoloAttr;
+            if (ruoloAttr instanceof Boolean) {
+                role = (Boolean) ruoloAttr;
             }
         }
 
         // 1. /unlogged/ → accesso per non loggati o utenti (ruolo 2)
         if (path.contains("/unlogged/")) {
-            if (role == null || role == 2) {
+            if (role == null || role == false) {
 
             	chain.doFilter(request, response);
                 return;
@@ -52,7 +52,7 @@ public class roleFilter implements Filter {
 
         // 2. /admin/ → solo ruolo 1
         if (path.contains("/admin/")) {
-            if (role != null && role == 1) {
+            if (role != null && role == true) {
                 chain.doFilter(request, response);
                 return;
             } else {
@@ -63,7 +63,7 @@ public class roleFilter implements Filter {
 
         // 3. /user/ → solo ruolo 2
         if (path.contains("/user/")) {
-            if (role != null && role == 2) {
+            if (role != null && role == false) {
                 chain.doFilter(request, response);
                 return;
             } else {

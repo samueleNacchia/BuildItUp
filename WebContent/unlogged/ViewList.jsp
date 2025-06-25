@@ -77,7 +77,10 @@
 		                                <c:if test="${type == 'cart'}">
 		                                    <button id="btn-add-${product.id}" class="add" onclick="addItem(${product.id}, 'cart')">+</button>
 		                                </c:if>
-		
+										<c:if test="${type == 'wishlist'}">
+		                                    <button id="btn-add-${product.id}" class="add" onclick="addItem(${product.id}, 'cart')">Aggiungi al carrello</button>
+		                                </c:if>
+									
 		                                <button id="btn-delete-${product.id}" class="delete" onclick="deleteItem(${product.id}, '${type}')">
 		                                    <c:choose>
 		                                        <c:when test="${item.quantity <= 1}"> X </c:when>

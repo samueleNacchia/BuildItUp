@@ -32,7 +32,7 @@ public class LogInServlet extends HttpServlet {
         try {
             admin = new AdminDTO(email, password);
             if (aDAO.isAdmin(admin)) {
-                session.setAttribute("ruolo", 1);
+                session.setAttribute("ruolo", true);
                 response.sendRedirect(request.getContextPath()+"/common/Home");
                 return;
             }
@@ -63,7 +63,7 @@ public class LogInServlet extends HttpServlet {
         	}
         	
         	session.setAttribute("id", user.getId());
-            session.setAttribute("ruolo", 2);
+            session.setAttribute("ruolo", false);
             response.sendRedirect(request.getContextPath()+"/common/Home");
             return; 
         } else {
