@@ -11,7 +11,7 @@
     <style>html{display:none}</style>
     <%@ include file="headerAdmin.jsp" %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AdminPanel	.css?v=<%= System.currentTimeMillis() %>" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AdminPanel.css?v=<%= System.currentTimeMillis() %>" />
 </head>
 <body data-context-path="${pageContext.request.contextPath}">
 	<div class="page-container">

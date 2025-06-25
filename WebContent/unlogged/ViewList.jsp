@@ -21,7 +21,7 @@
         ${titolo}
     </title>
     <style>html{display:none}</style>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     
@@ -60,7 +60,7 @@
 		                        <tr id="product-${product.id}">
 		                            <td data-label="Nome">${product.name}</td>
 		                            <td data-label="Prezzo"><fmt:formatNumber value="${product.price * (1-product.discount)}" maxFractionDigits="2" />€</td>
-		                            <td><img src="<%= request.getContextPath() %>/image?cover=true&id=${product.id}" alt="Immagine ${product.name}" /></td>
+		                            <td><img src="${pageContext.request.contextPath}/image?cover=true&id=${product.id}" alt="Immagine ${product.name}" /></td>
 		
 		                            <c:if test="${type == 'cart'}">
 		                                <td data-label="Quantità" id="quantity-${product.id}">${item.quantity}</td>
@@ -87,7 +87,7 @@
 		                
 		                <c:if test="${type == 'cart'}">
 		                	<div style="text-align: center; margin-top: 20px; transform: scale(1.5)">
-			            		<a id="btn-checkout" href="<%= request.getContextPath()%>/unlogged/GetList?type=cart&to=checkout" style="text-decoration: none;">
+			            		<a id="btn-checkout" href="${pageContext.request.contextPath}/unlogged/GetList?type=cart&to=checkout" style="text-decoration: none;">
 			                		<input class="btn" type="submit" class="update" value="Acquista" />
 			            		</a>
 		            		</div>
@@ -112,13 +112,16 @@
 		            </c:choose>
 		        </p>
 		       
-		        <script src="<%= request.getContextPath() %>/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>
+		        <script src="${pageContext.request.contextPath}/script/AJAX.js?"></script>
 		    </c:if>
 		     
 		</main>
 	</div>
+	
+	
 	<%@ include file="/common/footer.jsp" %>
-	<script src="<%= request.getContextPath()%>/script/indexScript.js">
-	 </script>
+	
+	<script src="${pageContext.request.contextPath}/script/indexScript.js"></script>
+	 
 </body>
 </html>

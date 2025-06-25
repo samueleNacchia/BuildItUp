@@ -6,9 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/LogIn_style.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/LogIn_style.css?v=<%= System.currentTimeMillis() %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
 
 </head>
 <body>
@@ -19,17 +18,17 @@
     <div class="login-container">
         <h2>Accedi</h2>
 
-        <% 
-            String error = request.getParameter("error");
-            String success = request.getParameter("success");
-            if ("1".equals(error)) {
-        %>
-            <div class="error-msg-form">❌ Email o password errati.</div>
-        <% } else if ("1".equals(success)) { %>
-            <div class="success-msg">✅ Registrazione completata. Puoi effettuare il login.</div>
-        <% } %>
+        <c:choose>
+		  <c:when test="${param.error == '1'}">
+		    <div class="error-msg-form">❌ Email o password errati.</div>
+		  </c:when>
+		  <c:when test="${param.success == '1'}">
+		    <div class="success-msg">✅ Registrazione completata. Puoi effettuare il login.</div>
+		  </c:when>
+		</c:choose>
 
-	      <form id="loginForm" action="login" method="post">
+
+	    <form id="loginForm" action="login" method="post">
 	   		 <label for="email">Email:</label>
 			    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
 			    <span id="emailError" class="error-msg"></span>
@@ -46,16 +45,17 @@
         <form action="Register_page.jsp" method="post">
             <button type="submit" class="register-button">Registrati</button>
         </form>
-<script src="${pageContext.request.contextPath}/script/logInScript.js"></script>
+        
+        
+        
+		<script src="${pageContext.request.contextPath}/script/logInScript.js"></script>
 
- 
-    
     </div>
            
  </div>
 
      <footer>
-<%@ include file="footer.jsp" %>
+		<%@ include file="footer.jsp" %>
     </footer>
    
 </body>

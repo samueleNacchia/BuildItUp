@@ -9,10 +9,10 @@
     <style>html{display:none}</style>
     <%@ include file="/common/header.jsp" %>
 
-    <link rel="stylesheet" href="<%= request.getContextPath()%>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <script src="<%= request.getContextPath()%>/script/checkoutValidation.js?v=<%= System.currentTimeMillis() %>"></script>  
+    <script src="${pageContext.request.contextPath}/script/checkoutValidation.js?v=<%= System.currentTimeMillis() %>"></script>  
 
 </head>
 <body>
