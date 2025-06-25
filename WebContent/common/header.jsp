@@ -26,8 +26,8 @@
       	</div>
       
       	<nav class="item nav">
-        	<a class="item-link" href="#">About Us</a>
-        	<a class="item-link" href="#">Contact</a>
+        	<a class="item-link" href="${pageContext.request.contextPath}/common/about.jsp">About Us</a>
+        	<a class="item-link" href="${pageContext.request.contextPath}/common/contact.jsp">Contact</a>
       	</nav>
       
       	<div class="item icons">

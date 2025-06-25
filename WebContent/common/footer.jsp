@@ -16,8 +16,8 @@
         <section id="usrArea">
           <h3>Area Personale</h3>
           <nav>
-            <a class="item-links" href="">Accedi</a><br>
-            <a class="item-links" href="">Registrati</a>
+            <a class="item-links" href="${pageContext.request.contextPath}/common/LogIn_page.jsp">Accedi</a><br>
+            <a class="item-links" href="${pageContext.request.contextPath}/common/Register_page.jsp">Registrati</a>
           </nav>
         </section>
       </article>
@@ -26,11 +26,10 @@
 
       <article>
         <section id="legal">
-          <h3>Informazioni e pagamenti</h3>
+          <h3>Informazioni e extras</h3>
           <nav>
-            <a class="item-links" href="">Trattamento dati personali</a><br>
-            <a class="item-links" href="">Spedizioni e resi</a><br>
-            <a class="item-links" href="">Modalita' di pagamento</a>
+            <a class="item-links" href="${pageContext.request.contextPath}/common/about.jsp">About us</a><br>
+            <a class="item-links" href="${pageContext.request.contextPath}/common/contact.jsp">Contact</a><br>
           </nav>
         </section>
       </article>

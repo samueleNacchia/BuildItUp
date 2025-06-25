@@ -25,12 +25,12 @@
 
 <c:choose>
   <c:when test="${param.status == 'success'}">
-    <h2 class="success">🎉 Iscrizione completata con successo!</h2>
+    <h2 class="success">🎉 Messaggio inviato con successo!</h2>
     <p>Verrai reindirizzato alla home tra pochi secondi...</p>
   </c:when>
   
   <c:otherwise>
-    <h2 class="fail">⚠️ Si è verificato un errore durante l'iscrizione.</h2>
+    <h2 class="fail">⚠️ Si è verificato un errore durante l'invio.</h2>
     <p>Verrai reindirizzato alla home tra pochi secondi...</p>
   </c:otherwise>
 </c:choose>
