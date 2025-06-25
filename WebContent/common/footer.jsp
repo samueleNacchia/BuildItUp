@@ -6,11 +6,6 @@
 </script>
 <footer class="main">
     <section class="items">
-      
-
-      <div class="item logo">
-        <img src="./images/logo.png" id="logo">
-      </div>
 
       <article>
         <section id="usrArea">
