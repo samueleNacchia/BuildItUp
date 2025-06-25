@@ -1,5 +1,8 @@
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_footer.css?v=<%= System.currentTimeMillis() %>">
-  	<script src ="${pageContext.request.contextPath}/script/footerScript.js">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_footer.css?v=<%= System.currentTimeMillis() %>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  	<script src ="<%= request.getContextPath()%>/script/footerScript.js">
+
 </script>
 <footer class="main">
     <section class="items">

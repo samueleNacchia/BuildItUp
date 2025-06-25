@@ -7,7 +7,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrazione</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Register_style.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Register_style.css?v=<%= System.currentTimeMillis() %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
     
 </head>
 <body>

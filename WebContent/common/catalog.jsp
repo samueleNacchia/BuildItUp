@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <c:set var="minPrice" value="${param.minPrice != null ? param.minPrice : 0}" />
 <c:set var="maxPrice" value="${param.maxPrice != null ? param.maxPrice : 1000}" />
 
@@ -13,7 +14,11 @@
     <%@ include file="header.jsp" %>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_catalog.css?v=<%= System.currentTimeMillis() %>">
+
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_catalog.css?v=<%= System.currentTimeMillis() %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
     
@@ -22,18 +27,28 @@
 <body>
     <div class="page-wrapper">
 
+		
         <main class="homepage">
 
             <div class="catalog-layout">
- <br>
-                <section class="filter-bar-horizontal">
-                    <form method="POST" action="CatalogViewer" class="filter-form-horizontal">
-                       
-                       <c:set var="maxPriceDisplay" value="${empty maxPrice ? 1000 : maxPrice}" />
 
-						<label for="price-slider">Prezzo:  &nbsp;&nbsp;</label>
-						<div id="price-slider" data-min="${minPrice}" data-max="${maxPriceDisplay}"></div>
-						<div id="price-values" style="margin-top: 5px; font-size: 14px;"></div>
+            <br><br>
+
+				<button class="filter-toggle-btn">Filtri</button>
+				
+
+                <section class="filter-bar-horizontal">
+
+                    <form method="POST" action="CatalogViewer" class="filter-form-horizontal">
+                        
+                       <label for="price-slider">Prezzo:  &nbsp;&nbsp;</label>
+						<div id="price-slider"
+						     data-min="${minPrice}" 
+						     data-max="${maxPrice}">
+						</div>
+						
+						<div id="price-values" style=""></div>
+
 						
 						<input type="hidden" name="minPrice" id="minPrice" value="${minPrice}">
 						<input type="hidden" name="maxPrice" id="maxPrice" value="${empty maxPrice ? '' : maxPrice}">

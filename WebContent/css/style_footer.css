@@ -97,3 +97,56 @@ section.items {
 #scrollToTopBtn:hover {
   background-color: #1c5254;
 }
+
+
+section.items h3 {
+  color: #5cade2;                     
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+  section.items {
+    flex-direction: column;              
+    align-items: center;
+    gap: 1em;                           
+    text-align: center;
+  }
+
+  .separator {
+    display: none;                      
+  }
+
+  #logo {
+    margin-right: 0;                  
+    margin-bottom: 1em;                
+  }
+
+  footer.main {
+    padding: 1em;                       
+    font-size: 0.9rem;                  
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+  }
+
+  #usrArea, #legal {
+    padding-left: 0;                    
+  }
+
+  .item-links {
+    display: block;                     
+    padding: 0.3em 0;
+    margin: 0.1em 0;
+  }
+}
+
+
+

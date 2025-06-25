@@ -8,8 +8,12 @@
     <title>Riepilogo Ordine</title>
     <style>html{display:none}</style>
     <%@ include file="/common/header.jsp" %>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
-    <script src="${pageContext.request.contextPath}/script/checkoutValidation.js?v=<%= System.currentTimeMillis() %>"></script>  
+
+    <link rel="stylesheet" href="<%= request.getContextPath()%>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="<%= request.getContextPath()%>/script/checkoutValidation.js?v=<%= System.currentTimeMillis() %>"></script>  
+
 </head>
 <body>
 <div class="page-wrapper">
@@ -18,12 +22,7 @@
         <h2>Riepilogo del tuo ordine</h2>
 
         <table>
-            <tr>
-                <th>Prodotto</th>
-                <th>Quantità</th>
-                <th>Prezzo unitario</th>
-                <th>Subtotale</th>
-            </tr>
+           
 
             <c:set var="total" value="0" />
 
@@ -35,10 +34,10 @@
                 <c:set var="total" value="${total + subtotal}" />
 
                 <tr>
-                    <td>${product.name}</td>
-                    <td>${quantity}</td>
-                    <td>€ <fmt:formatNumber value="${price}" maxFractionDigits="2" /></td>
-                    <td>€ <fmt:formatNumber value="${subtotal}" maxFractionDigits="2" /></td>
+                    <td data-label="Nome">${product.name}</td>
+                    <td data-label="Quantità">${quantity}</td>
+                    <td data-label="Prezzo">€ <fmt:formatNumber value="${price}" maxFractionDigits="2" /></td>
+                    <td data-label="Subtotale">€ <fmt:formatNumber value="${subtotal}" maxFractionDigits="2" /></td>
                 </tr>
             </c:forEach>
 
@@ -106,8 +105,10 @@
 		  </div>
 		
 		  <br><br>
+		  
+		  <div id="confirm">
 		  <input class="add" type="submit" value="Conferma ordine">
-		
+		  </div>
 		</form>
 		
 		</div>

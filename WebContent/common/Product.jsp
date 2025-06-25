@@ -15,7 +15,9 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_product.css?v=<%= System.currentTimeMillis() %>">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_product.css?v=<%= System.currentTimeMillis() %>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 </head>
 <body data-context-path="${pageContext.request.contextPath}">
@@ -157,28 +159,7 @@
         
         <h2 id="sezioneRecensioni">Recensioni</h2> <br><br><br>
         <div id="review-wrapper">
-        	
-			    
-			    <c:set var="hasReviewed" value="false" />
 
-				<c:forEach var="entry" items="${recensioni}">
-				    <c:set var="review" value="${entry.key}" />
-				    <c:if test="${review.id_user == userId}">
-				        <c:set var="hasReviewed" value="true" />
-				    </c:if>
-				</c:forEach>
-				<c:if test="${sessionScope.ruolo != true}">
-				<c:if test="${not hasReviewed}">
-				    <div id="write-review-panel">
-				        <h3>Scrivi una recensione</h3>
-				        <p>Hai provato questo prodotto? Lascia la tua opinione!</p>
-				        <a href="${pageContext.request.contextPath}/user/WriteReview.jsp?productId=${prodotto.id}">
-				            <button>Scrivi recensione</button>
-				        </a>
-				    </div>
-				</c:if>
-				</c:if>
-				 
 			    
 			    <div id="reviews-panel">
 				    <c:choose>
@@ -260,7 +241,27 @@
 				        </c:otherwise>
 				    </c:choose>
 				</div>
+				
+				
+				<c:set var="hasReviewed" value="false" />
 
+				<c:forEach var="entry" items="${recensioni}">
+				    <c:set var="review" value="${entry.key}" />
+				    <c:if test="${review.id_user == userId}">
+				        <c:set var="hasReviewed" value="true" />
+				    </c:if>
+				</c:forEach>
+				<c:if test="${sessionScope.ruolo != 1}">
+				<c:if test="${not hasReviewed}">
+				    <div id="write-review-panel">
+				        <h3>Scrivi una recensione</h3>
+				        <p>Hai provato questo prodotto? Lascia la tua opinione!</p>
+				        <a href="${pageContext.request.contextPath}/user/WriteReview.jsp?productId=${prodotto.id}">
+				            <button>Scrivi recensione</button>
+				        </a>
+				    </div>
+				</c:if>
+				</c:if>
 			
         </div>
         

@@ -1,13 +1,18 @@
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_header.css?v=<%= System.currentTimeMillis() %>">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">  
+<<<<<<< HEAD
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_header.css?v=<%= System.currentTimeMillis() %>">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
 
 <header class="tab">
    	<section class="tab-items">
-   		 
-    	<div class="item logo">
-        	<img src="${pageContext.request.contextPath}/images/logo.png" id="logo">
-      	</div>
-      	
+
+   
+    	<div class="burger-menu" id="burger-menu">
+		  <i class="fa-solid fa-bars"></i>
+		</div>
+
+
       	<div class="item title">
         	<span id="sl"><a href="${pageContext.request.contextPath}/common/Home" class="sl">Build It Up!</a>
         	</span>
@@ -63,6 +68,22 @@
       
   	</section>
 </header>
+
+<div class="mobile-menu-overlay" id="mobile-menu-overlay">
+  <div class="mobile-menu-content">
+    <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=GPU">Schede grafiche</a>
+    <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=MOBO">Schede madri</a>
+    <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=CPU">Processori</a>
+    <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=COOLING">Raffreddamento</a>
+    <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=CASE">Case</a>
+    <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=PSU">Alimentatori</a>
+    <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=RAM">RAM</a>
+    <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer?category=MEM">Memorie di massa</a>
+    <a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer">Catalogo</a>
+  </div>
+</div>
+
+
   
 <nav class="subheader">
    	<section class="subh-items">
@@ -77,3 +98,38 @@
       	<a class="item-link" href="${pageContext.request.contextPath}/common/CatalogViewer">Catalogo</a>
   	</section>
 </nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	  const burger = document.getElementById('burger-menu');  // Assicurati che il tuo burger abbia questo id
+	  const overlay = document.getElementById('mobile-menu-overlay');
+
+	  burger.addEventListener('click', function() {
+	    overlay.classList.add('active');
+	  });
+
+	  overlay.addEventListener('click', function(event) {
+	    if (event.target === overlay) {
+	      overlay.classList.remove('active');
+	    }
+	  });
+	});
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    const userIcon = document.getElementById('user-icon');
+    const dropdown = userIcon.closest('.dropdown');
+
+    userIcon.addEventListener('click', function(event) {
+      event.stopPropagation();  // Previene chiusure accidentali
+      dropdown.classList.toggle('open');
+    });
+
+    // Chiudi il dropdown se clicchi fuori
+    document.addEventListener('click', function(event) {
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+  });
+  
+</script>

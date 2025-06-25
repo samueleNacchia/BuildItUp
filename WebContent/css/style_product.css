@@ -100,6 +100,51 @@
       transition: background-color 0.2s;
     }
     
+    
+    @media (max-width: 680px) {
+    
+	    .product-wrapper {
+	        flex-direction: column;        
+	        padding: 3%;                  
+	    }
+	
+	    .swiper {
+	        width: 100%;
+	        height: auto;                 
+	        margin-bottom: 20px;
+	    }
+	
+	    img {
+	        height: auto;                 
+	        max-height: 400px;           
+	        object-fit: contain;
+	    }
+	
+	    .product-details {
+	        max-width: 100%;             
+	        padding: 0;                   
+	        gap: 10px;                   
+	    }
+	
+	 
+	    #review-wrapper {
+	        flex-direction: column;       
+	        gap: 20px;
+	    }
+	
+	    #write-review-panel,
+	    #reviews-panel {
+	        width: 100%;                  
+	        margin: 0;
+	        padding: 10px;
+	    }
+	
+	    #reviews-data-panel {
+	        margin-right: 0;
+	    }
+}
+    
+    
     .toast {
 	  position: fixed;
 	  bottom: 20px;
@@ -128,7 +173,7 @@
 	
 	
 	.swiper {
-	  width: 50%;
+	  width: 65%;
 	  height: 400px;
 	  margin-bottom: 30px;
 	}
@@ -150,40 +195,63 @@
 	}
 	
 	
-	#review-wrapper{
-		display: flex; 
-		justify-content: space-between; 
-		align-items: flex-start;
-		gap: 3%;
+#review-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 3%;
+}
+
+#reviews-panel {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#write-review-panel {
+    width: 15%;
+    border: 1px solid #ddd; 
+    padding: 0;
+    border-radius: 8px;
+    margin-left: 2%;
+}
+
+#reviews-data-panel {
+        margin-left: 5%;
+        border: 1px solid #ddd; 
+    }
+
+@media (max-width: 620px) {
+
+    #review-wrapper {
+        flex-direction: column;
+        gap: 3%;
+    }
+
+    #reviews-panel {
+        width: 100%;
+        margin: 0;
+    }
+
+    #write-review-panel {
+        width: 100%;
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    #reviews-data-panel {
+        margin-right: 7%;
+        border: 1px solid #ddd; 
+    }
+    
+    #reviews-data-panel p {
+	    font-size: 1.2em;
+	    word-wrap: break-word;       
+	    overflow-wrap: break-word;   
+	    white-space: normal;        
 	}
-	
-	
-	#write-review-panel{
-		width: 15%; 
-		border: 1px solid #ccc;
-		padding: 15px; 
-		border-radius: 8px;
-		margin-left: 2%;
-	}
-	
-	
-	#reviews-panel{
-		width: 80%;
-		margin: 0 auto;
-	}
-	
-	#reviews-data-panel{
-		border: 1px solid #ddd; 
-		margin-bottom: 15px; 
-		padding: 10px; 
-		border-radius: 6px;
-		margin-right: 5%;
-	}
-	
-	#reviews-data-panel p{
-		font-size: 1.2em;
-	}
-	
+    
+}
+
 	
 	#reviews-data {
 	    display: flex;
@@ -278,7 +346,7 @@
 	
 	
 	.swiper-placeholder {
-	  width: 50%;        
+	  width: 65%;        
 	  height: 400px;      
 	  display: flex;
 	  justify-content: center;

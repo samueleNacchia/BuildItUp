@@ -22,6 +22,8 @@
     </title>
     <style>html{display:none}</style>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     
 </head>
 
@@ -51,26 +53,17 @@
 		            </c:when>
 		            <c:otherwise>
 		                <table id="product-table">
-		                    <tr>
-		                        <th>Nome</th>
-		                        <th>Prezzo</th>
-		                        <th>Immagine</th>
-		                        <c:if test="${type == 'cart'}">
-		                            <th>Quantità</th>
-		                        </c:if>
-		                        <th>Azioni</th>
-		                    </tr>
-		
+		                    
 		                    <c:forEach var="item" items="${items}">
 		                        <c:set var="product" value="${item.product}" />
 		                        
 		                        <tr id="product-${product.id}">
-		                            <td>${product.name}</td>
-		                            <td><fmt:formatNumber value="${product.price * (1-product.discount)}" maxFractionDigits="2" />€</td>
+		                            <td data-label="Nome">${product.name}</td>
+		                            <td data-label="Prezzo"><fmt:formatNumber value="${product.price * (1-product.discount)}" maxFractionDigits="2" />€</td>
 		                            <td><img src="<%= request.getContextPath() %>/image?cover=true&id=${product.id}" alt="Immagine ${product.name}" /></td>
 		
 		                            <c:if test="${type == 'cart'}">
-		                                <td id="quantity-${product.id}">${item.quantity}</td>
+		                                <td data-label="Quantità" id="quantity-${product.id}">${item.quantity}</td>
 		                            </c:if>
 		
 		                            <td>
@@ -93,13 +86,17 @@
 		                </table>
 		                
 		                <c:if test="${type == 'cart'}">
-		            		<a id="btn-checkout" href="<%= request.getContextPath()%>/unlogged/GetList?type=cart&to=checkout" style="text-decoration: none;">
-		                		<input class="btn" type="submit" class="update" value="Acquista" />
-		            		</a>
+		                	<div style="text-align: center; margin-top: 20px; transform: scale(1.5)">
+			            		<a id="btn-checkout" href="<%= request.getContextPath()%>/unlogged/GetList?type=cart&to=checkout" style="text-decoration: none;">
+			                		<input class="btn" type="submit" class="update" value="Acquista" />
+			            		</a>
+		            		</div>
 		       			</c:if>
 		       			
 		            </c:otherwise>
 		        </c:choose>
+		        
+		        <br><br>
 		
 		        <p id="empty-message" style="display: none;">
 		            <c:choose>

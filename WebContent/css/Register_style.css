@@ -21,15 +21,18 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
     width: 420px;
-    margin: auto ;
+    max-width: 90%;   
+    margin: auto;
     margin-bottom: 3%;
     margin-top: 3%;
+    box-sizing: border-box;
 }
 
 h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #2e2e2e;
+    font-size: 1.6em;
 }
 
 label {
@@ -47,7 +50,6 @@ label {
     margin-bottom: 10px;
     font-weight: 600;
 }
-
 
 .error-top {
     background-color: #ffe0e0;
@@ -68,19 +70,24 @@ input[type="email"] {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    font-size: 1em;
 }
 
-button.reg {
+button.reg,
+.log {
     width: 100%;
     padding: 12px;
-    background-color: #4CAF50;
-    color: white;
     border: none;
     border-radius: 6px;
-    font-size: 15px;
+    font-size: 1em;
     cursor: pointer;
     margin-top: 10px;
     transition: background-color 0.3s;
+}
+
+button.reg {
+    background-color: #4CAF50;
+    color: white;
 }
 
 button.reg:hover {
@@ -88,23 +95,34 @@ button.reg:hover {
 }
 
 .log {
-	width: 100%;
-    padding: 12px;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s;
     background-color: #5b55ed;
+    color: white;
 }
 
 .log:hover {
     background-color: #423eb3;
 }
 
-/* Assicura che il footer stia sempre in fondo */
 footer {
     margin-top: auto;
+}
+
+@media (max-width: 500px) {
+    .register-container {
+        padding: 20px;           
+        width: 95%;              
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    button.reg,
+    .log {
+        font-size: 0.95em;
+        padding: 10px;
+    }
 }

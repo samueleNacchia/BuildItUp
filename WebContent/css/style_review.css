@@ -101,7 +101,53 @@
 }
 
 .star-rating label::before {
-    content: "\2605"; /* stella piena unicode */
+    content: "\2605"; 
 }
+
+
+
+@media (max-width: 768px) {
+    
+    .review-form-container {
+        width: 90%;                    
+        padding: 20px;
+    }
+
+    .review-form button {
+        width: 80%;                    
+        font-size: 15px;
+    }
+
+    .star-rating label {
+        font-size: 24px;              
+        padding: 0 3px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .review-form-container {
+        padding: 15px;
+    }
+
+    .review-form textarea {
+        font-size: 13px;               
+    }
+
+    .review-form button {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .star-rating {
+        flex-wrap: wrap;               
+    }
+
+    .star-rating label {
+        font-size: 22px;
+    }
+}
+
 
 	

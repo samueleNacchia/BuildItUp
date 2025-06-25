@@ -1,3 +1,5 @@
+
+
 window.addEventListener("load", function () {
     document.documentElement.style.display = "block";
 
@@ -49,17 +51,25 @@ window.addEventListener("load", function () {
             maxInput.value = max;
         }
     });
+	
+	const toggleButton = document.querySelector('.filter-toggle-btn');
+	const filterPanel = document.querySelector('.filter-bar-horizontal');
 
-    let sliderMoved = false;
-    slider.noUiSlider.on('change', function () {
-        sliderMoved = true;
-    });
+	if (toggleButton && filterPanel) {
+		    toggleButton.addEventListener('click', function() {
+		        filterPanel.classList.toggle('open');
+		    });
 
-    if (form) {
-        form.addEventListener('submit', function () {
-            if (!sliderMoved && maxPriceRaw === '') {
-                maxInput.value = '';
-            }
-        });
-    }
+		    // Questo serve per chiudere cliccando fuori
+		    document.addEventListener('click', function(event) {
+		        if (filterPanel.classList.contains('open') &&
+		            !filterPanel.contains(event.target) &&
+		            !toggleButton.contains(event.target)) {
+		            filterPanel.classList.remove('open');
+		        }
+		    });
+		}
 });
+
+
+

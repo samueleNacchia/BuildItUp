@@ -56,13 +56,17 @@ main {
 
 
 .product-card {
-  	background-color: #fff;
-  	border-radius: 8px;
-  	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  	width: 180px;
-  	padding: 1rem;
-  	text-align: center;
-  	transition: transform 0.2s;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  height: 200px; 
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
 }
 
 .product-card:hover {
@@ -73,12 +77,15 @@ main {
   	width: 100%;
   	height: auto;
   	border-radius: 4px;
+  	height: 200px;  
+  	object-fit: cover;
 }
 
 .product-card h3 {
   	margin: 0.5rem 0;
   	font-size: 1.1rem;
   	color: #333;
+  	flex-shrink: 0;
 }
 
 .product-card .discount {
@@ -125,41 +132,53 @@ main {
 }
 
 #newsletter form {
-  	display: flex;
-  	align-items: center;
-  	gap: 1rem;
-  	background-color: #f2f2f2;
-  	padding: 1rem 2rem;
- 	border-radius: 8px;
-}
-
-.newsletter-text {
-  	font-size: 1.1rem;
-  	font-weight: bold;
-  	white-space: nowrap; 
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #f2f2f2;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 100%;        
+    box-sizing: border-box;
+    flex-wrap: wrap;    
 }
 
 #newsletter input[type="email"] {
-  	flex: 1;
-  	min-width: 250px;
-  	padding: 0.6rem 0.8rem;
-  	border-radius: 4px;
-  	border: 1px solid #ccc;
+    flex: 1;
+    min-width: 200px;  
+    padding: 0.6rem 0.8rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
-#newsletter input[type="submit"]{
-  	width: auto;
-  	height: auto;
-  	font-size: 1.2rem;
-  	line-height: 1;
-  	background-color: #007bff;
-  	color: white;
-  	border: none;
-  	border-radius: 6px;
-  	cursor: pointer;
-  	padding: 10px 18px;
-  	display: block;
-  	margin: 15px auto;
+#newsletter input[type="submit"] {
+    font-size: 1.1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 10px 18px;
+    display: block;
+    margin: 0;   
+}
+
+#newsletter input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    #newsletter form {
+        flex-direction: column;   
+        align-items: stretch;     
+    }
+
+    #newsletter input[type="email"],
+    #newsletter input[type="submit"] {
+        width: 100%;
+    }
 }
 
 #newsletter button:hover {

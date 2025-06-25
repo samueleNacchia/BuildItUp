@@ -10,11 +10,16 @@
 	
 	
 	 <%@ include file="header.jsp" %>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_index.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style_index.css?v=<%= System.currentTimeMillis() %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
 </head>
 <body>
 	<div class="page-wrapper">
 	    <main class="homepage">
+	    
+	    
 			<c:if test="${not empty scontati}">
 	        
 	            <div id="discounts">
@@ -28,7 +33,7 @@
 						
 						        <c:choose>
 						            <c:when test="${not empty coverImage}">
-						                <img src="image?id=${coverImage.id}" alt="Immagine di copertina" />
+						                <img src="<%= request.getContextPath() %>/image?id=${coverImage.id}" alt="Immagine di copertina" />
 						            </c:when>
 						            <c:otherwise>
 						                <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
