@@ -3,9 +3,9 @@ html, body {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow-x: hidden;
+    overflow-x: auto;
     font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #f4f6f8;
+    background-color: #f4f4f4;
     color: #333;
 }
 
@@ -107,8 +107,10 @@ form input[type="text"],
 form input[type="number"],
 form select,
 form textarea {
-    width: 100%;
+    width: 80%;
     padding: 10px;
+    margin-left: 3%;
+    margin-right:3%;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -130,9 +132,10 @@ form textarea {
 }
 
 table {
-    width: 90%;
-    max-width: 1200px;
-    margin: 30px auto;
+    width: 80vw;
+    max-width: 80vw;
+	margin : auto;
+	margin-left: -2%;
     border-collapse: collapse;
     background-color: #ffffff;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
@@ -154,10 +157,7 @@ th {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-.col
-{
-	width: 5%;
-}
+
 tr:nth-child(even) {
     background-color: #f2f4f7;
 }
@@ -245,61 +245,83 @@ input[type="checkbox"] {
         flex-direction: column;
     }
 }
-.catalog-table {
-    width: 85%;
-    max-width: 1100px;
-    margin: 30px auto;
-    border-collapse: collapse;
+.col 
+{
+	max-width:5vw;
+}
+.rid 
+{
+	max-width: 3vw;
+}
+.rid input
+{
+	max-width: 4vw;
+}
+/* FORM SOLO FUORI DALLA TABELLA */
+.page-container > main > form {
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
     background-color: #ffffff;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    padding: 24px;
     border-radius: 8px;
-    overflow: hidden;
-    table-layout: fixed; /* Controlla le larghezze in modo preciso */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    
 }
 
-.catalog-table th {
+.page-container > main > form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 1rem;
+
+    }
+
+.page-container > main > form input[type="text"],
+.page-container > main > form input[type="number"],
+.page-container > main > form select,
+.page-container > main > form textarea,
+.page-container > main > form input[type="file"] {
+    width: 94%;
     padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #e0e0e0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.catalog-table td {
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #e0e0e0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    margin-top: 5px;
+    margin-left: 3%;
+    margin-right:3%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
 }
 
-/* Colonne strette */
-.catalog-table .col {
-    width: 4%;
+.page-container > main > form input:focus,
+.page-container > main > form select:focus,
+.page-container > main > form textarea:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52,152,219,0.3);
 }
 
-
-.catalog-table th {
-    background-color: #2980b9;
-    color: white;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+.page-container > main > form textarea {
+    resize: vertical;
+    min-height: 100px;
 }
 
-.catalog-table tr:nth-child(even) {
-    background-color: #f2f4f7;
+.page-container > main > form button,
+.page-container > main > form input[type="submit"] {
+    align-self: flex-start;
+    margin-top: 10px;
 }
 
-.catalog-table tr:hover {
-    background-color: #e6f0fa;
+.page-container > main > form .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.catalog-table img {
-    max-width: 70px;
-    max-height: 35px;
-    object-fit: contain;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-}

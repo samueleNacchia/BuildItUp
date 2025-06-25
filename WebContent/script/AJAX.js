@@ -62,8 +62,8 @@ function UpdateOrdersTableJSON(response) {
     if (response.success && response.functionName === "searchOrders") {
 	
         const orders = response.orders;
-        const tableBody = document.getElementById("order-table-body"); // tbody dentro la tabella
-        tableBody.innerHTML = ""; // pulisce la tabella
+        const tableBody = document.getElementById("order-table-body"); 
+        tableBody.innerHTML = ""; 
 
         if (orders.length === 0) {
             tableBody.innerHTML = `<tr><td colspan="6">Nessun ordine trovato.</td></tr>`;
@@ -128,7 +128,7 @@ function addToList(productId, type, quantity) {
         
 		if (response.success) {
 			
-			showToast(`Prodotto aggiunto ${type === "cart" ? "al carrello" : "alla lista"}!`, false);
+			showToast(`Prodotto aggiunto ${type === "cart" ? "al carrello" : "alla wishlist"}!`, false);
 			
 		} else {
 		       
@@ -140,7 +140,7 @@ function addToList(productId, type, quantity) {
 }
 
 function addItem(productId, type) {
-	// previeni doppi click se già disabilitato
+	
     const button = document.getElementById("btn-add-" + productId);
     if (button.disabled) return; 
 
@@ -186,11 +186,12 @@ function UpdateQuantityJSON(response, productId) {
         if (productRow && response.deleted) {
             productRow.remove();
 
-            if (table && table.rows.length <= 1) { // Solo intestazione rimasta
-                table.remove();
-                if (emptyMessage) emptyMessage.style.display = "block";
-                if (btnCheckout) btnCheckout.style.display = "none";
-            }
+			if (table && table.rows.length <= 1) { 
+			    table.remove();
+			    if (emptyMessage) emptyMessage.style.display = "block";
+			    if (btnCheckout) btnCheckout.style.display = "none";
+			}
+
         }
     }
 }

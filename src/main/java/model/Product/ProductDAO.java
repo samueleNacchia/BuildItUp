@@ -309,14 +309,15 @@ public class ProductDAO {
         if (minPrice != null) query.append(" AND price >= ?");
         if (maxPrice != null) query.append(" AND price <= ?");
         if (name != null && !name.isEmpty()) query.append(" AND name LIKE ?");
+        
         if (order != null) {
-        	if (order.compareTo("priceASC")==0) query.append(" ORDER BY price ASC");
-        	else if (order.compareTo("priceDESC")==0) query.append(" ORDER BY price DESC");
-        	else if (order.compareTo("avgRate") == 0) query.append(" ORDER BY avgReview DESc");
-        } else if ("discounts".equalsIgnoreCase(type)) {
-            query.append(" ORDER BY discount DESC");
-        }
-
+            switch (order) {
+                case "priceASC": query.append(" ORDER BY price ASC"); break;
+                case "priceDESC": query.append(" ORDER BY price DESC"); break;
+                case "avgRate": query.append(" ORDER BY avgReview DESC"); break;
+                default: if ("discounts".equalsIgnoreCase(type)) query.append(" ORDER BY discount DESC"); break;
+            }
+        } else if ("discounts".equalsIgnoreCase(type)) query.append(" ORDER BY discount DESC");
         
         // Gestione LIMIT e OFFSET
         if (pageSize > 0 && page > 0) {
