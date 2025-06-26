@@ -87,6 +87,15 @@ h1 {
   transition: background-color 0.3s ease;
 	
 }
+.ordine-box img
+{
+  	width: 35%;
+  	height: auto;
+  	border-radius: 4px;
+  	height: 200px;  
+  	object-fit: contain; 
+}
+
 form.update {
   margin-top: 20px;
   text-align: center;

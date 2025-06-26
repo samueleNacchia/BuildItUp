@@ -48,7 +48,9 @@
                 <c:forEach var="item" items="${items}">
                     <c:set var="product" value="${item.product}" />
                     <tr id="product-${product.id}">
-                        <td data-label="Nome">${product.name}</td>
+                        <td data-label="Nome"> <strong><a href="${pageContext.request.contextPath}/common/productDetails?id=${product.id}" style="text-decoration: none; color: #000000; font-size: 1.1em;">
+                                                ${product.name}
+                                            </a></strong></td>
                         <td data-label="Prezzo"><fmt:formatNumber value="${product.price * (1-product.discount)}" maxFractionDigits="2" />€</td>
                         <td><img src="<%= request.getContextPath() %>/image?cover=true&id=${product.id}" alt="Immagine ${product.name}" /></td>
 
@@ -59,7 +61,6 @@
                         <td>
                             <c:if test="${type == 'cart'}">
                                 <button id="btn-add-${product.id}" class="add" onclick="addItem(${product.id}, 'cart')">+</button>
-                                <button id="btn-addToWishlist-${product.id}" class="add" onclick="addToList(${product.id}, 'wishlist',1)">Aggiungi alla wishlist</button>
                             </c:if>
                             <c:if test="${type == 'wishlist'}">
                                 <button id="btn-add-${product.id}" class="add" onclick="addToList(${product.id}, 'cart',1)">Aggiungi al carrello</button>
@@ -71,6 +72,8 @@
                                     <c:otherwise> - </c:otherwise>
                                 </c:choose>
                             </button>
+                          	<button id="btn-addToWishlist-${product.id}" class="add" onclick="addToList(${product.id}, 'wishlist',1)">Aggiungi alla wishlist</button>
+                            
                         </td>
                     </tr>
                 </c:forEach>

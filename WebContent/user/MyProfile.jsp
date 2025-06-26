@@ -84,11 +84,17 @@
                             <c:set var="productsOrder" value="${prodottiPerOrdine[ordine.id]}" />
                             <c:forEach var="pr" items="${productsOrder}">
                                 <c:set var="product" value="${prodotti[pr.id_product]}" />
+                                 <c:set var="coverImage" value="${coverImages[product.id]}" />
                                 <div class="product-item">
-                                    <img class="product-image"
-                                         src="ViewImage?id=${pr.id_product}"
-                                         alt="${product.name}"
-                                         width="100" height="100" />
+                                    <c:choose>
+			                            <c:when test="${not empty coverImage}">
+			                                <img src="${pageContext.request.contextPath}/image?id=${coverImage.id}" alt="Immagine di copertina" />
+			                            </c:when>
+			                            <c:otherwise>
+			                                <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
+			                            </c:otherwise>
+			                        </c:choose>
+			
                                     <div class="product-info">
                                         <p><strong>Nome:
                                             <a href="${pageContext.request.contextPath}/common/productDetails?id=${product.id}" style="text-decoration: none; color: #000000; font-size: 1.1em;">
