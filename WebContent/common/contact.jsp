@@ -85,7 +85,9 @@
 	        
 	        <form action="${pageContext.request.contextPath}/ContactServlet" method="post">
 	        
-	            <input type="email" name="email" placeholder="La tua email" required>
+	            <label for="email">Email:</label>
+			    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+			    <span id="emailError" class="error-msg"></span>
 	            <textarea name="message" placeholder="Il tuo messaggio" rows="6" maxlength="500" required></textarea>
 	            <button type="submit">Invia</button>
 	            
@@ -93,7 +95,7 @@
 	        
 	    </div>
 	</main>
-
+	<script src="${pageContext.request.contextPath}/script/logInScript.js"></script>
 	<%@ include file="footer.jsp" %>
 </body>
 </html>

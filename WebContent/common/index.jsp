@@ -179,8 +179,9 @@
 	  
 	    <div id="newsletter">
 	        <form method="POST" action="${pageContext.request.contextPath}/common/SignToNewsletter">
-	            <label for="email">Iscriviti alla newsletter</label>
-	            <input type="email" id="email" name="email">
+	            <label for="email">Email:</label>
+			    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+			    <span id="emailError" class="error-msg"></span>
 	            <input type="submit">
 	        </form>
 	    </div>
@@ -188,5 +189,6 @@
 	
 	<%@ include file="footer.jsp" %>
 	<script src="${pageContext.request.contextPath}/script/indexScript.js"></script>
+	<script src="${pageContext.request.contextPath}/script/logInScript.js"></script>
 </body>
 </html>
