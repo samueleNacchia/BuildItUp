@@ -107,12 +107,6 @@ section.items h3 {
   letter-spacing: 0.05em;
 }
 
-
-
-
-
-
-
 @media (max-width: 768px) {
   section.items {
     flex-direction: column;              
