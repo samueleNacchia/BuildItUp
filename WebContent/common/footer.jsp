@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_footer.css?v=<%= System.currentTimeMillis() %>" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_footer.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <footer class="main">

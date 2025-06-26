@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrazione</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Register_style.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Register_style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
 
@@ -82,7 +82,7 @@
         
         
         
-		<script src="${pageContext.request.contextPath}/script/registerScript.js?v=<%= System.currentTimeMillis() %>"></script>
+		<script src="${pageContext.request.contextPath}/script/registerScript.js"></script>
        
     </div>
       <%@ include file="footer.jsp" %>

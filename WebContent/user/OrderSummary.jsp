@@ -8,7 +8,7 @@
     <title>Conferma Ordine</title>
     <style>html{display:none}</style>
     <%@ include file="/common/header.jsp" %>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_summary.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_summary.css">
 </head>
 <body>
     <div class="page-wrapper">

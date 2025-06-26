@@ -90,11 +90,6 @@
 	    -webkit-appearance: none;
 	    margin: 0;
 	}
-	
-	input[type=number] {
-	    -moz-appearance: textfield;
-	}
-    
 
     .quantity-selector input {
       width: 50px;
@@ -132,48 +127,7 @@
     }
     
     
-    @media (max-width: 680px) {
-    
-	    .product-wrapper {
-	        flex-direction: column;        
-	        padding: 3%;                  
-	    }
-	
-	    .swiper {
-	        width: 100%;
-	        height: auto;                 
-	        margin-bottom: 20px;
-	    }
-	
-	    img {
-	        height: auto;                 
-	        max-height: 400px;           
-	        object-fit: contain;
-	    }
-	
-	    .product-details {
-	        max-width: 100%;             
-	        padding: 0;                   
-	        gap: 10px;                   
-	    }
-	
-	 
-	    #review-wrapper {
-	        flex-direction: column;       
-	        gap: 20px;
-	    }
-	
-	    #write-review-panel,
-	    #reviews-panel {
-	        width: 100%;                  
-	        margin: 0;
-	        padding: 10px;
-	    }
-	
-	    #reviews-data-panel {
-	        margin-right: 0;
-	    }
-	}
+   
     
     
  .toast {
@@ -220,10 +174,15 @@
 	}
 	
 	:root {
-  		--swiper-navigation-color: #297678;
-  		--swiper-pagination-color: #297678;
+  		--swiper-navigation-color: #003559;
+  		--swiper-pagination-color: #003559;
 	}
 	
+	span{
+		display: inline-flex; 
+		align-items: center; 
+		gap: 8px;	
+	}
 	
 	#review-wrapper {
 	    display: flex;
@@ -235,22 +194,72 @@
 	#reviews-panel {
 	    width: 80%;
 	    margin: 0 auto;
+	    border: none;
 	}
 
 	#write-review-panel {
 	    width: 15%;
 	    border: 1px solid #ddd; 
-	    padding: 0;
+	    padding: 15px;
 	    border-radius: 8px;
 	    margin-left: 2%;
+	    margin-right: 10%;
+	    margin-bottom: 5%;
 	}
 
 	#reviews-data-panel {
-	        margin-left: 5%;
-	        border: 1px solid #ddd; 
+	   	margin-left: 10%;
+	   	margin-right: 5%;
+	   	margin-top: 10px;
+	   	border-top: 1px solid #ddd; 
+	}
+	
+	
+	 @media (max-width: 850px) {
+    
+    	.action-buttons button {
+		   	min-width: 100px;
+		  	padding: 5px 10px;
+		   	font-size: 14px;
+		}
+	
+		#write-review-panel {
+	        width: 30%;
 	    }
+	
+	    #reviews-data-panel {
+	    	margin-left: 2%;
+		   	margin-right: 2%;
+		   	margin-top: 10px;
+		}
+	}
+	
+	
 
-	@media (max-width: 620px) {
+	@media (max-width: 600px) {
+	
+		.product-wrapper {
+	        flex-direction: column;        
+	        padding: 3%;                  
+	    }
+	
+	    .swiper {
+	        width: 100%;
+	        height: auto;                 
+	        margin-bottom: 20px;
+	    }
+	
+	    img {
+	        height: auto;                 
+	        max-height: 400px;           
+	        object-fit: contain;
+	    }
+	
+	    .product-details {
+	        max-width: 100%;             
+	        padding: 0;                   
+	        gap: 10px;                   
+	    }
 
 	    #review-wrapper {
 	        flex-direction: column;
@@ -258,23 +267,23 @@
 	    }
 
 	    #reviews-panel {
-	        width: 100%;
-	        margin: 0;
+	        width: 90%;
 	    }
 
 	    #write-review-panel {
-	        width: 100%;
-	        margin-left: 0;
+	        width: 90%;
+	        margin: 2%;
 	        padding: 10px;
 	    }
 
 	    #reviews-data-panel {
-	        margin-right: 7%;
-	        border: 1px solid #ddd; 
+	    	margin: 0%;
+	        margin-top: 2%;
+	        margin-bottom: 2%;
 	    }
 	    
 	    #reviews-data-panel p {
-		    font-size: 1.2em;
+		    font-size: 1.1em;
 		    word-wrap: break-word;       
 		    overflow-wrap: break-word;   
 		    white-space: normal;        
@@ -299,7 +308,7 @@
 	}
 	
 	#write-review-panel button {
-		background-color: #263238;
+		background-color: #004ba8;
 		color: white;
 		border: none;
 		padding: 10px 20px;
@@ -309,7 +318,7 @@
 	}
 	
 	#write-review-panel button:hover {
-		background-color: #297678;
+		background-color: #003559;
 	}
 	
 	

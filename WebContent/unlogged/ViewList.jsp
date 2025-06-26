@@ -21,7 +21,7 @@
         ${titolo}
     </title>
     <style>html{display:none}</style>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_list.css?v=<%= System.currentTimeMillis() %>">  
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_list.css">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -142,14 +142,14 @@
 }
 </script>
 
-        <script src="<%= request.getContextPath() %>/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>
+        <script src="${pageContext.request.contextPath}/script/AJAX.js"></script>
     </main>
     <div id="toast" class="toast">Prodotto aggiunto!</div>
 
 <%@ include file="/common/footer.jsp" %>
  </div>
 
-<script src="<%= request.getContextPath()%>/script/indexScript.js"></script>
+<script src="${pageContext.request.contextPath}/script/indexScript.js"></script>
 
 </body>
 </html>

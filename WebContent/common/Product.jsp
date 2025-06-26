@@ -15,7 +15,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_product.css?v=<%= System.currentTimeMillis() %>">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_product.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
@@ -158,10 +158,7 @@
     			</c:choose>
 			</div>
         </div>
-        
-        <br><br><br>
-        
-        <h2 id="sezioneRecensioni">Recensioni</h2> <br><br><br>
+        <h2 id="sezioneRecensioni">Recensioni</h2> 
         <div id="review-wrapper">
 
 			    
@@ -189,7 +186,15 @@
 										
 										
 				                        <div id="reviews-data">
-				                        	<span>(La tua recensione)</span><br>
+				                        	<span>(La tua recensione)
+											  <form action="${pageContext.request.contextPath}/user/DeleteReviewServlet" method="post">
+											    <input type="hidden" name="productId" value="${prodotto.id}" />
+											    <button type="submit" title="Elimina recensione" id="delreview" style="background: none; border: none; cursor: pointer;">
+											      <i class="fa-solid fa-trash" style="color: red;"></i>
+											    </button>
+											  </form>
+											</span>
+											
 				                            <span class="stars">
 				                                <c:forEach begin="1" end="5" var="i">
 				                                    <i class="fa-star <c:out value='${i <= review.vote ? "fas" : "far"}'/>"></i>
@@ -203,13 +208,7 @@
 				                        </span>
 				
 				                        <p>${review.text}</p>
-				                        
-				                        <form action="${pageContext.request.contextPath}/user/DeleteReviewServlet" method="post" style="text-align: right;">
-								            <input type="hidden" name="productId" value="${prodotto.id}" />
-								            <button type="submit" title="Elimina recensione" id="delreview">
-								                <i class="fa-solid fa-trash" style="color: red"></i>
-								            </button>
-								        </form>
+    
 				                    </div>
 				                </c:if>
 				            </c:forEach>

@@ -10,7 +10,7 @@
 	
 	
 	<%@ include file="header.jsp" %>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_index.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
 
