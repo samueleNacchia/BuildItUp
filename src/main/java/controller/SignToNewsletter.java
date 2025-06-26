@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 
-@WebServlet("/unlogged/SignToNewsletter")
+@WebServlet("/common/SignToNewsletter")
 public class SignToNewsletter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,19 +27,19 @@ public class SignToNewsletter extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         if (email == null || email.isEmpty()) { 
-        	response.sendRedirect(request.getContextPath() + "/unlogged/newsletter-status.jsp?status=fail");
+        	response.sendRedirect(request.getContextPath() + "/common/newsletter-status.jsp?status=fail");
         	return;
         }
 
         try {
             NewsletterDTO nl = new NewsletterDTO(email); 
             dao.save(nl);
-            response.sendRedirect(request.getContextPath() + "/unlogged/newsletter-status.jsp?status=success");
+            response.sendRedirect(request.getContextPath() + "/common/newsletter-status.jsp?status=success");
             return;
             
 		}catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/unlogged/newsletter-status.jsp?status=fail");
+            response.sendRedirect(request.getContextPath() + "/common/newsletter-status.jsp?status=fail");
             return;
         }  
     }

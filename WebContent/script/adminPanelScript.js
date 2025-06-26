@@ -102,3 +102,56 @@ function showToast(message) {
 				    });
 
 				});
+				
+				
+let imagesColumnVisible = false;
+
+function toggleImages(productId) {
+	const imageDiv = document.getElementById('images-' + productId);
+	
+	if (imageDiv) {
+		imageDiv.classList.toggle('hidden');
+	}
+
+	const allImagesColumns = document.querySelectorAll('.images-column');
+	const imagesHeader = document.getElementById('images-header');
+
+	if (!imagesColumnVisible) {
+				        
+		allImagesColumns.forEach(function(el) {
+			el.classList.remove('hidden-column');
+		});
+	
+		if (imagesHeader) {
+			imagesHeader.classList.remove('hidden-column');
+		}
+	
+		imagesColumnVisible = true;
+	} else {
+		
+			let anyVisible = false;
+			document.querySelectorAll('.images-section').forEach(function(section) {
+				if (!section.classList.contains('hidden')) {
+					anyVisible = true;
+				}
+			});
+
+			if (!anyVisible) {
+				allImagesColumns.forEach(function(el) {
+					el.classList.add('hidden-column');
+				});
+				
+				if (imagesHeader) {
+					imagesHeader.classList.add('hidden-column');
+				}
+				
+				imagesColumnVisible = false;
+			}
+			
+		}
+
+}
+	
+				
+				
+				

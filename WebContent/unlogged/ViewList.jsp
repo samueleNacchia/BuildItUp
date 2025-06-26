@@ -56,7 +56,7 @@
                             <td data-label="Quantità" id="quantity-${product.id}">${item.quantity}</td>
                         </c:if>
 
-                        <td>
+                        <td class="action-buttons">
                             <c:if test="${type == 'cart'}">
                                 <button id="btn-add-${product.id}" class="add" onclick="addItem(${product.id}, 'cart')">+</button>
                                 <button id="btn-add-${product.id}" class="add" onclick="addToList(${product.id}, 'wishlist',1)">Aggiungi alla wishlist</button>
@@ -67,7 +67,7 @@
 
                             <button id="btn-delete-${product.id}" class="delete" onclick="deleteItem(${product.id}, '${type}')">
                                 <c:choose>
-                                    <c:when test="${item.quantity <= 1}"> X </c:when>
+                                    <c:when test="${item.quantity <= 1}"> x </c:when>
                                     <c:otherwise> - </c:otherwise>
                                 </c:choose>
                             </button>

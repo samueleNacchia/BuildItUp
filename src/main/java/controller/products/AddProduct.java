@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import controller.functions.MailService;
 import model.Category;
 import model.Product.*;
 import model.ProductImage.*;
@@ -47,13 +48,14 @@ public class AddProduct extends HttpServlet {
 	        try {
 	        	productDao.save(product);
 	            productId = product.getId();
-	        
+	            ProductImageDTO copertina = null;
 	
 		        // Inserisci immagini se il prodotto è stato salvato correttamente
 		        if (productId > 0) {
 		            Collection<Part> parts = request.getParts();
 		
 		            ProductImageDAO imageDao = new ProductImageDAO();
+		            
 		
 		            for (Part part : parts) {
 		                if ("immagini".equals(part.getName()) && part.getSize() > 0) {
@@ -63,10 +65,15 @@ public class AddProduct extends HttpServlet {
 						} else if ("copertina".equals(part.getName()) && part.getSize() > 0) {
 		                    byte[] imageBytes = part.getInputStream().readAllBytes();
 		                    ProductImageDTO image = new ProductImageDTO(productId,imageBytes, true);
+		                    copertina = new ProductImageDTO(productId,imageBytes, true);
 		                    imageDao.save(image);
 						}
 		            }
 		        }
+		        
+		        
+		        // aggiornamento utenti iscritti alla newsletter
+		        MailService.inviaEmail(product, copertina);
         
 	        } catch (SQLException e) {
 	        	e.printStackTrace();

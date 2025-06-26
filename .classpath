@@ -16,5 +16,15 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jakarta.servlet.jsp.jstl-3.0.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jakarta.servlet.jsp.jstl-api-3.0.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/json-20220320.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jakarta.mail-2.0.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jakarta.activation-2.0.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

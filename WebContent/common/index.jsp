@@ -127,7 +127,7 @@
 	    <a href="${pageContext.request.contextPath}/products" class="btn">Visualizza Database</a>
 	  
 	    <div id="newsletter">
-	        <form method="POST" action="${pageContext.request.contextPath}/unlogged/SignToNewsletter">
+	        <form method="POST" action="${pageContext.request.contextPath}/common/SignToNewsletter">
 	            <label for="email">Iscriviti alla newsletter</label>
 	            <input type="email" id="email" name="email">
 	            <input type="submit">

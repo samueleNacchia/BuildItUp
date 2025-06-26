@@ -57,7 +57,7 @@
 					        <th class="col">In Vendita</th>
 					        <th class="col">Quantità</th>
 					        <th>Azioni</th>
-					        <th>Immagini</th>
+					        <th class="images-column hidden-column">Immagini</th>
 					    </tr>
 					    
 			            <c:forEach var="product" items="${prodotti}">
@@ -74,19 +74,22 @@
 			                        </td>
 			                        <td class ="rid"><input type="number" name="stocks" min="0" value="${product.stocks}" step="1" /></td>
 			                        <td>
-			                            <input type="submit" class="update" value="Update" onclick="return confirm('Aggiornare ${product.name}?')" />
+			                            <input type="submit" class="update" value="Update" onclick="return confirm('Aggiornare ${product.name}?')" /> <br><br>
+			                            <button type="button" onclick="toggleImages('${product.id}')" class="update">Espandi Immagini</button>
 			                        </td>
 			                    </form>
 			
-			                    <td colspan="11">
-			                        <div style="display: flex; align-items: center; gap: 10px;">
+			                    <td class="images-column hidden-column" colspan="11">
+			                        <div class = "hidden image-scroll-container" id="images-${product.id}">
 			                            <c:forEach var="img" items="${immaginiPerProdotto[product.id]}">
 			                                <form action="DeleteImage" method="post" style="display:inline">
-			                                    <img src="<%= request.getContextPath() %>/image?id=${img.id}" height="100" />
+			                                    <img src="${pageContext.request.contextPath}/image?id=${img.id}" height="100" />
 			                                    <input type="hidden" name="imageId" value="${img.id}" />
 			                                    <input type="submit" class="delete" value="X" onclick="return confirm('Eliminare questa immagine?')" />
 			                                </form>
 			                            </c:forEach>
+			                            
+			                            
 			
 			                            <form action="AddImages" method="post" enctype="multipart/form-data">
 			                                <input type="hidden" name="productId" value="${product.id}" />
