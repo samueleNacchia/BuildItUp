@@ -183,7 +183,7 @@
 	<div id="toast" class="toast">Prodotto aggiunto!</div>
 	
 	<%@ include file="/common/footer.jsp" %>
-	<script src ="${pageContext.request.contextPath}/script/adminPanelScript.js"></script>
+	<script src ="${pageContext.request.contextPath}/script/adminPanelScript.js?v=<%= System.currentTimeMillis() %>"></script>
 
 
 <script src="${pageContext.request.contextPath}/script/AJAX.js?v=<%= System.currentTimeMillis() %>"></script>

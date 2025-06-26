@@ -24,14 +24,14 @@ html, body {
   padding: 0;
   width: 100%;
 }
-/* Contenitore principale della pagina */
+
 .content {
   flex: 1;
   padding: 160px 20px 20px;
   width: 100%;
 }
 
-/* Titolo e bottoni */
+
 h1 {
   text-align: center;
   margin-bottom: 20px;
@@ -47,7 +47,7 @@ h1 {
 .button-row .b {
   padding: 10px 20px;
   font-size: 1rem;
-  background-color: #297678;
+  background-color: #3E78B2;
   color: white;
   border: none;
   border-radius: 10px;
@@ -55,10 +55,10 @@ h1 {
 }
 
 .button-row .b:hover {
-  background-color: #1c5254;
+  background-color: #003559;
 }
 
-/* Dati personali e storico ordini */
+
 .dati-personali, #storico-ordini {
   max-width: 800px;
   margin: 0 auto 50px;
@@ -77,9 +77,9 @@ h1 {
 }
 .review
 {
-	padding: 6px 12px;
+  padding: 6px 12px;
   font-size: 0.8rem;
-  background-color: #5b55ed; 
+  background-color: #0353A4; 
   color: white;
   border: none;
   border-radius: 8px;
@@ -102,7 +102,7 @@ form.update input[type="text"] {
 
 form.update input[type="submit"] {
   padding: 10px 15px;
-  background-color: #297678;
+  background-color: #3E78B2;
   color: white;
   border: none;
   border-radius: 8px;
@@ -110,7 +110,7 @@ form.update input[type="submit"] {
 }
 
 form.update input[type="submit"]:hover {
-  background-color: #1c5254;
+  background-color: #003559;
 }
 
 /* Dettagli ordine */

@@ -21,7 +21,7 @@
         ${titolo}
     </title>
     <style>html{display:none}</style>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleView.css?v=<%= System.currentTimeMillis() %>">  
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_list.css?v=<%= System.currentTimeMillis() %>">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -59,7 +59,7 @@
                         <td>
                             <c:if test="${type == 'cart'}">
                                 <button id="btn-add-${product.id}" class="add" onclick="addItem(${product.id}, 'cart')">+</button>
-                                <button id="btn-add-${product.id}" class="add" onclick="addToList(${product.id}, 'wishlist',1)">Aggiungi alla wishlist</button>
+                                <button id="btn-addToWishlist-${product.id}" class="add" onclick="addToList(${product.id}, 'wishlist',1)">Aggiungi alla wishlist</button>
                             </c:if>
                             <c:if test="${type == 'wishlist'}">
                                 <button id="btn-add-${product.id}" class="add" onclick="addToList(${product.id}, 'cart',1)">Aggiungi al carrello</button>

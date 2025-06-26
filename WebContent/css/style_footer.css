@@ -18,7 +18,7 @@ footer.main {
   	padding: 2em;
   	border-top-right-radius: 10%;
   	border-top-left-radius: 10%;
-  	background: linear-gradient(to bottom, #297678, #263238);
+  	background: linear-gradient(to bottom, #006DAA, #061A40);
   	font-size: 1rem;
   	box-sizing: border-box;
   	overflow-x: hidden; 
@@ -69,8 +69,8 @@ section.items {
 }
 
 .item-links:hover {
-  	color: #5cade2;
-  	text-decoration: underline;
+  	color: #B9D6F2;
+    text-decoration: none;
 }
 
 #logo {
@@ -84,7 +84,7 @@ section.items {
   right: 30px;
   z-index: 100;
   font-size: 24px;
-  background-color: #297678;
+  background-color: #003559;
   color: white;
   border: none;
   border-radius: 50%;
@@ -95,12 +95,12 @@ section.items {
 }
 
 #scrollToTopBtn:hover {
-  background-color: #1c5254;
+  background-color: #061A40;
 }
 
 
 section.items h3 {
-  color: #5cade2;                     
+  color: #B9D6F2;                     
   margin-bottom: 0.5em;
   text-transform: uppercase;
   font-size: 1rem;

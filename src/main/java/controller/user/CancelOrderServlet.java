@@ -1,4 +1,4 @@
-package controller;
+package controller.user;
 
 import model.Order.*;
 import jakarta.servlet.ServletException;

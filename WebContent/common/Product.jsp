@@ -135,6 +135,7 @@
 			                </div>
 			            </c:if>
 			            <c:if test="${prodotto.stocks > 0}">
+			            	<p class="stocks">Disponibili: ${prodotto.stocks}</p>
 			                <div class="quantity-selector">
 			                    <label for="quantity">Quantità:</label>
 			                    <button type="button" onclick="changeQty(-1)">−</button>

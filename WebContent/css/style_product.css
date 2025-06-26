@@ -75,6 +75,10 @@
 	  	user-select: none;
 	}
     
+    .stocks {
+    	font-weight: bold;
+    }
+    
     .quantity-selector {
       display: flex;
       align-items: center;

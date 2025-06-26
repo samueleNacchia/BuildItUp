@@ -10,10 +10,8 @@
 <head>
     <meta charset="UTF-8">
     <title>My Profile</title>
-    <link rel="stylesheet" type="text/css" href="../css/MyProfileStyle.css">
-    <link rel="stylesheet" href="../css/style_header.css">
-    <link rel="stylesheet" href="../css/style_footer.css">
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/MyProfileStyle.css?v=<%= System.currentTimeMillis() %>">
+   
     <script src="${pageContext.request.contextPath}/script/myProfileScript.js">
     
     </script>

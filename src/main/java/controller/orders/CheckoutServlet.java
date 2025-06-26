@@ -1,4 +1,4 @@
-package controller;
+package controller.orders;
 
 import model.User.UserDAO;
 import model.User.UserDTO;
