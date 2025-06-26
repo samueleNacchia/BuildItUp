@@ -133,7 +133,7 @@
 				</c:if>
 				
 				<c:if test="${empty prodotti}">
-					<span id="msgNotFound">Nessuna prodotto torvato</span>
+					<p id="msgNotFound">Nessuna prodotto torvato</p>
 				</c:if>
 				
                 <div id="pagination">

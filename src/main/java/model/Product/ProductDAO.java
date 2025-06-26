@@ -312,8 +312,8 @@ public class ProductDAO {
         
         if (order != null) {
             switch (order) {
-                case "priceASC": query.append(" ORDER BY price ASC"); break;
-                case "priceDESC": query.append(" ORDER BY price DESC"); break;
+            	case "priceASC": query.append(" ORDER BY (price * (1 - discount)) ASC"); break;
+            	case "priceDESC": query.append(" ORDER BY (price * (1 - discount)) DESC"); break;
                 case "avgRate": query.append(" ORDER BY avgReview DESC"); break;
                 default: if ("discounts".equalsIgnoreCase(type)) query.append(" ORDER BY discount DESC"); break;
             }

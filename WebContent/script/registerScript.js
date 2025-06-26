@@ -58,8 +58,8 @@ function validateCognome() {
 function validateCell() {
     const cell = document.getElementById("cell").value.trim();
     resetError("cell");
-    const regex = /^\+?\d{6,15}$/;
-    if (!regex.test(cell)) {
+    const regex = /^(\+39\s?|0039\s?)?(3\d{2}\s?d{6,8}|0\d{1,3}\s?\d{5,8})$/;
+    if (!regex.test(cell.trim())) {
         document.getElementById("cellError").textContent = "Inserisci un numero di telefono valido (solo numeri e prefisso + opzionale).";
         return false;
     }

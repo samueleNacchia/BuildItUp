@@ -1,11 +1,12 @@
-package controller;
+package controller.user;
 
 import model.User.*;
 import model.Order.*;
 import model.Bill.*;
 import model.Product.*;
 import model.ProductOrder.*;
-import model.Review.*; // <--- aggiunto per gestire le recensioni
+import model.Review.*; 
+import model.ProductImage.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -49,12 +50,16 @@ public class MyProfileServlet extends HttpServlet {
             ProductOrderDAO pOrderDAO = new ProductOrderDAO();
             ProductDAO pDAO = new ProductDAO();
             ReviewDAO reviewDAO = new ReviewDAO();
-
+        	ProductImageDAO imageDao = new ProductImageDAO();
+    		Map<Integer, ProductImageDTO> coverImages = new HashMap<>();
             Map<Integer, BillDTO> billsMap = new HashMap<>();
             Map<Integer, List<ProductOrderDTO>> prodottiPerOrdine = new HashMap<>();
             Map<Integer, ProductDTO> prodotti = new HashMap<>();
-
+            Collections.reverse(ordini);
             for (OrderDTO ordine : ordini) {
+            	
+        	
+        		
                 BillDTO bill = null;
                 try {
                     bill = billDAO.findByOrder(ordine.getId());
@@ -68,7 +73,10 @@ public class MyProfileServlet extends HttpServlet {
 
                 for (ProductOrderDTO pr : prodottiOrdine) {
                     if (!prodotti.containsKey(pr.getId_product())) {
+                    	
                         ProductDTO product = pDAO.findByCode(pr.getId_product());
+                        coverImages.put(pr.getId_product(), imageDao.findProductCover(pr.getId_product()));
+                         
                         prodotti.put(pr.getId_product(), product);
                     }
                 }
@@ -84,6 +92,7 @@ public class MyProfileServlet extends HttpServlet {
             request.setAttribute("prodottiPerOrdine", prodottiPerOrdine);
             request.setAttribute("prodotti", prodotti);
             request.setAttribute("prodottiRecensiti", prodottiRecensiti); 
+            request.setAttribute("coverImages", coverImages);   
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/user/MyProfile.jsp");
             dispatcher.forward(request, response);

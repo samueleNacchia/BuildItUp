@@ -22,7 +22,7 @@ public class CatalogViewer extends HttpServlet {
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int page = 1;
-        int pageSize = 5; 
+        int pageSize = 12; 
 
         String pageParam = request.getParameter("page");
         if (pageParam != null) {

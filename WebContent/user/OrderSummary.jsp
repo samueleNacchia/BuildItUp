@@ -8,7 +8,7 @@
     <title>Conferma Ordine</title>
     <style>html{display:none}</style>
     <%@ include file="/common/header.jsp" %>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleView.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_summary.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
     <div class="page-wrapper">
@@ -17,25 +17,20 @@
 
                 <c:choose>
                     <c:when test="${not empty ordine and not empty fattura}">
-                        <h1 style="color:green">Ordine Confermato!</h1>
+                        <h1 class="success-titl">Ordine Confermato!</h1>
 
                         <div class="order-info">
-                            <p><strong>Numero Ordine: </strong>${ordine.id}</p>
-                            <p><strong>ID Utente: </strong>${ordine.id_user}</p>
                             <p><strong>Totale: </strong>${fattura.total} €</p>
                             <p><strong>Data Ordine: </strong>${ordine.orderDateFormatted}</p>
-                            <p><strong>Stato: </strong>In elaborazione</p>
                             <p><strong>Indirizzo di spedizione </strong> ${ordine.via} , ${ordine.roadNum}  - ${ordine.postalCode} (${ordine.provincia})   </p>                       
                         </div>
                         
-
-                        <div class="back-link">
-                            <a href="${pageContext.request.contextPath}/common/Home">Torna alla home</a>
-                        </div>
+						<a class="link-green" href="${pageContext.request.contextPath}/common/Home">Torna alla home</a>
+                        
                     </c:when>
                     <c:otherwise>
-                        <h1 style="color:red;">Ordine Fallito!</h1>
-                        <a href="${pageContext.request.contextPath}/common/Home" style="color:red;">Torna alla home</a>
+                        <h1 class="error-titl">Ordine Fallito!</h1>
+                        <a class="link-red" href="${pageContext.request.contextPath}/common/Home" style="color:red;">Torna alla home</a>
                     </c:otherwise>
                 </c:choose>
 

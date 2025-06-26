@@ -1,4 +1,4 @@
-package controller;
+package controller.access;
 
 import model.User.*;
 import controller.functions.HashFunction;

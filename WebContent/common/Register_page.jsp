@@ -82,7 +82,7 @@
         
         
         
-		<script src="${pageContext.request.contextPath}/script/registerScript.js"></script>
+		<script src="${pageContext.request.contextPath}/script/registerScript.js?v=<%= System.currentTimeMillis() %>"></script>
        
     </div>
       <%@ include file="footer.jsp" %>

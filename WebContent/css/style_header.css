@@ -45,12 +45,12 @@ html, body {
   width: 100%;
   box-sizing: border-box;
   font-size: 1.2rem;
-  background: linear-gradient(to bottom, #263238, #297678);
+  background: linear-gradient(to bottom, #061A40, #006DAA);
   position: sticky;
   top: 0;
   left: 0;
-  border-bottom-right-radius: 25%;
-  border-bottom-left-radius: 25%;
+  border-bottom-right-radius: 20%;
+  border-bottom-left-radius: 20%;
   z-index: 100;
 
   
@@ -62,15 +62,15 @@ html, body {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap; 
-  gap: 1em;
-  padding: 1em;
+  gap: 1.2em;
+  padding: 0.7em;
 }
 
 
 .tab {
   width: 100%;
-  background-color: #263238;
-  padding: 1.5em 1em;  
+  background-color: #061A40;
+  padding: 0.5em 1em;  
   box-sizing: border-box;
   z-index: 101;
   font-size: 1.2rem;
@@ -117,8 +117,8 @@ html, body {
 }
 
 .item-link:hover {
-  	color: #5cade2;
-  	text-decoration: underline;
+    color: #B9D6F2;
+    text-decoration: none;
 }
 
 
@@ -334,10 +334,6 @@ a i.fa-heart:hover {
 
 a i.fa-shopping-cart:hover {
     color: #2ecc71 !important;
-}
-
-a i.fa-user:hover {
-    color: white !important;
 }
 
 
