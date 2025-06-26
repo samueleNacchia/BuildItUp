@@ -35,6 +35,28 @@
 			                                <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
 			                            </c:otherwise>
 			                        </c:choose>
+			                        <c:if test="${product.numReview >= 0}">
+						    			<span class="stars">
+						    				
+						    				<span id="avgN">${product.avgReview}</span>
+						    				
+							    			<c:forEach var="i" begin="1" end="5">
+											    <c:choose>
+											        <c:when test="${i <= product.avgReview}">
+											            <i class="fas fa-star"></i>
+											        </c:when>
+											        <c:when test="${i - 0.5 == product.avgReview}">
+											            <i class="fas fa-star-half-alt"></i>
+											        </c:when>
+											        <c:otherwise>
+											            <i class="far fa-star"></i>
+											        </c:otherwise>
+											    </c:choose>
+											</c:forEach>
+						
+											(${product.numReview})
+										</span>
+					    			</c:if>
 			
 			                        <h3 class="product-title">${product.name}</h3>
 			
@@ -93,6 +115,28 @@
 			                                <img src="img/default.jpg" alt="Nessuna immagine disponibile" />
 			                            </c:otherwise>
 			                        </c:choose>
+			                        <c:if test="${product.numReview >= 0}">
+						    			<span class="stars">
+						    				
+						    				<span id="avgN">${product.avgReview}</span>
+						    				
+							    			<c:forEach var="i" begin="1" end="5">
+											    <c:choose>
+											        <c:when test="${i <= product.avgReview}">
+											            <i class="fas fa-star"></i>
+											        </c:when>
+											        <c:when test="${i - 0.5 == product.avgReview}">
+											            <i class="fas fa-star-half-alt"></i>
+											        </c:when>
+											        <c:otherwise>
+											            <i class="far fa-star"></i>
+											        </c:otherwise>
+											    </c:choose>
+											</c:forEach>
+						
+											(${product.numReview})
+										</span>
+					    			</c:if>
 			
 			                        <h3 class="product-title">${product.name}</h3>
 			

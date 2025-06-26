@@ -245,3 +245,13 @@ div>h1{
     font-size: 1rem;
     user-select: none;
 }
+
+.stars i {
+	color: #FFD700; 
+	margin-right: 2px;
+ 	font-size: 0.9rem;
+}
+
+#avgN{	
+	font-size: 1em;
+}

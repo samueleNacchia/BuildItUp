@@ -9,10 +9,10 @@
       	</div>
       
       	<div class="item search">
-        	<form action="AdminPanelServlet"" method="get">
-          		<input type="text" name="name" placeholder="Cerca prodotto" id="src">
-        	</form>
-        	
+        	<form action="${pageContext.request.contextPath}/admin/AdminPanelServlet" method="get">
+			  <input type="text" name="name" placeholder="Cerca prodotto" id="src"
+			         value="${not empty name ? name : ''}">
+			</form>
       	</div>
       
       	<nav class="item nav">

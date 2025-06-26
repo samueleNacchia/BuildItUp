@@ -353,6 +353,8 @@ public class ProductDAO {
                     product.setDiscount(rs.getFloat("discount"));
                     product.setOnSale(rs.getBoolean("isOnSale"));
                     product.setStocks(rs.getInt("stocks"));
+                    product.setNumReview(rs.getInt("numReview"));
+                    product.setAvgReview(rs.getFloat("avgReview"));
       
                     products.add(product);
                 }

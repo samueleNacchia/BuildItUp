@@ -291,3 +291,13 @@ main {
     flex-direction: row;
   }
 }
+
+.stars i {
+	color: #FFD700; 
+	margin-right: 2px;
+ 	font-size: 0.9rem;
+}
+
+#avgN{	
+	font-size: 1em;
+}

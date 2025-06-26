@@ -20,9 +20,9 @@
       
       	<div class="item search">
         	<form action="${pageContext.request.contextPath}/common/CatalogViewer" method="get">
-          		<input type="text" name="name" placeholder="Cerca prodotto" id="src">
-        	</form>
-        	
+			  <input type="text" name="name" placeholder="Cerca prodotto" id="src"
+			         value="${not empty name ? name : ''}">
+			</form>	
       	</div>
       
       	<nav class="item nav">

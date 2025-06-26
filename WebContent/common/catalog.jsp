@@ -10,7 +10,7 @@
     <%@ include file="header.jsp" %>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_catalog.css?v=<%= System.currentTimeMillis() %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -101,7 +101,29 @@
 				                            <img src="${pageContext.request.contextPath}/img/default.jpg" alt="Nessuna immagine disponibile" />
 				                        </c:otherwise>
 				                    </c:choose>
-				
+									<c:if test="${product.numReview >= 0}">
+						    			<span class="stars">
+						    				
+						    				<span id="avgN">${product.avgReview}</span>
+						    				
+							    			<c:forEach var="i" begin="1" end="5">
+											    <c:choose>
+											        <c:when test="${i <= product.avgReview}">
+											            <i class="fas fa-star"></i>
+											        </c:when>
+											        <c:when test="${i - 0.5 == product.avgReview}">
+											            <i class="fas fa-star-half-alt"></i>
+											        </c:when>
+											        <c:otherwise>
+											            <i class="far fa-star"></i>
+											        </c:otherwise>
+											    </c:choose>
+											</c:forEach>
+						
+											(${product.numReview})
+										</span>
+					    			</c:if>
+									
 				                    <h3>${product.name}</h3>
 				
 				                    <div class="product-price">

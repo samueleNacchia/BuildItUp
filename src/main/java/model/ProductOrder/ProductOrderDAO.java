@@ -127,7 +127,7 @@ public class ProductOrderDAO {
         List<ProductDTO> result = new ArrayList<>();
 
         StringBuilder query = new StringBuilder("""
-            SELECT p.ID, p.name, p.price, p.discount, SUM(po.quantity) AS quantity
+            SELECT p.ID, p.name, p.price, p.discount, p.numReview, p.avgReview, SUM(po.quantity) AS quantity
             FROM ProductOrder po JOIN Products p ON po.ID_product = p.ID  WHERE p.isOnSale=TRUE """);
 
         if (category != null && !category.isEmpty()) query.append(" AND p.category = ?");
@@ -138,8 +138,12 @@ public class ProductOrderDAO {
         query.append(" GROUP BY p.ID");
         
         if (order != null) {
-        	if (order.compareTo("priceASC")==0) query.append(" ORDER BY price ASC");
-        	else query.append(" ORDER BY price DESC");
+            switch (order) {
+            	case "priceASC": query.append(" ORDER BY price ASC"); break;
+            	case "priceDESC": query.append(" ORDER BY price DESC"); break;
+                case "avgRate": query.append(" ORDER BY avgReview DESC"); break;
+                default: break;
+            }
         }
 
         if (limit > 0) {
@@ -167,6 +171,9 @@ public class ProductOrderDAO {
                     product.setName(rs.getString("name"));
                     product.setPrice(rs.getFloat("price"));
                     product.setDiscount(rs.getFloat("discount"));
+                    product.setNumReview(rs.getInt("numReview"));
+                    product.setAvgReview(rs.getFloat("avgReview"));
+                    
                     result.add(product);
                 }
             }

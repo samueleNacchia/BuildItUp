@@ -67,7 +67,7 @@
             <div class="product-details">
     			<h1 class="product-title">${prodotto.name}</h1>
     			
-    			<c:if test="${prodotto.numReview > 0}">
+    			<c:if test="${prodotto.numReview >= 0}">
 	    			<span class="stars">
 	    				
 	    				<span id="avgN">${prodotto.avgReview}</span>

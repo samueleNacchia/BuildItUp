@@ -30,14 +30,13 @@ public class AdminPanelServlet extends HttpServlet {
 		List<OrderDTO> ordini = new ArrayList<>();
 		Map<Integer, List<ProductImageDTO>> immaginiPerProdotto = new HashMap<>();
 		
+		String fromStr = request.getParameter("fromDate");
+		String toStr = request.getParameter("toDate");
+		String userIdStr = request.getParameter("userId");
+		String category = request.getParameter("category");
+        String name = request.getParameter("name");
+	
 		try {
-			String fromStr = request.getParameter("fromDate");
-			String toStr = request.getParameter("toDate");
-			String userIdStr = request.getParameter("userId");
-			String category = request.getParameter("category");
-	        String name = request.getParameter("name");
-			
-			
 			LocalDate from = null;
 			if (fromStr != null && !fromStr.isEmpty()) {
 			    from = LocalDate.parse(fromStr);
@@ -67,13 +66,14 @@ public class AdminPanelServlet extends HttpServlet {
 		request.setAttribute("prodotti", prodotti);
 		request.setAttribute("immaginiPerProdotto", immaginiPerProdotto);
 		request.setAttribute("ordini", ordini);
-		
+		request.setAttribute("name", name);
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 	    response.setHeader("Pragma", "no-cache");
 	    response.setDateHeader("Expires", 0);
 	    response.setContentType("text/html;charset=UTF-8");
-	    request.getRequestDispatcher("/admin/AdminPanel.jsp").forward(request, response);	}
+	    request.getRequestDispatcher("/admin/AdminPanel.jsp").forward(request, response);	
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

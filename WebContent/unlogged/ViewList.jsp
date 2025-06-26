@@ -113,7 +113,7 @@
                 </c:choose>
 
                 <br>
-                <a href="${pageContext.request.contextPath}/common/Home" class="btn-return">Torna al catalogo</a>
+                <a href="${pageContext.request.contextPath}/common/CatalogViewer" class="btn-return">Torna al catalogo</a>
             </div>
 
         </c:if>
