@@ -8,7 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contattaci - Build It Up</title>
     <style>
-    
+    	
+    	html{
+    		display:none;
+    	}
         html, body {
 		    height: 100%;
 		    margin: 0;
@@ -86,7 +89,7 @@
 	        <form action="${pageContext.request.contextPath}/ContactServlet" method="post">
 	        
 	            <label for="email">Email:</label>
-			    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+			    <input type="email" id="email" name="email" placeholder="example@gmail.com" maxlength="100" required>
 			    <span id="emailError" class="error-msg"></span>
 	            <textarea name="message" placeholder="Il tuo messaggio" rows="6" maxlength="500" required></textarea>
 	            <button type="submit">Invia</button>
@@ -95,7 +98,40 @@
 	        
 	    </div>
 	</main>
-	<script src="${pageContext.request.contextPath}/script/logInScript.js"></script>
+	
+	
+	<script>
+	window.addEventListener("load", function() {
+	    document.documentElement.style.display = "block";
+		
+		
+		function resetError(id) {
+		  	  	      document.getElementById(id + "Error").textContent = "";
+		  	  	  }
+
+		  	  	  function validateEmail() {
+		  	  	      const email = document.getElementById("email").value.trim();
+		  	  	      resetError("email");
+		  	  	      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		  	  	      if (!emailRegex.test(email)) {
+		  	  	          document.getElementById("emailError").textContent = "Inserisci un'email valida.";
+		  	  	          return false;
+		  	  	      }
+		  	  	      return true;
+		  	  	  }
+				  
+				  
+				  
+				  document.getElementById("email").addEventListener("blur", validateEmail);
+
+		  	  	  
+	  });
+	  
+	  
+	</script>
+	
+	
+	
 	<%@ include file="footer.jsp" %>
 </body>
 </html>

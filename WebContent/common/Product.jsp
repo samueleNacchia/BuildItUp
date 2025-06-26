@@ -158,6 +158,9 @@
     			</c:choose>
 			</div>
         </div>
+        
+        <br><br><br><br><br><br>
+        
         <h2 id="sezioneRecensioni">Recensioni</h2> 
         <div id="review-wrapper">
 

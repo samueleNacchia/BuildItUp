@@ -31,7 +31,7 @@
 	    <form id="registerForm" action="register" method="post" novalidate>
 	
 		    <label>Email:</label>
-		    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+		    <input type="email" id="email" name="email" placeholder="example@gmail.com" maxlength="100" required>
 		    <div class="error" id="emailError"></div>
 		
 		    <label>Password:</label>
@@ -43,11 +43,11 @@
 		    <div class="error" id="confirmError"></div>
 		
 		    <label>Nome:</label>
-		    <input type="text" id="nome" name="nome" placeholder="Francesco" required>
+		    <input type="text" id="nome" name="nome" placeholder="Francesco" maxlength="50" required>
 		    <div class="error" id="nomeError"></div>
 		
 		    <label>Cognome:</label>
-		    <input type="text" id="cognome" name="cognome" placeholder="Totti" required>
+		    <input type="text" id="cognome" name="cognome" placeholder="Totti" maxlength="50" required>
 		    <div class="error" id="cognomeError"></div>
 		
 		    <label>Cellulare:</label>
@@ -55,7 +55,7 @@
 		    <div class="error" id="cellError"></div>
 		
 		    <label>Indirizzo:</label>
-		    <input type="text" id="ind" name="ind" placeholder="Via Roma" required>
+		    <input type="text" id="ind" name="ind" placeholder="Via Roma" maxlength="100" required>
 		    <div class="error" id="indError"></div>
 		
 		    <label>Civico:</label>
@@ -63,11 +63,11 @@
 		    <div class="error" id="civError"></div>
 		
 		    <label>CAP:</label>
-		    <input type="text" id="cap" name="cap" placeholder="84001" required>
+		    <input type="text" id="cap" name="cap" placeholder="84001" maxlength="500" required>
 		    <div class="error" id="capError"></div>
 		
 		    <label>Provincia:</label>
-		    <input type="text" id="prov" name="prov" placeholder="SA" required>
+		    <input type="text" id="prov" name="prov" placeholder="SA" maxlength="2" required>
 		    <div class="error" id="provError"></div>
 		
 		    <button class ="reg"type="submit">Registrati</button>

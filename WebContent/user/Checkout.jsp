@@ -66,7 +66,7 @@
 		      <div id="addressFields" style="display:none; margin-top: 15px;">
     
 			    <label for="street">Via:</label>
-			    <input type="text" id="street" name="street" value="${userAddress.via}" placeholder="Es: Via Roma" required onblur="validateInd()">
+			    <input type="text" id="street" name="street" value="${userAddress.via}" placeholder="Es: Via Roma" maxlength="100" required onblur="validateInd()">
 			    <br>
 			    <span id="streetError" class="error-message"></span>
 			

@@ -30,7 +30,7 @@
 
 	    <form id="loginForm" action="login" method="post">
 	   		 <label for="email">Email:</label>
-			    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+			    <input type="email" id="email" name="email" placeholder="example@gmail.com" maxlength="100" required>
 			    <span id="emailError" class="error-msg"></span>
 				<br>
 			    <label for="password">Password:</label>

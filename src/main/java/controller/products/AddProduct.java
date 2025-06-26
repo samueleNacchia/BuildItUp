@@ -31,7 +31,13 @@ public class AddProduct extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ProductDAO productDao = new ProductDAO();
+        
+    	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+        response.setContentType("text/html;charset=UTF-8");
+    	
+    	ProductDAO productDao = new ProductDAO();
         ProductDTO product = new ProductDTO();
         
         if( request.getContentType() != null && request.getContentType().toLowerCase().startsWith("multipart/")){
@@ -71,20 +77,18 @@ public class AddProduct extends HttpServlet {
 		            }
 		        }
 		        
+		        response.sendRedirect(request.getContextPath()+"/admin/AdminPanelServlet");
 		        
 		        // aggiornamento utenti iscritti alla newsletter
 		        MailService.inviaEmail(product, copertina);
         
 	        } catch (SQLException e) {
 	        	e.printStackTrace();
+	        	response.sendRedirect(request.getContextPath()+"/admin/AdminPanelServlet");
 	        }
         }
 
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        response.setHeader("Pragma", "no-cache");
-        response.setDateHeader("Expires", 0);
-        response.setContentType("text/html;charset=UTF-8");
-        response.sendRedirect(request.getContextPath()+"/admin/AdminPanelServlet");
+        
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

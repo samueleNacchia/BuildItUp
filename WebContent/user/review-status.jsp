@@ -64,6 +64,12 @@
 </head>
 <body>
     <c:choose>
+    	<c:when test="${param.action == 'error'}">
+            <div class="message-box error">
+                ❌ Qualcosa è andato storto!<br>
+                Verrai reindirizzato tra qualche secondo...
+            </div>
+        </c:when>
         <c:when test="${param.action == 'deleted'}">
             <div class="message-box error">
                 🗑️ Recensione eliminata con successo!<br>

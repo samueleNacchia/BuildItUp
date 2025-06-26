@@ -17,15 +17,20 @@ public class DeleteReviewServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
+        
+		int productId = -1;
+		
+		try {
         	
-        	HttpSession session = request.getSession();
-            Integer userId = (Integer) session.getAttribute("id");
-            int productId = Integer.parseInt(request.getParameter("productId"));
+			HttpSession session = request.getSession();
+	        Integer userId = (Integer) session.getAttribute("id");
+	        productId = Integer.parseInt(request.getParameter("productId"));
             
             ReviewDAO rv = new ReviewDAO();
 
             if (userId != null) {
+            	
+            	
                 rv.delete(userId, productId);
                 
                 ProductDAO productDao = new ProductDAO();
@@ -40,7 +45,7 @@ public class DeleteReviewServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/user/review-status.jsp?action=error");
+            response.sendRedirect(request.getContextPath() + "/user/review-status.jsp?id=" +productId+"&action=error");
         }
     }
 }

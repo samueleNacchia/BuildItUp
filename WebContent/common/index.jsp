@@ -180,15 +180,16 @@
 	    <div id="newsletter">
 	        <form method="POST" action="${pageContext.request.contextPath}/common/SignToNewsletter">
 	            <label for="email">Email:</label>
-			    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+			    <input type="email" id="email" name="email" placeholder="example@gmail.com" maxlength="100" required>
 			    <span id="emailError" class="error-msg"></span>
 	            <input type="submit">
 	        </form>
 	    </div>
 	</div>
 	
-	<%@ include file="footer.jsp" %>
 	<script src="${pageContext.request.contextPath}/script/indexScript.js"></script>
-	<script src="${pageContext.request.contextPath}/script/logInScript.js"></script>
+	<%@ include file="footer.jsp" %>
+
+	
 </body>
 </html>
