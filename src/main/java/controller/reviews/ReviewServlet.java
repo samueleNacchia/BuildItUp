@@ -84,7 +84,7 @@ public class ReviewServlet extends HttpServlet {
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        request.setAttribute("errore", "Errore durante il recupero dei dati.");
-	        request.getRequestDispatcher("/common/error.jsp").forward(request, response);
+	        request.getRequestDispatcher("/user/review-status.jsp").forward(request, response);
 	        return;
 	    }
 	}
