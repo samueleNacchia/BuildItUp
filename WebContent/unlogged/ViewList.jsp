@@ -72,8 +72,9 @@
                                     <c:otherwise> - </c:otherwise>
                                 </c:choose>
                             </button>
-                          	<button id="btn-addToWishlist-${product.id}" class="add" onclick="addToList(${product.id}, 'wishlist',1)">Aggiungi alla wishlist</button>
-                            
+							<c:if test="${type == 'cart'}">
+                          		<button id="btn-addToWishlist-${product.id}" class="add" onclick="addToList(${product.id}, 'wishlist',1)">Aggiungi alla wishlist</button>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>
