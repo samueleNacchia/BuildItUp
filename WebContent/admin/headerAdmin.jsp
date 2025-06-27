@@ -11,13 +11,13 @@
       	<div class="item search">
         	<form action="${pageContext.request.contextPath}/admin/AdminPanelServlet" method="get">
 			  <input type="text" name="name" placeholder="Cerca prodotto" id="src"
-			         value="${not empty name ? name : ''}">
+			         value="${not empty name ? name : ''}" maxlength="50">
 			</form>
       	</div>
       
       	<nav class="item nav">
-        	<a class="item-link" href="#">About Us</a>
-        	<a class="item-link" href="#">Contact</a>
+        	<a class="item-link" href="${pageContext.request.contextPath}/common/about.jsp">About Us</a>
+        	<a class="item-link" href="${pageContext.request.contextPath}/common/contact.jsp">Contact</a>
       	</nav>
       
       	<div class="item icons">
@@ -32,18 +32,32 @@
       		</div>
   	</section>
 </header>
+
+<div class="mobile-menu-overlay" id="mobile-menu-overlay">
+  <div class="mobile-menu-content">
+    <a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=GPU">Schede grafiche</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=MOBO">Schede madri</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=CPU">Processori</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=COOLING">Raffreddamento</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=CASE">Case</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=PSU">Alimentatori</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=RAM">RAM</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=MEM">Archiviazione</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet">Catalogo</a>
+  </div>
+</div>
   
 <nav class="subheader">
    	<section class="subh-items">
    	  
-    	<a class="item-link" href="AdminPanelServlet?category=GPU">Schede grafiche</a>
-      	<a class="item-link" href="AdminPanelServlet?category=MOBO">Schede madri</a>
-      	<a class="item-link" href="AdminPanelServlet?category=CPU">Processori</a>
-      	<a class="item-link" href="AdminPanelServlet?category=COOLING">Raffreddamento</a>
-      	<a class="item-link" href="AdminPanelServlet?category=CASE">Case</a>
-      	<a class="item-link" href="AdminPanelServlet?category=PSU">Alimentatori</a>
-      	<a class="item-link" href="AdminPanelServlet?category=RAM">RAM</a>
-      	<a class="item-link" href="AdminPanelServlet?category=MEM">Archiviazione</a>
-      	<a class="item-link" href="AdminPanelServlet">Catalogo</a>
+    	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=GPU">Schede grafiche</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=MOBO">Schede madri</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=CPU">Processori</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=COOLING">Raffreddamento</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=CASE">Case</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=PSU">Alimentatori</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=RAM">RAM</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet?category=MEM">Archiviazione</a>
+      	<a class="item-link" href="${pageContext.request.contextPath}/admin/AdminPanelServlet">Catalogo</a>
   	</section>
 </nav>

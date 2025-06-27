@@ -47,10 +47,21 @@ function searchOrders() {
 	const userId = document.getElementById("userId").value.trim();
 	const fromDate = document.getElementById("fromDate").value;
 	const toDate = document.getElementById("toDate").value;
-
-	const params = `fromDate=${encodeURIComponent(fromDate)}&
+	
+	let params
+	
+	if(userId > 10000){
+		
+		params =	`fromDate=${encodeURIComponent(fromDate)}&
+					toDate=${encodeURIComponent(toDate)}`;
+	}
+	else{
+		
+		params =	`fromDate=${encodeURIComponent(fromDate)}&
 					toDate=${encodeURIComponent(toDate)}&
 					userId=${encodeURIComponent(userId)}`;
+	}
+	
 	
 	loadAjaxRequest("GetOrdersJSON", "GET", params, function(response) {
 	    UpdateOrdersTableJSON(response);

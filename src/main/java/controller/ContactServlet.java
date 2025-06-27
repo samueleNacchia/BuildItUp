@@ -43,12 +43,12 @@ public class ContactServlet extends HttpServlet {
 
             Transport.send(message);
 
-            response.sendRedirect(request.getContextPath() + "/unlogged/contact-status.jsp?status=success");
+            response.sendRedirect(request.getContextPath() + "/common/contact-status.jsp?status=success");
 
         } catch (MessagingException e) {
             e.printStackTrace();
             
-            response.sendRedirect(request.getContextPath() + "/unlogged/contact-status.jsp?status=fail");
+            response.sendRedirect(request.getContextPath() + "/common/contact-status.jsp?status=fail");
         }
     }
 }

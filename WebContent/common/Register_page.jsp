@@ -39,7 +39,7 @@
 		    <div class="error" id="passwordError"></div>
 		
 		    <label>Conferma Password:</label>
-		    <input type="password" id="confirm" name="confirm" placeholder="Confirm password" required>
+		    <input type="password" id="confirm" name="confirm" placeholder="Confirm password" maxlength="50" required>
 		    <div class="error" id="confirmError"></div>
 		
 		    <label>Nome:</label>
@@ -63,7 +63,7 @@
 		    <div class="error" id="civError"></div>
 		
 		    <label>CAP:</label>
-		    <input type="text" id="cap" name="cap" placeholder="84001" maxlength="500" required>
+		    <input type="text" id="cap" name="cap" placeholder="84001" maxlength="5" required>
 		    <div class="error" id="capError"></div>
 		
 		    <label>Provincia:</label>

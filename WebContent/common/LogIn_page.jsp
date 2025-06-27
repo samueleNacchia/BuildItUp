@@ -34,7 +34,7 @@
 			    <span id="emailError" class="error-msg"></span>
 				<br>
 			    <label for="password">Password:</label>
-			    <input type="password" id="password" name="password" placeholder="Password" required>
+			    <input type="password" id="password" name="password" placeholder="Password" maxlength="50" required>
 			    <span id="passwordError" class="error-msg"></span>
 				<br>
 			    <button class="login" type="submit">Login</button>

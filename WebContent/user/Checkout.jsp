@@ -75,7 +75,7 @@
 			    <span id="civicError" class="error-message"></span>
 			
 			    <label for="zip">CAP:</label>
-			    <input type="number" id="zip" name="zip" value="${userAddress.postalCode}" placeholder="Es: 00100" required onblur="validateCap()">
+			    <input type="number" id="zip" name="zip" value="${userAddress.postalCode}" placeholder="Es: 00100" maxlength="5" required onblur="validateCap()">
 			    <br>
 			    <span id="zipError" class="error-message"></span>
 			

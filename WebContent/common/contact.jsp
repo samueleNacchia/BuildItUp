@@ -7,74 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contattaci - Build It Up</title>
-    <style>
-    	
-    	html{
-    		display:none;
-    	}
-        html, body {
-		    height: 100%;
-		    margin: 0;
-		    display: flex;
-		    flex-direction: column;
-		}
-		
-		body {
-		    font-family: Arial, sans-serif;
-		    padding: 0;
-		    background-color: #f4f4f4;
-		}
-		
-		main {
-		    flex: 1;
-		    display: flex;
-		    justify-content: center;
-		    align-items: center;
-		}
-		
-		.contact-form {
-		    background: white;
-		    max-width: 600px;
-		    width: 100%;
-		    padding: 30px;
-		    border-radius: 10px;
-		    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-		    text-align: center;
-		}
-		
-		.contact-form h2 {
-		    margin-bottom: 20px;
-		}
-		
-		.contact-form input, .contact-form textarea {
-		    width: 80%;
-		    padding: 12px;
-		    margin-bottom: 15px;
-		    border: 1px solid #ccc;
-		    border-radius: 5px;
-		    display: block;
-		    margin-left: auto;
-		    margin-right: auto;
-		}
-		
-		.contact-form button {
-		    background-color: #333;
-		    color: white;
-		    border: none;
-		    padding: 12px 20px;
-		    border-radius: 5px;
-		    cursor: pointer;
-		    display: block;
-		    margin: 0 auto;
-		}
-		
-		.contact-form button:hover {
-		    background-color: #555;
-		}
-
-        
-        
-    </style>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style_contact.css">
+	
+	<style>html{display:none;}</style>
 </head>
 <body>
 	<%@ include file="header.jsp" %>
@@ -100,37 +35,7 @@
 	</main>
 	
 	
-	<script>
-	window.addEventListener("load", function() {
-	    document.documentElement.style.display = "block";
-		
-		
-		function resetError(id) {
-		  	  	      document.getElementById(id + "Error").textContent = "";
-		  	  	  }
-
-		  	  	  function validateEmail() {
-		  	  	      const email = document.getElementById("email").value.trim();
-		  	  	      resetError("email");
-		  	  	      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		  	  	      if (!emailRegex.test(email)) {
-		  	  	          document.getElementById("emailError").textContent = "Inserisci un'email valida.";
-		  	  	          return false;
-		  	  	      }
-		  	  	      return true;
-		  	  	  }
-				  
-				  
-				  
-				  document.getElementById("email").addEventListener("blur", validateEmail);
-
-		  	  	  
-	  });
-	  
-	  
-	</script>
-	
-	
+	<script src="${pageContext.request.contextPath}/script/contactScript.js"></script>
 	
 	<%@ include file="footer.jsp" %>
 </body>

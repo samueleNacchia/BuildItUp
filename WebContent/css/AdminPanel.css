@@ -91,7 +91,7 @@ form {
     max-width: 600px;
     margin: 0 auto 20px auto;
     background-color: #ffffff;
-    padding: 24px;
+    padding: 0;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     box-sizing: border-box;
@@ -133,10 +133,7 @@ form textarea {
 }
 
 table {
-    width: 80vw;
-    max-width: 80vw;
-	margin : auto;
-	margin-left: -2%;
+	margin: auto;
     border-collapse: collapse;
     background-color: #ffffff;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
@@ -165,6 +162,10 @@ tr:nth-child(even) {
 
 tr:hover {
     background-color: #e6f0fa;
+}
+
+.images-row:hover{
+	background: #fff;
 }
 
 table img {
@@ -327,16 +328,9 @@ input[type="checkbox"] {
 }
 
 
-
-.hidden{
-	
-	display: none;
+.hidden {
+  	display: none;
 }
-
-.hidden-column {
-    display: none;
-}
-
 
 
 .image-scroll-container {

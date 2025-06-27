@@ -22,8 +22,8 @@
 		
 				<h2>Inserisci Nuovo Prodotto</h2>
 				<form action="AddProduct" method="post" enctype="multipart/form-data">
-				    <label>Nome: <input type="text" name="nome" required /></label>
-				    <label>Descrizione: <textarea name="descrizione" maxlength="500"></textarea></label>
+				    <label>Nome: <input type="text" name="nome" required maxlength="50"/></label>
+				    <label>Descrizione: <textarea name="descrizione" maxlength="256"></textarea></label>
 				    <label>Prezzo: <input type="number" name="prezzo" step="0.01" required /></label>
 				    <label>Categoria:
 				        <select name="categoria">
@@ -59,15 +59,14 @@
 						        <th class="col">In Vendita</th>
 						        <th class="col">Quantità</th>
 						        <th>Azioni</th>
-						        <th class="images-column hidden-column">Immagini</th>
 						    </tr>
 						    
 				            <c:forEach var="product" items="${prodotti}">
 				                <tr>
 				                    <form action="UpdateProduct" method="post">
-				                        <input type="hidden" name="id" value="${product.id}" />
+				                        <input type="hidden" name="id" value="${product.id}"/>
 				                        <td>${product.name}<input type="hidden" name="name" value="${product.name}" /></td>
-				                        <td><input type="text" name="descrizione" value="${product.description}" /></td>
+				                        <td><input type="text" name="descrizione" value="${product.description}" maxlength="256"/></td>
 				                        <td class ="rid"><input type="number" min="0" name="prezzo" value="${product.price}" step="0.01" /></td>
 				                        <td class ="rid"><input type="number" max="1" min="0" name="sconto" value="${product.discount}" step="0.0001" /></td>
 				                        <input type="hidden" name="category" value="${product.category}" />
@@ -81,34 +80,39 @@
 				                        </td>
 				                    </form>
 				
-				                    <td class="images-column hidden-column" colspan="11">
-				                        <div class = "hidden image-scroll-container" id="images-${product.id}">
-				                            <c:forEach var="img" items="${immaginiPerProdotto[product.id]}">
-				                                <form action="DeleteImage" method="post" style="display:inline">
-				                                    <img src="${pageContext.request.contextPath}/image?id=${img.id}" height="100" />
-				                                    <input type="hidden" name="imageId" value="${img.id}" />
-				                                    <input type="submit" class="delete" value="X" onclick="return confirm('Eliminare questa immagine?')" />
-				                                </form>
-				                            </c:forEach>
-				                            
-				                            
-				
-				                            <form action="AddImages" method="post" enctype="multipart/form-data">
-				                                <input type="hidden" name="productId" value="${product.id}" />
-				                                <input type="file" name="copertina" id="cover" accept="image/*" />
-				                                <button class="delete" type="reset">Reset Immagine</button>
-				                                <input type="submit" class="add" value="Aggiungi Copertina" />
-				                            </form>
-				
-				                            <form action="AddImages" method="post" enctype="multipart/form-data">
-				                                <input type="hidden" name="productId" value="${product.id}" />
-				                                <input type="file" name="immagini" accept="image/*" multiple />
-				                                <button class="delete" type="reset">Reset Immagini</button>
-				                                <input type="submit" class="add" value="Aggiungi immagini" />
-				                            </form>
-				                        </div>
-				                    </td>
-				                </tr>
+				                    <tr class="images-row" id="row-${product.id}">
+									    <td colspan="11">
+									        <div class="images-section hidden" id="images-${product.id}">
+									            
+									            <!-- Loop immagini esistenti -->
+									            <c:forEach var="img" items="${immaginiPerProdotto[product.id]}">
+									                <form action="DeleteImage" method="post" style="display:inline">
+									                    <img src="${pageContext.request.contextPath}/image?id=${img.id}" height="100" />
+									                    <input type="hidden" name="imageId" value="${img.id}" />
+									                    <input type="submit" class="delete" value="X" onclick="return confirm('Eliminare questa immagine?')" />
+									                </form>
+									            </c:forEach>
+									
+									            <!-- Aggiungi copertina -->
+									            <form action="AddImages" method="post" enctype="multipart/form-data">
+									                <input type="hidden" name="productId" value="${product.id}" />
+									                <input type="file" name="copertina" accept="image/*" />
+									                <button class="delete" type="reset">Reset Immagine</button>
+									                <input type="submit" class="add" value="Aggiungi Copertina" />
+									            </form>
+									
+									            <!-- Aggiungi altre immagini -->
+									            <form action="AddImages" method="post" enctype="multipart/form-data">
+									                <input type="hidden" name="productId" value="${product.id}" />
+									                <input type="file" name="immagini" accept="image/*" multiple />
+									                <button class="delete" type="reset">Reset Immagini</button>
+									                <input type="submit" class="add" value="Aggiungi immagini" />
+									            </form>
+								
+									        </div>
+									    </td>
+									</tr>
+				                
 				            </c:forEach>    
 						</table>
 					</c:when>
@@ -127,7 +131,7 @@
 				  	<input type="date" id="toDate" onChange="searchOrders()" name="toDate">
 				
 				  	<label for="userId">ID Utente:</label>
-				  	<input type="number" id="userId" onInput="searchOrders()" name="userId" placeholder="Es. 11">
+				  	<input type="number" id="userId" onBlur="searchOrders()" max="10000" name="userId" placeholder="Es. 11">
 				</form>
 		
 				
