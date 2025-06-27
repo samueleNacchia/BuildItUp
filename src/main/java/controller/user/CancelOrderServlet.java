@@ -17,7 +17,7 @@ public class CancelOrderServlet extends HttpServlet {
 
         String orderIdStr = request.getParameter("orderId");
         if (orderIdStr == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID ordine mancante.");
+            response.sendRedirect(request.getContextPath()+"/user/MyProfile?cancelSuccess=0");
             return;
         }
 
@@ -27,8 +27,8 @@ public class CancelOrderServlet extends HttpServlet {
         try {
             String status = (String) orderDAO.findByCode(orderId).getStatusName();
 
-            if (!"In_elaborazione".equals(status)) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN, "L'ordine non è più annullabile.");
+            if (!"In_elaborazione".equals(status) && !"Elaborato".equals(status)) {
+                response.sendRedirect(request.getContextPath()+"/user/MyProfile?cancelSuccess=0");
                 return;
             }
 
